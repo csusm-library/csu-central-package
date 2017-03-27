@@ -1,0 +1,84 @@
+/** CSU CUSTOM STYLES **/
+
+/* move facets to the left and make them wider 25% */
+
+prm-search > md-content.md-primoExplore-theme  {
+	display: -webkit-flex; !* Safari *!
+	-webkit-flex-flow: row-reverse wrap; !* Safari 6.1+ *!
+	display: flex;
+	flex-flow: row-reverse wrap;
+}
+.flex-gt-md-25.sidebar{
+	webkit-flex: 0 0 25%;
+	flex: 0 0 25%;
+}
+@media (max-width: 1919px) and (min-width: 1280px) {
+	.flex-lg-20, .layout-lg-row>.flex-lg-20, .layout-row>.flex-lg-20 {
+		webkit-flex: 0 0 25%;
+		flex: 0 0 25%;
+		max-width: 25%;
+	}
+}
+.layout-row>.flex-gt-lg-10{
+	webkit-flex: 0 0 26%;
+	flex: 0 0 26%;
+	max-width: none;
+}
+.main{
+	webkit-flex: 0 0 55%;
+	flex: 0 0 55%;
+}
+
+/* move pager to right */
+
+prm-page-nav-menu {
+	left: auto !important;
+	right: 1em;
+}
+
+/* un-bold facet values */
+
+.section-content .md-chips .md-chip strong {
+	font-weight: normal!important;
+}
+
+/* results & full record have white background, facets have grey */
+
+body, html { 
+    background-color: #fff; 
+}
+.list-item-wrapper, .full-view-inner-container {
+	background-color: #fff;
+}
+.sidebar-inner-wrapper {
+    background-color: #efefef;
+    border-radius: 8px;
+    padding-top: 20px;
+}
+prm-journals-search-bar .search-switch-buttons .md-button.switch-to-advanced, prm-search-bar .search-switch-buttons .md-button.switch-to-advanced {
+    color: #333;
+}
+
+/* make logo clickable */
+
+prm-logo div.product-logo {
+    display:none;
+}
+prm-logo div.product-logo-local {
+    display: flex;
+}
+prm-logo .product-logo a:hover {
+    background-color:transparent; 
+    text-transform:none; 
+    box-shadow: none;
+}
+
+/* Google-style search term bold instead of highlighter */
+
+.text-highlight, mark {
+    box-shadow: none;
+}
+.searchword {
+    font-weight: bold;
+    color: #6a6a6a;
+}
