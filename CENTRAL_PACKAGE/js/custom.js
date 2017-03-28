@@ -31,19 +31,6 @@
         template: '<div layout="row" layout-xs="column" class="layout-block-xs layout-xs-column layout-row"><div flex-gt-sm="20" flex-gt-xs="25" class="flex-gt-xs-25 flex-gt-sm-20 flex"><span class="bold-text" title="Source">Source</span></div><div flex="" class="flex"><div><div layout="column" class="spaced-rows word-break layout-column">{{$ctrl.getKillCodeLink()}}</div></div></div></div>'
     })
     
-    app.controller('prmLogoAfterController', [function() {
-        console.log(this.parentCtrl);
-        this.getIconLink = function() {
-            return this.parentCtrl.iconLink;
-        }
-    }]);
-
-    app.component('prmLogoAfter', {
-        bindings: { parentCtrl: '<' },
-        controller: 'prmLogoAfterController',
-        template: '<div class="product-logo product-logo-local" layout="row" layout-align="start center" layout-fill id="banner"><a href="http://library.csueastbay.edu/"><img class="logo-image" alt="{{::(\'nui.header.LogoAlt\' | translate)}}" ng-src="{{$ctrl.getIconLink()}}"/></a></div>'
-    });
-    
     
     
     
