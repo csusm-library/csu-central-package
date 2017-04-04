@@ -44,8 +44,8 @@ prm-page-nav-menu {
 
 /* results & full record have white background, facets have grey */
 
-body, html { 
-    background-color: #fff; 
+body, html {
+    background-color: #fff;
 }
 .list-item-wrapper, .full-view-inner-container {
 	background-color: #fff;
@@ -57,20 +57,6 @@ body, html {
 }
 prm-journals-search-bar .search-switch-buttons .md-button.switch-to-advanced, prm-search-bar .search-switch-buttons .md-button.switch-to-advanced {
     color: #333;
-}
-
-/* make logo clickable */
-
-prm-logo div.product-logo {
-    display:none;
-}
-prm-logo div.product-logo-local {
-    display: flex;
-}
-prm-logo .product-logo a:hover {
-    background-color:transparent; 
-    text-transform:none; 
-    box-shadow: none;
 }
 
 /* Google-style search term bold instead of highlighter */
