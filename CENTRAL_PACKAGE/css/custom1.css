@@ -1,6 +1,6 @@
 /** CSU CUSTOM STYLES **/
 
-/* move facets to the left and make them wider 25% */
+/* move facets to the left and make them wider 25%-30% */
 
 prm-search > md-content.md-primoExplore-theme  {
 	display: -webkit-flex; !* Safari *!
@@ -52,14 +52,14 @@ body, html {
 }
 .sidebar-inner-wrapper {
     background-color: #efefef;
-    border-radius: 8px;
     padding-top: 20px;
+	margin-right: 0;
 }
 prm-journals-search-bar .search-switch-buttons .md-button.switch-to-advanced, prm-search-bar .search-switch-buttons .md-button.switch-to-advanced {
     color: #333;
 }
 
-/* Google-style search term bold instead of highlighter */
+/* google-style search term bold instead of highlighter */
 
 .text-highlight, mark {
     box-shadow: none;
@@ -67,4 +67,10 @@ prm-journals-search-bar .search-switch-buttons .md-button.switch-to-advanced, pr
 .searchword {
     font-weight: bold;
     color: #6a6a6a;
+}
+
+/* brief results link darker blue */
+
+prm-brief-result .item-title span {
+    color: #1a4c76;
 }
