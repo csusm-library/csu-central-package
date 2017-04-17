@@ -28,6 +28,9 @@ prm-search > md-content.md-primoExplore-theme  {
 	webkit-flex: 0 0 55%;
 	flex: 0 0 55%;
 }
+#mainResults {
+	padding-left: 1em;
+}
 
 /* move pager to right */
 
@@ -73,4 +76,10 @@ prm-journals-search-bar .search-switch-buttons .md-button.switch-to-advanced, pr
 
 prm-brief-result .item-title span {
     color: #1a4c76;
+}
+
+/* overlay background darker */
+
+.prm-primary-bg.prm-hue2, prm-spinner.prm-hue2.overlay-cover.light-on-dark:after, prm-search-bar.prm-hue2, prm-journals-search-bar.prm-hue2, md-backdrop.md-opaque {
+    background-color: #000 !important;
 }
