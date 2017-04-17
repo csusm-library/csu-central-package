@@ -1,0 +1,157 @@
+
+/* The app-colors.css file is purposely empty. */
+
+
+/* START: central-pkg.css */
+
+/** CSU CUSTOM STYLES **/
+
+/* move facets to the left and make them wider 25% */
+prm-search > md-content.md-primoExplore-theme  {
+  display: -webkit-flex; !* Safari *!
+  -webkit-flex-flow: row-reverse wrap; !* Safari 6.1+ *!
+  display: flex;
+  flex-flow: row-reverse wrap;
+}
+.flex-gt-md-25.sidebar{
+  webkit-flex: 0 0 25%;
+  flex: 0 0 25%;
+}
+@media (max-width: 1919px) and (min-width: 1280px) {
+  .flex-lg-20, .layout-lg-row>.flex-lg-20, .layout-row>.flex-lg-20 {
+    webkit-flex: 0 0 25%;
+    flex: 0 0 25%;
+    max-width: 25%;
+  }
+}
+.layout-row>.flex-gt-lg-10{
+  webkit-flex: 0 0 26%;
+  flex: 0 0 26%;
+  max-width: none;
+}
+.main{
+  webkit-flex: 0 0 55%;
+  flex: 0 0 55%;
+}
+
+/* move pager to right */
+prm-page-nav-menu {
+  left: auto !important;
+  right: 1em;
+}
+
+/* un-bold facet values */
+.section-content .md-chips .md-chip strong {
+  font-weight: normal!important;
+}
+
+/* results & full record have white background, facets have grey */
+body, html {
+    background-color: #fff;
+}
+.list-item-wrapper, .full-view-inner-container {
+  background-color: #fff;
+}
+.sidebar-inner-wrapper {
+    background-color: #efefef;
+    border-radius: 8px;
+    padding-top: 20px;
+}
+prm-journals-search-bar .search-switch-buttons .md-button.switch-to-advanced, prm-search-bar .search-switch-buttons .md-button.switch-to-advanced {
+    color: #333;
+}
+
+/* Google-style search term bold instead of highlighter */
+.text-highlight, mark {
+    box-shadow: none;
+}
+.searchword {
+    font-weight: bold;
+    color: #6a6a6a;
+}
+
+/* END: central-pkg.css */
+
+
+/* START: fresno.css */
+
+/* Navbar color changes to work with Central Package */
+.prm-primary-bg, prm-spinner.overlay-cover.light-on-dark:after, prm-search-bar, prm-journals-search-bar {
+    color: #fff;
+    background-color: #002c76; 
+}
+.prm-primary-bg.prm-hue1, prm-spinner.prm-hue1.overlay-cover.light-on-dark:after, prm-topbar .top-nav-bar, prm-search-bar.prm-hue1, prm-journals-search-bar.prm-hue1 {
+    background-color: #002c76;
+}
+.prm-primary-bg.prm-hue2, prm-spinner.prm-hue2.overlay-cover.light-on-dark:after, prm-search-bar.prm-hue2, prm-journals-search-bar.prm-hue2, md-backdrop.md-opaque {
+    background-color: #002c76;
+}
+.prm-primary-bg.prm-hue3, prm-spinner.prm-hue3.overlay-cover.light-on-dark:after, prm-search-bar.prm-hue3, prm-journals-search-bar.prm-hue3 {
+    background-color: #c41230;
+}
+.prm-primary-bg.prm-hue3-important, prm-spinner.prm-hue3-important.overlay-cover.light-on-dark:after, prm-user-area md-fab-toolbar.md-is-open md-fab-trigger .md-fab-toolbar-background, prm-user-area md-fab-toolbar.md-is-open md-fab-trigger ._md-fab-toolbar-background, prm-search-bar.prm-hue3-important, prm-journals-search-bar.prm-hue3-important {
+    color: #fff;
+    background-color: #c41230 !important;
+}
+.prm-primary-bg.prm-hue4, prm-spinner.prm-hue4.overlay-cover.light-on-dark:after, prm-search-bar.prm-hue4, prm-journals-search-bar.prm-hue4 {
+    background-color: #babcbe;
+}
+
+/* Search bar color change to work with Central Package */
+.prm-primary-bg, prm-journals-search-bar, prm-search-bar, prm-spinner.overlay-cover.light-on-dark:after {
+    color: #0d3881;
+    background-color: #fff;
+}
+
+/* Logo treatment */
+prm-logo div.product-logo { display: none; }
+prm-logo div.product-logo-local { display: flex; }
+prm-logo .product-logo a:hover {
+    background-color: transparent; 
+    text-transform: none; 
+    box-shadow: none;
+}
+prm-topbar { height: 100px; }
+prm-topbar prm-logo { max-width: 300px; }
+.fresno-logo { width: 300px; }
+.fresno-logo img { width: 100%; }
+
+/* Action list icons treatment */
+prm-action-list prm-icon md-icon.md-primoExplore-theme svg { color: #c41230; }
+prm-action-list button.md-primoExplore-theme span.button-text { color: #002c76; }
+
+/* FRBRized Multiple Sources text treatment */
+prm-search-result-frbr-line span > span { 
+  font-weight: bolder; 
+  color: #c41230;
+}
+
+/* Cause "Full text available" text in the brief display to not look like link. */
+:not(.button-content) > .availability-status > span {
+  color: rgb(58, 58, 58);
+}
+
+/* Change order of Item Record sections -- lower the "Send To" section */
+prm-service-header { order: 0; }
+#action_list{ order: 2; }
+#details { order: 3; }
+#links { order: 4; }
+#virtualBrowse { order: 5; }
+
+.full-view-inner-container {
+    padding-bottom: 10em;
+    display: flex;
+    flex-direction: column;
+}
+
+[aria-label="In the library"] { order: 0 !important; }
+[aria-label="Online Access"] { order: 1 !important; }
+[aria-label="Send to"] { order: 2 !important; }
+[aria-label="Details"] { order: 3 !important; }
+[aria-label="Links"] { order: 4 !important; }
+[aria-label="Virtual Browse"] { order: 5 !important; }
+
+/* END: fresno.css */
+
+
+/* The other-mods.css file is purposely empty. */

@@ -1,0 +1,56 @@
+/*** Channel Islands (01CALS_UCI) ***/
+
+/* navbar color change */
+
+.prm-primary-bg, prm-spinner.overlay-cover.light-on-dark:after, prm-search-bar, prm-journals-search-bar {
+    color: #444;
+    background-color: #d9e8e9;
+}
+.prm-primary-bg.prm-hue1, prm-spinner.prm-hue1.overlay-cover.light-on-dark:after, prm-topbar .top-nav-bar, prm-search-bar.prm-hue1, prm-journals-search-bar.prm-hue1 {
+    background-color: #d9e8e9;
+}
+.prm-primary-bg.prm-hue2, prm-spinner.prm-hue2.overlay-cover.light-on-dark:after, prm-search-bar.prm-hue2, prm-journals-search-bar.prm-hue2, md-backdrop.md-opaque {
+    background-color: #d9e8e9;
+}
+.prm-primary-bg.prm-hue3, prm-spinner.prm-hue3.overlay-cover.light-on-dark:after, prm-search-bar.prm-hue3, prm-journals-search-bar.prm-hue3 {
+    background-color: #d9e8e9;
+}
+.prm-primary-bg.prm-hue3-important, prm-spinner.prm-hue3-important.overlay-cover.light-on-dark:after, prm-user-area md-fab-toolbar.md-is-open md-fab-trigger .md-fab-toolbar-background, prm-user-area md-fab-toolbar.md-is-open md-fab-trigger ._md-fab-toolbar-background, prm-search-bar.prm-hue3-important, prm-journals-search-bar.prm-hue3-important {
+    background-color: #d9e8e9 !important;
+}
+.prm-primary-bg.prm-hue4, prm-spinner.prm-hue4.overlay-cover.light-on-dark:after, prm-search-bar.prm-hue4, prm-journals-search-bar.prm-hue4 {
+    background-color: #d9e8e9;
+}
+
+/* search bar color change */
+
+.prm-primary-bg, prm-journals-search-bar, prm-search-bar, prm-spinner.overlay-cover.light-on-dark:after {
+    color: #333;
+    background-color: #f1f0e5;
+}
+
+/* sidebar color change */
+
+.sidebar-inner-wrapper {
+    background-color: #f1f0e5;
+}
+
+/* make logo clickable */
+
+prm-logo div.product-logo {
+    display:none;
+}
+prm-logo div.product-logo-local {
+    display: flex;
+}
+prm-logo .product-logo a:hover {
+    background-color:transparent;
+    text-transform:none;
+    box-shadow: none;
+}
+
+/* light top background */
+
+div.top-nav-bar * {
+    color: #444 !important;
+}

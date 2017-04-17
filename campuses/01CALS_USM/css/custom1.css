@@ -1,0 +1,62 @@
+@import url('https://biblio.csusm.edu/primo_templates/styles/primo_v2.css');
+
+
+/*Uncomment the follwoing lines to move facets to the left*/
+
+/*
+prm-search > md-content.md-primoExplore-theme .main {
+    display: -webkit-flex; !* Safari *!
+    -webkit-flex-flow: row-reverse wrap; !* Safari 6.1+ *!
+    display: flex;
+    flex-flow: row-reverse wrap;
+
+}
+.screen-gt-sm .sidebar{
+    webkit-flex: 0 0 15%;
+    flex: 0 0 15%;
+}
+
+*/
+
+
+/* page background */
+body, 
+md-content, md-content.md-primoExplore-theme {
+	background-color: #fff;
+}
+
+/* top menu */
+.prm-primary-bg.prm-hue1, 
+prm-spinner.prm-hue1.overlay-cover.light-on-dark:after, 
+prm-topbar .top-nav-bar, 
+prm-search-bar.prm-hue1 {
+  background-color: #17405C;
+}
+prm-main-menu[menu-type="menu"] .md-button {
+  font-size: 14px;
+  color: #fff;
+}
+
+/* workaround to make logo clickable */
+prm-logo div.product-logo {
+	display:none;
+}
+ 
+prm-logo div.product-logo-local {
+ display: flex;
+}
+
+/* facets sidebar */
+#facets.sidebar {
+  background: #f9f9f9;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+/* services menu in item full display */
+prm-full-view .services-index-under .md-button {
+    max-width: 100%;
+    overflow: visible;
+    white-space: normal;
+    line-height: normal;
+}
