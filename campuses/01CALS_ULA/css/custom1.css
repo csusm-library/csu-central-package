@@ -42,9 +42,6 @@ prm-logo .product-logo a:hover {
     text-transform:none;
     box-shadow: none;
 }
-prm-logo .logo-image, prm-logo img {
-    max-width: 300px;
-}
 
 /* light top background */
 
