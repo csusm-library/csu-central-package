@@ -2,12 +2,17 @@
 
 /* move facets to the left and make them wider 25%-30% */
 
-prm-search > md-content.md-primoExplore-theme  {
-	display: -webkit-flex; !* Safari *!
-	-webkit-flex-flow: row-reverse wrap; !* Safari 6.1+ *!
-	display: flex;
-	flex-flow: row-reverse wrap;
+.main.padded-container {
+	  -webkit-flex-direction: row-reverse;
+	  -ms-flex-direction: row-reverse;
+	  flex-direction: row-reverse;
 }
+prm-page-nav-menu {
+	-webkit-flex: 0 0 0;
+	-ms-flex: 0 0 0px;
+	flex: 0 0 0;
+}
+
 .flex-gt-md-25.sidebar{
 	webkit-flex: 0 0 25%;
 	flex: 0 0 25%;
