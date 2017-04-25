@@ -63,6 +63,7 @@ body, html {
 .sidebar-inner-wrapper {
 	background-color: #efefef;
 	padding-top: 20px;
+	padding-bottom: 40px;
 	margin-right: 0;
 }
 prm-journals-search-bar .search-switch-buttons .md-button.switch-to-advanced, prm-search-bar .search-switch-buttons .md-button.switch-to-advanced {
