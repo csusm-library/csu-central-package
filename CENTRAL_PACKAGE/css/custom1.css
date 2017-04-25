@@ -1,17 +1,19 @@
 /** CSU CUSTOM STYLES **/
 
-/* move facets to the left and make them wider 25%-30% */
+/* move facets to the left */
 
 .main.padded-container {
-	  -webkit-flex-direction: row-reverse;
-	  -ms-flex-direction: row-reverse;
-	  flex-direction: row-reverse;
+	-webkit-flex-direction: row-reverse;
+	-ms-flex-direction: row-reverse;
+	flex-direction: row-reverse;
 }
 prm-page-nav-menu {
 	-webkit-flex: 0 0 0;
 	-ms-flex: 0 0 0px;
 	flex: 0 0 0;
 }
+
+/* make them 25%-30% wider */
 
 .flex-gt-md-25.sidebar{
 	webkit-flex: 0 0 25%;
@@ -59,42 +61,42 @@ body, html {
 	background-color: #fff;
 }
 .sidebar-inner-wrapper {
-    background-color: #efefef;
-    padding-top: 20px;
+	background-color: #efefef;
+	padding-top: 20px;
 	margin-right: 0;
 }
 prm-journals-search-bar .search-switch-buttons .md-button.switch-to-advanced, prm-search-bar .search-switch-buttons .md-button.switch-to-advanced {
-    color: #333;
+	color: #333;
 }
 
 /* google-style search term bold instead of highlighter */
 
 .text-highlight, mark {
-    box-shadow: none;
+	box-shadow: none;
 }
 .searchword {
-    font-weight: bold;
-    color: #6a6a6a;
+	font-weight: bold;
+	color: #6a6a6a;
 }
 
 /* brief results link darker blue */
 
 prm-brief-result .item-title span {
-    color: #1a4c76;
+	color: #1a4c76;
 }
 
 /* overlay background darker */
 
 .prm-primary-bg.prm-hue2, prm-spinner.prm-hue2.overlay-cover.light-on-dark:after, prm-search-bar.prm-hue2, prm-journals-search-bar.prm-hue2, md-backdrop.md-opaque {
-    background-color: #000 !important;
+	background-color: #000 !important;
 }
 
 /* make sure image is responsive */
 
 prm-topbar prm-logo {
-    width: 100% !important;
-    max-width: none;
-    min-width: 200px;
+	width: 100% !important;
+	max-width: none;
+	min-width: 200px;
 }
 
 prm-logo .logo-image, prm-logo img {
