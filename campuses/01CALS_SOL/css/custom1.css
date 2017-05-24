@@ -42,3 +42,30 @@ prm-logo .product-logo a:hover {
     text-transform:none;
     box-shadow: none;
 }
+
+
+
+    
+ /* SSU edits------------------------------------------------*/
+    
+/* Full Text Available not look like a link */
+    :not(.button-content) > .availability-status > span {
+  color: rgb(58, 58, 58);
+}
+    
+        
+    
+/* Move the Find in Library section above the Send to section */
+
+#action_list{order:1}
+#details {order:2}
+
+ 
+.full-view-inner-container {
+    padding-bottom: 10em;
+    display: flex;
+    flex-direction: column;
+}
+[aria-label="Details"] {order:1 !important;   }
+[aria-label="Send to"] {order:2 !important;   }
+

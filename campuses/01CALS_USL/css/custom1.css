@@ -1,0 +1,83 @@
+/*** Sacramento (01CALS_USL) ***/
+
+/* navbar color change */
+
+.prm-primary-bg, prm-spinner.overlay-cover.light-on-dark:after, prm-search-bar, prm-journals-search-bar {
+    color: white;
+    background-color: #f4f2f1;
+}
+.prm-primary-bg.prm-hue1, prm-spinner.prm-hue1.overlay-cover.light-on-dark:after, prm-topbar .top-nav-bar, prm-search-bar.prm-hue1, prm-journals-search-bar.prm-hue1 {
+    background-color: #f4f2f1;
+}
+.prm-primary-bg.prm-hue2, prm-spinner.prm-hue2.overlay-cover.light-on-dark:after, prm-search-bar.prm-hue2, prm-journals-search-bar.prm-hue2, md-backdrop.md-opaque {
+    background-color: #f4f2f1;
+}
+.prm-primary-bg.prm-hue3, prm-spinner.prm-hue3.overlay-cover.light-on-dark:after, prm-search-bar.prm-hue3, prm-journals-search-bar.prm-hue3 {
+    background-color: #f4f2f1;
+}
+.prm-primary-bg.prm-hue3-important, prm-spinner.prm-hue3-important.overlay-cover.light-on-dark:after, prm-user-area md-fab-toolbar.md-is-open md-fab-trigger .md-fab-toolbar-background, prm-user-area md-fab-toolbar.md-is-open md-fab-trigger ._md-fab-toolbar-background, prm-search-bar.prm-hue3-important, prm-journals-search-bar.prm-hue3-important {
+    background-color: #f4f2f1 !important;
+}
+.prm-primary-bg.prm-hue4, prm-spinner.prm-hue4.overlay-cover.light-on-dark:after, prm-search-bar.prm-hue4, prm-journals-search-bar.prm-hue4 {
+    background-color: #f4f2f1;
+}
+
+/* hide language selector */
+prm-change-lang {
+    display: none;
+}
+
+
+/* search bar color change */
+
+.prm-primary-bg, prm-browse-search-bar, prm-journals-search-bar, prm-search-bar, prm-tags-search-bar, prm-spinner.overlay-cover.light-on-dark:after {
+    color: #444;
+    background-color: #008453;
+}
+
+prm-journals-search-bar .search-switch-buttons .md-button.switch-to-advanced, prm-search-bar .search-switch-buttons .md-button.switch-to-advanced {
+    color: white;
+}
+
+prm-browse-search-bar .search-switch-buttons .md-button.switch-to-simple, prm-journals-search-bar .search-switch-buttons .md-button.switch-to-simple, prm-search-bar .search-switch-buttons .md-button.switch-to-simple, prm-tags-search-bar .search-switch-buttons .md-button.switch-to-simple {
+    color: white;
+}
+
+.md-button.button-confirm, .service-form-static-panel button.button-confirm prm-icon+span, .service-form-static-panel button.button-confirm prm-icon svg path {
+    color: #dd971a;
+}
+
+.prm-primary-bg, prm-spinner.overlay-cover.light-on-dark:after, prm-search-bar, prm-journals-search-bar {
+    background-color: #008453;
+}
+
+prm-browse-search-bar .advanced-search-backdrop.visible, prm-journals-search-bar .advanced-search-backdrop.visible, prm-search-bar .advanced-search-backdrop.visible, prm-tags-search-bar .advanced-search-backdrop.visible {
+	background-color: #008453;
+}
+
+/* alert bar color change */
+
+.bar.alert-bar, .classic-input .search-scope, .prm-alert-bg {
+	border-color: #444;
+    background-color: #e4e878;
+}
+
+/* make logo clickable */
+
+prm-logo div.product-logo {
+    display:none;
+}
+prm-logo div.product-logo-local {
+    display: flex;
+}
+prm-logo .product-logo a:hover {
+    background-color:transparent;
+    text-transform:none;
+    box-shadow: none;
+}
+
+/* light top background */
+
+div.top-nav-bar * {
+    color: #444 !important;
+}

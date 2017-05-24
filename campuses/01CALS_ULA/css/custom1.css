@@ -42,6 +42,17 @@ prm-logo .product-logo a:hover {
     text-transform:none;
     box-shadow: none;
 }
+/* Journal Alphabet */
+prm-alphabet-toolbar .md-button{ 
+color:#000 !important; 
+} 
+
+/*Alphabet Hover Color*/ 
+prm-alphabet-toolbar .md-button._md-focused:not([disabled]), prm-alphabet-toolbar .md-button.hovered:not([disabled]), prm-alphabet-toolbar .md-button.md-focused:not([disabled]), prm-alphabet-toolbar .md-button:focus:not([disabled]), prm-alphabet-toolbar .md-button:hover:not([disabled]) { 
+color: red; 
+background-color: hsla(0,0%,100%,.08); 
+} 
+
 
 /* light top background */
 

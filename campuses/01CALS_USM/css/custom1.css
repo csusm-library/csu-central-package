@@ -1,6 +1,5 @@
 @import url('https://biblio.csusm.edu/primo_templates/styles/primo_v2.css');
 
-
 /*Uncomment the follwoing lines to move facets to the left*/
 
 /*
@@ -18,11 +17,19 @@ prm-search > md-content.md-primoExplore-theme .main {
 
 */
 
+body {
+  font-size: 16px;
+}
+
 
 /* page background */
 body, 
 md-content, md-content.md-primoExplore-theme {
 	background-color: #fff;
+}
+
+.prm-primary-bg.prm-hue1, prm-spinner.prm-hue1.overlay-cover.light-on-dark:after, prm-topbar .top-nav-bar, prm-search-bar.prm-hue1 {
+  background-color: #17405C;
 }
 
 /* top menu */
@@ -33,9 +40,15 @@ prm-search-bar.prm-hue1 {
   background-color: #17405C;
 }
 prm-main-menu[menu-type="menu"] .md-button {
-  font-size: 14px;
+  font-size: 16px;
   color: #fff;
+  text-transform: capitalize;
 }
+
+prm-main-menu[menu-type="menu"] .md-button:last-child {
+  min-width: 150px;
+}
+
 
 /* workaround to make logo clickable */
 prm-logo div.product-logo {
@@ -46,17 +59,77 @@ prm-logo div.product-logo-local {
  display: flex;
 }
 
+
+/* User Area in Top Nav */
+prm-user-area {
+  padding-top: 14px;
+}
+
+prm-topbar .md-button:not(.md-icon-button) {
+  border-radius: 0;
+  color: #fff;
+  margin: 0 10px !important;
+}
+
+
+/* Search Bar */
+
+prm-search-bar {
+  color: #3a3a3a;
+}
+
+prm-journals-search-bar, prm-search-bar {
+  padding: .75em 1.5em;
+  position: relative;
+}
+
+
 /* facets sidebar */
 #facets.sidebar {
   background: #f9f9f9;
   padding-top: 20px;
   padding-bottom: 20px;
+  margin-top: 30px;
 }
 
+
 /* services menu in item full display */
+
+prm-action-list>md-nav-bar nav {
+  justify-content: left;
+  margin-left: 120px;
+}
+
 prm-full-view .services-index-under .md-button {
-    max-width: 100%;
-    overflow: visible;
-    white-space: normal;
-    line-height: normal;
+  max-width: 95%;
+  overflow: visible;
+  white-space: normal;
+  line-height: normal;
+  font-size: 16px;
+  margin-bottom: 20px !important;
+}
+
+prm-action-list>md-nav-bar .md-nav-item .md-button {
+  font-size: 13px;
+}
+
+prm-action-list-after {
+  position: absolute;
+  margin-top: 48px;
+  margin-left: 36px;
+  top: 0;
+}
+
+.action-list-addon-text {
+  font-size: 13px;
+  line-height: 32px;
+  font-weight: 600;
+  margin-top: -7px;
+
+}
+
+/* resolve problems with full record overlay post-February release */
+
+body.md-dialog-is-showing  {
+  overflow-x:visible!important;
 }

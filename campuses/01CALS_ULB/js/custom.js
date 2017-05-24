@@ -2,7 +2,6 @@
   "use strict";
   'use strict';
 
-
   var app = angular.module('viewCustom', ['angularLoad']);
 
   /****************************************************************************************************/
@@ -27,9 +26,13 @@
       parentCtrl: '<'
     },
     controller: 'prmLogoAfterController',
-    template: '<div class="product-logo product-logo-local" layout="row" layout-align="start center" layout-fill id="banner"><a href="http://web.csulb.edu/library/"><img class="logo-image" alt="{{::(\'nui.header.LogoAlt\' | translate)}}" ng-src="{{$ctrl.getIconLink()}}"/></a></div>'
+    template: '<div class="product-logo product-logo-local" layout="row" layout-align="start center" layout-fill id="banner"><a href="https://www.csulb.edu/library/"><img class="logo-image" alt="{{::(\'nui.header.LogoAlt\' | translate)}}" ng-src="{{$ctrl.getIconLink()}}"/></a></div>'
   });
 
-
+  //add libchat box
+  var s=document.createElement('script');
+  s.id='localScript';
+  s.src='//v2.libanswers.com/load_chat.php?hash=20578764db325563b7d0916b60282165';
+  document.body.appendChild(s);
 
 })();

@@ -42,3 +42,54 @@ prm-logo .product-logo a:hover {
     text-transform:none;
     box-shadow: none;
 }
+/* changing menu to Sentence Case */
+prm-topbar .md-button {
+    text-transform: none;
+}
+
+/* hide language button */
+
+md-toolbar prm-change-lang {
+    display: none;
+}
+.user-menu-button span.user-language {
+    display: none;
+}
+
+/*Hide Tags*/ 
+.md-button[aria-label="nui.mainmenu.label.tags"] {
+    display:none;
+}
+.md-button[aria-label="nui.mainmenu.label.tags"] {
+    display:none;
+}
+[aria-label="Tags"]{
+    display:none;
+}
+#tags {
+    display:none;
+}
+
+/* increase the height of the topbar */
+prm-topbar {
+    height:125px;
+    position: relative;
+}
+
+/* get rid of gray boxes */
+md-card.default-card {
+       background-color: #fff;
+        box-shadow:none;
+}
+
+/* menu changes */
+prm-main-menu[menu-type=menu] .md-button {
+    padding: 0 .75em;
+    max-width: 12em;
+    font-size: 1em;
+}
+
+
+prm-topbar .md-button {
+     color: #fff);
+}

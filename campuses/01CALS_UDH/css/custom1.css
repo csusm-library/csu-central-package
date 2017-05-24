@@ -3,48 +3,714 @@
 /* navbar color change */
 
 .prm-primary-bg, prm-spinner.overlay-cover.light-on-dark:after, prm-search-bar, prm-journals-search-bar {
-    color: white;
-    background-color: #840539;
+	color: white;
+	background-color: #860038;
 }
 .prm-primary-bg.prm-hue1, prm-spinner.prm-hue1.overlay-cover.light-on-dark:after, prm-topbar .top-nav-bar, prm-search-bar.prm-hue1, prm-journals-search-bar.prm-hue1 {
-    background-color: #840539;
+	background-color: #860038;
 }
 .prm-primary-bg.prm-hue2, prm-spinner.prm-hue2.overlay-cover.light-on-dark:after, prm-search-bar.prm-hue2, prm-journals-search-bar.prm-hue2, md-backdrop.md-opaque {
-    background-color: #840539;
+	background-color: #860038;
 }
 .prm-primary-bg.prm-hue3, prm-spinner.prm-hue3.overlay-cover.light-on-dark:after, prm-search-bar.prm-hue3, prm-journals-search-bar.prm-hue3 {
-    background-color: #840539;
+	background-color: #860038;
 }
 .prm-primary-bg.prm-hue3-important, prm-spinner.prm-hue3-important.overlay-cover.light-on-dark:after, prm-user-area md-fab-toolbar.md-is-open md-fab-trigger .md-fab-toolbar-background, prm-user-area md-fab-toolbar.md-is-open md-fab-trigger ._md-fab-toolbar-background, prm-search-bar.prm-hue3-important, prm-journals-search-bar.prm-hue3-important {
-    background-color: #840539 !important;
+	background-color: #860038 !important;
 }
 .prm-primary-bg.prm-hue4, prm-spinner.prm-hue4.overlay-cover.light-on-dark:after, prm-search-bar.prm-hue4, prm-journals-search-bar.prm-hue4 {
-    background-color: #840539;
+	background-color: #860038;
 }
 
 /* search bar color change */
 
 .prm-primary-bg, prm-journals-search-bar, prm-search-bar, prm-spinner.overlay-cover.light-on-dark:after {
-    color: #333;
-    background-color: #fff;
+	color: #333;
+	background-color: #fff;
 }
 
 /* make logo clickable */
 
 prm-logo div.product-logo {
-    display:none;
+	display:none;
 }
 prm-logo div.product-logo-local {
-    display: flex;
+	display: flex;
 }
 prm-logo .product-logo a:hover {
-    background-color:transparent;
-    text-transform:none;
-    box-shadow: none;
+	background-color:transparent;
+	text-transform:none;
+	box-shadow: none;
 }
 
 /* topnav background white-er */
 
 div.top-nav-bar * {
-    color: #fff !important;
+	color: #fff !important;
 }
+
+
+/* begin dropdown navigation, merge with actual dropdown css file */
+div#contentspacing ul li:first-child, div#contentspacing ul li {
+	padding-left: 0px !important;
+	margin-left: 0px !important;
+	margin-bottom: 0px !important;
+	margin-top: 0px !important;
+}
+
+.perc-navbar {
+	display: table;
+	width: 100%;
+	background-color: #e9e9e9;
+	z-index: 9;
+}
+
+#nav ul ul {
+	display: none;
+}
+
+#nav ul li:hover > ul {
+	display: block;
+}
+
+#nav ul {
+	background: #860038;
+	padding-left: 10px !important;
+	list-style: none;
+	position: relative;
+	margin: auto !important;
+	list-style-position: outside;
+	z-index:9;
+}
+
+#nav ul:after {
+	content: "";
+	clear: both;
+	display: block;
+}
+
+#nav ul li {
+	float: left;
+	line-height: 20.16px !important;
+	font-family: 'Open Sans', sans-serif !important;
+	max-height: 54px;
+	min-height: 54px;
+	<!-- Mouse-over and off transition times can be adjusted below -->
+	-webkit-transition: background-color .1s ease-in-out;
+	-moz-transition: background-color .1s ease-in-out;
+	-o-transition: background-color .1s ease-in-out;
+	transition: background-color .1s ease-in-out;
+}
+
+#nav ul li li {
+	max-height: 62px;
+	min-height: 42px;
+}
+#nav ul li a {
+	display: block;
+	text-decoration: none;
+	font-size: 14.4px !important;
+	font-weight: 600 !important;
+	text-transform: uppercase;
+	padding: 16px 0 18px 15px !important;
+}
+
+#nav ul ul {
+	position: absolute;
+	top: 100%;
+	background: #860038;
+	list-style: none;
+	list-style-position: outside;
+	min-width: 250px;
+	width: auto;
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	padding: 0 !important;
+	margin-top: -6px !important; 
+	border: 1px;
+	height: 0px;
+}
+
+#nav ul ul li {
+	float: none;
+	position: relative;
+}
+
+#nav ul ul li a {
+	padding: 12px 16px !important;
+	font-size: 14.4px !important;
+}
+
+#nav ul ul ul {
+	position: absolute;
+	left: 100%;
+	top: 0;
+	margin-top: 0 !important; 
+}
+
+/* change background-color for li elements, not a elements */
+#nav ul li, #nav ul li:hover li, #nav ul li:hover li:hover li {
+	background-color: #860038;
+}
+
+#nav ul li:hover, #nav ul li:hover li:hover, #nav ul li:hover li:hover li:hover, #nav ul li.currentFix:hover, #nav ul li.currentFix.nav-level-4:hover, #nav ul li.currentFix.nav-level-4:hover li.currentFix.nav-level-5:hover {
+
+	background-color: #fff;
+}
+
+/* change color for a elements, ensure background is transparent */
+#nav ul li a, #nav ul li:hover li a, #nav ul li:hover li:hover li a {
+	background-color: transparent;
+	color: #fff;
+}
+
+#nav ul li:hover a, #nav ul li:hover li:hover a, #nav ul li:hover li:hover li:hover a, #nav ul li.currentFix > a, #nav ul li.currentFix.nav-level-4 > a, #nav ul li.currentFix.nav-level-5 > a, #nav ul li.currentFix.nav-level-4:hover li.currentFix.nav-level-5 > a, #nav ul li.currentFix:hover > a, #nav ul li.currentFix.nav-level-4:hover > a, #nav ul li.currentFix.nav-level-4:hover li.currentFix.nav-level-5:hover > a {
+	color: #860038;
+}
+
+#nav ul li.currentFix, #nav ul li.currentFix.nav-level-4, #nav ul li.currentFix.nav-level-5, #nav ul li.currentFix.nav-level-4:hover li.currentFix.nav-level-5 {
+	background-color: #f6d475;
+	color: #860038;
+}
+
+/*dropdown arrow for top level navigation*/
+.has-child-top {
+	cursor: default;
+	float: right;
+	margin-left: 5px;
+	padding: 16px 25px 18px 15px !important;
+	position: relative;
+	top: -16px;
+}
+
+/*dropdown arrow for top level navigation*/
+.has-child-top:after {
+	content: '\25BC';
+}
+
+/*dropdown arrow for lower level navigation*/
+.has-child-bottom {
+	cursor: default;
+	float: right;
+	margin-left: 20px;
+	padding: 12px 16px !important;
+	position: relative;
+	top: -12px;
+	right: -16px;
+}
+
+/*dropdown arrow for lower level navigation*/
+.has-child-bottom:after {
+	content: '\25BA';
+}
+
+/*add back the padding that was removed for the dropdown arrow fix*/
+.nav-level-4 {
+	/* padding-right: 18px; /* this should not be needed anymore. */
+}
+
+.nav-level-5 .has-child-bottom:after {
+	content: '' !important;
+}
+
+.nav-level-5 ul {
+	visibility: hidden !important;
+	display: none !important;
+}
+
+.nav-level-5:hover ul {
+	visibility: hidden !important;
+	display: none !important;
+}
+
+/*give more space on small screens to press the dropdown arrow*/
+/*this should also not be needed anymore, except on the homepage*/
+/*only because the homepage doesn't use the mobile menu*/
+@media only screen and (max-width: 768px) {  
+	/*dropdown arrow for top level navigation*/
+	.has-child-top {
+		padding-right: 45px !important;
+	}
+
+	/*dropdown arrow for lower level navigation*/
+	.has-child-bottom {
+		margin-left: 45px;
+	}
+}
+
+#header {
+	display: table;
+	width: 100%;
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+
+#logo {
+	float: left;
+	width: 206px;
+	padding-left: 25px;	
+}
+
+#audiencenav {
+	float: right;
+	list-style-type: none;
+	padding: 8px 6px 0 10px;
+	margin: auto;
+	list-style-position: outside;
+}
+
+#audiencenav li {
+	float: left;
+	padding: 0 2px;
+	font-size: .9em;
+	line-height: 1.4em;
+	font-family: 'Open Sans', sans-serif;
+}
+
+#audiencenav a {
+	text-decoration: none;
+	font-size: .8em;
+	font-weight: 500;
+	color: #fff;
+	background-color:#860038;
+	padding:3px 7px;
+	border-radius:3px;
+}
+
+#audiencenav a:hover, #audiencenav a:active {
+	background-color: #fff;
+	color: #860038;
+}
+
+/*custom Primo changes for navigation*/
+prm-topbar {
+	height: 120px !important;
+	z-index: 9999 !important;
+}
+.top-nav-bar {
+	height: 60px !important;
+	min-height: 60px !important;
+}
+
+#nav ul li a.navfirst {
+	padding-right: 16px !important; /*changed for primo, need to change other sites*/
+}
+
+#nav ul li a:hover {
+	box-shadow: none !important; /*added for primo, need to change other sites, !important not needed on other sites*/
+}
+/* end primo layout changes */
+/* end dropdown navigation */
+
+/*custom Primo changes for facet widths*/
+.flex-lg-10, .layout-lg-row>.flex-lg-10, .layout-row>.flex-lg-10, .flex-lg-5, .layout-lg-row>.flex-lg-5, .layout-row>.flex-lg-5, .flex-lgPlus-10, .layout-column>.flex-lgPlus-10, .layout-lgPlus-column>.flex-lgPlus-10, .layout-lgPlus-row>.flex-lgPlus-10, .layout-row>.flex-lgPlus-10, .__lgPlus prm-journals-search-bar .layout-column>.search-switch-buttons, .__lgPlus prm-journals-search-bar .layout-lgPlus-column>.search-switch-buttons, .__lgPlus prm-journals-search-bar .layout-lgPlus-row>.search-switch-buttons, .__lgPlus prm-journals-search-bar .layout-row>.search-switch-buttons, .__lgPlus prm-journals-search-bar .search-switch-buttons, .__lgPlus prm-journals-search-bar .search-wrapper.layout-column>div[flex]:first-of-type, .__lgPlus prm-journals-search-bar .search-wrapper.layout-lgPlus-column>div[flex]:first-of-type, .__lgPlus prm-journals-search-bar .search-wrapper.layout-lgPlus-row>div[flex]:first-of-type, .__lgPlus prm-journals-search-bar .search-wrapper.layout-row>div[flex]:first-of-type, .__lgPlus prm-journals-search-bar .search-wrapper>div[flex]:first-of-type, .__lgPlus prm-search-bar .layout-column>.search-switch-buttons, .__lgPlus prm-search-bar .layout-lgPlus-column>.search-switch-buttons, .__lgPlus prm-search-bar .layout-lgPlus-row>.search-switch-buttons, .__lgPlus prm-search-bar .layout-row>.search-switch-buttons, .__lgPlus prm-search-bar .search-switch-buttons, .__lgPlus prm-search-bar .search-wrapper.layout-column>div[flex]:first-of-type, .__lgPlus prm-search-bar .search-wrapper.layout-lgPlus-column>div[flex]:first-of-type, .__lgPlus prm-search-bar .search-wrapper.layout-lgPlus-row>div[flex]:first-of-type, .__lgPlus prm-search-bar .search-wrapper.layout-row>div[flex]:first-of-type, .__lgPlus prm-search-bar .search-wrapper>div[flex]:first-of-type, .flex-lgPlus-15, .layout-column>.flex-lgPlus-15, .layout-lgPlus-column>.flex-lgPlus-15, .layout-lgPlus-row>.flex-lgPlus-15, .layout-row>.flex-lgPlus-15, .flex-xl-10, .layout-row>.flex-xl-10, .layout-xl-row>.flex-xl-10, .flex-xl-20, .layout-row>.flex-xl-20, .layout-xl-row>.flex-xl-20 {
+	flex: 1 1 0%;
+	max-width: 0%;
+}
+
+/* begin md-button responsive fix */
+@media (max-width: 1023px) {
+	.md-button {
+		min-width: 80px;
+	}
+}
+@media (max-width: 1000px) {
+	.md-button {
+		min-width: 75px;
+	}
+}
+@media (max-width: 980px) {
+	.md-button {
+		min-width: 69px;
+	}
+}
+/* end md-button responsive fix */
+
+@media (max-width: 1279px) and (min-width: 960px) {
+	.flex-md-25, .layout-md-row>.flex-md-25, .layout-row>.flex-md-25 {
+		flex: 1 1 250px;
+		max-width: 250px;
+	}
+	.flex-md-75, .layout-md-row>.flex-md-75, .layout-row>.flex-md-75 {
+		flex: 1 1 84%;
+		max-width: 84%;
+	}
+}
+@media (max-width: 1919px) and (min-width: 1280px) {
+	.flex-lg-20, .layout-lg-row>.flex-lg-20, .layout-row>.flex-lg-20 {
+		flex: 1 1 300px;
+		max-width: 300px;
+	}
+	.flex-lg-65, .layout-lg-row>.flex-lg-65, .layout-row>.flex-lg-65 {
+		flex: 1 1 88%;
+		max-width: 88%;
+	}
+	.flex-lgPlus-55, .layout-column>.flex-lgPlus-55, .layout-lgPlus-column>.flex-lgPlus-55, .layout-lgPlus-row>.flex-lgPlus-55, .layout-row>.flex-lgPlus-55 {
+		flex: 1 1 91%;
+		max-width: 91%;
+	}
+}
+@media (min-width: 1920px) {
+	.flex-lg-20, .layout-lg-row>.flex-lg-20, .layout-row>.flex-lg-20 {
+		flex: 1 1 400px;
+		max-width: 400px;
+	}
+	.flex-xl-50, .layout-row>.flex-xl-50, .layout-xl-row>.flex-xl-50 {
+		flex: 1 1 92%;
+		max-width: 92%;
+	}
+}
+
+.flex-lgPlus-15, 
+.padded-container {
+	padding-left: .5em;
+}
+.sidebar-inner-wrapper {
+	padding-left: 0;
+	margin-right: 0;
+}
+/* end primo layout changes */
+
+/*
+prm-authentication prm-icon[icon-definition="sign-out"] {
+    position: relative;
+    top: 12px;
+}
+
+prm-authentication span {
+    float: right;
+    clear: right;
+}
+
+prm-authentication span[translate="eshelf.signout.title.link"] {
+    position: relative;
+    top: -13px;
+    right: 25%;
+}
+*/
+
+/* remove unnecessary padding on buttons */
+prm-user-area .md-toolbar-tools {
+	min-height: 0px;
+}
+
+.md-button.button-with-icon>prm-icon+span {
+    padding-right: 0;
+}
+
+/*move login window in front of menu*/
+.md-scroll-mask, .md-dialog-container, md-backdrop._md-dialog-backdrop {
+    z-index: 10000;
+}
+
+/*prevent md-select menus from falling behind customizations*/
+._md-select-menu-container {
+	z-index: 10000;
+}
+
+/* mobile-optimized changes for chat widget on primo */
+@media (max-width: 780px) {
+	#chat-minimized-icon {
+		font-size: 20px !important;
+		top: 6px !important;
+		right: 14px !important;
+	}
+
+	#chat-minimized-icon:before {
+		content: "\f086" !important;
+	}
+
+	#chat-minimized-text {
+		visibility: hidden !important;
+	}
+
+	#chat-minimized-container {
+		width: 50px !important;
+	}
+
+	#chat-maximized {
+		width: 325px !important;
+	}
+
+	#chat-maximized-container {
+		width: 325px !important;
+	}
+}
+
+/* mobile-optimized changes for mobile menu on primo */
+@media (max-width: 780px) {
+	/*move the "BACK TO RESULTS LIST" box to below the mobile menu*/
+	md-dialog[aria-label="Full Display"] {
+		margin-top: 49px;
+		padding-bottom: 49px;
+	}
+}
+
+/* begin mean menu mobile navigation changes */
+.mean-container .has-child-top, .mean-bar .has-child-bottom {
+	display: none !important;
+}
+
+/*this needs to only be while the menu is open, not currently possible*/
+.mean-container .mean-bar {
+	padding-bottom: 1px !important;
+	margin-bottom: 4px !important;
+}
+
+.mean-container .mean-nav > ul li:first-child a:first-child {
+	border-top: none !important;
+}
+
+.mean-container .mean-nav > ul, .mean-container .mean-nav > ul li ul li:first-child a:first-child, .mean-container .mean-nav ul li li a, .mean-container .mean-nav > ul li:first-child li a:first-child {
+		border-top: 1px solid rgba(255,255,255,0.5) !important;
+}
+
+.mean-container .mean-nav ul li a.mean-expand {
+		border-bottom: 1px solid rgba(255,255,255,0.5) !important;
+}
+
+.mean-container .mean-nav ul li a:first-child {
+	line-height: 1.5 !important;
+}
+.mean-container .nav-level-4 {
+	padding-right: 0 !important;
+}
+.mean-container .mean-nav ul li a.mean-expand {
+    border-bottom: none !important; /*this needs to be changed in meanmenu.css*/
+}
+.meanmenu-logo img {
+	height: 38px;
+}
+.mean-container .mean-bar, .mean-container .mean-nav {
+	background:#860038 !important;
+}
+.mean-container .mean-nav ul li a.mean-expand {
+		height: 26px !important;
+}
+.mean-container .mean-nav ul li a {
+	font-size: 14.4px !important;
+	font-weight: 600 !important;
+}
+.mean-container .mean-nav ul li {
+	background:#860038 !important;
+}
+.mean-container .mean-nav ul li.currentFix {
+	background:#f6d475 !important;
+}
+.mean-container .mean-nav ul li.currentFix > a {
+	color:#860038 !important;
+}
+.mean-container .mean-nav ul li li a {
+	opacity: 1 !important;
+}
+.mean-container .mean-nav ul li a:hover {
+	box-shadow: none !important; /*added for primo, need to change other sites, !important not needed on other sites*/
+	background: rgba(255,255,255,0.1) !important;
+}
+.mean-container .mean-nav ul li a.mean-expand:hover {
+	background: rgba(255,255,255,0.3) !important;
+}
+.mean-container a:hover, .mean-container a:focus { /*added for primo, need to change other sites, !important not needed on other sites*/
+	box-shadow: none !important;
+}
+.mean-container .meanmenu-bar:hover, .mean-container .meanmenu-bar:focus { /*added for primo, need to change other sites, !important not needed on other sites*/
+	background: rgba(255,255,255,0.2) !important;
+}
+.mean-container .meanmenu-bar {
+		height: 24px !important;
+		width: 24px !important;
+}
+.mean-container .mean-overlay {
+	position:fixed;
+	top:0;
+	left:0;
+	bottom:0;
+	right:0;
+	height: 100%;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	background: #000000;
+	opacity: .3;
+	filter: alpha(opacity=30);
+	-moz-opacity: .3;
+	z-index: 101;
+	display: block;
+}
+.mean-container .mean-overlay-hidden {
+	display: none;
+}
+
+/* make sure there is enough area for the mobile menu at top of screen */
+prm-topbar.mean-container {
+	height: 60px !important;
+}
+
+/* begin primo css overrides for mean menu mobile navigation */
+.md-fab-toolbar-wrapper md-fab-toolbar {
+	z-index: 1;
+	transition: z-index 0s linear .1s,opacity 0s ease 0s;
+	position: static;
+	width: auto;
+}
+
+.md-fab-toolbar-wrapper md-fab-toolbar md-toolbar {
+	pointer-events: inherit;
+}
+
+.md-fab-toolbar-wrapper md-fab-toolbar .md-fab-action-item {
+	opacity: 1;
+	-webkit-transform: scale(1);
+	transform: scale(1);
+	transition-delay: 200ms;
+}
+
+.md-fab-toolbar-wrapper md-fab-toolbar .md-fab-action-item md-input-container md-select:focus{
+	background-color: transparent;
+}
+
+prm-user-area, prm-search-bookmark-filter .md-button {
+	background-color: transparent;
+}
+
+prm-search-bookmark-filter .md-button:hover {
+	background-color: rgba(0,0,0,.1);
+}
+/* end primo css overrides for mean menu mobile navigation */
+/* end mean menu mobile navigation changes */
+
+/* begin stuff for chat widget, need to check if these are unique */
+@import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css');
+#chat-minimized-container {
+	background: transparent;
+	border: 0px;
+	bottom: 0px;
+	height: 53px;
+	position: fixed;
+	right: 15px;
+	transform: translateY(0%);
+	transition: transform 0.2s ease-in-out;
+	width: 250px;
+	z-index: 100 !important; /*changed for primo, need to change other sites, !important not needed on other sites*/
+}
+#chat-minimized {
+	background-color: #860038;
+	border-radius: 4px 4px 0 0 !important;
+	bottom: 0;
+	height: 100%;
+	left: 0;
+	line-height: 22px;
+	margin: 0 auto;
+	padding: 0;
+	position: absolute;
+	right: 0;
+	top: 20px;
+	width: 100%;
+}
+#chat-minimized-header {
+	color: #fff;
+	display: block;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 16px;
+	font-weight: normal;
+	outline: 0;
+	padding: 0;
+	position: relative;
+	text-align: left;
+	text-decoration: none;
+	white-space: nowrap;
+}
+#chat-minimized-icon {
+	float: right;
+	font-family: 'FontAwesome' !important;
+	font-size: 14px;
+	line-height: 1;
+	position: relative;
+	right: 10px;
+	top: 10px;
+}
+#chat-minimized-icon:before {
+	content: "\f077";
+}
+#chat-minimized-text {
+	display: inline-block !important;
+	overflow: hidden;
+	padding: 6px 38px 6px 15px;
+	white-space: nowrap;
+	width: 100% !important;
+}
+#chat-maximized-container {
+	background: transparent;
+	border: 0px;
+	bottom: 0px;
+	height: 400px !important; /*changed for primo, need to change other sites, !important not needed on other sites*/
+	overflow: hidden;
+	position: fixed;
+	right: 15px;
+	transform: translateY(100%);
+	transition: transform 0.2s ease-in-out;
+	width: 400px;
+	z-index: 100 !important; /*changed for primo, need to change other sites, !important not needed on other sites*/
+}
+#chat-maximized {
+	height: 400px;
+	padding: 15px 15px 0px 15px;
+	width: 370px;
+}
+#chat-maximized-table {
+	box-shadow: 0 2px 25px rgba(0,0,0,.2)!important;
+}
+#chat-maximized-main {
+	padding: 0;
+}
+#chat-maximized-title {
+	font-size: 14px;
+	height: 26px;
+	line-height: 26px;
+	padding: 0px;
+}
+#chat-maximized-title-header {
+	background-color: #860038 !important;
+	border-radius: 3px 3px 0 0;
+	border-width: 0;
+	padding: 0px !important;
+}
+#chat-maximized-title-header a, #chat-maximized-title-header a:hover, #chat-maximized-title-header a:focus {
+	font-family: 'Open Sans', sans-serif;
+	font-size: 16px!important;
+	font-weight: 400;
+	text-align: left;
+	color: #fff;
+	text-decoration: none;
+	box-shadow: none;
+	white-space: nowrap;
+}
+#chat-maximized-title-header a span {
+	line-height: 1;
+	padding: 10px 7px 10px 11px;
+	display: inline-block;
+}
+#chat-maximized-title-icon {
+	float: right;
+	font-family: 'FontAwesome' !important;
+	font-size: 14px;
+	padding-right: 15px !important;
+}
+#chat-maximized-refresh-icon {
+	float: right;
+	font-family: 'FontAwesome' !important;
+	font-size: 14px;
+	padding-right: 23px !important;
+}
+#chat-maximized-title-icon:before {
+	content: "\f078";
+}
+#chat-maximized-refresh-icon:before {
+	content: "\f021";
+}
+#chat-maximized-main-iframe {
+	border: 0;
+	height: 350px;
+	width: 100%;
+}
+/* begin stuff for chat widget */
+

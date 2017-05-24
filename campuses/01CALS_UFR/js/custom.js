@@ -64,7 +64,7 @@ app.component('prmLogoAfter', {
   template: '<span><br>Modifying the Central Package!</span>'
 });*/
 
-//add Show Results for
+// Add extra search links to side-bar
 app.component('prmFacetAfter', {
   controller: function controller($location) {
 
@@ -86,14 +86,15 @@ app.component('prmFacetAfter', {
     var sectionTitle = 'Borrow from Other Libraries:';
 
     /* Create HTML output */
-    var rowOne = "<div tabindex='-1' class='sidebar-section margin-top-small margin-bottom-medium compensate-padding-left'><div class='layout-row margin-bottom-small bold-text'><a href='" + libLink + "' target='_blank' title='" + libName + "'>" + libName + "</a></div>";
+    /*var rowOne = "<div class='layout-row margin-bottom-small bold-text'><a href='" + libLink + "' target='_blank' title='" + libName + "'>" + libName + "</a></div>";*/
+    var rowOne = "";
     var rowTwo = "<div class='layout-row margin-bottom-small bold-text'><a href='" + csuLink + "' target='_blank' title='" + csuServiceNote + "'>" + csuServiceName + "</a></div>";
 
     /* Output the HTML */
     angular.element(document).ready(function () {
       var eNode = angular.element(document.querySelectorAll("prm-facet .sidebar-inner-wrapper"));
       if (eNode != null && eNode != undefined) {
-        eNode.prepend("<div tabindex='-1' ng-if='$ctrl.totalResults > 1 || $ctrl.isFiltered()' class='sidebar-section compensate-padding-left'><h2 class='sidebar-title' >" + sectionTitle + "</h2></div>" + rowOne + " " + rowTwo + "</div>");
+        eNode.prepend("<div tabindex='-1' ng-if='$ctrl.totalResults > 1 || $ctrl.isFiltered()' class='sidebar-section compensate-padding-left'><h2 class='sidebar-title' >" + sectionTitle + "</h2></div><div tabindex='-1' class='sidebar-section margin-top-small margin-bottom-medium compensate-padding-left'>" + rowOne + " " + rowTwo + "</div>");
       }
 
       var rNode = angular.element(document.querySelectorAll("div[ng-if='$ctrl.showPcAvailability']"));

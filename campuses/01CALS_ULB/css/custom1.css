@@ -1,44 +1,77 @@
+@charset "utf-8";
+/* CSS Document */
+
 /*** Long Beach (01CALS_ULB) ***/
 
 /* navbar color change */
 
 .prm-primary-bg, prm-spinner.overlay-cover.light-on-dark:after, prm-search-bar, prm-journals-search-bar {
-    color: white;
-    background-color: #111;
+	color: white;
+	background-color: #111;
 }
 .prm-primary-bg.prm-hue1, prm-spinner.prm-hue1.overlay-cover.light-on-dark:after, prm-topbar .top-nav-bar, prm-search-bar.prm-hue1, prm-journals-search-bar.prm-hue1 {
-    background-color: #111;
+	background-color: #111;
 }
 .prm-primary-bg.prm-hue2, prm-spinner.prm-hue2.overlay-cover.light-on-dark:after, prm-search-bar.prm-hue2, prm-journals-search-bar.prm-hue2, md-backdrop.md-opaque {
-    background-color: #111;
+	background-color: #111;
 }
 .prm-primary-bg.prm-hue3, prm-spinner.prm-hue3.overlay-cover.light-on-dark:after, prm-search-bar.prm-hue3, prm-journals-search-bar.prm-hue3 {
-    background-color: #111;
+	background-color: #111;
 }
 .prm-primary-bg.prm-hue3-important, prm-spinner.prm-hue3-important.overlay-cover.light-on-dark:after, prm-user-area md-fab-toolbar.md-is-open md-fab-trigger .md-fab-toolbar-background, prm-user-area md-fab-toolbar.md-is-open md-fab-trigger ._md-fab-toolbar-background, prm-search-bar.prm-hue3-important, prm-journals-search-bar.prm-hue3-important {
-    background-color: #111 !important;
+	background-color: #111 !important;
 }
 .prm-primary-bg.prm-hue4, prm-spinner.prm-hue4.overlay-cover.light-on-dark:after, prm-search-bar.prm-hue4, prm-journals-search-bar.prm-hue4 {
-    background-color: #111;
+	background-color: #111;
 }
 
 /* search bar color change */
 
 .prm-primary-bg, prm-journals-search-bar, prm-search-bar, prm-spinner.overlay-cover.light-on-dark:after {
-    color: #333;
-    background-color: #ffc600;
+	color: #333;
+	background-color: #ffc600;
 }
 
 /* make logo clickable */
 
 prm-logo div.product-logo {
-    display:none;
+	display: none;
 }
 prm-logo div.product-logo-local {
-    display: flex;
+	display: flex;
 }
 prm-logo .product-logo a:hover {
-    background-color:transparent;
-    text-transform:none;
-    box-shadow: none;
+	background-color: transparent;
+	text-transform: none;
+	box-shadow: none;
+}
+
+/*re-order My Library Card and Sign in/out links*/
+
+.md-toolbar-tools .md-fab-action-item:nth-child(1) {
+	position: absolute;
+	right: 300px;
+	top: 0;
+}
+.md-toolbar-tools .md-fab-action-item:nth-child(2) {
+	position: absolute;
+	right: 150px;
+	top: 0;
+}
+.md-toolbar-tools .md-fab-action-item:nth-child(3) {
+	position: absolute;
+	right: 0px;
+	top: 0;
+}
+
+/*Color of Menu in Mobile View */ 
+prm-main-menu[menu-type="full"] md-card .md-headline {
+	color: #fff;
+}
+
+/*Hide Subhead*/ 
+prm-main-menu[menu-type=full] md-card-title md-card-title-text:only-child .md-subhead {
+	padding-top: .35em;
+	font-size: inherit;
+	display: none;
 }

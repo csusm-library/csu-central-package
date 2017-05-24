@@ -42,6 +42,11 @@ prm-logo .product-logo a:hover {
     text-transform:none;
     box-shadow: none;
 }
+prm-logo .logo-image, prm-logo img {
+	max-height: 100%;
+	width: 350px;
+}
+
 
 /* light top background */
 
@@ -51,3 +56,38 @@ div.top-nav-bar, ._md-fab-toolbar-wrapper {
 div.top-nav-bar * {
     color: #035594 !important;
 }
+
+/* SJSU customization */
+
+    .prm-full-view-dialog~.close-button {
+        background-color: #5c92bd;
+    }
+
+
+    prm-alert-bar md-divider, button[aria-label="DISMISS"] {
+        display: none;
+    }
+
+    .user-button-text span[class~='user-language'] {
+        display: none;
+    }
+
+    prm-page-nav-menu {
+        display: none;
+    }
+
+    prm-full-view-service-container prm-search-result-availability-line {
+        display: none;
+    }
+
+    prm-user-area {
+	padding-top: 12px;
+    }
+
+
+/*adjusts the order of Main Menu Links*/
+[aria-label="mainmenu.label.library_search"]{order:0}
+[aria-label="mainmenu.label.citation_search"]{order:1}
+[aria-label="mainmenu.label.journal_a-z"]{order:2}
+[aria-label="Browse"]{order:3}
+[aria-label="nui.mainmenu.label.tags"]{order:4}

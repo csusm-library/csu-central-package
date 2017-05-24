@@ -3,51 +3,163 @@
 /* navbar color change */
 
 .prm-primary-bg, prm-spinner.overlay-cover.light-on-dark:after, prm-search-bar, prm-journals-search-bar {
-    color: white;
-    background-color: #fff;
+	color: white;
+	background-color: #fff;
 }
 .prm-primary-bg.prm-hue1, prm-spinner.prm-hue1.overlay-cover.light-on-dark:after, prm-topbar .top-nav-bar, prm-search-bar.prm-hue1, prm-journals-search-bar.prm-hue1 {
-    background-color: #fff;
+	background-color: #fff;
 }
 .prm-primary-bg.prm-hue2, prm-spinner.prm-hue2.overlay-cover.light-on-dark:after, prm-search-bar.prm-hue2, prm-journals-search-bar.prm-hue2, md-backdrop.md-opaque {
-    background-color: #fff;
+	background-color: #fff;
 }
 .prm-primary-bg.prm-hue3, prm-spinner.prm-hue3.overlay-cover.light-on-dark:after, prm-search-bar.prm-hue3, prm-journals-search-bar.prm-hue3 {
-    background-color: #fff;
+	background-color: #fff;
 }
 .prm-primary-bg.prm-hue3-important, prm-spinner.prm-hue3-important.overlay-cover.light-on-dark:after, prm-user-area md-fab-toolbar.md-is-open md-fab-trigger .md-fab-toolbar-background, prm-user-area md-fab-toolbar.md-is-open md-fab-trigger ._md-fab-toolbar-background, prm-search-bar.prm-hue3-important, prm-journals-search-bar.prm-hue3-important {
-    background-color: #fff !important;
+	background-color: #fff !important;
 }
 .prm-primary-bg.prm-hue4, prm-spinner.prm-hue4.overlay-cover.light-on-dark:after, prm-search-bar.prm-hue4, prm-journals-search-bar.prm-hue4 {
-    background-color: #fff;
+	background-color: #fff;
 }
-
 /* search bar color change */
 
 .prm-primary-bg, prm-journals-search-bar, prm-search-bar, prm-spinner.overlay-cover.light-on-dark:after {
-    color: #333;
-    background-color: #fff;
+	color: #333;
+	background-color: #fff;
 }
-
 /* make logo clickable */
 
 prm-logo div.product-logo {
-    display:none;
+	display: none;
 }
 prm-logo div.product-logo-local {
-    display: flex;
+	display: flex;
 }
 prm-logo .product-logo a:hover {
-    background-color:transparent;
-    text-transform:none;
-    box-shadow: none;
+	background-color: transparent;
+	text-transform: none;
+	box-shadow: none;
 }
-
 /* light top background */
 
 div.top-nav-bar, ._md-fab-toolbar-wrapper {
-    border-bottom: 2px solid #eee;
+	border-bottom: 2px solid #eee;
 }
 div.top-nav-bar * {
-    color: #222 !important;
+	color: #222 !important;
+}
+prm-facet div div div.sidebar-section.margin-top-small.margin-bottom-medium.compensate-padding-left:nth-child(2) {
+	order: 100;
+}
+prm-facet div div div.sidebar-section.margin-top-small.margin-bottom-medium.compensate-padding-left:nth-child(3) {
+	order: 100;
+}
+/**CSUN Added after Central package**/
+
+prm-logo .logo-image {
+	width: 100%;
+	height: auto;
+}
+prm-topbar prm-logo {
+	z-index: 10;
+	height: 100%;
+	max-width: 400px;
+}
+a:link, a:visited, a:hover, a:active {
+	text-decoration: underline;
+}
+a:link, a:visited {
+	color: #337ab7;
+}
+.video-container {
+	position: relative;
+	padding-bottom: 56.25%;
+	padding-top: 30px;
+	height: 0;
+	overflow: hidden;
+}
+.video-container iframe, .video-container object, .video-container embed {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+/* User Menu SPace Display*/
+/*adjusts the order of Main Menu Links*/
+/*[aria-label="mainmenu.label.library_search"]{order:0}
+[aria-label="Browse"]{order:1}
+[aria-label="mainmenu.label.journal_a-z"]{order:2}
+[aria-label="mainmenu.label.citation_search"]{order:3}
+[aria-label="nui.mainmenu.label.tags"]{order:4}
+*/
+/*Disable Tags*/ 
+.md-button[aria-label="nui.mainmenu.label.tags"] {
+	display: none;
+}
+.md-button[aria-label="nui.mainmenu.label.tags"] {
+	display: none;
+}
+[aria-label="Tags"] {
+	display: none;
+}
+#tags {
+	display: none;
+}
+
+
+
+
+/*this is for the Full Display*/
+
+
+prm-service-header {
+	order: 0;
+}
+#action_list {
+	order: 1;
+}
+#getit_link1_0 {
+	order: 2;
+}
+#getit_link2 {
+	order: 3;
+}
+#links {
+	order: 4;
+}
+#details {
+	order: 5;
+}
+#virtualBrowse {
+	order: 6;
+}
+.full-view-inner-container {
+	padding-bottom: 10em;
+	display: flex;
+	flex-direction: column;
+}
+[aria-label="In the library"] {
+	order: 0 !important;
+}
+[aria-label="Send To"] {
+	order: 1 !important;
+}
+[aria-label="View It"] {
+	order: 2 !important;
+}
+[aria-label="Get it"] {
+	order: 3 !important;
+}
+[aria-label="Links"] {
+	order: 4 !important;
+}
+[aria-label="Details"] {
+	order: 5 !important;
+}
+[aria-label="Virtual Browse"] {
+	order: 6 !important;
+}
+prm-alma-more-inst {
+	display: none;
 }

@@ -16,7 +16,6 @@
 
 })
 
-
 var app = angular.module('viewCustom', ['angularLoad']);
 
 
@@ -40,7 +39,7 @@ var app = angular.module('viewCustom', ['angularLoad']);
   });
 
 
-//add libchat box  
+//add libchat box
 var s=document.createElement('script');
 s.id='localScript';
 s.src='//v2.libanswers.com/load_chat.php?hash=8c0496fac5d8ab8f9d72f363985cdf46';
@@ -49,6 +48,10 @@ document.body.appendChild(s);
 
 //add Show Results for
 app.component('prmFacetAfter', {
+	bindings: {
+		        parentCtrl: '<'
+    },
+
     controller: function($location) {
 	var path = $location.absUrl().split('?')[0];
 	var searchTerm = $location.search().query.split(',')[2];
@@ -57,8 +60,8 @@ app.component('prmFacetAfter', {
 	var scope = '&search_scope=01CALS';
 	var sort = $location.search().sortby;
 	var rest = '&vid=01CALS_SJO&lang=en_US&offset=0';
-	var csulink = path+'?query='+query+tab+scope+'&sortby='+sort+rest; 
-	var sjplink = 'http://discover.sjlibrary.org/iii/encore_sjpl/search/C__S'+searchTerm+'__Orightresult__U?lang=eng&suite=sjpl';	
+	var csulink = path+'?query='+query+tab+scope+'&sortby='+sort+rest;
+	var sjplink = 'http://discover.sjlibrary.org/iii/encore_sjpl/search/C__S'+searchTerm+'__Orightresult__U?lang=eng&suite=sjpl';
  	//console.log(sjplink);
 
         angular.element(document).ready(function () {
@@ -68,43 +71,36 @@ app.component('prmFacetAfter', {
                 //console.log(eNode.text());
            }
 
-	   var rNode = angular.element(document.querySelectorAll("div[ng-if='$ctrl.showPcAvailability']"));
-	   if (rNode != null && eNode != undefined){
-		rNode.remove();
-           	//console.log('remove it');
-	   }
-        });
+	   });
+	var vm = this;
+	vm.parentCtrl.showPcAvailability = false;
+
+
      }
 });
 
 
+//overrite user area
+app.component('prmUserAreaAfter', {
+    bindings: {
+        parentCtrl: '<'
+    },
+    controller: function($compile, $scope, $templateCache, $element) {
+      $templateCache.put('components/search/topbar/userArea/user-area.html', `
+          <div layout='row' layout-align="center center">
+            <prm-library-card-menu></prm-library-card-menu>
+            <prm-authentication layout="flex" [is-logged-in]="$ctrl.userName().length > 0"></prm-authentication>
+          </div>`);
 
+      $compile($element.parent())($scope);
 
-
-//test below
-
-/* app.controller('SearchBarAfterController', [function () {
-        var vm = this;
-
-
-        vm.getSelectdScope = getSelectdScope;
-        vm.getQuery = getQuery;
-
-
-        function getSelectdScope() {
-            return vm.parentCtrl.scopeField;
-        }
-
-        function getQuery() {
-            return vm.parentCtrl.mainSearchField;
-        }
-    }]);
-
-
-app.component('prmSearchBarAfter', {
-    bindings: { parentCtrl: '<'},
-    controller: 'SearchBarAfterController',
-    template: '<div layout="row" layout-align="center center"> <md-card flex="80"><md-card-title><md-card-title-text><span class="md-headline">This is a demo presenting the ability to display query information below the search box</span><span class="md-subhead">Query: {{$ctrl.getQuery()}}</span><span class="md-subhead">Scope: {{$ctrl.getSelectdScope()}}</span></md-card-title-text></md-card-title></md-card></div>'
+    }
 });
-*/
+
+
+
+
+
+
+
 

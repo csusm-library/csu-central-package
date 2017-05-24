@@ -1,5 +1,15 @@
 /*** San Bernardino (01CALS_USB) ***/
 
+/*Journal Search*/
+prm-alphabet-toolbar .md-button {
+  color:#000;
+}
+
+prm-alphabet-toolbar .md-button:hover:not([disabled]) {
+  background-color:#14304d;
+  color:#FFF;
+}
+
 /* navbar color change */
 
 .prm-primary-bg, prm-spinner.overlay-cover.light-on-dark:after, prm-search-bar, prm-journals-search-bar {
@@ -16,7 +26,7 @@
     background-color: #0065BD;
 }
 .prm-primary-bg.prm-hue3-important, prm-spinner.prm-hue3-important.overlay-cover.light-on-dark:after, prm-user-area md-fab-toolbar.md-is-open md-fab-trigger .md-fab-toolbar-background, prm-user-area md-fab-toolbar.md-is-open md-fab-trigger ._md-fab-toolbar-background, prm-search-bar.prm-hue3-important, prm-journals-search-bar.prm-hue3-important {
-    background-color: #0065BD !important;
+    background-color: #14304d !important;
 }
 .prm-primary-bg.prm-hue4, prm-spinner.prm-hue4.overlay-cover.light-on-dark:after, prm-search-bar.prm-hue4, prm-journals-search-bar.prm-hue4 {
     background-color: #0065BD;
@@ -42,3 +52,133 @@ prm-logo .product-logo a:hover {
     text-transform:none;
     box-shadow: none;
 }
+
+prm-user-area .user-menu-button .user-name {
+  text-transform: none;
+  font-weight: 600;
+  color: #FFF;
+  text-align:left;
+  max-width:150px;
+}
+
+prm-user-area .user-menu-button .user-language {
+  font-size: .85em;
+  font-weight: 400;
+}
+
+.hoverable-over-dark, .md-button.button-over-dark, prm-main-menu[menu-type=full] .md-button.md-focused, prm-main-menu[menu-type=full] .md-button .md-input-container-dummy>.md-select-dummy:focus, prm-main-menu[menu-type=full] .md-button:focus, prm-main-menu[menu-type=full] .md-button:hover, prm-main-menu[menu-type=full] .md-button md-select:focus, prm-main-menu[menu-type=full] .overlay-menu-item.md-focused, prm-main-menu[menu-type=full] .overlay-menu-item .md-input-container-dummy>.md-select-dummy:focus, prm-main-menu[menu-type=full] .overlay-menu-item:focus, prm-main-menu[menu-type=full] .overlay-menu-item:hover, prm-main-menu[menu-type=full] .overlay-menu-item md-select:focus, prm-main-menu[menu-type=full] md-card:focus, prm-main-menu[menu-type=full] md-card:hover, prm-topbar .md-button, prm-user-area .md-button.user-menu-button, prm-user-area md-fab-toolbar ._md-fab-action-item .md-button, prm-user-area md-fab-toolbar ._md-fab-action-item md-input-container, prm-user-area md-fab-toolbar .md-fab-action-item .md-button, prm-user-area md-fab-toolbar .md-fab-action-item md-input-container {
+  color:#fff;
+}
+
+prm-topbar prm-logo {
+  max-width:413px;
+}
+
+prm-topbar {
+  height: 98px;
+  border-bottom: #555 solid;
+}
+
+prm-logo .logo-image, prm-logo img {
+	width: 100%;
+	height: auto;
+	margin-left: -13px;
+}
+
+.prm-primary-bg.prm-hue1, prm-spinner.prm-hue1.overlay-cover.light-on-dark:after, prm-topbar .top-nav-bar, prm-search-bar.prm-hue1, prm-journals-search-bar.prm-hue1 {
+  background-color: #14304D;
+}
+
+
+
+@media (max-width: 1223px) and (min-width: 901px) {
+     prm-topbar {
+       height:75px;
+    }
+}
+
+@media (max-width: 900px) {
+     prm-topbar {
+       height:65px;
+    }
+}
+
+.login-dialog .collapsable-container md-list md-list-item .md-list-item-inner, .login-dialog .md-list[class$=-line] md-list-item .md-list-item-text .list-item-title, .login-dialog .md-list[class$=-line] md-list-item .md-list-item-text h3, .login-dialog .md-list[class$=-line] md-list-item>.md-no-style .md-list-item-text .list-item-title, .login-dialog .md-list[class$=-line] md-list-item>.md-no-style .md-list-item-text h3, .login-dialog .md-list md-list-item .md-list-item-text .list-item-title, .login-dialog .md-list md-list-item .md-list-item-text h3, .login-dialog .md-list md-list-item>.md-no-style .md-list-item-text .list-item-title, .login-dialog .md-list md-list-item>.md-no-style .md-list-item-text h3, .login-dialog md-list md-list-item .md-list-item-text .list-item-title, .login-dialog md-list md-list-item .md-list-item-text h3, .login-dialog md-list md-list-item>.md-no-style .md-list-item-text .list-item-title, .login-dialog md-list md-list-item>.md-no-style .md-list-item-text h3, .md-button.arrow-link-button .button-content, .md-button.arrow-link-button [link-arrow], .prm-links, .separate-list-items md-list-item .item-loader-with-text .md-button, .tiles-grid-tile .tile-header .header-link .arrow-icon, .tiles-grid-tile .tile-header .header-link:hover, .tiles-grid-tile .tile-header .md-button, a, md-grid-tile .tile-header .header-link .arrow-icon, md-grid-tile .tile-header .header-link:hover, md-grid-tile .tile-header .md-button, md-input-container.has-fixed-message [ng-message] a, md-list-item.list-item-as-link, md-tabs.tabs-as-app .back-button, md-tabs.tabs-as-links md-tab-item, md-tabs.tabs-as-links md-tab-item:not([disabled]) {
+  color:#0060F9;
+}
+
+.md-button.arrow-link-button .button-content:focus, .md-button.arrow-link-button .button-content:hover, .md-button.arrow-link-button .hover.button-content, .md-button.arrow-link-button:focus .button-content, .md-button.arrow-link-button:hover .button-content, .prm-links-background.prm-hue-1, .recommendations-title.hover>span>span, .recommendations-title:hover>span>span, a.hover, a:focus, a:hover, prm-citation-trails-item.active-item md-card>.md-button:focus .item-title span, prm-citation-trails-item.active-item md-card>.md-button:hover .item-title span {
+  background-color: #CAE9FF; 
+}
+
+.md-button.arrow-link-button .button-content:focus, .md-button.arrow-link-button .button-content:hover, .md-button.arrow-link-button .hover.button-content, .md-button.arrow-link-button:focus .button-content, .md-button.arrow-link-button:hover .button-content, .prm-links-hover.prm-hue-1, .recommendations-title.hover>span>span, .recommendations-title:hover>span>span, a.hover, a:focus, a:hover, prm-citation-trails-item.active-item md-card>.md-button:focus .item-title span, prm-citation-trails-item.active-item md-card>.md-button:hover .item-title span {
+  color: #2F6B9A;
+}
+
+.md-button.button-notice._md-focused:not([disabled]), .md-button.button-notice.hovered:not([disabled]), .md-button.button-notice.md-focused:not([disabled]), .md-button.button-notice:focus:not([disabled]), .md-button.button-notice:hover:not([disabled]) {
+  color: #7D4800;
+  background-color:#E4CEB0;
+}
+
+.bar prm-authentication .md-button, .md-button.button-as-link {
+  color: #206CA9;
+}
+
+.bar prm-authentication .md-button.link-alt-color, .bar prm-authentication .section-title prm-icon.md-button, .md-button.button-as-link.link-alt-color, .section-title .bar prm-authentication prm-icon.md-button, .section-title prm-icon.md-button.button-as-link {
+  color:#116C75;
+}
+
+.primo-scrollbar::-webkit-scrollbar-thumb, md-dialog-content::-webkit-scrollbar-thumb {
+  background-color: #6D6D6D;
+}
+
+md-input-container label, md-input-container label:not(.md-no-float):not(._md-container-ignore) {
+  color:#000;
+}
+
+.md-button.button-link, .tiles-grid-tile .tile-content>.md-button, md-grid-tile .tile-content>.md-button {
+  color:#30638C;
+}
+
+.md-button.button-link._md-focused:not([disabled]), .md-button.button-link.hovered:not([disabled]), .md-button.button-link.md-focused:not([disabled]), .md-button.button-link:focus:not([disabled]), .md-button.button-link:hover:not([disabled]), .tiles-grid-tile .tile-content>.md-button._md-focused:not([disabled]), .tiles-grid-tile .tile-content>.md-button.hovered:not([disabled]), .tiles-grid-tile .tile-content>.md-button.md-focused:not([disabled]), .tiles-grid-tile .tile-content>.md-button:focus:not([disabled]), .tiles-grid-tile .tile-content>.md-button:hover:not([disabled]), md-grid-tile .tile-content>.md-button._md-focused:not([disabled]), md-grid-tile .tile-content>.md-button.hovered:not([disabled]), md-grid-tile .tile-content>.md-button.md-focused:not([disabled]), md-grid-tile .tile-content>.md-button:focus:not([disabled]), md-grid-tile .tile-content>.md-button:hover:not([disabled]) {
+  color:#30638C;
+  background-color:#EFEFEF;
+}
+
+a {
+  color:#2B699A;
+}
+
+.login-dialog .collapsable-container md-list md-list-item .md-list-item-inner, .login-dialog .md-list[class$=-line] md-list-item .md-list-item-text .list-item-title, .login-dialog .md-list[class$=-line] md-list-item .md-list-item-text h3, .login-dialog .md-list[class$=-line] md-list-item>.md-no-style .md-list-item-text .list-item-title, .login-dialog .md-list[class$=-line] md-list-item>.md-no-style .md-list-item-text h3, .login-dialog .md-list md-list-item .md-list-item-text .list-item-title, .login-dialog .md-list md-list-item .md-list-item-text h3, .login-dialog .md-list md-list-item>.md-no-style .md-list-item-text .list-item-title, .login-dialog .md-list md-list-item>.md-no-style .md-list-item-text h3, .login-dialog md-list md-list-item .md-list-item-text .list-item-title, .login-dialog md-list md-list-item .md-list-item-text h3, .login-dialog md-list md-list-item>.md-no-style .md-list-item-text .list-item-title, .login-dialog md-list md-list-item>.md-no-style .md-list-item-text h3, .md-button.arrow-link-button .button-content, .md-button.arrow-link-button [link-arrow], .prm-links, .separate-list-items md-list-item .item-loader-with-text .md-button, .tiles-grid-tile .tile-header .header-link .arrow-icon, .tiles-grid-tile .tile-header .header-link:hover, .tiles-grid-tile .tile-header .md-button, a, md-grid-tile .tile-header .header-link .arrow-icon, md-grid-tile .tile-header .header-link:hover, md-grid-tile .tile-header .md-button, md-input-container.has-fixed-message [ng-message] a, md-list-item.list-item-as-link, md-tabs.tabs-as-app .back-button, md-tabs.tabs-as-links md-tab-item, md-tabs.tabs-as-links md-tab-item:not([disabled]) {
+  color:#2B699A;
+}
+
+.getitNoHoldings .requestOptionNoHoldings input {
+  color: #2B699A;
+}
+
+.fulltext>span:first-of-type:hover, .fulltext_linktorsrc>span:first-of-type:hover, .not_restricted>span:first-of-type:hover, .prm-positive:hover, .status-available:hover, [class*=available]>span:first-of-type:hover, [class*=FT]>span:first-of-type:hover {
+  background-color:#CAE9FF;
+}
+
+.duedate>span:first-of-type, .prm-negative, .restricted>span:first-of-type, .status-unavailable, [class*=no_]>span:first-of-type, [class*=unavailable]>span:first-of-type {
+  color:#6B6B6B;
+}
+
+._md-focused.md-button.button-over-dark:not([disabled]), .hoverable-over-dark._md-focused:not([disabled]), .hoverable-over-dark.hovered:not([disabled]), .hoverable-over-dark.md-focused:not([disabled]), .hoverable-over-dark:focus:not([disabled]), .hoverable-over-dark:hover:not([disabled]), .hovered.md-button.button-over-dark:not([disabled]), .md-button.button-over-dark:focus:not([disabled]), .md-button.button-over-dark:hover:not([disabled]), .md-focused.md-button.button-over-dark:not([disabled]), prm-main-menu[menu-type=full] ._md-focused.md-button.md-focused:not([disabled]), prm-main-menu[menu-type=full] ._md-focused.md-button:not([disabled]):focus, prm-main-menu[menu-type=full] ._md-focused.md-button:not([disabled]):hover, prm-main-menu[menu-type=full] ._md-focused.overlay-menu-item.md-focused:not([disabled]), prm-main-menu[menu-type=full] ._md-focused.overlay-menu-item:not([disabled]):focus, prm-main-menu[menu-type=full] ._md-focused.overlay-menu-item:not([disabled]):hover, prm-main-menu[menu-type=full] .hovered.md-button.md-focused:not([disabled]), prm-main-menu[menu-type=full] .hovered.md-button:not([disabled]):focus, prm-main-menu[menu-type=full] .hovered.md-button:not([disabled]):hover, prm-main-menu[menu-type=full] .hovered.overlay-menu-item.md-focused:not([disabled]), prm-main-menu[menu-type=full] .hovered.overlay-menu-item:not([disabled]):focus, prm-main-menu[menu-type=full] .hovered.overlay-menu-item:not([disabled]):hover, prm-main-menu[menu-type=full] .md-button .md-input-container-dummy>._md-focused.md-select-dummy:not([disabled]):focus, prm-main-menu[menu-type=full] .md-button .md-input-container-dummy>.hovered.md-select-dummy:not([disabled]):focus, prm-main-menu[menu-type=full] .md-button .md-input-container-dummy>.md-focused.md-select-dummy:not([disabled]):focus, prm-main-menu[menu-type=full] .md-button .md-input-container-dummy>.md-select-dummy:focus:not([disabled]), prm-main-menu[menu-type=full] .md-button .md-input-container-dummy>.md-select-dummy:hover:not([disabled]):focus, prm-main-menu[menu-type=full] .md-button:focus:not([disabled]), prm-main-menu[menu-type=full] .md-button:hover:not([disabled]), prm-main-menu[menu-type=full] .md-button md-select._md-focused:not([disabled]):focus, prm-main-menu[menu-type=full] .md-button md-select.hovered:not([disabled]):focus, prm-main-menu[menu-type=full] .md-button md-select.md-focused:not([disabled]):focus, prm-main-menu[menu-type=full] .md-button md-select:focus:not([disabled]), prm-main-menu[menu-type=full] .md-button md-select:hover:not([disabled]):focus, prm-main-menu[menu-type=full] .md-focused.md-button:not([disabled]), prm-main-menu[menu-type=full] .md-focused.overlay-menu-item:not([disabled]), prm-main-menu[menu-type=full] .overlay-menu-item .md-input-container-dummy>._md-focused.md-select-dummy:not([disabled]):focus, prm-main-menu[menu-type=full] .overlay-menu-item .md-input-container-dummy>.hovered.md-select-dummy:not([disabled]):focus, prm-main-menu[menu-type=full] .overlay-menu-item .md-input-container-dummy>.md-focused.md-select-dummy:not([disabled]):focus, prm-main-menu[menu-type=full] .overlay-menu-item .md-input-container-dummy>.md-select-dummy:focus:not([disabled]), prm-main-menu[menu-type=full] .overlay-menu-item .md-input-container-dummy>.md-select-dummy:hover:not([disabled]):focus, prm-main-menu[menu-type=full] .overlay-menu-item:focus:not([disabled]), prm-main-menu[menu-type=full] .overlay-menu-item:hover:not([disabled]), prm-main-menu[menu-type=full] .overlay-menu-item md-select._md-focused:not([disabled]):focus, prm-main-menu[menu-type=full] .overlay-menu-item md-select.hovered:not([disabled]):focus, prm-main-menu[menu-type=full] .overlay-menu-item md-select.md-focused:not([disabled]):focus, prm-main-menu[menu-type=full] .overlay-menu-item md-select:focus:not([disabled]), prm-main-menu[menu-type=full] .overlay-menu-item md-select:hover:not([disabled]):focus, prm-main-menu[menu-type=full] md-card._md-focused:not([disabled]):focus, prm-main-menu[menu-type=full] md-card._md-focused:not([disabled]):hover, prm-main-menu[menu-type=full] md-card.hovered:not([disabled]):focus, prm-main-menu[menu-type=full] md-card.hovered:not([disabled]):hover, prm-main-menu[menu-type=full] md-card.md-focused:not([disabled]):focus, prm-main-menu[menu-type=full] md-card.md-focused:not([disabled]):hover, prm-main-menu[menu-type=full] md-card:focus:not([disabled]), prm-main-menu[menu-type=full] md-card:hover:not([disabled]), prm-topbar ._md-focused.md-button:not([disabled]), prm-topbar .hovered.md-button:not([disabled]), prm-topbar .md-button:focus:not([disabled]), prm-topbar .md-button:hover:not([disabled]), prm-topbar .md-focused.md-button:not([disabled]), prm-user-area ._md-focused.md-button.user-menu-button:not([disabled]), prm-user-area .hovered.md-button.user-menu-button:not([disabled]), prm-user-area .md-button.user-menu-button:focus:not([disabled]), prm-user-area .md-button.user-menu-button:hover:not([disabled]), prm-user-area .md-focused.md-button.user-menu-button:not([disabled]), prm-user-area md-fab-toolbar ._md-fab-action-item ._md-focused.md-button:not([disabled]), prm-user-area md-fab-toolbar ._md-fab-action-item .hovered.md-button:not([disabled]), prm-user-area md-fab-toolbar ._md-fab-action-item .md-button:focus:not([disabled]), prm-user-area md-fab-toolbar ._md-fab-action-item .md-button:hover:not([disabled]), prm-user-area md-fab-toolbar ._md-fab-action-item .md-focused.md-button:not([disabled]), prm-user-area md-fab-toolbar ._md-fab-action-item md-input-container._md-focused:not([disabled]), prm-user-area md-fab-toolbar ._md-fab-action-item md-input-container.hovered:not([disabled]), prm-user-area md-fab-toolbar ._md-fab-action-item md-input-container.md-focused:not([disabled]), prm-user-area md-fab-toolbar ._md-fab-action-item md-input-container:focus:not([disabled]), prm-user-area md-fab-toolbar ._md-fab-action-item md-input-container:hover:not([disabled]), prm-user-area md-fab-toolbar .md-fab-action-item ._md-focused.md-button:not([disabled]), prm-user-area md-fab-toolbar .md-fab-action-item .hovered.md-button:not([disabled]), prm-user-area md-fab-toolbar .md-fab-action-item .md-button:focus:not([disabled]), prm-user-area md-fab-toolbar .md-fab-action-item .md-button:hover:not([disabled]), prm-user-area md-fab-toolbar .md-fab-action-item .md-focused.md-button:not([disabled]), prm-user-area md-fab-toolbar .md-fab-action-item md-input-container._md-focused:not([disabled]), prm-user-area md-fab-toolbar .md-fab-action-item md-input-container.hovered:not([disabled]), prm-user-area md-fab-toolbar .md-fab-action-item md-input-container.md-focused:not([disabled]), prm-user-area md-fab-toolbar .md-fab-action-item md-input-container:focus:not([disabled]), prm-user-area md-fab-toolbar .md-fab-action-item md-input-container:hover:not([disabled]) {
+  background-color: rgba(0, 101, 189, 0.85);
+}
+
+.getit>span:first-of-type, .md-button.arrow-link-button prm-search-result-frbr-line .button-content>prm-icon:first-child, .prm-notice, .status-maybe, [class*=_more]>span:first-of-type, [class*=_unknown]>span:first-of-type, [class*=check_]>span:first-of-type, [class*=does_not_exist]>span:first-of-type, [class*=may_]>span:first-of-type, [class*=NFT]>span:first-of-type, prm-search-result-frbr-line .md-button.arrow-link-button .button-content>prm-icon:first-child, prm-search-result-frbr-line a>prm-icon:first-child {
+  color:#A0681A;
+}
+
+prm-facet [sticky].is-stuck {
+  padding-bottom:0em;
+}
+
+prm-search-bookmark-filter #favorites-button:hover {
+  background-color:rgba(0, 101, 189, 0.85); 
+}
+
+
