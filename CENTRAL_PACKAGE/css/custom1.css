@@ -1,19 +1,6 @@
 /** CSU CUSTOM STYLES **/
 
-/* move facets to the left */
-
-.main.padded-container {
-	-webkit-flex-direction: row-reverse;
-	-ms-flex-direction: row-reverse;
-	flex-direction: row-reverse;
-}
-prm-page-nav-menu {
-	-webkit-flex: 0 0 0;
-	-ms-flex: 0 0 0px;
-	flex: 0 0 0;
-}
-
-/* make them 25%-30% wider */
+/* make facets 25%-30% wider */
 
 .flex-gt-md-25.sidebar{
 	webkit-flex: 0 0 25%;
@@ -37,13 +24,6 @@ prm-page-nav-menu {
 }
 #mainResults {
 	padding-left: 1em;
-}
-
-/* move pager to right */
-
-prm-page-nav-menu {
-	left: auto !important;
-	right: 1em;
 }
 
 /* un-bold facet values */
@@ -92,7 +72,7 @@ prm-brief-result .item-title span {
 	background-color: #000 !important;
 }
 
-/* make sure image is responsive */
+/* make sure logo is responsive */
 
 prm-topbar prm-logo {
 	width: 100% !important;
@@ -103,4 +83,26 @@ prm-topbar prm-logo {
 prm-logo .logo-image, prm-logo img {
 	width: 100%;
 	height: auto;
+}
+
+/* hide tag feature */
+
+.md-button[aria-label="nui.mainmenu.label.tags"],.md-button[aria-label="TAGS"] {
+	display:none;
+}
+
+[translate="brief.results.tabs.tags"], prm-tags-list {
+	display: none;
+}
+
+/* hide pseduo-full text link in full record */
+
+prm-full-view-service-container  prm-search-result-availability-line {
+	display: none;
+}
+
+/* temp fix for browse background color */
+
+.prm-primary-bg, prm-browse-search-bar, prm-journals-search-bar, prm-search-bar, prm-spinner.overlay-cover.light-on-dark:after, prm-tags-search-bar {
+	background-color: inherit;
 }
