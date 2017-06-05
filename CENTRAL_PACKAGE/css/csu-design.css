@@ -1,6 +1,6 @@
 /** CSU CUSTOM STYLES **/
 
-/* make facets 25%-30% wider */
+/* make facets 25% wide */
 
 .flex-gt-md-25.sidebar{
 	webkit-flex: 0 0 25%;
@@ -72,17 +72,27 @@ prm-brief-result .item-title span {
 	background-color: #000 !important;
 }
 
-/* make sure logo is responsive */
+/* make sure library logo is responsive and clickable */
 
 prm-topbar prm-logo {
 	width: 100% !important;
 	max-width: none;
 	min-width: 200px;
 }
-
 prm-logo .logo-image, prm-logo img {
 	width: 100%;
 	height: auto;
+}
+prm-logo div.product-logo {
+    display:none;
+}
+prm-logo div.product-logo-local {
+    display: flex;
+}
+prm-logo .product-logo a:hover {
+    background-color:transparent;
+    text-transform:none;
+    box-shadow: none;
 }
 
 /* hide tag feature */
@@ -90,7 +100,6 @@ prm-logo .logo-image, prm-logo img {
 .md-button[aria-label="nui.mainmenu.label.tags"],.md-button[aria-label="TAGS"] {
 	display:none;
 }
-
 [translate="brief.results.tabs.tags"], prm-tags-list {
 	display: none;
 }

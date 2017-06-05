@@ -1,0 +1,31 @@
+/* one-search logo */
+
+@media (max-width: 970px) {
+    .one-search {
+        display: none;
+    }
+}
+@media (min-width: 970px) {
+    .search-wrapper {
+        margin-left: 25%;
+    }
+    .search-wrapper .flex-lg-10 {
+        display: none;
+    }
+    .search-wrapper .flex-lg-65 {
+        max-width: 80%;
+    }
+    .one-search {
+        display: block;
+        width: 25%;
+        text-align: center;
+        margin-top: -60px;
+    }
+    .one-search img {
+        width: 90%;
+        max-width: 226px;
+    }
+    .one-search a, .one-search a:hover {
+        text-decoration: none;
+    }
+}

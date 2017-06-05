@@ -1,0 +1,31 @@
+{
+    "name": "csu-central-package",
+    "version": "1.0.0",
+    "description": "Cal State Primo Central Package.",
+    "main": "index.js",
+    "dependencies": {
+        "primo-explore-toggle-institutions": "1.0.0"
+    },
+    "devDependencies": {},
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/dswalker/csu-central-package.git"
+    },
+    "keywords": [
+        "library",
+        "catalog",
+        "discovery",
+        "primo",
+        "primo-explore",
+        "exlibris"
+    ],
+    "author": "David Walker",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/dswalker/csu-central-package/issues"
+    },
+    "homepage": "https://github.com/dswalker/csu-central-package#readme"
+}
