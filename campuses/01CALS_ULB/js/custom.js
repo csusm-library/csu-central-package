@@ -34,5 +34,8 @@
   s.id='localScript';
   s.src='//v2.libanswers.com/load_chat.php?hash=20578764db325563b7d0916b60282165';
   document.body.appendChild(s);
+  var d=document.createElement('div');
+  d.id='libchat_20578764db325563b7d0916b60282165';
+  document.body.appendChild(d);
 
 })();

@@ -70,6 +70,7 @@ prm-service-header { order: 0; }
     flex-direction: column;
 }
 
+/* Control order of Item Detail Sections in "Left-side Nav" panel. */
 [aria-label="In the library"] { order: 0 !important; }
 [aria-label="Online Access"] { order: 1 !important; }
 [aria-label="Send to"] { order: 2 !important; }
@@ -77,7 +78,46 @@ prm-service-header { order: 0; }
 [aria-label="Links"] { order: 4 !important; }
 [aria-label="Virtual Browse"] { order: 5 !important; }
 
+/* Control order of Send-To list links. */
+[name="Citation"] { order: 0; }
+[name="Print"] { order: 1; }
+[name="E-mail"] { order: 2; }
+[name="Permalink"] { order: 3; }
+[name="EndNote"] { order: 4; }
+[name="RISPushTo"] { order: 5; }
+[name="EasyBib"] { order: 6; }
+[name="SMS"] { order: 7; }
+[name="RefWorks"] { order: 8; }
+[name="Delicious"] { order: 9; }
+[name="e-shelf"] { order: 10; }
+[name="BibTeXPushTo"] { order: 11; }
+
+/* Hide the "Get It From Other Institutions" sub-section, under "In the Library" */
+prm-alma-more-inst { display: none; }
+
+/* Hide left-menu gap or blanked "tags" list-item in Item Details */
+[aria-label="Tags"] { display: none; }
+
 /* END: fresno.css */
 
+/* START: other-mods.css */
 
-/* The other-mods.css file is purposely empty. */
+/* Displays the title attribute for any item that has specific text in the title attribute */
+[title="Unavailable at Fresno State. See Request Options"]:after {
+  position: absolute;
+  content: attr(title);
+  float: right;
+  margin-left: 22px;
+  top: 3px;
+  width: 350px;
+  height: 1.25rem;
+  color: #e08303;
+}
+
+/* Hides the Primo Generated Status when the title attribute exists and the items have a specific status */
+button[title="Unavailable at Fresno State. See Request Options"] span.not_restricted,
+button[title="Unavailable at Fresno State. See Request Options"] span.does_not_exist_in_maininstitution {
+  display: none;
+}
+
+/* END: other-mods.css */

@@ -1,3 +1,115 @@
+/**Duplicated from Central Package**/
+/** CSU CUSTOM STYLES **/
+
+/* make facets 25%-30% wider */
+
+.flex-gt-md-25.sidebar{
+	webkit-flex: 0 0 25%;
+	flex: 0 0 25%;
+}
+@media (max-width: 1919px) and (min-width: 1280px) {
+	.flex-lg-20, .layout-lg-row>.flex-lg-20, .layout-row>.flex-lg-20 {
+		webkit-flex: 0 0 25%;
+		flex: 0 0 25%;
+		max-width: 25%;
+	}
+}
+.layout-row>.flex-gt-lg-10{
+	webkit-flex: 0 0 26%;
+	flex: 0 0 26%;
+	max-width: none;
+}
+.main{
+	webkit-flex: 0 0 55%;
+	flex: 0 0 55%;
+}
+#mainResults {
+	padding-left: 1em;
+}
+
+/* un-bold facet values */
+
+.section-content .md-chips .md-chip strong {
+	font-weight: normal!important;
+}
+
+/* results & full record have white background, facets have grey */
+
+body, html {
+    background-color: #fff;
+}
+.list-item-wrapper, .full-view-inner-container {
+	background-color: #fff;
+}
+.sidebar-inner-wrapper {
+	background-color: #efefef;
+	padding-top: 20px;
+	padding-bottom: 40px;
+	margin-right: 0;
+}
+prm-journals-search-bar .search-switch-buttons .md-button.switch-to-advanced, prm-search-bar .search-switch-buttons .md-button.switch-to-advanced {
+	color: #333;
+}
+
+/* google-style search term bold instead of highlighter */
+
+.text-highlight, mark {
+	box-shadow: none;
+}
+.searchword {
+	font-weight: bold;
+	color: #6a6a6a;
+}
+
+/* brief results link darker blue */
+
+prm-brief-result .item-title span {
+	color: #1a4c76;
+}
+
+/* overlay background darker */
+
+.prm-primary-bg.prm-hue2, prm-spinner.prm-hue2.overlay-cover.light-on-dark:after, prm-search-bar.prm-hue2, prm-journals-search-bar.prm-hue2, md-backdrop.md-opaque {
+	background-color: #000 !important;
+}
+
+/* make sure logo is responsive */
+
+prm-topbar prm-logo {
+	width: 100% !important;
+	max-width: none;
+	min-width: 200px;
+}
+
+prm-logo .logo-image, prm-logo img {
+	width: 100%;
+	height: auto;
+}
+
+/* hide tag feature */
+
+.md-button[aria-label="nui.mainmenu.label.tags"],.md-button[aria-label="TAGS"] {
+	display:none;
+}
+
+[translate="brief.results.tabs.tags"], prm-tags-list {
+	display: none;
+}
+
+/* hide pseudo-full text link in full record */
+
+prm-full-view-service-container  prm-search-result-availability-line {
+	display: none;
+}
+
+/* temp fix for browse background color */
+
+.prm-primary-bg, prm-browse-search-bar, prm-journals-search-bar, prm-search-bar, prm-spinner.overlay-cover.light-on-dark:after, prm-tags-search-bar {
+	background-color: inherit;
+}
+
+/**End Central Package Material**/
+
 /*** Northridge (01CALS_UNO) ***/
 
 /* navbar color change */
@@ -35,11 +147,8 @@ prm-logo div.product-logo {
 prm-logo div.product-logo-local {
 	display: flex;
 }
-prm-logo .product-logo a:hover {
-	background-color: transparent;
-	text-transform: none;
-	box-shadow: none;
-}
+
+
 /* light top background */
 
 div.top-nav-bar, ._md-fab-toolbar-wrapper {
@@ -56,15 +165,70 @@ prm-facet div div div.sidebar-section.margin-top-small.margin-bottom-medium.comp
 }
 /**CSUN Added after Central package**/
 
+/** Header Design**/
+prm-topbar {
+	height: 66px;
+}
 prm-logo .logo-image {
 	width: 100%;
 	height: auto;
 }
 prm-topbar prm-logo {
 	z-index: 10;
-	height: 100%;
-	max-width: 400px;
+	/*height: 100%;*/
+/*	max-width: 400px;*/
 }
+
+a.image-link
+{ background-color: transparent !important;
+box-shadow:none !important;
+}
+
+
+div.hide-xs.flex-50 {
+	flex: 1 1 10%;
+}
+
+.logo-container {
+	flex: 1 1 50%;
+	padding-left: .3em;
+}
+
+div.top-nav-bar.layout-row div.flex-xs-100.flex-50 {
+	flex: 1 1 1%;
+    max-width: 50%;
+    max-height: 100%;
+    box-sizing: border-box;
+}
+
+div.flex-container.logos {
+  padding:0 0 0 1em;
+  margin: 0;
+  -ms-box-orient: horizontal;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -moz-flex;
+  display: -webkit-flex;
+  display: flex;
+  flex: 2 2 50%;
+  max-height:100px;
+  width: 100%;
+  height: auto;
+  min-width: 200px;
+}
+div.wrap {
+ -webkit-flex-wrap: wrap;
+ /* flex-wrap: wrap;*/
+}
+
+.flex-item {
+margin: auto 0;
+text-align: left;
+}
+
+/*end header customization*/
+
 a:link, a:visited, a:hover, a:active {
 	text-decoration: underline;
 }
@@ -87,12 +251,13 @@ a:link, a:visited {
 }
 /* User Menu SPace Display*/
 /*adjusts the order of Main Menu Links*/
-/*[aria-label="mainmenu.label.library_search"]{order:0}
-[aria-label="Browse"]{order:1}
-[aria-label="mainmenu.label.journal_a-z"]{order:2}
-[aria-label="mainmenu.label.citation_search"]{order:3}
-[aria-label="nui.mainmenu.label.tags"]{order:4}
-*/
+a[aria-label="mainmenu.label.library_home"]{order:0}
+a[aria-label="Browse"]{order:1}
+a[aria-label="Databases"]{order:2}
+a[aria-label="libguides"]{order:3}
+a[aria-label="Journal Search"]{order:4}
+a[aria-label="Citation Search"]{order:5}
+
 /*Disable Tags*/ 
 .md-button[aria-label="nui.mainmenu.label.tags"] {
 	display: none;
@@ -107,11 +272,29 @@ a:link, a:visited {
 	display: none;
 }
 
+/**Hiding Tags in Mobile**/
 
+md-card.transparent-card.md-ink-ripple._md.md-primoExplore-theme.flex-gt-xs-45.flex-gt-sm-30.flex-100:first-child
+{
+	display:none !important;
+}
+
+/**Hiding Language in Mobile**/
+
+div.overlay-menu-item.layout-align-center-center.layout-row{
+	display:none;
+}
+
+/**icon sizing**/
+
+
+prm-search-result-thumbnail-container img {
+	width: auto;
+}
 
 
 /*this is for the Full Display*/
-
+/*
 
 prm-service-header {
 	order: 0;
@@ -162,4 +345,10 @@ prm-service-header {
 }
 prm-alma-more-inst {
 	display: none;
+}*/
+
+/*testing*/
+div.reveal {
+	border: 1px #FD0258 solid;
 }
+

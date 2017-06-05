@@ -82,7 +82,6 @@ prm-topbar {
 prm-logo .logo-image, prm-logo img {
 	width: 100%;
 	height: auto;
-	margin-left: -13px;
 }
 
 .prm-primary-bg.prm-hue1, prm-spinner.prm-hue1.overlay-cover.light-on-dark:after, prm-topbar .top-nav-bar, prm-search-bar.prm-hue1, prm-journals-search-bar.prm-hue1 {
@@ -181,4 +180,27 @@ prm-search-bookmark-filter #favorites-button:hover {
   background-color:rgba(0, 101, 189, 0.85); 
 }
 
+#action_list{order:3}
+#getit_link1_0 {order:1}
+#details {order:2;}
+#links {order:4;}
+#virtualBrowse {order:5;}
+
+.full-view-inner-container {
+    padding-bottom: 10em;
+    display: flex;
+    flex-direction: column;
+}
+
+[aria-label="Find in Library"] {order:6 !important;   }
+[aria-label="Details"] {order:7 !important;   }
+[aria-label="Send to"] {order:9 !important;   }
+[aria-label="Links"] {order:10 !important;   }
+[aria-label="Virtual Browse"] {order:11 !important;   }
+
+div.custom-links-container md-card:nth-child(2) {
+  display: none;
+}
+
+[aria-label="Tags"] {display:none;   }
 

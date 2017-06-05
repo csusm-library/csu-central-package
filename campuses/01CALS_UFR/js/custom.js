@@ -59,11 +59,6 @@ app.component('prmLogoAfter', {
 
 /* START: other-mods.js */
 
-// Write message below search box
-/*app.component('prmSearchBarAfter', {
-  template: '<span><br>Modifying the Central Package!</span>'
-});*/
-
 // Add extra search links to side-bar
 app.component('prmFacetAfter', {
   controller: function controller($location) {
@@ -79,16 +74,17 @@ app.component('prmFacetAfter', {
 
     /* Populate variables and links */
     var csuLink = path + '?query=' + query + tab + scope + '&sortby=' + sort + rest;
-    var csuServiceName = 'CSU+';
+    var csuServiceName = 'CSU+ Resource Sharing';
     var csuServiceNote = 'All CSU Campus Libraries';
     var libLink = 'https://sjvls.ent.sirsi.net/client/en_US/fhq/search/results?qu=' + searchTerm + '&te=';
     var libName = 'Fresno County Library';
-    var sectionTitle = 'Borrow from Other Libraries:';
+    var sectionTitle = 'Search other CSU libraries:';
 
     /* Create HTML output */
     /*var rowOne = "<div class='layout-row margin-bottom-small bold-text'><a href='" + libLink + "' target='_blank' title='" + libName + "'>" + libName + "</a></div>";*/
     var rowOne = "";
-    var rowTwo = "<div class='layout-row margin-bottom-small bold-text'><a href='" + csuLink + "' target='_blank' title='" + csuServiceNote + "'>" + csuServiceName + "</a></div>";
+    //var rowTwo = "<div class='layout-row margin-bottom-small bold-text'><a href='" + csuLink + "' target='_blank' title='" + csuServiceNote + "'>" + csuServiceName + "</a></div>";
+    var rowTwo = "<div class='layout-row margin-bottom-none'><a href='" + csuLink + "' target='_blank' title='" + csuServiceNote + "'><img src='https://library.fresnostate.edu/sites/all/assets/img/shared/csu-plus.png' alt='CSU+ Resource Sharing' width='50%'></a></div>";
 
     /* Output the HTML */
     angular.element(document).ready(function () {

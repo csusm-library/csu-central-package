@@ -4,31 +4,61 @@
 
 .prm-primary-bg, prm-spinner.overlay-cover.light-on-dark:after, prm-search-bar, prm-journals-search-bar {
     color: white;
-    background-color: #FFD400;
+    background-color: #FFCE00;
 }
-.prm-primary-bg.prm-hue1, prm-spinner.prm-hue1.overlay-cover.light-on-dark:after, prm-topbar .top-nav-bar, prm-search-bar.prm-hue1, prm-journals-search-bar.prm-hue1 {
-    background-color: #FFD400;
+.prm-primary-bg.prm-hue1, prm-topbar .top-nav-bar{
+    background-color: #FFFFFF;
 }
+
+.prm-spinner.prm-hue1.overlay-cover.light-on-dark:after, prm-search-bar.prm-hue1, prm-journals-search-bar.prm-hue1 {
+    background-color: #000000;
+}
+
 .prm-primary-bg.prm-hue2, prm-spinner.prm-hue2.overlay-cover.light-on-dark:after, prm-search-bar.prm-hue2, prm-journals-search-bar.prm-hue2, md-backdrop.md-opaque {
-    background-color: #FFD400;
+    background-color: #FFCE00;
 }
 .prm-primary-bg.prm-hue3, prm-spinner.prm-hue3.overlay-cover.light-on-dark:after, prm-search-bar.prm-hue3, prm-journals-search-bar.prm-hue3 {
-    background-color: #FFD400;
+    background-color: #FFCE00;
 }
 .prm-primary-bg.prm-hue3-important, prm-spinner.prm-hue3-important.overlay-cover.light-on-dark:after, prm-user-area md-fab-toolbar.md-is-open md-fab-trigger .md-fab-toolbar-background, prm-user-area md-fab-toolbar.md-is-open md-fab-trigger ._md-fab-toolbar-background, prm-search-bar.prm-hue3-important, prm-journals-search-bar.prm-hue3-important {
-    background-color: #FFD400 !important;
+    background-color: #FFCE00 !important;
 }
 .prm-primary-bg.prm-hue4, prm-spinner.prm-hue4.overlay-cover.light-on-dark:after, prm-search-bar.prm-hue4, prm-journals-search-bar.prm-hue4 {
-    background-color: #FFD400;
+    background-color: #FFCE00;
 }
 
 /* search bar color change */
 
-.prm-primary-bg, prm-journals-search-bar, prm-search-bar, prm-spinner.overlay-cover.light-on-dark:after {
-    color: #333;
-    background-color: #fff;
+.prm-primary-bg, prm-browse-search-bar, prm-journals-search-bar, prm-search-bar, prm-spinner.overlay-cover.light-on-dark:after {
+    color: #000;
+    background-color: #4A4F55;
 }
 
+/* simple search color */
+
+.search-switch-buttons .md-button.switch-to-simple, prm-tags-search-bar .search-switch-buttons .md-button.switch-to-simple {
+    color: #000;
+}
+
+/* advanced search color change */
+.md-button.switch-to-advanced, prm-search-bar .search-switch-buttons .md-button.switch-to-advanced {
+    color: #fff;
+}
+
+/* simple search wrapper color */
+.prm-search-bar .simple-search-wrapper .search-actions .md-button, prm-search-bar .search-switch-buttons .md-button {
+	color: #000
+	}
+
+/*main menu font size */
+
+prm-main-menu[menu-type="menu"] .md-button {
+	font-size: 15px;
+	color: #4A4F55;
+	font-weight: bold;
+	text-transform: none;
+}
+	
 /* make logo clickable */
 
 prm-logo div.product-logo {
@@ -44,7 +74,7 @@ prm-logo .product-logo a:hover {
 }
 /* Journal Alphabet */
 prm-alphabet-toolbar .md-button{ 
-color:#000 !important; 
+color:#fff !important; 
 } 
 
 /*Alphabet Hover Color*/ 
@@ -52,6 +82,20 @@ prm-alphabet-toolbar .md-button._md-focused:not([disabled]), prm-alphabet-toolba
 color: red; 
 background-color: hsla(0,0%,100%,.08); 
 } 
+
+/*Hides Tags feature in the main menu */
+
+.md-button[aria-label="nui.mainmenu.label.tags"]{display:none;}
+
+[aria-label="Tags"]{display:none;}
+
+#tags{display:none;}
+
+/* Hide tags feature in full display */
+
+div.custom-links-container md-card:nth-child(2) {
+                display: none;
+}
 
 
 /* light top background */

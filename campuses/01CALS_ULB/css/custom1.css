@@ -4,7 +4,6 @@
 /*** Long Beach (01CALS_ULB) ***/
 
 /* navbar color change */
-
 .prm-primary-bg, prm-spinner.overlay-cover.light-on-dark:after, prm-search-bar, prm-journals-search-bar {
 	color: white;
 	background-color: #111;
@@ -26,14 +25,12 @@
 }
 
 /* search bar color change */
-
-.prm-primary-bg, prm-journals-search-bar, prm-search-bar, prm-spinner.overlay-cover.light-on-dark:after {
+.prm-primary-bg, prm-search-bar, prm-journals-search-bar, prm-browse-search-bar, prm-spinner.overlay-cover.light-on-dark:after {
 	color: #333;
 	background-color: #ffc600;
 }
 
 /* make logo clickable */
-
 prm-logo div.product-logo {
 	display: none;
 }
@@ -47,7 +44,6 @@ prm-logo .product-logo a:hover {
 }
 
 /*re-order My Library Card and Sign in/out links*/
-
 .md-toolbar-tools .md-fab-action-item:nth-child(1) {
 	position: absolute;
 	right: 300px;

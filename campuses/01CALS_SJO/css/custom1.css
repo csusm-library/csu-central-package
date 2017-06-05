@@ -87,7 +87,11 @@ div.top-nav-bar * {
 
 /*adjusts the order of Main Menu Links*/
 [aria-label="mainmenu.label.library_search"]{order:0}
-[aria-label="mainmenu.label.citation_search"]{order:1}
-[aria-label="mainmenu.label.journal_a-z"]{order:2}
+[aria-label="nui.mainmenu.label.citationlinker"]{order:1}
+[aria-label="nui.mainmenu.label.journalsearch"]{order:2}
 [aria-label="Browse"]{order:3}
 [aria-label="nui.mainmenu.label.tags"]{order:4}
+[aria-label="mainmenu.label.ask_a_librarian"]{order:5}
+[aria-label="Ask A Librarian"]{order:6}
+
+
