@@ -1,4 +1,6 @@
-/* one-search logo */
+/* ONE SEARCH LOGO */
+
+/* hide the logo on x-small screens */
 
 @media (max-width: 970px) {
     .one-search {
@@ -25,7 +27,10 @@
         width: 90%;
         max-width: 226px;
     }
-    .one-search a, .one-search a:hover {
-        text-decoration: none;
-    }
+}
+
+/* no hover effect */
+
+.one-search button {
+    background: transparent!important;
 }

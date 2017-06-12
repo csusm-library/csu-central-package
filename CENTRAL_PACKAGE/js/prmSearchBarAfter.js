@@ -43,7 +43,7 @@ app.controller('prmSearchBarAfterController', ['$location', '$window', function(
         campus['01CALS_ULA'] = 'losangeles';
         campus['01CALS_MAL'] = 'maritime';
         campus['01CALS_UMB'] = 'monterey';
-        campus['01CALS_MLM'] = 'mlml';
+        campus['01CALS_MLM'] = 'mosslanding';
         campus['01CALS_UNO'] = 'northridge';
         campus['01CALS_PUP'] = 'pomona';
         campus['01CALS_USL'] = 'sacramento';
@@ -58,8 +58,6 @@ app.controller('prmSearchBarAfterController', ['$location', '$window', function(
 
         return 'custom/CENTRAL_PACKAGE/img/one-search/' + campus[vid] + '.png';
     };
-
-    console.log(this.getOneSearchLogo());
 }]);
 
  app.component('prmSearchBarAfter', {
