@@ -3,18 +3,24 @@
  */
 
 app.controller('institutionToggleController', ['$scope', function($scope) {
-
+    /**
+     * On page load, hide libraries
+     */
     this.$onInit = function() {
         $scope.showLibs = false;
         $scope.button = angular.element(document.querySelector('prm-alma-more-inst-after'));
         $scope.tabs = angular.element(document.querySelector('prm-alma-more-inst md-tabs'));
         $scope.tabs.addClass('hide');
         $scope.button.after($scope.tabs);
-        $scope.toggleLibs = function() {
-            $scope.showLibs = !$scope.showLibs;
-            if ($scope.tabs.hasClass('hide')) $scope.tabs.removeClass('hide');
-            else $scope.tabs.addClass('hide');
-        };
+    };
+
+    /**
+     * Show or hide library based on previous state
+     */
+    $scope.toggleLibs = function() {
+        $scope.showLibs = !$scope.showLibs;
+        if ($scope.tabs.hasClass('hide')) $scope.tabs.removeClass('hide');
+        else $scope.tabs.addClass('hide');
     };
 
 }]);
