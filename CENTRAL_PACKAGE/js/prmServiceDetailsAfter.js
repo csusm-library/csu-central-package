@@ -1,11 +1,14 @@
 /**
  * Resolve duplicate source codes
- * takes first source code instance and removes additional characters
  */
 
 app.controller('prmServiceDetailsAfterController', [function() {
-
-    this.getKillCodeLink = function() {
+    /**
+     * Resolve duplicate source codes
+     * takes first source code instance and removes additional characters
+     * @return {string} source code name
+     */
+    this.getSourceName = function() {
 
         // primo central record
         if (this.parentCtrl.item.context == "PC") {
