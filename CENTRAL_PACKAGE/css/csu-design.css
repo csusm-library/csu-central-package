@@ -1,4 +1,4 @@
-/** CSU CUSTOM STYLES **/
+/** CSU DESIGN **/
 
 /* make facets 25% wide */
 
@@ -97,14 +97,11 @@ prm-logo .product-logo a:hover {
 
 /* hide tag feature */
 
-.md-button[aria-label="nui.mainmenu.label.tags"],.md-button[aria-label="TAGS"] {
-	display:none;
-}
-[translate="brief.results.tabs.tags"], prm-tags-list {
+[aria-label="Tags"], #tags, .md-button[aria-label="nui.mainmenu.label.tags"], md-card.transparent-card:nth-child(2) {
 	display: none;
 }
 
-/* hide pseduo-full text link in full record */
+/* hide pseduo-full-text link in full record */
 
 prm-full-view-service-container  prm-search-result-availability-line {
 	display: none;
