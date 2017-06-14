@@ -29,7 +29,7 @@ app.controller('prmSearchBarAfterController', ['$location', '$window', function(
      */
     this.getOneSearchLogo = function() {
         var params = $location.search();
-        var vid = params.vid;
+        var vid = params.vid.substring(0, 10);
         var campus = {};
         campus['01CALS_UBA'] = 'bakersfield';
         campus['01CALS_UCI'] = 'channel';
