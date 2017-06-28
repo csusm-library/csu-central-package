@@ -80,27 +80,19 @@ app.component('prmFacetAfter', {
 });
 
 
-//overrite user area
-app.component('prmUserAreaAfter', {
-    bindings: {
-        parentCtrl: '<'
-    },
-    controller: function($compile, $scope, $templateCache, $element) {
-      $templateCache.put('components/search/topbar/userArea/user-area.html', `
-          <div layout='row' layout-align="center center">
-            <prm-library-card-menu></prm-library-card-menu>
-            <prm-authentication layout="flex" [is-logged-in]="$ctrl.userName().length > 0"></prm-authentication>
-          </div>`);
-
-      $compile($element.parent())($scope);
-
-    }
+//add pagination bar back to browse tag
+app.component('prmBrowseSearchBarAfter', {
+        bindings: {
+          parentCtrl: '<'
+        },
+        template: '<style>prm-page-nav-menu { display: inline; }</style>'
 });
 
 
-
-
-
-
-
-
+//hide pagination on browse tag list result page
+app.component('prmBackToSearchResultsButtonAfter', {
+        bindings: {
+          parentCtrl: '<'
+        },
+        template: '<style>prm-page-nav-menu { display: none; }</style>'
+});
