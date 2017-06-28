@@ -97,7 +97,7 @@ prm-logo .product-logo a:hover {
 
 /* hide tag feature */
 
-[aria-label="Tags"], #tags, .md-button[aria-label="nui.mainmenu.label.tags"], md-card.transparent-card:nth-child(2) {
+[aria-label="Tags"], [aria-label="TAGS"], #tags, .md-button[aria-label="nui.mainmenu.label.tags"], md-card.transparent-card:nth-child(2) {
 	display: none;
 }
 
@@ -107,8 +107,12 @@ prm-full-view-service-container  prm-search-result-availability-line {
 	display: none;
 }
 
-/* temp fix for browse background color */
+/* temp fix for browse background color and text */
 
 .prm-primary-bg, prm-browse-search-bar, prm-journals-search-bar, prm-search-bar, prm-spinner.overlay-cover.light-on-dark:after, prm-tags-search-bar {
 	background-color: inherit;
+}
+
+prm-journals-search-bar prm-alphabet-toolbar .md-button:hover {
+	color: black !important;
 }
