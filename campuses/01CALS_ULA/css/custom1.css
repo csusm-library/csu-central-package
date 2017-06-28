@@ -20,11 +20,17 @@
 .prm-primary-bg.prm-hue3, prm-spinner.prm-hue3.overlay-cover.light-on-dark:after, prm-search-bar.prm-hue3, prm-journals-search-bar.prm-hue3 {
     background-color: #FFCE00;
 }
+
 .prm-primary-bg.prm-hue3-important, prm-spinner.prm-hue3-important.overlay-cover.light-on-dark:after, prm-user-area md-fab-toolbar.md-is-open md-fab-trigger .md-fab-toolbar-background, prm-user-area md-fab-toolbar.md-is-open md-fab-trigger ._md-fab-toolbar-background, prm-search-bar.prm-hue3-important, prm-journals-search-bar.prm-hue3-important {
-    background-color: #FFCE00 !important;
+    background-color: #FFFFFF !important;
 }
 .prm-primary-bg.prm-hue4, prm-spinner.prm-hue4.overlay-cover.light-on-dark:after, prm-search-bar.prm-hue4, prm-journals-search-bar.prm-hue4 {
     background-color: #FFCE00;
+}
+
+/* change all instances of this color to white when over the dark grey background */
+prm-browse-search-bar .search-switch-buttons .md-button.switch-to-simple, prm-journals-search-bar .search-switch-buttons .md-button.switch-to-simple, prm-search-bar .search-switch-buttons .md-button.switch-to-simple, prm-tags-search-bar .search-switch-buttons .md-button.switch-to-simple {
+	color:#fff;
 }
 
 /* search bar color change */
@@ -34,15 +40,21 @@
     background-color: #4A4F55;
 }
 
+/* Advanced Search Row Color */
+
+prm-search-bar .advanced-search-backdrop, prm-tags-search-bar .advanced-search-backdrop {
+	background-color: #4A4F55;
+}
+
 /* simple search color */
 
 .search-switch-buttons .md-button.switch-to-simple, prm-tags-search-bar .search-switch-buttons .md-button.switch-to-simple {
-    color: #000;
+    color: #ffffff;
 }
 
 /* advanced search color change */
 .md-button.switch-to-advanced, prm-search-bar .search-switch-buttons .md-button.switch-to-advanced {
-    color: #fff;
+    color: #ffffff;
 }
 
 /* simple search wrapper color */
@@ -53,12 +65,12 @@
 /*main menu font size */
 
 prm-main-menu[menu-type="menu"] .md-button {
-	font-size: 15px;
+	font-size: 14px;
 	color: #4A4F55;
 	font-weight: bold;
 	text-transform: none;
 }
-	
+
 /* make logo clickable */
 
 prm-logo div.product-logo {
@@ -73,33 +85,43 @@ prm-logo .product-logo a:hover {
     box-shadow: none;
 }
 /* Journal Alphabet */
-prm-alphabet-toolbar .md-button{ 
-color:#fff !important; 
-} 
-
-/*Alphabet Hover Color*/ 
-prm-alphabet-toolbar .md-button._md-focused:not([disabled]), prm-alphabet-toolbar .md-button.hovered:not([disabled]), prm-alphabet-toolbar .md-button.md-focused:not([disabled]), prm-alphabet-toolbar .md-button:focus:not([disabled]), prm-alphabet-toolbar .md-button:hover:not([disabled]) { 
-color: red; 
-background-color: hsla(0,0%,100%,.08); 
-} 
-
-/*Hides Tags feature in the main menu */
-
-.md-button[aria-label="nui.mainmenu.label.tags"]{display:none;}
-
-[aria-label="Tags"]{display:none;}
-
-#tags{display:none;}
-
-/* Hide tags feature in full display */
-
-div.custom-links-container md-card:nth-child(2) {
-                display: none;
+prm-alphabet-toolbar .md-button{
+color:#fff !important;
 }
 
+/*Alphabet Hover Color*/
+prm-alphabet-toolbar .md-button._md-focused:not([disabled]), prm-alphabet-toolbar .md-button.hovered:not([disabled]), prm-alphabet-toolbar .md-button.md-focused:not([disabled]), prm-alphabet-toolbar .md-button:focus:not([disabled]), prm-alphabet-toolbar .md-button:hover:not([disabled]) {
+color: red;
+background-color: hsla(0,0%,100%,.08);
+}
 
 /* light top background */
 
 div.top-nav-bar * {
     color: #444 !important;
+}
+
+/* Control order of Send-To list links. */
+
+[name="Citation"] { order: 0; }
+[name="Print"] { order: 1; }
+[name="E-mail"] { order: 2; }
+[name="Permalink"] { order: 3; }
+[name="RefWorks"] { order: 4; }
+[name="EndNote"] { order: 5; }
+[name="EasyBib"] { order: 6; }
+[name="e-shelf"] { order: 7; }
+[name="SMS"] { order: 8; }
+[name="Delicious"] { order: 9; }
+[name="e-shelf"] { order: 10; }
+[name="BibTeXPushTo"] { order: 11; }
+[name="RISPushTo"] { order: 12; }
+
+/* hide tags (override central package as LA order is unusual) */
+
+md-card.transparent-card:nth-child(2) {
+	display: flex;
+}
+md-card.transparent-card:nth-child(1) {
+	display: none;
 }
