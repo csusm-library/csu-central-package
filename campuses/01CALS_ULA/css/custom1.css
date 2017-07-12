@@ -125,3 +125,14 @@ md-card.transparent-card:nth-child(2) {
 md-card.transparent-card:nth-child(1) {
 	display: none;
 }
+
+/*adjust order of Language interface options - Desktop Display */
+#select_container_3 md-select-menu md-content {display: flex; flex-direction: column;}
+md-select-menu md-content #select_option_0{order:0!important;}
+md-select-menu md-content #select_option_1{order:1!important;}
+md-select-menu md-content #select_option_2{order:2!important;}
+
+
+
+
+
