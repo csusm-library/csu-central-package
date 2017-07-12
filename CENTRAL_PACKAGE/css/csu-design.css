@@ -113,6 +113,6 @@ prm-full-view-service-container  prm-search-result-availability-line {
 	background-color: inherit;
 }
 
-prm-journals-search-bar prm-alphabet-toolbar .md-button:hover {
-	color: black !important;
+prm-alphabet-toolbar .md-button {
+	color: #000 !important;
 }
