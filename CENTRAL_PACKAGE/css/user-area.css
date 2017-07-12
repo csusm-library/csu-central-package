@@ -3,3 +3,28 @@
 prm-user-area {
     display: flex;
 }
+
+/* display username under sign out button */
+
+prm-user-area .md-toolbar-tools {
+	font-size: 1em;
+}
+prm-user-area .md-button[aria-label="Sign out"] {
+	line-height: 1.3em;
+}
+prm-user-area .md-button[aria-label="Sign out"] prm-icon {
+	float: left;
+	padding-top: 9px;
+	padding-right: 4px;
+}
+prm-user-area .md-button[aria-label="Sign out"] .layout-column {
+	margin-bottom: 1px;
+	padding-bottom: 1px;
+	padding-right: 30px;
+}
+prm-user-area .md-button[aria-label="Sign out"] .layout-column span:nth-child(1) {
+	font-weight: 600;
+}
+prm-user-area .md-button[aria-label="Sign out"] .layout-column span:nth-child(2) {
+	text-transform: none;
+}
