@@ -2,7 +2,7 @@
  * Resolve duplicate source codes
  */
 
-app.controller('prmServiceDetailsAfterController', [function() {
+app.controller('prmServiceDetailsAfterController', ['$location', function($location) {
     /**
      * Resolve duplicate source codes
      * takes first source code instance and removes additional characters
@@ -17,6 +17,19 @@ app.controller('prmServiceDetailsAfterController', [function() {
 
         // alma records; show only first, sans identifier code
         return this.parentCtrl.item.pnx.display.source[0].replace(/\$\$V/g, "").replace(/\$\$O01CALS_ALMA/g, '').replace(/[0-9]/g, '');
+    }
+
+    /**
+     * Earlier title link
+     * @return {string}
+     */
+    this.getLateralTitleLink = function(title) {
+
+        var params = $location.search();
+        var vid = params.vid;
+        var query = encodeURI('title,exact,' + title + ',AND');
+        var url = '/primo-explore/search?query=' + query + '&vid=' + vid + '&mode=advanced';
+        return url;
     }
 
 }]);
