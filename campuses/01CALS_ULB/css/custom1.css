@@ -44,6 +44,7 @@ prm-logo .product-logo a:hover {
 }
 
 /*re-order My Library Card and Sign in/out links*/
+/*
 .md-toolbar-tools .md-fab-action-item:nth-child(1) {
 	position: absolute;
 	right: 300px;
@@ -59,15 +60,26 @@ prm-logo .product-logo a:hover {
 	right: 0px;
 	top: 0;
 }
+*/
 
-/*Color of Menu in Mobile View */ 
+/*Color of Menu in Mobile View */
 prm-main-menu[menu-type="full"] md-card .md-headline {
 	color: #fff;
 }
 
-/*Hide Subhead*/ 
+/*Hide Subhead*/
 prm-main-menu[menu-type=full] md-card-title md-card-title-text:only-child .md-subhead {
 	padding-top: .35em;
 	font-size: inherit;
 	display: none;
+}
+
+/*force search term underlining - override Central Package*/
+.text-highlight, mark {
+	box-shadow: inset 0 -0.3em 0 0 #ffe564;
+}
+
+/*change color of text in top bar - increase contrast*/
+prm-topbar .md-button, prm-topbar .md-button.button-over-dark, prm-user-area md-fab-toolbar .md-fab-action-item .md-button, prm-user-area .md-button.user-menu-button, prm-user-area md-fab-toolbar .md-fab-action-item md-input-container, prm-user-area md-fab-toolbar .md-fab-action-item md-input-container md-select {
+	color: #e6e6e6;
 }
