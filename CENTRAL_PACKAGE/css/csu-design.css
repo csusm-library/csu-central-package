@@ -98,7 +98,7 @@ prm-logo .product-logo a:hover {
 
 /* hide tag feature */
 
-.md-button.flex-button[aria-label="Tags"], .md-button.flex-button[aria-label="TAGS"], #tags, .md-button[aria-label="nui.mainmenu.label.tags"], md-card.transparent-card:nth-child(2) {
+.md-button.flex-button[aria-label="Tags"], .md-button.flex-button[aria-label="TAGS"], button[aria-label="TAGS"], #tags, .md-button[aria-label="nui.mainmenu.label.tags"], md-card.transparent-card:nth-child(2) {
 	display: none;
 }
 
