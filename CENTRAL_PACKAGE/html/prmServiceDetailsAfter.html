@@ -35,7 +35,7 @@
     <div flex="" class="flex">
         <div>
             <div layout="column" class="spaced-rows word-break layout-column">
-                {{$ctrl.getSourceName()}}
+                <span ng-bind-html="$ctrl.getSourceName()"></span>
             </div>
         </div>
     </div>
