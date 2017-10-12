@@ -117,3 +117,11 @@ prm-full-view-service-container  prm-search-result-availability-line {
 prm-alphabet-toolbar .md-button {
 	color: #000 !important;
 }
+
+/* move browse pager to right */
+
+.__gt-md prm-page-nav-menu {
+    bottom: 1.5em;
+    right: 2em;
+    left: unset;
+}
