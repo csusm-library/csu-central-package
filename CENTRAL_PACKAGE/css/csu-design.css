@@ -67,6 +67,12 @@ prm-brief-result .item-title span {
 	color: #1a4c76;
 }
 
+/* create separate line for multiple scripts in titles */
+
+.item-title a span {
+	display: block;
+}
+
 /* overlay background darker */
 
 .prm-primary-bg.prm-hue2, prm-spinner.prm-hue2.overlay-cover.light-on-dark:after, prm-search-bar.prm-hue2, prm-journals-search-bar.prm-hue2, md-backdrop.md-opaque {
