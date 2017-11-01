@@ -125,9 +125,3 @@ prm-alphabet-toolbar .md-button {
     right: 2em;
     left: unset;
 }
-
-/* hide original prm-no-search-result box */
-
-prm-no-search-result > md-card {
-	display:none;
-}
