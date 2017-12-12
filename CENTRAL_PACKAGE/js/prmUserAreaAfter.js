@@ -16,7 +16,9 @@ app.component('prmUserAreaAfter', {
 		    <md-button class="mobile-menu-button zero-margin" aria-label="{{\'nui.aria.userarea.open\' | translate}}" (click)="$ctrl.enableMobileMenu()" style="min-width: 60px" hide-gt-xs>
 		      <prm-icon [icon-type]="::$ctrl.topBarIcons.more.type" [svg-icon-set]="::$ctrl.topBarIcons.more.iconSet" [icon-definition]="::$ctrl.topBarIcons.more.icon"></prm-icon>
 		    </md-button>
-		  </div>`);
+		  </div>
+          <md-button style="display: none !important;"></md-button>
+          <md-button style="display: none !important;"></md-button>`);
         $compile($element.parent())($scope);
     }
 });
