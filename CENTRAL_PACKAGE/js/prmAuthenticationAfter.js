@@ -5,7 +5,41 @@
 app.component('prmAuthenticationAfter', {
     bindings: { parentCtrl: '<' },
     controller: function controller($compile, $scope, $templateCache, $element) {
-        $templateCache.put('components/search/topbar/userArea/authentication.html', `
+      var vm = this;
+      var loginServ = vm.parentCtrl.loginService;
+      vm.$onInit = function () {
+        loginServ.normalizeTargetUrl = function () {
+          // Certain characters don't go through all Identity Providers.
+          var sanitize = function(input) {
+            if (input && typeof(input) == "string") {
+              return input
+                .replace(/</g, '%3C')
+                .replace(/>/g, '%3E')
+                .replace(/{/g, '%7B')
+                .replace(/}/g, '%7D')
+                .replace(/"/g, '%22');
+            } else {
+              return input;
+            }
+          };
+          var URL = decodeURIComponent(this.$location.absUrl());
+          var fields = URL.split('?', 2);
+          var returnURL = fields[0];
+          if (fields.length > 1) {
+            returnURL = returnURL + '?';
+            // Note this.$state.params applies to the base page.
+            // this._toParams covers the case of a dialog/layer on top of the page.
+            angular.forEach(this._toParams, function (value, key) {
+              if (value) {
+                returnURL = returnURL + encodeURIComponent(sanitize(key)) + '=' +
+                encodeURIComponent(sanitize(value)) + '&';
+              }
+            }, this);
+          }
+          return returnURL;
+        }
+      };
+			$templateCache.put('components/search/topbar/userArea/authentication.html', `
 		  <div class="md-fab-toolbar-wrapper">
 		  <md-button ng-if="!$ctrl.isLoggedIn" ng-click="$ctrl.handleLogin();" aria-label="{{\'eshelf.signin.title\' | translate}}" class="button-with-icon zero-margin">
 		    <prm-icon icon-type="svg" svg-icon-set="primo-ui" icon-definition="sign-in"></prm-icon>
