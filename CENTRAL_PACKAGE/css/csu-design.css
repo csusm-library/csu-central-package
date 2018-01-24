@@ -131,3 +131,8 @@ prm-alphabet-toolbar .md-button {
     right: 2em;
     left: unset;
 }
+
+md-tooltip[md-direction=right] {
+    left: unset !important;
+    right: 70px;
+}
