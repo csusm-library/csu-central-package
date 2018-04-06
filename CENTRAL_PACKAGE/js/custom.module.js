@@ -1,2 +1,2 @@
 
-    var app = angular.module('centralCustom', ['angularLoad', 'sendSms']);
+    var app = angular.module('centralCustom', ['angularLoad']);

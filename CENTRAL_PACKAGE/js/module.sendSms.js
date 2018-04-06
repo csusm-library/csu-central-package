@@ -311,7 +311,7 @@ angular.module('sendSms').value('smsAction', {}).value('smsActionDefault', {
 }).value('smsOptions', {}).value('smsOptionsDefault', {
   enabled: false,
   formUrl: 'https://slips.calstate.edu/email/',
-  fromEmail: 'library@calstate.edu',
-  subject: 'TxtFromOneSearch',
+  fromEmail: 'do-not-respond@calstate.edu',
+  subject: '',
   noPrintFoundLabel: 'No Print Locations'
 });
