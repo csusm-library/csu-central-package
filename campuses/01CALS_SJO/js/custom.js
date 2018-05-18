@@ -39,11 +39,26 @@ var app = angular.module('viewCustom', ['angularLoad']);
   });
 
 
-//add libchat box
+//add a survey
 var s=document.createElement('script');
 s.id='localScript';
-s.src='//v2.libanswers.com/load_chat.php?hash=8c0496fac5d8ab8f9d72f363985cdf46';
+s.src='//v2.libanswers.com/load_chat.php?hash=3f859937ccdb788f9347ce781eb60049';
+document.head.appendChild(s);
+
+
+//add libchat box
+/*var s=document.createElement('script');
+s.id='localScript';
+s.src='//v2.libanswers.com/load_chat.php?hash=342672b23c9e6bf0097c195190c83591';
 document.body.appendChild(s);
+*/
+
+//add crazy egg script
+var c=document.createElement('script');
+c.id='localscript2';
+c.src='//script.crazyegg.com/pages/scripts/0061/3590.js?'+Math.floor(new Date().getTime()/3600000);
+c.async=true;
+document.head.appendChild(c);
 
 
 //add Show Results for
@@ -61,13 +76,14 @@ app.component('prmFacetAfter', {
 	var sort = $location.search().sortby;
 	var rest = '&vid=01CALS_SJO&lang=en_US&offset=0';
 	var csulink = path+'?query='+query+tab+scope+'&sortby='+sort+rest;
-	var sjplink = 'http://discover.sjlibrary.org/iii/encore_sjpl/search/C__S'+searchTerm+'__Orightresult__U?lang=eng&suite=sjpl';
- 	//console.log(sjplink);
+	var sjplink = 'http://discover.sjlibrary.org/iii/encore/search/C__S'+searchTerm+'__Orightresult__U?lang=eng&suite=sjpl';
+ 	var crlink = 'http://reserves.calstate.edu/sanjose/';
+	//console.log(sjplink);
 
         angular.element(document).ready(function () {
            var eNode = angular.element(document.querySelectorAll("prm-facet .sidebar-inner-wrapper"));
            if (eNode != null && eNode != undefined){
-		eNode.prepend("<div tabindex='-1' ng-if='$ctrl.totalResults > 1 || $ctrl.isFiltered()' class='sidebar-section compensate-padding-left'><h2 class='sidebar-title' >Show Results for</h2></div><div tabindex='-1' class='sidebar-section margin-top-small margin-bottom-medium compensate-padding-left'><div class='layout-row margin-bottom-small bold-text'><a href='"+sjplink+"' target='_blank' title='San Jose Public Library'>San Jose Public Library</a></div><div class='layout-row margin-bottom-small bold-text'><a href='"+csulink+"' target='_blank' title='California State University'>California State University</a></div></div>");
+		eNode.prepend("<div tabindex='-1' ng-if='$ctrl.totalResults > 1 || $ctrl.isFiltered()' class='sidebar-section compensate-padding-left'><h2 class='sidebar-title' >Show Results for</h2></div><div tabindex='-1' class='sidebar-section margin-top-small margin-bottom-medium compensate-padding-left'><div class='layout-row margin-bottom-small bold-text'><a href='"+sjplink+"' target='_blank' title='San Jose Public Library'>San Jose Public Library</a></div><div class='layout-row margin-bottom-small bold-text'><a href='"+csulink+"' target='_blank' title='California State University (CSU+)'>California State University (CSU+)</a></div><div class='layout-row margin-bottom-small bold-text'><a href='"+crlink+"' target='_blank' title='Course Reserves'>Course Reserves</a></div></div>");
                 //console.log(eNode.text());
            }
 
@@ -96,3 +112,5 @@ app.component('prmBackToSearchResultsButtonAfter', {
         },
         template: '<style>prm-page-nav-menu { display: none; }</style>'
 });
+
+

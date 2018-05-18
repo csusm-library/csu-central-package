@@ -42,10 +42,10 @@ prm-logo .product-logo a:hover {
     text-transform:none;
     box-shadow: none;
 }
-prm-logo .logo-image, prm-logo img {
+/*prm-logo .logo-image, prm-logo img {
 	max-height: 100%;
 	width: 350px;
-}
+}*/
 
 
 /* light top background */
@@ -72,6 +72,10 @@ div.top-nav-bar * {
         display: none;
     }
 
+    prm-search-bar {
+	background: #f2f2f2;
+    }
+    
     prm-page-nav-menu {
         display: none;
     }
@@ -80,9 +84,9 @@ div.top-nav-bar * {
         display: none;
     }
 
-    prm-user-area {
+   /*prm-user-area {
 	padding-top: 12px;
-    }
+    }*/
 
    prm-personal-info.layout, prm-personal-info .layout-row {
     	box-sizing: border-box;
@@ -101,14 +105,10 @@ div.top-nav-bar * {
 	color: black !important;
    }
 
+  .lcs_slide_out-r {
+        top: 150px !important;
+   }
 
-/*adjusts the order of Main Menu Links*/
-[aria-label="mainmenu.label.library_search"]{order:0}
-[aria-label="mainmenu.label.database"]{order:1}
-[aria-label="mainmenu.label.journal_search"]{order:2}
-[aria-label="Browse"]{order:3}
-[aria-label="mainmenu.label.Browse"]{order:4}
-[aria-label="mainmenu.label.ask_a_librarian"]{order:5}
-[aria-label="Ask A Librarian"]{order:6}
+
 
 

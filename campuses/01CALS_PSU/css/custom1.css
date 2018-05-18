@@ -1,3 +1,115 @@
+/* BEGIN calpoly-call-number.css */
+span.best-location-delivery {
+  font-weight: bold;
+  color: black;
+  background: #A1E1E7;
+  padding: 5px;
+}
+/* END calpoly-call-number.css */
+/* BEGIN calpoly-journal-search.css */
+prm-atoz-search-bar {
+  background-color: #fff;
+}
+
+prm-atoz-search-bar prm-alphabet-toolbar {
+  background-color: #035642;
+}
+
+prm-atoz-search-bar prm-alphabet-toolbar .md-button.active {
+	color: #000 !important;
+}
+
+prm-atoz-search-bar prm-alphabet-toolbar .md-button {
+	color: #fff !important;
+}
+
+prm-atoz-search-bar prm-alphabet-toolbar .md-button:hover {
+  background-color: #58A618 !important;
+}
+/* END calpoly-journal-search.css */
+/* BEGIN calpoly-landing-page.css */
+h1.lib-h1 {
+    background-color:#F2F2F2;
+    display: block;
+    padding: 10px;
+    margin-top:25px;
+    font-weight:normal;
+    letter-spacing:1px;
+}
+
+h2.lib-h2 {
+
+}
+
+h3.lib-h3 {
+
+}
+
+ul.lib-nobullets li {
+    list-style-type:none;
+    padding-bottom:3px;
+}
+
+i.fa-arrow-right {
+    padding-right:5px;
+    padding-left:0px;
+}
+
+i.fa-user-circle-o, i.fa-question-circle-o, i.fa-users {
+    padding-right:8px;
+}
+
+.lib-form {
+    margin:20px 0px;
+    float:none;
+}
+
+.lib-form input{
+    width:95%;
+}
+
+.lib-btn {
+}
+
+
+.lib-section {
+    overflow: hidden;
+}
+
+.lib-button {
+    background-color:#035642;
+    padding: 10px;
+    margin: 20px;
+    max-width:240px;
+    border-radius: 4px;
+    display: block;
+}
+
+.lib-button a {
+    display: block;
+    text-decoration:none;
+    color:#FFFFFF;
+}
+
+.lib-button a:hover {
+    text-decoration:none;
+    color:#FFFFFF;
+}
+
+.lib-button:hover {
+    background-color:#427730;
+}
+/* END calpoly-landing-page.css */
+/* BEGIN calpoly-logo.css */
+prm-logo div.product-logo {
+    display: flex;
+    /* align-items: flex-start; */
+    align-items: baseline;
+    padding-top: 0;  
+    margin-top: -6px;
+}
+/* END calpoly-logo.css */
+/* BEGIN calpoly.css */
 /*** San Luis Obispo (01CALS_PSU) ***/
 
 /* navbar color change */
@@ -29,22 +141,9 @@
     background-color: #fff;
 }
 
-/* make logo clickable */
-
-prm-logo div.product-logo {
-    display:none;
-}
-prm-logo div.product-logo-local {
-    display: flex;
-}
-prm-logo .product-logo a:hover {
-    background-color:transparent;
-    text-transform:none;
-    box-shadow: none;
-}
-
 /* light top background */
 
 div.top-nav-bar * {
     color: #0f4e39 !important;
 }
+/* END calpoly.css */

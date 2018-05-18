@@ -3,32 +3,7 @@
 
 /*** Long Beach (01CALS_ULB) ***/
 
-/* navbar color change */
-.prm-primary-bg, prm-spinner.overlay-cover.light-on-dark:after, prm-search-bar, prm-journals-search-bar {
-	color: white;
-	background-color: #111;
-}
-.prm-primary-bg.prm-hue1, prm-spinner.prm-hue1.overlay-cover.light-on-dark:after, prm-topbar .top-nav-bar, prm-search-bar.prm-hue1, prm-journals-search-bar.prm-hue1 {
-	background-color: #111;
-}
-.prm-primary-bg.prm-hue2, prm-spinner.prm-hue2.overlay-cover.light-on-dark:after, prm-search-bar.prm-hue2, prm-journals-search-bar.prm-hue2, md-backdrop.md-opaque {
-	background-color: #111;
-}
-.prm-primary-bg.prm-hue3, prm-spinner.prm-hue3.overlay-cover.light-on-dark:after, prm-search-bar.prm-hue3, prm-journals-search-bar.prm-hue3 {
-	background-color: #111;
-}
-.prm-primary-bg.prm-hue3-important, prm-spinner.prm-hue3-important.overlay-cover.light-on-dark:after, prm-user-area md-fab-toolbar.md-is-open md-fab-trigger .md-fab-toolbar-background, prm-user-area md-fab-toolbar.md-is-open md-fab-trigger ._md-fab-toolbar-background, prm-search-bar.prm-hue3-important, prm-journals-search-bar.prm-hue3-important {
-	background-color: #111 !important;
-}
-.prm-primary-bg.prm-hue4, prm-spinner.prm-hue4.overlay-cover.light-on-dark:after, prm-search-bar.prm-hue4, prm-journals-search-bar.prm-hue4 {
-	background-color: #111;
-}
-
-/* search bar color change */
-.prm-primary-bg, prm-search-bar, prm-journals-search-bar, prm-browse-search-bar, prm-spinner.overlay-cover.light-on-dark:after {
-	color: #333;
-	background-color: #ffc600;
-}
+/** functional changes and reordering **/
 
 /* make logo clickable */
 prm-logo div.product-logo {
@@ -42,43 +17,94 @@ prm-logo .product-logo a:hover {
 	text-transform: none;
 	box-shadow: none;
 }
-
-/*re-order My Library Card and Sign in/out links*/
-/*
-.md-toolbar-tools .md-fab-action-item:nth-child(1) {
-	position: absolute;
-	right: 300px;
-	top: 0;
-}
-.md-toolbar-tools .md-fab-action-item:nth-child(2) {
-	position: absolute;
-	right: 150px;
-	top: 0;
-}
-.md-toolbar-tools .md-fab-action-item:nth-child(3) {
-	position: absolute;
-	right: 0px;
-	top: 0;
-}
-*/
-
-/*Color of Menu in Mobile View */
-prm-main-menu[menu-type="full"] md-card .md-headline {
-	color: #fff;
-}
-
 /*Hide Subhead*/
 prm-main-menu[menu-type=full] md-card-title md-card-title-text:only-child .md-subhead {
 	padding-top: .35em;
 	font-size: inherit;
 	display: none;
 }
-
+/* Change order of Item Record sections -- lower the "Send To" section */
+prm-service-header {
+	order: 0;
+}
+#action_list {
+	order: 2;
+}
+#details {
+	order: 3;
+}
+#links {
+	order: 4;
+}
+#virtualBrowse {
+	order: 5;
+}
+.full-view-inner-container {
+	padding-bottom: 10em;
+	display: flex;
+	flex-direction: column;
+}
+/* Control order of Item Detail Sections in "Left-side Nav" panel. */
+[aria-label="In the Library"] {
+	order: 0 !important;
+}
+[aria-label="View It"] {
+	order: 1 !important;
+}
+[aria-label="Send to"] {
+	order: 2 !important;
+}
+[aria-label="Details"] {
+	order: 3 !important;
+}
+[aria-label="Links"] {
+	order: 4 !important;
+}
+[aria-label="Virtual Browse"] {
+	order: 5 !important;
+}
+[aria-label="Tags"] {
+	display: none !important;
+}
+/* reduce vertical spacing in full record view */
+.full-view-section {
+	margin-top: 1em;
+}
 /*force search term underlining - override Central Package*/
 .text-highlight, mark {
 	box-shadow: inset 0 -0.3em 0 0 #ffe564;
 }
+/** color changes **/
 
+/* navbar color change */
+.prm-primary-bg, prm-spinner.overlay-cover.light-on-dark:after, prm-search-bar, prm-atoz-search-bar {
+	color: white;
+	background-color: #111;
+}
+.prm-primary-bg.prm-hue1, prm-spinner.prm-hue1.overlay-cover.light-on-dark:after, prm-topbar .top-nav-bar, prm-search-bar.prm-hue1, prm-atoz-search-bar.prm-hue1 {
+	background-color: #111;
+}
+.prm-primary-bg.prm-hue2, prm-spinner.prm-hue2.overlay-cover.light-on-dark:after, prm-search-bar.prm-hue2, prm-atoz-search-bar.prm-hue2, md-backdrop.md-opaque {
+	background-color: #111;
+}
+.prm-primary-bg.prm-hue3, prm-spinner.prm-hue3.overlay-cover.light-on-dark:after, prm-search-bar.prm-hue3, prm-atoz-search-bar.prm-hue3 {
+	background-color: #111;
+}
+.prm-primary-bg.prm-hue3-important, prm-spinner.prm-hue3-important.overlay-cover.light-on-dark:after, prm-user-area md-fab-toolbar.md-is-open md-fab-trigger .md-fab-toolbar-background, prm-user-area md-fab-toolbar.md-is-open md-fab-trigger ._md-fab-toolbar-background, prm-search-bar.prm-hue3-important, prm-atoz-search-bar.prm-hue3-important {
+	background-color: #111 !important;
+}
+.prm-primary-bg.prm-hue4, prm-spinner.prm-hue4.overlay-cover.light-on-dark:after, prm-search-bar.prm-hue4, prm-atoz-search-bar.prm-hue4 {
+	background-color: #111;
+}
+/* search bar color change */
+.prm-primary-bg, prm-search-bar, prm-atoz-search-bar, prm-browse-search-bar, prm-spinner.overlay-cover.light-on-dark:after {
+	color: #333;
+	background-color: #ffc600;
+}
+/*Color of Menu in Mobile View */
+prm-main-menu[menu-type="full"] md-card .md-headline {
+	color: #fff;
+}
 /*change color of text in top bar - increase contrast*/
 prm-topbar .md-button, prm-topbar .md-button.button-over-dark, prm-user-area md-fab-toolbar .md-fab-action-item .md-button, prm-user-area .md-button.user-menu-button, prm-user-area md-fab-toolbar .md-fab-action-item md-input-container, prm-user-area md-fab-toolbar .md-fab-action-item md-input-container md-select {
 	color: #e6e6e6;

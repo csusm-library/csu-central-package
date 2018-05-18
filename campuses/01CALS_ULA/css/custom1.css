@@ -35,7 +35,7 @@ prm-browse-search-bar .search-switch-buttons .md-button.switch-to-simple, prm-jo
 
 /* search bar color change */
 
-.prm-primary-bg, prm-browse-search-bar, prm-journals-search-bar, prm-search-bar, prm-spinner.overlay-cover.light-on-dark:after {
+.prm-primary-bg, prm-browse-search-bar, prm-atoz-search-bar, prm-search-bar, prm-spinner.overlay-cover.light-on-dark:after {
     color: #000;
     background-color: #4A4F55;
 }
@@ -61,6 +61,37 @@ prm-search-bar .advanced-search-backdrop, prm-tags-search-bar .advanced-search-b
 .prm-search-bar .simple-search-wrapper .search-actions .md-button, prm-search-bar .search-switch-buttons .md-button {
 	color: #000
 	}
+
+
+/* ------ Customize the search bar ----- */
+/* Order of search bar elements - get dropdown on left */
+prm-search-bar .simple-search-wrapper .search-options {
+  order: 1;
+}
+prm-search-bar .search-input {
+  order: 2;
+}
+prm-search-bar .simple-search-wrapper .search-actions {
+  order: 3;
+}
+/* Hide the / divider */
+prm-search-bar .simple-search-wrapper .search-options prm-tabs-and-scopes-selector.is-displayed md-divider {
+  display: none;
+}
+prm-tabs-and-scopes-selector {
+  background-color: #F0F0F0;
+  color: #000;
+  padding: 0 10px;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+  border-color: #AAA
+}
+
+md-input-container.empty-select-on-init:not(.md-input-focused) md-select md-select-value::after, 
+md-input-container::after {
+  background-color: #4A4F55 !important;
+}
+
 
 /*main menu font size */
 
@@ -128,9 +159,9 @@ md-card.transparent-card:nth-child(1) {
 
 /*adjust order of Language interface options - Desktop Display */
 #select_container_3 md-select-menu md-content {display: flex; flex-direction: column;}
-md-select-menu md-content #select_option_0{order:0!important;}
-md-select-menu md-content #select_option_1{order:1!important;}
-md-select-menu md-content #select_option_2{order:2!important;}
+md-select-menu md-content #select_option_1{order:0!important;}
+md-select-menu md-content #select_option_2{order:1!important;}
+md-select-menu md-content #select_option_3{order:2!important;}
 
 
 

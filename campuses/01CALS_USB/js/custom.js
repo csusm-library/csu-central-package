@@ -13,27 +13,6 @@
 
   /****************************************************************************************************/
 
-app.component('prmTabsAndScopesSelectorAfter',{
-      bindings: {parentCtrl: '<'},
-        
-      controller: function($scope){
-      setTimeout(function(){
-          function activateSearch(){
-               
-                 document.getElementsByClassName("zero-margin button-confirm md-button md-primoExplore-theme")[0].click()
-                
-             }
-          var searchScope = document.querySelector('#select_option_10')
-
-            if ( searchScope.getAttribute("aria-selected")=="true"){
-                     activateSearch();
-            }
-        }, 500)
-        
-             }
-        
-     });
-
   app.controller('prmLogoAfterController', [function() {
     var vm = this;
     vm.getIconLink = getIconLink;
@@ -42,6 +21,30 @@ app.component('prmTabsAndScopesSelectorAfter',{
       return vm.parentCtrl.iconLink;
     }
   }]);
+
+//component to activate search when search scope 
+app.component('prmTabsAndScopesSelectorAfter',{
+      bindings: {parentCtrl: '<'},
+       
+      controller: function($scope){
+                 setTimeout(function(){
+                     function activateSearch(){
+               setTimeout(function(){
+                 document.getElementsByClassName("zero-margin button-confirm md-button md-primoExplore-theme")[0].click()
+                 }, 500)
+             }
+                                 
+                  var searchScopes = document.querySelectorAll('[id^="select_option_"]')
+            for (var i in searchScopes){
+                searchScopes[i].onclick = function(){
+                                activateSearch();
+        };
+                       }
+                              }, 500)
+                             
+                        }
+                             
+     });
 
 
   //update template to include new URL for institution
@@ -53,8 +56,4 @@ app.component('prmTabsAndScopesSelectorAfter',{
     template: '<div class="product-logo product-logo-local" layout="row" layout-align="start center" layout-fill id="banner"><a href="http://library.csusb.edu"><img class="logo-image" alt="{{::(\'nui.header.LogoAlt\' | translate)}}" ng-src="{{$ctrl.getIconLink()}}"/></a></div>'
   });
 
-
-
 })();
-
-

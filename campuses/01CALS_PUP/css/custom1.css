@@ -34,6 +34,7 @@
 prm-logo div.product-logo {
     display:none;
 }
+
 prm-logo div.product-logo-local {
     display: flex;
 }
@@ -41,4 +42,56 @@ prm-logo .product-logo a:hover {
     background-color:transparent;
     text-transform:none;
     box-shadow: none;
+}
+
+
+/* Hide "Edit" option in My Account > Personal Details */
+.prm-personal-info div md-card md-card-content.layout-align-space-around-center.layout-column button {
+	display: none;
+	visibility: hidden;
+}
+md-card#personalDetails md-card-header div.md-toolbar-tools button {
+	display: none;
+	visibility: hidden;
+}
+md-card#personalDetails md-card-header.transparent-toolbar.layout-fill {
+	height: 0;
+}
+
+
+/* Add some color to make call number in results link stand out */
+    
+.best-location-library-code {
+    color: #3a3a3a !important;
+    font-weight: 600;
+}
+
+.best-location-sub-location {
+    color: #3a3a3a !important;
+    font-weight: 600;
+}
+
+.best-location-delivery {
+	color: #1a4c76 !important;
+    font-weight: 600;
+}
+
+/*CSS to Hide Virtual Browse and Virtual Browse Button/link on Full Display */ 
+
+/* https://knowledge.exlibrisgroup.com/Primo/Knowledge_Articles/How_to_hide_Virtual_browse_functionality_in_Primo_Classic_and_New_UI */
+
+#virtualBrowse {
+    display:none;
+}
+
+button[aria-label="Virtual Browse"] {
+    display:none;
+}
+
+/* Make the class .flex-50 boxes fill the screen on smaller devices */
+
+@media (max-width: 568px) {
+div.flex-50 {
+    max-width: 100% !important;
+}
 }

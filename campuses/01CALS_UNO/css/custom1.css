@@ -91,6 +91,11 @@ prm-logo .logo-image, prm-logo img {
 .md-button[aria-label="nui.mainmenu.label.tags"],.md-button[aria-label="TAGS"] {
 	display:none;
 }
+/*hide Find Databases button below search box*/
+.search-extras{
+	display:none;
+	height: 1px;
+}
 
 [translate="brief.results.tabs.tags"], prm-tags-list {
 	display: none;
@@ -107,6 +112,20 @@ prm-full-view-service-container  prm-search-result-availability-line {
 .prm-primary-bg, prm-browse-search-bar, prm-journals-search-bar, prm-search-bar, prm-spinner.overlay-cover.light-on-dark:after, prm-tags-search-bar {
 	background-color: inherit;
 }
+
+/* move browse pager to right */
+
+.__gt-md prm-page-nav-menu {
+    bottom: 1.5em;
+    right: 2em;
+    left: unset;
+}
+
+md-tooltip[md-direction=right] {
+    left: unset !important;
+    right: 70px;
+}
+
 
 /**End Central Package Material**/
 
@@ -147,7 +166,11 @@ prm-logo div.product-logo {
 prm-logo div.product-logo-local {
 	display: flex;
 }
-
+prm-logo .product-logo a:hover {
+    background-color:transparent;
+    text-transform:none;
+    box-shadow: none;
+}
 
 /* light top background */
 
@@ -163,6 +186,38 @@ prm-facet div div div.sidebar-section.margin-top-small.margin-bottom-medium.comp
 prm-facet div div div.sidebar-section.margin-top-small.margin-bottom-medium.compensate-padding-left:nth-child(3) {
 	order: 100;
 }
+
+/* user area */
+
+/* These should be styles that resemble the default top-right menu*/
+prm-user-area .md-fab-action-item .md-button,
+prm-user-area .md-fab-action-item md-input-container {
+    padding: 0 1em;
+    transition-duration: 0s;
+}
+            
+prm-user-area .md-fab-action-item md-input-container {
+    margin: 0;
+    height: 100%;
+    text-transform: uppercase;
+}
+            
+prm-user-area .md-fab-action-item md-input-container {
+    color: hsla(0,0%,100%,.65);
+}
+            
+prm-user-area md-select {
+    top: -2px;
+    position: relative;
+}
+    
+prm-user-area .md-fab-action-item md-input-container:focus:not([disabled]), 
+prm-user-area .md-fab-action-item md-input-container:hover:not([disabled]) {
+    background-color: rgba(0,0,0,.1);
+    color: #fff;
+}
+
+*/
 /**CSUN Added after Central package**/
 
 /** Header Design**/
@@ -252,19 +307,16 @@ a:link, a:visited {
 /* User Menu SPace Display*/
 /*adjusts the order of Main Menu Links*/
 a[aria-label="mainmenu.label.library_home"]{order:0}
-a[aria-label="Browse"]{order:1}
-a[aria-label="Databases"]{order:2}
-a[aria-label="libguides"]{order:3}
-a[aria-label="Journal Search"]{order:4}
-a[aria-label="Citation Search"]{order:5}
+a[aria-label="Databases"]{order:0}
+a[aria-label="LibGuides"]{order:0}
+a[aria-label="Browse"]{order:3}
+button#more-links-button{order: 3}
 
 /*Disable Tags*/ 
 .md-button[aria-label="nui.mainmenu.label.tags"] {
 	display: none;
 }
-.md-button[aria-label="nui.mainmenu.label.tags"] {
-	display: none;
-}
+
 [aria-label="Tags"] {
 	display: none;
 }
@@ -272,7 +324,23 @@ a[aria-label="Citation Search"]{order:5}
 	display: none;
 }
 
+/*Disable Journal Search*/ 
+.md-button[aria-label="nui.mainmenu.label.journalsearch"] {
+	display: none;
+}
+
+[aria-label="nui.mainmenu.label.journalsearch"] {
+	display: none;
+}
+
 /**Hiding Tags in Mobile**/
+
+md-card.transparent-card.md-ink-ripple._md.md-primoExplore-theme.flex-gt-xs-45.flex-gt-sm-30.flex-100:first-child
+{
+	display:none !important;
+}
+
+/**Hiding Journal Search in Mobile**/
 
 md-card.transparent-card.md-ink-ripple._md.md-primoExplore-theme.flex-gt-xs-45.flex-gt-sm-30.flex-100:first-child
 {
@@ -285,16 +353,9 @@ div.overlay-menu-item.layout-align-center-center.layout-row{
 	display:none;
 }
 
-/**icon sizing**/
-
-
-prm-search-result-thumbnail-container img {
-	width: auto;
-}
-
 
 /*this is for the Full Display*/
-/*
+
 
 prm-service-header {
 	order: 0;
@@ -305,24 +366,27 @@ prm-service-header {
 #getit_link1_0 {
 	order: 2;
 }
-#getit_link2 {
+#getit_link1_1 {
 	order: 3;
 }
-#links {
+#getit_link2 {
 	order: 4;
-}
-#details {
+	}
+#links {
 	order: 5;
 }
-#virtualBrowse {
+#details {
 	order: 6;
+}
+#virtualBrowse {
+	order: 7;
 }
 .full-view-inner-container {
 	padding-bottom: 10em;
 	display: flex;
 	flex-direction: column;
 }
-[aria-label="In the library"] {
+[aria-label="Top"] {
 	order: 0 !important;
 }
 [aria-label="Send To"] {
@@ -331,24 +395,39 @@ prm-service-header {
 [aria-label="View It"] {
 	order: 2 !important;
 }
-[aria-label="Get it"] {
+[aria-label="Get It"] {
 	order: 3 !important;
 }
 [aria-label="Links"] {
-	order: 4 !important;
-}
-[aria-label="Details"] {
 	order: 5 !important;
 }
-[aria-label="Virtual Browse"] {
+[aria-label="Details"] {
 	order: 6 !important;
 }
+[aria-label="Virtual Browse"] {
+	order: 7 !important;
+}
+/*
 prm-alma-more-inst {
 	display: none;
-}*/
+}
+*/
 
-/*testing*/
-div.reveal {
-	border: 1px #FD0258 solid;
+/* Patron record display*/
+
+prm-personal-info.layout, prm-personal-info .layout-row {
+    box-sizing: border-box;
+    display: block;
+}
+
+.animate-form-inputs md-input-container {
+    width: 300px;
+}
+md-card md-checkbox {
+    padding-right: 2em;
+}
+/* CSUN added this to change the width of the page*/
+prm-static.md-padding.flex {
+  flex: auto;
 }
 

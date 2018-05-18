@@ -22,6 +22,9 @@
     background-color: #004B88;
 }
 
+.prm-journals-search-bar prm-alphabet-toolbar .md-button:hover { color:
+black !important; }
+
 /* search bar color change */
 
 .prm-primary-bg, prm-journals-search-bar, prm-search-bar, prm-spinner.overlay-cover.light-on-dark:after {

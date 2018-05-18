@@ -54,3 +54,9 @@ prm-logo .product-logo a:hover {
 div.top-nav-bar * {
     color: #444 !important;
 }
+
+/* washout sign-in alert */
+.bar.alert-bar {
+    background-color: transparent;
+    border-color: transparent;
+}

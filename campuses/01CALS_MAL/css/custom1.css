@@ -63,4 +63,25 @@ div.top-nav-bar * {
 .md-toolbar-tools .md-fab-action-item:nth-child(2) {position:absolute;right:150px;top:0;}
 .md-toolbar-tools .md-fab-action-item:nth-child(3) {position:absolute;right:0px;top:0;} */
 
+/*Move Expand results to bottom of page */ 
+prm-facet div div div.sidebar-section.margin-top-small.margin-bottom-medium.compensate-padding-left:nth-child(2) { 
+order:100; 
+} 
+
+prm-facet div div div.sidebar-section.margin-top-small.margin-bottom-medium.compensate-padding-left:nth-child(3) { 
+order:100; 
+} 
+
+prm-no-search-result li:nth-child(2){ 
+display:none; 
+} 
+
+/* Re-Order ALMA Mashup Services*/ 
+[ng-if="$ctrl.loadAdditionalServices"] { 
+display: flex; 
+flex-direction: column; 
+} 
+prm-login-alma-mashup {order:1;} 
+
+prm-alma-mashup{order:0;} 
 

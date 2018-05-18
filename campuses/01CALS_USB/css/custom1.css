@@ -46,11 +46,17 @@ prm-logo div.product-logo {
 }
 prm-logo div.product-logo-local {
     display: flex;
+    padding:0;
 }
 prm-logo .product-logo a:hover {
     background-color:transparent;
     text-transform:none;
     box-shadow: none;
+}
+
+prm-user-area {
+  display:flex;
+  padding:0;
 }
 
 prm-user-area .user-menu-button .user-name {
@@ -75,8 +81,7 @@ prm-topbar prm-logo {
 }
 
 prm-topbar {
-  height: 98px;
-  border-bottom: #555 solid;
+  height: 6.6em;
 }
 
 prm-logo .logo-image, prm-logo img {
@@ -89,17 +94,33 @@ prm-logo .logo-image, prm-logo img {
 }
 
 
-
-@media (max-width: 1223px) and (min-width: 901px) {
+@media (max-width: 1640px) and (min-width: 1550px) {
      prm-topbar {
-       height:75px;
+       height:6.5em;
     }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1549px) and (min-width: 1450px) {
      prm-topbar {
-       height:65px;
+       height:5.7em;
     }
+}
+
+@media (max-width: 1449px) and (min-width: 1350px) {
+     prm-topbar {
+       height:4.9em;
+    }
+}
+
+
+@media (max-width: 1349px) {
+     prm-topbar {
+       height:4.3em;
+    }
+}
+
+a.md-primoExplore-theme {
+  height:auto;
 }
 
 .login-dialog .collapsable-container md-list md-list-item .md-list-item-inner, .login-dialog .md-list[class$=-line] md-list-item .md-list-item-text .list-item-title, .login-dialog .md-list[class$=-line] md-list-item .md-list-item-text h3, .login-dialog .md-list[class$=-line] md-list-item>.md-no-style .md-list-item-text .list-item-title, .login-dialog .md-list[class$=-line] md-list-item>.md-no-style .md-list-item-text h3, .login-dialog .md-list md-list-item .md-list-item-text .list-item-title, .login-dialog .md-list md-list-item .md-list-item-text h3, .login-dialog .md-list md-list-item>.md-no-style .md-list-item-text .list-item-title, .login-dialog .md-list md-list-item>.md-no-style .md-list-item-text h3, .login-dialog md-list md-list-item .md-list-item-text .list-item-title, .login-dialog md-list md-list-item .md-list-item-text h3, .login-dialog md-list md-list-item>.md-no-style .md-list-item-text .list-item-title, .login-dialog md-list md-list-item>.md-no-style .md-list-item-text h3, .md-button.arrow-link-button .button-content, .md-button.arrow-link-button [link-arrow], .prm-links, .separate-list-items md-list-item .item-loader-with-text .md-button, .tiles-grid-tile .tile-header .header-link .arrow-icon, .tiles-grid-tile .tile-header .header-link:hover, .tiles-grid-tile .tile-header .md-button, a, md-grid-tile .tile-header .header-link .arrow-icon, md-grid-tile .tile-header .header-link:hover, md-grid-tile .tile-header .md-button, md-input-container.has-fixed-message [ng-message] a, md-list-item.list-item-as-link, md-tabs.tabs-as-app .back-button, md-tabs.tabs-as-links md-tab-item, md-tabs.tabs-as-links md-tab-item:not([disabled]) {
@@ -108,6 +129,13 @@ prm-logo .logo-image, prm-logo img {
 
 .md-button.arrow-link-button .button-content:focus, .md-button.arrow-link-button .button-content:hover, .md-button.arrow-link-button .hover.button-content, .md-button.arrow-link-button:focus .button-content, .md-button.arrow-link-button:hover .button-content, .prm-links-background.prm-hue-1, .recommendations-title.hover>span>span, .recommendations-title:hover>span>span, a.hover, a:focus, a:hover, prm-citation-trails-item.active-item md-card>.md-button:focus .item-title span, prm-citation-trails-item.active-item md-card>.md-button:hover .item-title span {
   background-color: #CAE9FF; 
+}
+
+@media (max-width:599px){
+.__xs prm-resource-recommender-card-content a
+  {
+    width:100%; 
+  }
 }
 
 .md-button.arrow-link-button .button-content:focus, .md-button.arrow-link-button .button-content:hover, .md-button.arrow-link-button .hover.button-content, .md-button.arrow-link-button:focus .button-content, .md-button.arrow-link-button:hover .button-content, .prm-links-hover.prm-hue-1, .recommendations-title.hover>span>span, .recommendations-title:hover>span>span, a.hover, a:focus, a:hover, prm-citation-trails-item.active-item md-card>.md-button:focus .item-title span, prm-citation-trails-item.active-item md-card>.md-button:hover .item-title span {
@@ -129,6 +157,10 @@ prm-logo .logo-image, prm-logo img {
 
 .primo-scrollbar::-webkit-scrollbar-thumb, md-dialog-content::-webkit-scrollbar-thumb {
   background-color: #6D6D6D;
+}
+
+prm-facet .primo-scrollbar {
+  padding-right:1em;
 }
 
 md-input-container label, md-input-container label:not(.md-no-float):not(._md-container-ignore) {
@@ -197,10 +229,44 @@ prm-search-bookmark-filter #favorites-button:hover {
 [aria-label="Send to"] {order:9 !important;   }
 [aria-label="Links"] {order:10 !important;   }
 [aria-label="Virtual Browse"] {order:11 !important;   }
+[aria-label="Tags"] {display:none; }
 
 div.custom-links-container md-card:nth-child(2) {
   display: none;
 }
 
-[aria-label="Tags"] {display:none;   }
+.md-button[aria-label="nui.mainmenu.label.tags"], .md-button[aria-label="TAGS"], [aria-label="TAGS"] {display:none;   }
 
+.md-button[aria-label="nui.mainmenu.label.browse"], .md-button[aria-label="Browse"],  {display:none;   }
+
+.md-button.flex-button[aria-label="Browse"] {display:none; }
+
+div.custom-links-container md-card:nth-child(7) {
+  display: none;
+}
+
+@media (min-width: 1279px) {
+ button#more-links-button {
+  display:none;
+  }
+}
+
+/* make the lock always show on facets area */ prm-facet prm-breadcrumbs div.md-chip-content strong {
+                padding-left: 22px;
+}
+prm-breadcrumbs .md-chips .md-chip-content .persistence-button {
+                opacity: 1;
+                transform: none;
+                padding-left: -2px;
+}
+prm-breadcrumbs .md-chip.persistent-facet strong {
+                padding-left: 0;
+}
+prm-breadcrumbs .md-chip.persistent-facet .md-chip-content .persistence-button {
+                left: -1px;
+}
+
+/*remove clip-path from animation*/
+.animate-popover {
+  clip-path: unset;  
+}

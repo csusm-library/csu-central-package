@@ -1,50 +1,613 @@
 /*** Dominguez Hills (01CALS_UDH) ***/
 
-/* navbar color change */
+/* begin navbar color change */
+	.prm-primary-bg, prm-spinner.overlay-cover.light-on-dark:after, prm-search-bar, prm-journals-search-bar {
+		color: white;
+		background-color: #860038;
+	}
+	.prm-primary-bg.prm-hue1, prm-spinner.prm-hue1.overlay-cover.light-on-dark:after, prm-topbar .top-nav-bar, prm-search-bar.prm-hue1, prm-journals-search-bar.prm-hue1 {
+		background-color: #860038;
+	}
+	.prm-primary-bg.prm-hue2, prm-spinner.prm-hue2.overlay-cover.light-on-dark:after, prm-search-bar.prm-hue2, prm-journals-search-bar.prm-hue2, md-backdrop.md-opaque {
+		background-color: #860038;
+	}
+	.prm-primary-bg.prm-hue3, prm-spinner.prm-hue3.overlay-cover.light-on-dark:after, prm-search-bar.prm-hue3, prm-journals-search-bar.prm-hue3 {
+		background-color: #860038;
+	}
+	.prm-primary-bg.prm-hue3-important, prm-spinner.prm-hue3-important.overlay-cover.light-on-dark:after, prm-user-area md-fab-toolbar.md-is-open md-fab-trigger .md-fab-toolbar-background, prm-user-area md-fab-toolbar.md-is-open md-fab-trigger ._md-fab-toolbar-background, prm-search-bar.prm-hue3-important, prm-journals-search-bar.prm-hue3-important {
+		background-color: #860038 !important;
+	}
+	.prm-primary-bg.prm-hue4, prm-spinner.prm-hue4.overlay-cover.light-on-dark:after, prm-search-bar.prm-hue4, prm-journals-search-bar.prm-hue4 {
+		background-color: #860038;
+	}
+/* end navbar color change */
 
-.prm-primary-bg, prm-spinner.overlay-cover.light-on-dark:after, prm-search-bar, prm-journals-search-bar {
-    color: white;
-    background-color: #840539;
-}
-.prm-primary-bg.prm-hue1, prm-spinner.prm-hue1.overlay-cover.light-on-dark:after, prm-topbar .top-nav-bar, prm-search-bar.prm-hue1, prm-journals-search-bar.prm-hue1 {
-    background-color: #840539;
-}
-.prm-primary-bg.prm-hue2, prm-spinner.prm-hue2.overlay-cover.light-on-dark:after, prm-search-bar.prm-hue2, prm-journals-search-bar.prm-hue2, md-backdrop.md-opaque {
-    background-color: #840539;
-}
-.prm-primary-bg.prm-hue3, prm-spinner.prm-hue3.overlay-cover.light-on-dark:after, prm-search-bar.prm-hue3, prm-journals-search-bar.prm-hue3 {
-    background-color: #840539;
-}
-.prm-primary-bg.prm-hue3-important, prm-spinner.prm-hue3-important.overlay-cover.light-on-dark:after, prm-user-area md-fab-toolbar.md-is-open md-fab-trigger .md-fab-toolbar-background, prm-user-area md-fab-toolbar.md-is-open md-fab-trigger ._md-fab-toolbar-background, prm-search-bar.prm-hue3-important, prm-journals-search-bar.prm-hue3-important {
-    background-color: #840539 !important;
-}
-.prm-primary-bg.prm-hue4, prm-spinner.prm-hue4.overlay-cover.light-on-dark:after, prm-search-bar.prm-hue4, prm-journals-search-bar.prm-hue4 {
-    background-color: #840539;
-}
+/* begin search bar color change */
+	.prm-primary-bg, prm-journals-search-bar, prm-search-bar, prm-spinner.overlay-cover.light-on-dark:after {
+		color: #333;
+		background-color: #fff;
+	}
+/* end search bar color change */
 
-/* search bar color change */
+/* begin change accent underline color for various elements */
+	.md-input-color-underline, .new-result-item .list-item-count, .prm-secondary-bg.prm-hue1, md-input-container.empty-select-on-init:not(.md-input-focused) .md-input-container-dummy>.md-select-dummy md-select-value:after, md-input-container.empty-select-on-init:not(.md-input-focused) md-select md-select-value:after, md-input-container:after, md-progress-linear[md-mode=indeterminate].header-progress-bar .prm-hue1.md-bar, md-radio-button.md-checked ._md-on, md-radio-button.md-checked .md-on, md-tabs md-ink-bar, prm-tags-list .md-chips ._md-chip-input-container:after, prm-tags-list .md-chips .md-chip-input-container:after, prm-tags-list md-chips ._md-chip-input-container:after, prm-tags-list md-chips .md-chip-input-container:after {
+		background-color: #860038;
+	}
+/* end change accent underline color for various elements */
 
-.prm-primary-bg, prm-journals-search-bar, prm-search-bar, prm-spinner.overlay-cover.light-on-dark:after {
-    color: #333;
-    background-color: #fff;
-}
+/* begin move search bar dropdown to left of search bar */
+	prm-search-bar .simple-search-wrapper .search-options {
+	  order: 1;
+	}
+	prm-search-bar .search-input {
+	  order: 2;
+	}
+	prm-search-bar .simple-search-wrapper .search-actions {
+	  order: 3;
+	}
+	prm-search-bar .simple-search-wrapper .search-options prm-tabs-and-scopes-selector.is-displayed md-divider {
+	  display: none; /* hide the / divider */
+	}
+	prm-tabs-and-scopes-selector {
+	  background-color: #F0F0F0;
+	  color: #000;
+	  padding: 0 10px;
+	  border-top-left-radius: 3px;
+	  border-bottom-left-radius: 3px;
+	  border-color: #AAA
+	}
+/* end move search bar dropdown to left of search bar */
 
-/* make logo clickable */
+/* begin make logo clickable */
+	prm-logo div.product-logo {
+		display:none;
+	}
+	prm-logo div.product-logo-local {
+		display: flex;
+	}
+	prm-logo .product-logo a:hover {
+		background-color:transparent;
+		text-transform:none;
+		box-shadow: none;
+	}
+/* end make logo clickable */
 
-prm-logo div.product-logo {
-    display:none;
-}
-prm-logo div.product-logo-local {
-    display: flex;
-}
-prm-logo .product-logo a:hover {
-    background-color:transparent;
-    text-transform:none;
-    box-shadow: none;
-}
+/* begin topnav background white-er */
+	div.top-nav-bar * {
+		color: #fff !important;
+	}
+/* end topnav background white-er */
 
-/* topnav background white-er */
+/* begin remove language selection dropdown */
+	prm-main-menu[menu-type=full] .overlay-menu-item, prm-main-menu[menu-type=full] .padded-container-medium md-divider:nth-child(2) {
+		display: none;
+	}
+/* end remove language selection dropdown */
 
-div.top-nav-bar * {
-    color: #fff !important;
-}
+/* begin hide original no-records-found */
+	prm-no-search-result > md-card {
+		display:none;
+	}
+/* end hide original no-records-found */
+
+/* begin temp fix for browse labels */
+	md-tooltip[md-direction=right] {
+		left: unset !important;
+		right: 70px;
+	}
+/* end temp fix for browse labels */
+
+/* begin dropdown navigation, merge with actual dropdown css file */
+	div#contentspacing ul li:first-child, div#contentspacing ul li {
+		padding-left: 0px !important;
+		margin-left: 0px !important;
+		margin-bottom: 0px !important;
+		margin-top: 0px !important;
+	}
+	#nav ul ul {
+		display: none;
+	}
+	#nav ul li:hover > ul {
+		display: block;
+	}
+	#nav ul {
+		background: #860038;
+		padding-left: 10px !important;
+		list-style: none;
+		position: relative;
+		margin: auto !important;
+		list-style-position: outside;
+		z-index:9;
+	}
+	#nav ul:after {
+		content: "";
+		clear: both;
+		display: block;
+	}
+	#nav ul li {
+		float: left;
+		line-height: 20.16px !important;
+		font-family: 'Open Sans', sans-serif !important;
+		max-height: 54px;
+		min-height: 54px;
+		-webkit-transition: background-color .1s ease-in-out;
+		-moz-transition: background-color .1s ease-in-out;
+		-o-transition: background-color .1s ease-in-out;
+		transition: background-color .1s ease-in-out;
+	}
+	#nav ul li li {
+		max-height: 62px;
+		min-height: 42px;
+	}
+	#nav ul li a {
+		display: block;
+		text-decoration: none;
+		font-size: 14.4px !important;
+		font-weight: 600 !important;
+		text-transform: uppercase;
+		padding: 16px 0 18px 15px !important;
+	}
+	#nav ul ul {
+		position: absolute;
+		top: 100%;
+		background: #860038;
+		list-style: none;
+		list-style-position: outside;
+		min-width: 250px;
+		width: auto;
+		box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+		padding: 0 !important;
+		margin-top: -6px !important; 
+		border: 1px;
+		height: 0px;
+	}
+	#nav ul ul li {
+		float: none;
+		position: relative;
+	}
+	#nav ul ul li a {
+		padding: 12px 16px !important;
+		font-size: 14.4px !important;
+	}
+	#nav ul ul ul {
+		position: absolute;
+		left: 100%;
+		top: 0;
+		margin-top: 0 !important; 
+	}
+	#nav ul li, #nav ul li:hover li, #nav ul li:hover li:hover li { /* change background-color for li elements, not a elements */
+		background-color: #860038;
+	}
+	#nav ul li:hover, #nav ul li:hover li:hover, #nav ul li:hover li:hover li:hover, #nav ul li.currentFix:hover, #nav ul li.currentFix.nav-level-4:hover, #nav ul li.currentFix.nav-level-4:hover li.currentFix.nav-level-5:hover { /* change hover background-color for li elements, not a elements */
+		background-color: #fff;
+	}
+	#nav ul li a, #nav ul li:hover li a, #nav ul li:hover li:hover li a { /* change color for a elements, ensure background is transparent */
+		background-color: transparent;
+		color: #fff;
+	}
+	#nav ul li:hover a, #nav ul li:hover li:hover a, #nav ul li:hover li:hover li:hover a, #nav ul li.currentFix > a, #nav ul li.currentFix.nav-level-4 > a, #nav ul li.currentFix.nav-level-5 > a, #nav ul li.currentFix.nav-level-4:hover li.currentFix.nav-level-5 > a, #nav ul li.currentFix:hover > a, #nav ul li.currentFix.nav-level-4:hover > a, #nav ul li.currentFix.nav-level-4:hover li.currentFix.nav-level-5:hover > a { /* change hover color for a elements */
+		color: #860038;
+	}
+	#nav ul li.currentFix, #nav ul li.currentFix.nav-level-4, #nav ul li.currentFix.nav-level-5, #nav ul li.currentFix.nav-level-4:hover li.currentFix.nav-level-5 { /* change color/background-color for the current active breadcrumb trail */
+		background-color: #f6d475;
+		color: #860038;
+	}
+	/* begin dropdown arrow for top level navigation */
+		ul li span.has-child {
+			cursor: default;
+			float: right;
+			margin-left: 5px;
+			padding: 16px 25px 18px 15px !important;
+			position: relative;
+			top: -16px;
+		}
+		ul li span.has-child:after { 
+			content: '\25BC';
+		}
+	/* end dropdown arrow for top level navigation */
+	/* begin dropdown arrow for lower level navigation */
+		ul li ul li span.has-child { 
+			cursor: default;
+			float: right;
+			margin-left: 20px;
+			padding: 12px 16px !important;
+			position: relative;
+			top: -12px;
+			right: -16px;
+		}
+		ul li ul li span.has-child:after {
+			content: '\25BA';
+		}
+	/* end dropdown arrow for lower level navigation */
+	/* begin hide 4th-tier menu */
+		.nav-level-5 .has-child:after {
+			content: '' !important;
+		}
+		.nav-level-5 ul, .nav-level-5:hover ul {
+			visibility: hidden !important;
+			display: none !important;
+		}
+	/* end hide 4th-tier menu, usually ends up off screen */
+	@media only screen and (max-width: 768px) {  
+		/* give more space on small screens to press the dropdown arrow */
+		/* this should also not be needed anymore, except on the homepage, only because the homepage doesn't use the mobile menu */
+		ul li span.has-child { /* dropdown arrow for top level navigation */
+			padding-right: 45px !important;
+		}
+		ul li ul li span.has-child { /* dropdown arrow for lower level navigation */
+			margin-left: 45px;
+		}
+	}
+	#header {
+		display: table;
+		width: 100%;
+		padding-top: 20px;
+		padding-bottom: 20px;
+	}
+	#logo {
+		float: left;
+		width: 206px;
+		padding-left: 25px;	
+	}
+	#audiencenav {
+		float: right;
+		list-style-type: none;
+		padding: 8px 6px 0 10px;
+		margin: auto;
+		list-style-position: outside;
+	}
+	#audiencenav li {
+		float: left;
+		padding: 0 2px;
+		font-size: .9em;
+		line-height: 1.4em;
+		font-family: 'Open Sans', sans-serif;
+	}
+	#audiencenav a {
+		text-decoration: none;
+		font-size: .8em;
+		font-weight: 500;
+		color: #fff;
+		background-color:#860038;
+		padding:3px 7px;
+		border-radius:3px;
+	}
+	#audiencenav a:hover, #audiencenav a:active {
+		background-color: #fff;
+		color: #860038;
+	}
+	/* begin primo-override for regular dropdown */
+		prm-topbar {
+			height: 114px !important;
+			z-index: 10000 !important;
+		}
+		prm-user-area md-fab-toolbar ._md-fab-toolbar-wrapper {
+			max-height: 60px !important;
+		}
+		.top-nav-bar {
+			height: 60px !important;
+			min-height: 60px !important;
+		}
+		#nav ul li a.navfirst {
+			padding-right: 16px !important; /* changed for primo, need to change other sites */
+		}
+		#nav ul li a:hover {
+			box-shadow: none !important; /* added for primo, need to change other sites, !important not needed on other sites */
+		}
+	/* end primo-override for regular dropdown */
+/* end dropdown navigation */
+
+/* begin libchat floating widget css overrides */
+	@media (max-width: 500px) {
+		.s-lch-widget-float { /* libchat does some stupid repositioning that isn't necessary and also breaks things, this fixes them */
+			left: auto !important;
+			width: auto !important;
+		}
+	}
+	.s-lch-widget-float.open { /* additional sizing styles to ensure the chat widget doesn't cover anything important */
+		top: initial !important;
+		height: calc(100% - 49px) !important;
+		max-height: 500px !important;
+	}
+	.s-lch-widget-float { /* prevent chat widget from covering the refine button */
+		pointer-events: none;
+		z-index: 10001 !important;
+	}
+	.s-lch-widget-float-btn, .s-lch-widget-float-load { /* prevent chat widget from covering the refine button */
+		pointer-events: all;
+	}
+	.s-lch-widget-float-btn { /* show a pointer when mouse over button */
+		cursor: pointer;
+	}
+	.facet-to-left prm-page-nav-menu { /* move the page arrows up main search, journal search */
+		bottom: 5.75em;
+		right: 1.2em;
+	}
+	.__gt-md prm-page-nav-menu { /* move the page arrows up browse */
+		bottom: 5.75em;
+		right: 2.3em;
+	}
+	prm-page-nav-menu .counter-main md-fab-trigger .md-button, prm-page-nav-menu .counter-main md-fab-trigger .md-button:focus, prm-page-nav-menu .counter-main md-fab-trigger .md-button:hover, prm-page-nav-menu .md-button.md-fab {
+		background-color: #dadada;
+	}
+	.md-button._md-focused:not([disabled]), .md-button.hovered:not([disabled]), .md-button.md-focused:not([disabled]), .md-button:focus:not([disabled]), .md-button:hover:not([disabled]) {
+		color: #000;
+		background-color: rgba(58,58,58,.25);
+	}
+	.md-button {
+		color: #4a4a4a;
+	}
+/* end libchat floating widget css overrides */
+
+/* begin mean menu mobile navigation changes */
+
+	/*! #######################################################################
+
+		MeanMenu 2.0.7
+		--------
+
+		To be used with jquery.meanmenu.js by Chris Wharton (http://www.meanthemes.com/plugins/meanmenu/)
+
+	####################################################################### */
+
+	/* hide the link until viewport size is reached */
+	a.meanmenu-reveal {
+		display: none;
+	}
+
+	/* when under viewport size, .mean-container is added to body */
+	.mean-container .mean-bar {
+		float: left;
+		width: 100%;
+		position: relative;
+		background: #860038;
+		padding: 4px 0 1px;
+		min-height: 42px;
+		z-index: 999999;
+		margin-bottom: 4px !important;
+	}
+
+	.mean-container a.meanmenu-reveal {
+		width: 24px;
+		height: 24px;
+		padding: 13px 13px 11px 13px;
+		position: absolute;
+		top: 0;
+		right: 0;
+		cursor: pointer;
+		color: #fff;
+		text-decoration: none;
+		font-size: 16px;
+		text-indent: -9999em;
+		line-height: 22px;
+		font-size: 1px;
+		display: block;
+		font-family: Arial, Helvetica, sans-serif;
+		font-weight: 700;
+	}
+
+	.mean-container a.meanmenu-reveal span {
+		display: block;
+		background: #fff;
+		height: 3px;
+		margin-top: 3px;
+	}
+
+	.mean-container .mean-nav {
+		float: left;
+		width: 100%;
+		background: #860038;
+		margin-top: 44px;
+	}
+
+	.mean-container .mean-nav ul {
+		padding: 0;
+		margin: 0;
+		width: 100%;
+		list-style-type: none;
+	}
+
+	.mean-container .mean-nav ul li {
+		background:#860038 !important;
+		position: relative;
+		float: left;
+		width: 100%;
+	}
+
+	.mean-container .mean-nav ul li a {
+		display: block;
+		float: left;
+		width: 90%;
+		padding: 1em 5%;
+		margin: 0;
+		text-align: left;
+		color: #fff;
+		border-top: 1px solid #383838;
+		border-top: 1px solid rgba(255,255,255,0.5);
+		text-decoration: none;
+		text-transform: uppercase;
+		font-size: 14.4px !important;
+		font-weight: 600 !important;
+	}
+
+	.mean-container .mean-nav ul li li a {
+		width: 80%;
+		padding: 1em 10%;
+		border-top: 1px solid #f1f1f1;
+		border-top: 1px solid rgba(255,255,255,0.25);
+		opacity: 1;
+		filter: alpha(opacity=75);
+		text-shadow: none !important;
+		visibility: visible;
+	}
+
+	.mean-container .mean-nav ul li.mean-last a {
+		border-bottom: none;
+		margin-bottom: 0;
+	}
+
+	.mean-container .mean-nav ul li li li a {
+		width: 70%;
+		padding: 1em 15%;
+	}
+
+	.mean-container .mean-nav ul li li li li a {
+		width: 60%;
+		padding: 1em 20%;
+	}
+
+	.mean-container .mean-nav ul li li li li li a {
+		width: 50%;
+		padding: 1em 25%;
+	}
+
+	.mean-container .mean-nav ul li a:hover {
+		background: #252525;
+		background: rgba(255,255,255,0.1) !important;
+		box-shadow: none !important;
+	}
+
+	.mean-container .mean-nav ul li a.mean-expand {
+		margin-top: 1px;
+		width: 26px;
+		height: 26px;
+		padding: 12px !important;
+		text-align: center;
+		position: absolute;
+		right: 0;
+		top: 0;
+		z-index: 2;
+		font-weight: 700;
+		background: rgba(255,255,255,0.1);
+		border: none !important;
+		border-left: 1px solid rgba(255,255,255,0.4) !important;
+		border-bottom: none !important;
+	}
+
+	.mean-container .mean-nav ul li a.mean-expand:hover {
+		background: rgba(255,255,255,0.3);
+	}
+
+	.mean-container .mean-push {
+		float: left;
+		width: 100%;
+		padding: 0;
+		margin: 0;
+		clear: both;
+	}
+
+	.mean-nav .wrapper {
+		width: 100%;
+		padding: 0;
+		margin: 0;
+	}
+
+	/* Fix for box sizing on Foundation Framework etc. */
+	.mean-container .mean-bar, .mean-container .mean-bar * {
+		-webkit-box-sizing: content-box;
+		-moz-box-sizing: content-box;
+		box-sizing: content-box;
+	}
+
+
+	/* begin meanmenu custom styles */
+		.mean-remove {
+			display: none !important;
+		}
+		.mean-container .has-child, .mean-bar .has-child {
+			display: none !important;
+		}
+		.mean-container .mean-nav > ul li:first-child a:first-child {
+			border-top: none !important;
+		}
+		.mean-container .mean-nav > ul, .mean-container .mean-nav > ul li ul li:first-child a:first-child, .mean-container .mean-nav ul li li a, .mean-container .mean-nav > ul li:first-child li a:first-child {
+			border-top: 1px solid rgba(255,255,255,0.5) !important;
+		}
+		.mean-container .mean-nav ul li a:first-child {
+			line-height: 1.5 !important;
+		}
+		.mean-container .nav-level-4 {
+			padding-right: 0 !important;
+		}
+		.meanmenu-logo img {
+			height: 38px;
+		}
+		.mean-container .mean-nav ul li.currentFix {
+			background:#f6d475 !important;
+		}
+		.mean-container .mean-nav ul li.currentFix > a {
+			color:#860038 !important;
+		}
+		.mean-container a:hover, .mean-container a:focus {
+			box-shadow: none !important;
+		}
+		.mean-container a.meanmenu-reveal:hover, .mean-container a.meanmenu-reveal:focus {
+			background: rgba(255,255,255,0.2) !important;
+		}
+		.mean-container .mean-overlay {
+			position:fixed;
+			top:0;
+			left:0;
+			bottom:0;
+			right:0;
+			height: 100%;
+			width: 100%;
+			margin: 0;
+			padding: 0;
+			background: #000000;
+			opacity: .3;
+			filter: alpha(opacity=30);
+			-moz-opacity: .3;
+			z-index: 101;
+			display: block;
+		}
+		.mean-container .mean-overlay-hidden {
+			display: none;
+		}
+		.mean-container {
+			height: 60px !important;
+			z-index: 10002 !important;
+		}
+	/* end meanmenu custom styles */
+
+	/* begin primo-override for mobile dropdown */
+		/* these zindex changes prevent the mobile menu from obstructing existing functionality */
+		md-toolbar.bottom-fixed-toolbar {
+			z-index: 10001 !important;
+		}
+		.header {
+			z-index: 10002 !important;
+		}
+		prm-main-menu[menu-type=full] .close-button, .md-scroll-mask, .md-dialog-container, md-backdrop._md-dialog-backdrop, md-tooltip {/* move login window in front of menu and chat widget */
+			z-index: 10003 !important;
+		}
+		._md-select-menu-container, md-backdrop._md-select-backdrop, #prm-simple-search { /* prevent various elements from falling behind customizations */
+			z-index: 10004 !important;
+		}
+		/* these just make some minor visual changes, no repositioning is occuring */
+		.md-button.button-with-icon>prm-icon+span { /* remove unnecessary padding on buttons */
+			padding-right: 0;
+		}
+		.facet-to-left-spacer { /* fix advanced search from falling off the page */
+			display: none;
+		}
+		.md-fab-toolbar-wrapper md-toolbar {
+			pointer-events: inherit;
+		}
+		.md-fab-toolbar-wrapper md-toolbar .md-fab-action-item {
+			opacity: 1;
+			-webkit-transform: scale(1);
+			transform: scale(1);
+			transition-delay: 200ms;
+		}
+		.md-fab-toolbar-wrapper md-toolbar .md-fab-action-item md-input-container md-select:focus{
+			background-color: transparent;
+		}
+		prm-user-area, prm-search-bookmark-filter .md-button {
+			background-color: transparent;
+		}
+		prm-search-bookmark-filter .md-button:hover {
+			background-color: rgba(0,0,0,.1);
+		}
+	/* end primo-override for mobile dropdown */
+/* end mean menu mobile navigation changes */

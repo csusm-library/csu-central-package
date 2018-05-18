@@ -2,24 +2,25 @@
 
 /* navbar color change */
 
+}
 .prm-primary-bg, prm-spinner.overlay-cover.light-on-dark:after, prm-search-bar, prm-journals-search-bar {
-    color: white;
-    background-color: #fff;
+    color: fff;
+    background-color: #1f346b;
 }
 .prm-primary-bg.prm-hue1, prm-spinner.prm-hue1.overlay-cover.light-on-dark:after, prm-topbar .top-nav-bar, prm-search-bar.prm-hue1, prm-journals-search-bar.prm-hue1 {
-    background-color: #fff;
+    background-color: #1f346b;
 }
 .prm-primary-bg.prm-hue2, prm-spinner.prm-hue2.overlay-cover.light-on-dark:after, prm-search-bar.prm-hue2, prm-journals-search-bar.prm-hue2, md-backdrop.md-opaque {
-    background-color: #fff;
+    background-color: #1f346b;
 }
 .prm-primary-bg.prm-hue3, prm-spinner.prm-hue3.overlay-cover.light-on-dark:after, prm-search-bar.prm-hue3, prm-journals-search-bar.prm-hue3 {
-    background-color: #fff;
+    background-color: #1f346b;
 }
 .prm-primary-bg.prm-hue3-important, prm-spinner.prm-hue3-important.overlay-cover.light-on-dark:after, prm-user-area md-fab-toolbar.md-is-open md-fab-trigger .md-fab-toolbar-background, prm-user-area md-fab-toolbar.md-is-open md-fab-trigger ._md-fab-toolbar-background, prm-search-bar.prm-hue3-important, prm-journals-search-bar.prm-hue3-important {
-    background-color: #fff !important;
+    background-color: #1f346b !important;
 }
 .prm-primary-bg.prm-hue4, prm-spinner.prm-hue4.overlay-cover.light-on-dark:after, prm-search-bar.prm-hue4, prm-journals-search-bar.prm-hue4 {
-    background-color: #fff;
+    background-color: #1f346b;
 }
 
 /* search bar color change */
@@ -53,5 +54,5 @@ prm-logo .logo-image, prm-logo img {
 /* light top background */
 
 div.top-nav-bar * {
-    color: #003d75 !important;
+    color: #fff !important;
 }

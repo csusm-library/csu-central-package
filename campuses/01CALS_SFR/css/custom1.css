@@ -21,10 +21,10 @@ prm-search > md-content.md-primoExplore-theme .main {
 
 prm-logo div.product-logo {display:none;}
 prm-logo div.product-logo-local {display: flex;}
-prm-logo .product-logo a:hover {background-color: #fed65d; text-transform:none; box-shadow: none;}
+
 prm-logo .logo-image, prm-logo img {
-	max-height: 100%;
-	min-width:170px;
+	max-height: 80%;
+	min-width: 110px;
 }
 
 /*---------------------Text Styles--------------------*/
@@ -203,10 +203,7 @@ prm-search-bar .advanced-search-backdrop {
     background-color: #fff;
 
 }
-  prm-search-bar .advanced-search-tabs {
-      background-color: #fff;
-      box-shadow: inset 0 -1px 0 0 #f1f1f1;
-  }
+  
 
 /*---------Advanced Search Link ------------*/
 prm-search-bar .search-switch-buttons .md-button.switch-to-advanced {
@@ -376,16 +373,64 @@ md-icon svg {
 
 }
 
-/*setting up a hover action*/
 
-
-
-prm-topbar prm-logo {
-
-    
-
+.buttons-group .md-button:nth-child(2) {
+    box-shadow: 1px 0 0 0 rgba(0,0,0,.1), -1px 0 0 0 rgba(0,0,0,.1);
 }
 
+prm-topbar .md-button {
+    color: #330033 !important;
+
+  }
+  
+/* Rearranging of the entire page.*/
+
+div#getit_link1_0 { order: 0;}
+
+div#getit_link2_0 { order: 1;}
+
+div#action_list{ order: 2;}
+
+div#details { order: 3; }
+
+div#links { order: 4; }
+
+div#virtualBrowse { order: 5; }
+
+[aria-label="Online Access"] { order: 0 !important; }
+
+[aria-label="In the library"] { order: 1 !important; }
+
+[aria-label="Send to"] { order: 2 !important; }
+
+[aria-label="Details"] { order: 3 !important; }
+
+[aria-label="Links"] { order: 4 !important; }
+
+[aria-label="Virtual Browse"] { order: 5 !important; }
 
 
+.full-view-inner-container {
+    padding-bottom: 10em;
+    display: flex;
+    flex-direction: column;
+}
+
+.full-view-section{
+	margin-top: 0em;
+}
+  
+
+[name="Citation"] { order: 2; }
+[name="Print"] { order: 1; }
+[name="E-mail"] { order: 0; }
+[name="Permalink"] { order: 3; }
+[name="EndNote"] { order: 4; }
+[name="RISPushTo"] { order: 5; display:none;}
+[name="EasyBib"] { order: 6; }
+[name="SMS"] { order: 7; display:none; }
+[name="RefWorks"] { order: 8; }
+[name="Delicious"] { order: 9; }
+[name="e-shelf"] { order: 10; }
+[name="BibTeXPushTo"] { order: 11; display:none; }
 
