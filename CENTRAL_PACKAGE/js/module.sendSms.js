@@ -291,7 +291,7 @@ angular.module('sendSms').component('smsAction', {
 
 angular.module('sendSms').value('smsAction', {}).value('smsActionDefault', {
   name: 'send_sms',
-  label: 'SMS',
+  label: 'Text',
   index: 9,
   icon: {
     icon: 'ic_smartphone_24px',
@@ -310,7 +310,7 @@ angular.module('sendSms').value('smsAction', {}).value('smsActionDefault', {
   'Virgin': 'vmobl.com'
 }).value('smsOptions', {}).value('smsOptionsDefault', {
   enabled: false,
-  formUrl: 'https://slips.calstate.edu/email/',
+  formUrl: 'https://slips.calstate.edu/sms/',
   fromEmail: 'do-not-respond@calstate.edu',
   subject: '',
   noPrintFoundLabel: 'No Print Locations'
