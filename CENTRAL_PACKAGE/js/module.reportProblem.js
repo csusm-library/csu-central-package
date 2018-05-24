@@ -42,16 +42,9 @@ angular.module('reportProblem').component('ocaReportProblem', {
                     <div ng-message="pattern, required ">email is invalid</div>
                   </div>
                 </md-input-container>
-                <md-input-container class="underlined-input">
-                  <label>Phone:</label>
-                  <input ng-model="$ctrl.phoneNumber" name="phoneNumber" type="text" >
-                  <div ng-messages="reportForm.phoneNumber.$error">
-                    <div ng-message="pattern, required">please enter your phone number</div>
-                  </div>
-                </md-input-container>
                 <md-input-container class="md-required">
                   <label>Description:</label>
-                  <input ng-model="$ctrl.description" name="description" required>
+                  <textarea ng-model="$ctrl.description" name="description" required></textarea>
                   <div ng-messages="reportForm.description.$error">
                     <div ng-message="required">please enter your problem description</div>
                   </div>
@@ -98,7 +91,7 @@ angular.module('reportProblem').component('ocaReportProblem', {
       this.showRPForm = false;
     };
     this.validate = function () {
-      return _this.telRegEx.test(_this.phoneNumber) && _this.name && _this.emailRegEx.test(_this.email) && _this.description && (_this.isCaptcha ? _this.gCaptchaResponse : true);
+      return _this.name && _this.emailRegEx.test(_this.email) && _this.description && (_this.isCaptcha ? _this.gCaptchaResponse : true);
     };
     this.isCaptcha = window.appConfig['system-configuration']['Activate Captcha [Y/N]'] == 'Y';
     this.getCaptchaPublicKey = function () {
@@ -169,17 +162,14 @@ angular.module('reportProblem').component('ocaReportProblem', {
 }]);
 
 angular.module('reportProblem').value('reportProblem', {}).value('reportProblemDefault', {
-  //general options
   enabled: false,
   enabledDefault: true,
-  reportUrl: 'http://my.library.edu/reportproblem.php?',
+  reportUrl: 'https://slips.calstate.edu/problem/',
   reportVendor: 'email',
   messageText: 'See something that doesn\'t look right?',
   buttonText: 'Report a Problem',
-  subject: '',
-  //email-specific options
+  subject: 'problem',
   toEmail: '',
-  //libanswers-specific options
   instid: '',
   quid: '',
   qlog: '',
