@@ -130,7 +130,7 @@ angular.module('reportProblem').component('ocaReportProblem', {
           params.qlog = reportProblem.hasOwnProperty("qlog") ? reportProblem.qlog : reportProblemDefault.qlog;
           params.source = reportProblem.hasOwnProperty("source") ? reportProblem.source : reportProblemDefault.source;
         } else if (_this.reportVendor === 'email') {
-          params.toEmail = reportProblem.hasOwnProperty("toEmail") ? reportProblem.toEmail : reportProblemDefault.toEmail;
+          params.to = reportProblem.hasOwnProperty("to") ? reportProblem.to : reportProblemDefault.to;
         }
         $http.post(_this.reportUrl, params).then(function (msg) {
           _this.setStatusCode(msg.status);
@@ -168,8 +168,8 @@ angular.module('reportProblem').value('reportProblem', {}).value('reportProblemD
   reportVendor: 'email',
   messageText: 'See something that doesn\'t look right?',
   buttonText: 'Report a Problem',
-  subject: 'problem',
-  toEmail: '',
+  subject: 'Problem report',
+  to: '',
   instid: '',
   quid: '',
   qlog: '',
