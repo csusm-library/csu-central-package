@@ -2,7 +2,24 @@
   "use strict";
   'use strict';
 
-  var app = angular.module('viewCustom', ['angularLoad']);
+  var app = angular.module('viewCustom', ['sendSms','reportProblem','multipleAnalytics', 'angularLoad']);
+
+  app.constant('smsOptions', {
+    enabled: true
+  });
+
+  app.constant('reportProblem', {
+    to: 'dwalker@calstate.edu',
+    enabled: true
+  });
+
+  app.constant('analyticsOptions', {
+    enabled: true,
+    siteSource: 'ga',
+    siteId: 'UA-49482225-3',
+    siteUrl: 'https://www.google-analytics.com/analytics.js',
+    defaultTitle: 'OneSearch'
+  });
 
   /****************************************************************************************************/
 
