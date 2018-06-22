@@ -1,6 +1,6 @@
 prm-topbar {
-    height: inherit !important;
+    height: inherit;
 }
-prm-main-menu {
-    margin-top: 15px;
+prm-topbar .top-nav-bar {
+    height: 64px;
 }
