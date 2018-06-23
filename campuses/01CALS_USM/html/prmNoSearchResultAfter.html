@@ -1,0 +1,27 @@
+<md-card class="default-card _md md-primoExplore-theme zero-margin" prm-text="" dir="auto" style="">
+	<md-card-title>
+		<md-card-title-text>
+			<span translate class="md-headline">nui.noresults.title</span>
+		</md-card-title-text>
+	</md-card-title>
+	<md-card-content>
+		<p>
+			<span ng-if="!$ctrl.isSearchWithFilter" translate="nui.noresults.description" translate-value-term="{{$ctrl.term}}"></span>
+			<span ng-if="$ctrl.isSearchWithFilter" translate="nui.noresultswithfilter.description" translate-value-term="{{$ctrl.term}}"></span>
+		</p>
+		<md-checkbox ng-model="$ctrl.pcAvailability" ng-change="$ctrl.changePcAvailability()" aria-label="{{'expandresults' | translate}}">
+			<span translate="expandresults" class="btn-link"></span>
+		</md-checkbox>
+		</p>
+		<p>
+			<span translate class="bold-text">nui.noresults.suggestions</span>
+		</p>
+		<ul>
+			<li translate>nui.noresults.suggestions1</li>
+			<li translate>nui.noresults.suggestions2</li>
+			<li translate>nui.noresults.suggestions3</li>
+			<li translate>nui.noresults.suggestions4</li>
+			<li translate>nui.noresults.suggestions5</li>
+		</ul>
+	</md-card-content>
+</md-card>
