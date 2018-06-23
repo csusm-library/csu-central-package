@@ -56,7 +56,7 @@ md-toolbar prm-change-lang {
     display: none;
 }
 
-/*Hide Tags*/ 
+/*Hide Tags*/
 .md-button[aria-label="nui.mainmenu.label.tags"] {
     display:none;
 }
@@ -71,9 +71,8 @@ md-toolbar prm-change-lang {
 }
 
 /* increase the height of the topbar */
-prm-topbar {
+prm-topbar .top-nav-bar {
     height:125px;
-    position: relative;
 }
 
 /* get rid of gray boxes */
@@ -89,7 +88,6 @@ prm-main-menu[menu-type=menu] .md-button {
     font-size: 1em;
 }
 
-
 prm-topbar .md-button {
-     color: #fff);
+     color: #fff;
 }

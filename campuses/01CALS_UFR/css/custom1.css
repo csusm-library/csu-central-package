@@ -38,7 +38,7 @@ md-card md-checkbox { padding-right: 2em; }
 /* Navbar color changes to work with Central Package */
 .prm-primary-bg, prm-spinner.overlay-cover.light-on-dark:after, prm-search-bar, prm-journals-search-bar {
     color: #fff;
-    background-color: #002c76; 
+    background-color: #002c76;
 }
 .prm-primary-bg.prm-hue1, prm-spinner.prm-hue1.overlay-cover.light-on-dark:after, prm-topbar .top-nav-bar, prm-search-bar.prm-hue1, prm-journals-search-bar.prm-hue1 {
     background-color: #002c76;
@@ -67,11 +67,11 @@ md-card md-checkbox { padding-right: 2em; }
 prm-logo div.product-logo { display: none; }
 prm-logo div.product-logo-local { display: flex; }
 prm-logo .product-logo a:hover {
-    background-color: transparent; 
-    text-transform: none; 
+    background-color: transparent;
+    text-transform: none;
     box-shadow: none;
 }
-prm-topbar { height: 100px; }
+prm-topbar .top-nav-bar { height: 100px; }
 prm-topbar prm-logo { max-width: 300px; }
 .fresno-logo { width: 300px; }
 .fresno-logo img { width: 100%; }
@@ -156,9 +156,9 @@ prm-service-header { order: 0; }
 /* END: other-item-detail.css */
 /* START: other-mods.css */
 
-/* 
+/*
   Used in concert with "display" code below,
-  Displays the "title" attribute for any item that has specific text in that title attribute. 
+  Displays the "title" attribute for any item that has specific text in that title attribute.
 */
 [title="Unavailable at Fresno State. See Request Options."]:after {
   position: absolute;
@@ -170,9 +170,9 @@ prm-service-header { order: 0; }
   height: 1.25rem;
   color: #e08303;
 }
-/* 
+/*
   Used in concert with ":after" code above,
-  Hides the Primo Generated Status when the "title" attribute exists and the items have a specific "status". 
+  Hides the Primo Generated Status when the "title" attribute exists and the items have a specific "status".
 */
 button[title="Unavailable at Fresno State. See Request Options."] span.not_restricted,
 button[title="Unavailable at Fresno State. See Request Options."] span.restricted {
@@ -205,8 +205,8 @@ prm-no-search-result > md-card {
 /* START: workarounds.css  --- This should be the last file included. */
 
 /* Put your IE-only styles here. Works for IS 10 & IE 11*/
-@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {  
-    
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+
     /* IE has problems outlining the search box. */
     .simple-search-wrapper .search-input #searchBar { border: 2px solid #002c76 !important; }
 }

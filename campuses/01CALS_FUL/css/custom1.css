@@ -1,62 +1,103 @@
 /** Fullerton (01CALS_FUL) ***/
 
+
 /* navbar color change */
 
-.prm-primary-bg, prm-spinner.overlay-cover.light-on-dark:after, prm-search-bar, prm-journals-search-bar {
+.prm-primary-bg,
+prm-spinner.overlay-cover.light-on-dark:after,
+prm-search-bar,
+prm-journals-search-bar {
     color: white;
     background-color: #103D74;
 }
-.prm-primary-bg.prm-hue1, prm-spinner.prm-hue1.overlay-cover.light-on-dark:after, prm-topbar .top-nav-bar, prm-search-bar.prm-hue1, prm-journals-search-bar.prm-hue1 {
+
+.prm-primary-bg.prm-hue1,
+prm-spinner.prm-hue1.overlay-cover.light-on-dark:after,
+prm-topbar .top-nav-bar,
+prm-search-bar.prm-hue1,
+prm-journals-search-bar.prm-hue1 {
     background-color: #103D74;
 }
-.prm-primary-bg.prm-hue2, prm-spinner.prm-hue2.overlay-cover.light-on-dark:after, prm-search-bar.prm-hue2, prm-journals-search-bar.prm-hue2, md-backdrop.md-opaque {
+
+.prm-primary-bg.prm-hue2,
+prm-spinner.prm-hue2.overlay-cover.light-on-dark:after,
+prm-search-bar.prm-hue2,
+prm-journals-search-bar.prm-hue2,
+md-backdrop.md-opaque {
     background-color: #103D74;
 }
-.prm-primary-bg.prm-hue3, prm-spinner.prm-hue3.overlay-cover.light-on-dark:after, prm-search-bar.prm-hue3, prm-journals-search-bar.prm-hue3 {
+
+.prm-primary-bg.prm-hue3,
+prm-spinner.prm-hue3.overlay-cover.light-on-dark:after,
+prm-search-bar.prm-hue3,
+prm-journals-search-bar.prm-hue3 {
     background-color: #0f3665;
 }
-.prm-primary-bg.prm-hue3-important, prm-spinner.prm-hue3-important.overlay-cover.light-on-dark:after, prm-user-area md-fab-toolbar.md-is-open md-fab-trigger .md-fab-toolbar-background, prm-user-area md-fab-toolbar.md-is-open md-fab-trigger ._md-fab-toolbar-background, prm-search-bar.prm-hue3-important, prm-journals-search-bar.prm-hue3-important {
+
+.prm-primary-bg.prm-hue3-important,
+prm-spinner.prm-hue3-important.overlay-cover.light-on-dark:after,
+prm-user-area md-fab-toolbar.md-is-open md-fab-trigger .md-fab-toolbar-background,
+prm-user-area md-fab-toolbar.md-is-open md-fab-trigger ._md-fab-toolbar-background,
+prm-search-bar.prm-hue3-important,
+prm-journals-search-bar.prm-hue3-important {
     background-color: #0f3665 !important;
 }
-.prm-primary-bg.prm-hue4, prm-spinner.prm-hue4.overlay-cover.light-on-dark:after, prm-search-bar.prm-hue4, prm-journals-search-bar.prm-hue4 {
+
+.prm-primary-bg.prm-hue4,
+prm-spinner.prm-hue4.overlay-cover.light-on-dark:after,
+prm-search-bar.prm-hue4,
+prm-journals-search-bar.prm-hue4 {
     background-color: #0f3665;
 }
+
 
 /* search bar color change */
 
-.prm-primary-bg, prm-journals-search-bar, prm-search-bar, prm-spinner.overlay-cover.light-on-dark:after {
+.prm-primary-bg,
+prm-journals-search-bar,
+prm-search-bar,
+prm-spinner.overlay-cover.light-on-dark:after {
     color: #333;
     background-color: #fff;
 }
 
+
 /* make logo clickable */
 
 prm-logo div.product-logo {
-    display:none;
+    display: none;
 }
+
 prm-logo div.product-logo-local {
     display: flex;
 }
+
 prm-logo .product-logo a:hover {
-    background-color:transparent;
-    text-transform:none;
+    background-color: transparent;
+    text-transform: none;
     box-shadow: none;
 }
+
 
 /*end of DW cleaned up*/
 
 
-       /* fix login dialog transparency start*/
+/* fix login dialog transparency start*/
 
-  /*md-dialog.light-on-dark-dialog {
+
+/*md-dialog.light-on-dark-dialog {
 
     background-color: rgba(0,0,0,.6);
 
 }*/
- /* fix login dialog transparency end*/
 
-       /* fix logo spacing start*/
- prm-topbar {
+
+/* fix login dialog transparency end*/
+
+
+/* fix logo spacing start*/
+
+prm-topbar .top-nav-bar {
     height: 100px;
 }
 
@@ -64,12 +105,17 @@ prm-topbar prm-logo {
     max-width: 250px;
     min-width: 150px;
 }
-       /* fix logo spacing end*/
+
+
+/* fix logo spacing end*/
+
 
 /* prm-user-area */
 
 
-  /* change account option order start*/
+/* change account option order start*/
+
+
 /*prm-user-area md-toolbar > md-fab-actions > div:nth-child(1) {
   order: 3;
 }
@@ -79,49 +125,117 @@ prm-user-area md-toolbar > md-fab-actions > div:nth-child(2) {
 prm-user-area md-toolbar > md-fab-actions > div:nth-child(3) {
   order: 1;
 }*/
- /* change account option order end */
- /* remove facets space start */ 
+
+
+/* change account option order end */
+
+
+/* remove facets space start */
+
+
 /*body > primo-explore > div > prm-explore-main > ui-view > prm-search > md-content > div.flex-xl-30.flex-md-10.flex-lg-25.flex-0
 {
    display:none;
 }*/
- /* remove facets space start end */
-body
- {
-  background-color: white;
 
- }
+
+/* remove facets space start end */
+
+body {
+    background-color: white;
+}
+
+
 /*Move Expand results to bottom of page */
+
 prm-facet div div div.sidebar-section.margin-top-small.margin-bottom-medium.compensate-padding-left:nth-child(2) {
-  order:100;
+    order: 100;
 }
 
 prm-facet div div div.sidebar-section.margin-top-small.margin-bottom-medium.compensate-padding-left:nth-child(3) {
-  order:100;
+    order: 100;
 }
+
+
 /*Move Expand results to bottom of page end */
 
+
 /*hide language options start */
-prm-user-area md-toolbar > md-fab-actions > div:nth-child(2) {
+
+
+/* prm-user-area md-toolbar > md-fab-actions > div:nth-child(2) {
   display:none;
-}
+} */
+
+
 /*hide language options end */
 
+
 /* remove language dropdown from . . . menu start */
-#dialogContent_17 > prm-main-menu > div > md-content > div > div.settings-container.align-self-stretch.layout-gt-xs-row.layout-align-center-start > div > md-divider:nth-child(2),
-#dialogContent_17 > prm-main-menu > div > md-content > div > div.settings-container.align-self-stretch.layout-gt-xs-row.layout-align-center-start > div > div
-{
-     display:none; 
+
+#dialogContent_17>prm-main-menu>div>md-content>div>div.settings-container.align-self-stretch.layout-gt-xs-row.layout-align-center-start>div>md-divider:nth-child(2),
+#dialogContent_17>prm-main-menu>div>md-content>div>div.settings-container.align-self-stretch.layout-gt-xs-row.layout-align-center-start>div>div {
+    display: none;
 }
+
+
 /* remove language dropdown from . . . menu end */
+
+
 /* remove browse start */
-#dialogContent_17 > prm-main-menu > div > md-content > div > div.custom-links-container.layout-wrap.layout-align-sm-start-start.layout-align-center-start.layout-row > md-card:nth-child(7)
-{
-     display:none; 
+
+#dialogContent_17>prm-main-menu>div>md-content>div>div.custom-links-container.layout-wrap.layout-align-sm-start-start.layout-align-center-start.layout-row>md-card:nth-child(7) {
+    display: none;
 }
 
-#dialogContent_17 > prm-main-menu > div > md-content > div > div.custom-links-container.layout-wrap.layout-align-sm-start-start.layout-align-center-start.layout-row > md-card:nth-child(2)
-{
-        display:none;  
+#dialogContent_17>prm-main-menu>div>md-content>div>div.custom-links-container.layout-wrap.layout-align-sm-start-start.layout-align-center-start.layout-row>md-card:nth-child(2) {
+    display: none;
 }
 
+
+/* Re-order the sections of the full record display */
+
+#action_list {
+    order: 2
+}
+
+#citationTrails {
+    order: 3;
+}
+
+#details {
+    order: 1
+}
+
+#links {
+    order: 4;
+}
+
+#virtualBrowse {
+    order: 5;
+}
+
+.full-view-inner-container {
+    padding-bottom: 10em;
+    display: flex;
+    flex-direction: column;
+}
+
+[aria-label="Tools"] {
+    order: 5 !important;
+}
+
+[aria-label="More Information"] {
+    order: 6 !important;
+}
+
+[aria-label="Links"] {
+    order: 7 !important;
+}
+
+[aria-label="Virtual Browse"] {
+    order: 8 !important;
+}
+
+
+/* Re-order the sections of the full record display end*/
