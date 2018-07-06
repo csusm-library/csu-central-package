@@ -4,3 +4,6 @@ prm-topbar {
 prm-topbar .top-nav-bar {
     height: 64px;
 }
+prm-top-bar-before {
+    display: none;
+}
