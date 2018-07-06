@@ -273,13 +273,14 @@ angular.module('sendSms').component('smsAction', {
   require: {
     prmActionCtrl: '^prmActionList'
   },
-  controller: ['customActions', 'smsAction', 'smsActionDefault', function (customActions, smsAction, smsActionDefault) {
+  controller: ['customActions', 'smsAction', 'smsActionDefault', 'smsOptions', function (customActions, smsAction, smsActionDefault, smsOptions) {
     var _this2 = this;
 
-    smsAction.name = smsAction.name || smsActionDefault.name;
-    smsAction.label = smsAction.label || smsActionDefault.label;
-    smsAction.index = smsAction.index === 0 ? smsAction.index : smsActionDefault.index;
-    smsAction.icon = smsAction.icon || smsActionDefault.icon;
+    smsAction.name = smsOptions.name || smsActionDefault.name;
+    smsAction.label = smsOptions.label || smsActionDefault.label;
+    smsAction.index = smsOptions.index || smsActionDefault.index;
+    smsAction.icon = smsOptions.icon || smsActionDefault.icon;
+
     this.$onInit = function () {
       return customActions.addAction(smsAction, _this2.prmActionCtrl);
     };
