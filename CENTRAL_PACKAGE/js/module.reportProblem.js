@@ -28,26 +28,38 @@ angular.module('reportProblem').component('ocaReportProblem', {
             <div layout-margin>
               <div layout="column">
                 <h4 class="md-subhead">Report Your Problem here:</h4>
-                <md-input-container class="underlined-input">
+                <md-input-container class="underlined-input md-required" ng-if="$ctrl.requireName">
                   <label>Name:</label>
                   <input ng-model="$ctrl.name" name="name" type="text" >
                   <div ng-messages="reportForm.name.$error">
                     <div ng-message="required">please enter your name</div>
                   </div>
                 </md-input-container>
-                <md-input-container class="underlined-input md-required">
+                <md-input-container class="underlined-input" ng-if="!$ctrl.requireName">
+                  <label>Name:</label>
+                  <input ng-model="$ctrl.name" name="name" type="text" >
+                </md-input-container>
+                <md-input-container class="underlined-input md-required" ng-if="$ctrl.requireEmail">
                   <label>Email:</label>
                   <input ng-model="$ctrl.email" name="email" type="text" required >
                   <div ng-messages="reportForm.email.$error">
                     <div ng-message="pattern, required ">email is invalid</div>
                   </div>
                 </md-input-container>
-                <md-input-container class="md-required">
+                <md-input-container class="underlined-input" ng-if="!$ctrl.requireEmail">
+                  <label>Email:</label>
+                  <input ng-model="$ctrl.email" name="email" type="text" >
+                </md-input-container>
+                <md-input-container class="md-required" ng-if="$ctrl.requireDesc">
                   <label>Description:</label>
                   <textarea ng-model="$ctrl.description" name="description" required></textarea>
                   <div ng-messages="reportForm.description.$error">
                     <div ng-message="required">please enter your problem description</div>
                   </div>
+                </md-input-container>
+                <md-input-container ng-if="!$ctrl.requireDesc">
+                  <label>Description:</label>
+                  <textarea ng-model="$ctrl.description" name="description"></textarea>
                 </md-input-container>
                 <md-input-container class="underlined-input" ng-if="$ctrl.isCaptcha">
                   <div vc-recaptcha key="$ctrl.getCaptchaPublicKey()" on-success="$ctrl.setResponse(response)"></div>
@@ -76,6 +88,9 @@ angular.module('reportProblem').component('ocaReportProblem', {
     var _this = this;
 
     this.enabled = reportProblem.hasOwnProperty("enabled") ? reportProblem.enabled : reportProblemDefault.enabled;
+    this.requireName = reportProblem.hasOwnProperty("requireName") ? reportProblem.requireName : reportProblemDefault.requireName;
+    this.requireEmail = reportProblem.hasOwnProperty("requireEmail") ? reportProblem.requireEmail : reportProblemDefault.requireEmail;
+    this.requireDesc = reportProblem.hasOwnProperty("requireDesc") ? reportProblem.requireDesc : reportProblemDefault.requireDesc;
     this.messageText = this.messageText || (reportProblem.hasOwnProperty("messageText") ? reportProblem.messageText : reportProblemDefault.messageText);
     this.buttonText = this.buttonText || (reportProblem.hasOwnProperty("buttonText") ? reportProblem.buttonText : reportProblemDefault.buttonText);
     this.reportUrl = this.reportUrl || (reportProblem.hasOwnProperty("reportUrl") ? reportProblem.reportUrl : reportProblemDefault.reportUrl);
@@ -91,7 +106,10 @@ angular.module('reportProblem').component('ocaReportProblem', {
       this.showRPForm = false;
     };
     this.validate = function () {
-      return _this.name && _this.emailRegEx.test(_this.email) && _this.description && (_this.isCaptcha ? _this.gCaptchaResponse : true);
+      return (_this.requireName ? _this.name : true) 
+        && (_this.requireEmail ? _this.emailRegEx.test(_this.email) : true)
+        && (_this.requireDesc ? _this.description : true) 
+        && (_this.isCaptcha ? _this.gCaptchaResponse : true);
     };
     this.isCaptcha = window.appConfig['system-configuration']['Activate Captcha [Y/N]'] == 'Y';
     this.getCaptchaPublicKey = function () {
@@ -116,7 +134,7 @@ angular.module('reportProblem').component('ocaReportProblem', {
           'reportVendor': _this.reportVendor,
           'subject': reportProblem.hasOwnProperty("subject") ? reportProblem.subject : reportProblemDefault.subject,
           'name': _this.name,
-          'email': _this.email,
+          'email': _this.email ? _this.email : (reportProblem.hasOwnProperty("from") ? reportProblem.from : reportProblemDefault.from),
           'phone': _this.phoneNumber,
           'description': _this.description,
           'gCaptchaResponse': _this.gCaptchaResponse,
@@ -164,12 +182,16 @@ angular.module('reportProblem').component('ocaReportProblem', {
 angular.module('reportProblem').value('reportProblem', {}).value('reportProblemDefault', {
   enabled: false,
   enabledDefault: true,
+  requireName: false,
+  requireEmail: true,
+  requireDesc: true,
   reportUrl: 'https://slips.calstate.edu/problem/',
   reportVendor: 'email',
   messageText: 'See something that doesn\'t look right?',
   buttonText: 'Report a Problem',
   subject: 'Problem report',
   to: '',
+  from: 'donotreply@calstate.edu',
   instid: '',
   quid: '',
   qlog: '',
