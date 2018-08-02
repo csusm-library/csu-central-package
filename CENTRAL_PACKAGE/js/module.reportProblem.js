@@ -107,9 +107,9 @@ angular.module('reportProblem').component('ocaReportProblem', {
       this.showRPForm = false;
     };
     this.validate = function () {
-      return (_this.requireName ? _this.name : true) 
+      return (_this.requireName ? _this.name : true)
         && (_this.requireEmail ? _this.emailRegEx.test(_this.email) : true)
-        && (_this.requireDesc ? _this.description : true) 
+        && (_this.requireDesc ? _this.description : true)
         && (_this.isCaptcha ? _this.gCaptchaResponse : true);
     };
     this.isCaptcha = window.appConfig['system-configuration']['Activate Captcha [Y/N]'] == 'Y';
@@ -136,7 +136,7 @@ angular.module('reportProblem').component('ocaReportProblem', {
           'emailFormat': _this.emailFormat,
           'subject': reportProblem.hasOwnProperty("subject") ? reportProblem.subject : reportProblemDefault.subject,
           'name': _this.name,
-          'email': _this.email ? _this.email : (reportProblem.hasOwnProperty("from") ? reportProblem.from : reportProblemDefault.from),
+          'from': _this.email ? _this.email : (reportProblem.hasOwnProperty("from") ? reportProblem.from : reportProblemDefault.from),
           'phone': _this.phoneNumber,
           'description': _this.description,
           'gCaptchaResponse': _this.gCaptchaResponse,

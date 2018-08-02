@@ -241,6 +241,7 @@ angular.module('sendSms').component('ocaSendSms', {
           else message += holdings;
         } else message += _this.noPrintFoundLabel;
         $http.post(smsOptions.formUrl || smsOptionsDefault.formUrl, {
+          "action": "sms",
           "from": smsOptions.fromEmail || smsOptionsDefault.fromEmail,
           "to": _this.phoneNumber + '@' + _this.carrier,
           "subject": smsOptions.subject || smsOptionsDefault.subject,
@@ -313,7 +314,6 @@ angular.module('sendSms').value('smsAction', {}).value('smsActionDefault', {
 }).value('smsOptions', {}).value('smsOptionsDefault', {
   enabled: false,
   formUrl: 'https://library.calstate.edu/primo-gateway/',
-  action: 'sms',
   fromEmail: 'do-not-respond@calstate.edu',
   subject: '',
   noPrintFoundLabel: 'No Print Locations'
