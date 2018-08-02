@@ -125,11 +125,13 @@ angular.module('reportProblem').component('ocaReportProblem', {
           'item': _this.itemCtrl.item
         };
         if (_this.reportVendor === 'libanswers') {
+          params.action = 'libanswers';
           params.instid = reportProblem.hasOwnProperty("instid") ? reportProblem.instid : reportProblemDefault.instid;
           params.quid = reportProblem.hasOwnProperty("quid") ? reportProblem.quid : reportProblemDefault.quid;
           params.qlog = reportProblem.hasOwnProperty("qlog") ? reportProblem.qlog : reportProblemDefault.qlog;
           params.source = reportProblem.hasOwnProperty("source") ? reportProblem.source : reportProblemDefault.source;
         } else if (_this.reportVendor === 'email') {
+          params.action = 'problem-email';
           params.to = reportProblem.hasOwnProperty("to") ? reportProblem.to : reportProblemDefault.to;
         }
         $http.post(_this.reportUrl, params).then(function (msg) {
@@ -164,7 +166,7 @@ angular.module('reportProblem').component('ocaReportProblem', {
 angular.module('reportProblem').value('reportProblem', {}).value('reportProblemDefault', {
   enabled: false,
   enabledDefault: true,
-  reportUrl: 'https://slips.calstate.edu/problem/',
+  reportUrl: 'https://library.calstate.edu/primo-gateway/',
   reportVendor: 'email',
   messageText: 'See something that doesn\'t look right?',
   buttonText: 'Report a Problem',
