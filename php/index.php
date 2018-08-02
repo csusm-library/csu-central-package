@@ -49,64 +49,17 @@ if ($enableCaptcha == true && isset($params['gCaptchaResponse'])) {
 if ($enableCaptcha == false || $proceed == true) {
     try {
         switch ($action) {
-            
             case 'libanswers':
-                
-                $url = 'https://api2.libanswers.com/1.0/form/submit';
-                $data = array(
-                    'instid' => $params['instid'],
-                    'quid' => $params['quid'],
-                    'qlog' => $params['qlog'],
-                    'source' => $params['source'],
-                    'pquestion' => $params['subject'],
-                    'pdetails' => report_problem_content($params),
-                    'pemail' => $params['email'],
-                    'pname' => $params['name']
-                );
-                
-                $curl = curl_init($url);
-                curl_setopt($curl, CURLOPT_POST , TRUE);
-                curl_setopt($curl, CURLOPT_POSTFIELDS , http_build_query($data));
-                curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-                $result = json_decode(curl_exec($curl));
-                $info = curl_getinfo($curl);
-                
-                if ($info['http_code'] !== 200) {
-                    header('HTTP/1.1 500 There was an error submitting the form. Please check your information and try again');
-                }
-                
-                curl_close($curl);
+                libanswers($params);
                 break;
-                
             case 'problem-email':
-                
-                $to = $params['to'];
-                $from = $params['from'];
-                $name = $params['name'];
-                $subject = $params['subject'];
-                $body = report_problem_content($params);
-                
-                send_email($to, $name, $from, $subject, $body);
+                problem_email($params);
                 break;
-                
             case 'sms':
-                
-                $from = $params['from'];
-                $to = $params['to'];
-                $subject = $params['subject'];
-                $message = $params['message'];
-                $body = "";
-                $alt_body = "";
-                
-                // content
-                
-                if (strlen($message) > 148) {
-                    $alt_body = $body = $message;
-                } else {
-                    $body = str_replace('<br>', "\r\n", $message);
-                }
-                
-                send_email($to, $name, $from, $subject, $body, $alt_body);
+                sms($params);
+                break;
+            default:
+                throw new Exception("Bad action");
         }
     } catch (Exception $e) {
         header("HTTP/1.1 500 " . error_message($e->getMessage()));
@@ -118,6 +71,82 @@ if ($enableCaptcha == false || $proceed == true) {
         }
     }
     header($headerText);
+}
+
+
+/**
+ * Send to SMS
+ * 
+ * @param array $params
+ */
+function sms(array $params)
+{
+    $from = $params['from'];
+    $name = null;
+    $to = $params['to'];
+    $subject = $params['subject'];
+    $message = $params['message'];
+    $body = "";
+    $alt_body = "";
+    
+    // content
+    
+    if (strlen($message) > 148) {
+        $alt_body = $body = $message;
+    } else {
+        $body = str_replace('<br>', "\r\n", $message);
+    }
+    
+    send_email($to, $name, $from, $subject, $body, $alt_body);
+}
+
+/**
+ * Problem email
+ * 
+ * @param array $params
+ */
+function problem_email(array $params)
+{
+    $to = $params['to'];
+    $from = $params['from'];
+    $name = $params['name'];
+    $subject = $params['subject'];
+    $body = report_problem_content($params);
+    
+    send_email($to, $name, $from, $subject, $body, "", true);
+}
+
+/**
+ * Libanswers
+ * 
+ * @param array $params
+ */
+function libanswers(array $params)
+{
+    $url = 'https://api2.libanswers.com/1.0/form/submit';
+    $data = array(
+        'instid' => $params['instid'],
+        'quid' => $params['quid'],
+        'qlog' => $params['qlog'],
+        'source' => $params['source'],
+        'pquestion' => $params['subject'],
+        'pdetails' => report_problem_content($params),
+        'pemail' => $params['email'],
+        'pname' => $params['name']
+    );
+    
+    $curl = curl_init($url);
+    curl_setopt($curl, CURLOPT_POST , true);
+    curl_setopt($curl, CURLOPT_POSTFIELDS , http_build_query($data));
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+    $result = json_decode(curl_exec($curl));
+    $info = curl_getinfo($curl);
+    
+    if ($info['http_code'] !== 200) {
+        header('HTTP/1.1 500 There was an error submitting the form. Please check your information and try again');
+    }
+    
+    curl_close($curl);
 }
 
 /**
@@ -174,19 +203,21 @@ function report_problem_content(array $params)
         "<a href='$url' target='_blank'>Record URL</a><hr>" .
         "<a href='$url&showPnx' target='_blank'>Record Full PNX</a><hr>";
         
-        $show_headers = array('addata', 'control', 'delivery', 'display');
-        
-        foreach($params['item']['pnx'] as $header => $keys) {
-            if(in_array($header, $show_headers)) {
-                $message .= '<h2>' . ucfirst($header) . '</h2>';
-                foreach($keys as $key => $values) {
-                    foreach($values as $value) {
-                        $message .= '<b>' . processPnxKeys($key) . ':</b> ' .
-                            str_replace("\r\n", '<br>', preg_replace('!\s+!', ' ', strip_tags($value))) . '<br>';
-                    }
+    $show_headers = array('addata', 'control', 'delivery', 'display');
+    
+    foreach($params['item']['pnx'] as $header => $keys) {
+        if(in_array($header, $show_headers)) {
+            $message .= '<h2>' . ucfirst($header) . '</h2>';
+            foreach($keys as $key => $values) {
+                foreach($values as $value) {
+                    $message .= '<b>' . process_pnx_keys($key) . ':</b> ' .
+                        str_replace("\r\n", '<br>', preg_replace('!\s+!', ' ', strip_tags($value))) . '<br>';
                 }
             }
         }
+    }
+    
+    return $message;
 }
 
 /**
@@ -195,7 +226,7 @@ function report_problem_content(array $params)
  * @param string $key
  * @return string
  */
-function processPnxKeys($key) {
+function process_pnx_keys($key) {
     
     $keyValues = array(
         // addata - Data elements required for a number of functions that cannot be extracted from other sections of the PNX.
