@@ -28,26 +28,38 @@ angular.module('reportProblem').component('ocaReportProblem', {
             <div layout-margin>
               <div layout="column">
                 <h4 class="md-subhead">Report Your Problem here:</h4>
-                <md-input-container class="underlined-input">
+                <md-input-container class="underlined-input md-required" ng-if="$ctrl.requireName">
                   <label>Name:</label>
                   <input ng-model="$ctrl.name" name="name" type="text" >
                   <div ng-messages="reportForm.name.$error">
                     <div ng-message="required">please enter your name</div>
                   </div>
                 </md-input-container>
-                <md-input-container class="underlined-input md-required">
+                <md-input-container class="underlined-input" ng-if="!$ctrl.requireName">
+                  <label>Name:</label>
+                  <input ng-model="$ctrl.name" name="name" type="text" >
+                </md-input-container>
+                <md-input-container class="underlined-input md-required" ng-if="$ctrl.requireEmail">
                   <label>Email:</label>
                   <input ng-model="$ctrl.email" name="email" type="text" required >
                   <div ng-messages="reportForm.email.$error">
                     <div ng-message="pattern, required ">email is invalid</div>
                   </div>
                 </md-input-container>
-                <md-input-container class="md-required">
+                <md-input-container class="underlined-input" ng-if="!$ctrl.requireEmail">
+                  <label>Email:</label>
+                  <input ng-model="$ctrl.email" name="email" type="text" >
+                </md-input-container>
+                <md-input-container class="md-required" ng-if="$ctrl.requireDesc">
                   <label>Description:</label>
                   <textarea ng-model="$ctrl.description" name="description" required></textarea>
                   <div ng-messages="reportForm.description.$error">
                     <div ng-message="required">please enter your problem description</div>
                   </div>
+                </md-input-container>
+                <md-input-container ng-if="!$ctrl.requireDesc">
+                  <label>Description:</label>
+                  <textarea ng-model="$ctrl.description" name="description"></textarea>
                 </md-input-container>
                 <md-input-container class="underlined-input" ng-if="$ctrl.isCaptcha">
                   <div vc-recaptcha key="$ctrl.getCaptchaPublicKey()" on-success="$ctrl.setResponse(response)"></div>
@@ -76,6 +88,10 @@ angular.module('reportProblem').component('ocaReportProblem', {
     var _this = this;
 
     this.enabled = reportProblem.hasOwnProperty("enabled") ? reportProblem.enabled : reportProblemDefault.enabled;
+    this.requireName = reportProblem.hasOwnProperty("requireName") ? reportProblem.requireName : reportProblemDefault.requireName;
+    this.requireEmail = reportProblem.hasOwnProperty("requireEmail") ? reportProblem.requireEmail : reportProblemDefault.requireEmail;
+    this.requireDesc = reportProblem.hasOwnProperty("requireDesc") ? reportProblem.requireDesc : reportProblemDefault.requireDesc;
+    this.emailFormat = reportProblem.hasOwnProperty("emailFormat") ? reportProblem.emailFormat : reportProblemDefault.emailFormat;
     this.messageText = this.messageText || (reportProblem.hasOwnProperty("messageText") ? reportProblem.messageText : reportProblemDefault.messageText);
     this.buttonText = this.buttonText || (reportProblem.hasOwnProperty("buttonText") ? reportProblem.buttonText : reportProblemDefault.buttonText);
     this.reportUrl = this.reportUrl || (reportProblem.hasOwnProperty("reportUrl") ? reportProblem.reportUrl : reportProblemDefault.reportUrl);
@@ -91,7 +107,10 @@ angular.module('reportProblem').component('ocaReportProblem', {
       this.showRPForm = false;
     };
     this.validate = function () {
-      return _this.name && _this.emailRegEx.test(_this.email) && _this.description && (_this.isCaptcha ? _this.gCaptchaResponse : true);
+      return (_this.requireName ? _this.name : true) 
+        && (_this.requireEmail ? _this.emailRegEx.test(_this.email) : true)
+        && (_this.requireDesc ? _this.description : true) 
+        && (_this.isCaptcha ? _this.gCaptchaResponse : true);
     };
     this.isCaptcha = window.appConfig['system-configuration']['Activate Captcha [Y/N]'] == 'Y';
     this.getCaptchaPublicKey = function () {
@@ -114,9 +133,10 @@ angular.module('reportProblem').component('ocaReportProblem', {
       if (_this.validate()) {
         var params = {
           'reportVendor': _this.reportVendor,
+          'emailFormat': _this.emailFormat,
           'subject': reportProblem.hasOwnProperty("subject") ? reportProblem.subject : reportProblemDefault.subject,
           'name': _this.name,
-          'email': _this.email,
+          'email': _this.email ? _this.email : (reportProblem.hasOwnProperty("from") ? reportProblem.from : reportProblemDefault.from),
           'phone': _this.phoneNumber,
           'description': _this.description,
           'gCaptchaResponse': _this.gCaptchaResponse,
@@ -124,6 +144,26 @@ angular.module('reportProblem').component('ocaReportProblem', {
           'urlParams': $location.search(),
           'item': _this.itemCtrl.item
         };
+        params.subject = params.subject.replace(/\{(.+?)(?![^}])\}/g, function(match, p1) {
+          function recurFind(data, stack) {
+            if (data.indexOf('.') > -1) {
+              var parts = data.split(/\.(.+)/);
+              if (parts[1].indexOf('.') > -1) {
+                var parts2 = parts[1].split(/\.(.+)/);
+                if (stack.hasOwnProperty(parts[0]))
+                  if (stack[parts[0]].hasOwnProperty(parts2[0]))
+                    return recurFind(parts2[1], stack[parts[0]][parts2[0]]);
+              } else if (stack.hasOwnProperty(parts[0]))
+                if (stack[parts[0]].hasOwnProperty(parts[1]))
+                  return stack[parts[0]][parts[1]];
+            } else if(stack.hasOwnProperty(data))
+              return stack[data];
+            return false;
+          }
+          var rft = recurFind(p1, params.item.pnx);
+          if(rft) return rft;
+          return match;
+        });
         if (_this.reportVendor === 'libanswers') {
           params.action = 'libanswers';
           params.instid = reportProblem.hasOwnProperty("instid") ? reportProblem.instid : reportProblemDefault.instid;
@@ -166,12 +206,17 @@ angular.module('reportProblem').component('ocaReportProblem', {
 angular.module('reportProblem').value('reportProblem', {}).value('reportProblemDefault', {
   enabled: false,
   enabledDefault: true,
+  requireName: false,
+  requireEmail: true,
+  requireDesc: true,
+  emailFormat: 'html', //html | plaintext | markdown
   reportUrl: 'https://library.calstate.edu/primo-gateway/',
   reportVendor: 'email',
   messageText: 'See something that doesn\'t look right?',
   buttonText: 'Report a Problem',
   subject: 'Problem report',
   to: '',
+  from: 'donotreply@calstate.edu',
   instid: '',
   quid: '',
   qlog: '',

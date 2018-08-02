@@ -301,6 +301,7 @@ angular.module('sendSms').value('smsAction', {}).value('smsActionDefault', {
   }
 }).value('smsCarriers', {}).value('smsCarriersDefault', {
   'ATT': 'txt.att.net',
+  'Boost': 'sms.myboostmobile.com',
   'Cricket': 'mms.mycricket.com',
   'Nextel': 'messaging.nextel.com',
   'Project Fi': 'msg.fi.google.com',
