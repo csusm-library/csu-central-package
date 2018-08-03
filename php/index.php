@@ -198,81 +198,35 @@ function report_problem_content(array $params)
 {
     $url = $params['urlBase'] . '?' . http_build_query($params['urlParams']);
     
-    $f = $params['format']; // html, plaintext, or markdown
+    $t = new Text($params['format']);
     
-    $message = format_text($f, 'h1', 'Reported Problem') .
-        format_text($f, 'p', strip_tags($params['description'])) .
-        format_text($f, 'h1', 'Record Details') .
-        "<a href='$url' target='_blank'>Record URL</a><hr>" .
-        "<a href='$url&showPnx' target='_blank'>Record Full PNX</a><hr>";
+    // extra \r\n below for Trello
+    
+    $message = $t->h1('Reported Problem') .
+        $t->p(strip_tags($params['description'])) .
+        $t->h1('Record Details') .
+        $t->a('Record URL', $url) . 
+        "\r\n" . $t->hr() . "\r\n" .
+        $t->a('Record Full PNX', $url . '&showPnx') . 
+        "\r\n" . $t->hr() . "\r\n";
         
     $show_headers = array('addata', 'control', 'delivery', 'display');
     
     foreach($params['item']['pnx'] as $header => $keys) {
         if(in_array($header, $show_headers)) {
-            $message .= format_text($f, 'h2', ucfirst($header));
+            $message .= $t->h2(ucfirst($header));
             foreach($keys as $key => $values) {
                 foreach($values as $value) {
-                    $clean_key = format_text($f, 'b', process_pnx_keys($key));
+                    $clean_key = $t->b(process_pnx_keys($key));
                     $clean_value = preg_replace('!\s+!', ' ', strip_tags($value));
-                    $clean_value = str_replace("\r\n", format_text($f, 'br'), $clean_value);
-                    $message .= "$clean_key: $clean_value" . format_text($f, 'br');
+                    $clean_value = str_replace("\r\n", $t->br(), $clean_value);
+                    $message .= "$clean_key: $clean_value" . $t->br() . "\r\n";
                 }
             }
         }
     }
     
     return $message;
-}
-
-/**
- * Format text as html, plaintext, or markdown
- * 
- * @param string $format  html, plaintext, or markdown
- * @param string $tag     equivalent html tag of intended format
- * @param string $text    text to be formatted
- * @return string         formatted text
- */
-function format_text($format, $tag, $text = "") {
-    $table = array(
-        'h1' => array(
-            'html' => '<h1>{text}</h1>',
-            'plaintext' => '{text}',
-            'markdown' => '# {text}' . "\r\n"
-        ),
-        'h2' => array(
-            'html' => '<h2>{text}</h2>',
-            'plaintext' => '{text}',
-            'markdown' => '## {text}' . "\r\n"
-        ),
-        'p' => array(
-            'html' => '<p>{text}</p>',
-            'plaintext' => "\r\n\r\n" . '{text}' . "\r\n\r\n",
-            'markdown' => "\r\n\r\n" . '{text}' . "\r\n\r\n"
-        ),
-        'hr' => array(
-            'html' => '<hr>',
-            'plaintext' => "\r\n",
-            'markdown' => "---\r\n"
-        ),
-        'a' => array(
-            'html' => '<a href="{text}>{text}</a>',
-            'plaintext' => '{text}',
-            'markdown' => '[{text}]({text})'
-        ),
-        'b' => array(
-            'html' => '<b>{text}</b>',
-            'plaintext' => '{text}',
-            'markdown' => '**{text}**'
-        ),
-        'br' => array(
-            'html' => '<br>',
-            'plaintext' => "\r\n",
-            'markdown' => "\r\n"
-        )
-    );
-    
-    return str_replace('{text}', $text, $table[$tag][$format]);
 }
 
 /**
@@ -665,5 +619,85 @@ function error_message($original)
     $final = array_key_exists($new, $error_messages) ? $error_messages[$new] : $original;
     error_log($final);
     return $final;
+}
+
+/**
+ * Format text as html, plaintext, or markdown
+ *
+ */
+class Text
+{
+    private $format = 'html';
+    
+    public function __construct($format)
+    {
+        $this->format = $format;
+    }
+    
+    public function __call($name, array $arguments)
+    {
+        return $this->format_text($this->format, $name, $arguments);
+    }
+    
+    /**
+     * Format text as html, plaintext, or markdown
+     *
+     * @param string $format  html, plaintext, or markdown
+     * @param string $tag     equivalent html tag of intended format
+     * @param string $text    text to be formatted
+     * @param string $link    url
+     * @return string         formatted text
+     */
+    private function format_text($format, $tag, array $arguments)
+    {
+        $text = (array_key_exists(0, $arguments)) ? $arguments[0] : null;
+        $link = (array_key_exists(1, $arguments)) ? $arguments[1] : null;
+        
+        $table = array(
+            'h1' => array(
+                'html' => '<h1>{text}</h1>',
+                'plaintext' => '{text}',
+                'markdown' => '# {text}' . "\r\n"
+            ),
+            'h2' => array(
+                'html' => '<h2>{text}</h2>',
+                'plaintext' => '{text}',
+                'markdown' => '## {text}' . "\r\n"
+            ),
+            'p' => array(
+                'html' => '<p>{text}</p>',
+                'plaintext' => "\r\n\r\n" . '{text}' . "\r\n\r\n",
+                'markdown' => "\r\n\r\n" . '{text}' . "\r\n\r\n"
+            ),
+            'hr' => array(
+                'html' => '<hr>',
+                'plaintext' => "\r\n",
+                'markdown' => "\r\n---\r\n"
+            ),
+            'a' => array(
+                'html' => '<a href="{link}">{text}</a>',
+                'plaintext' => '{text}',
+                'markdown' => '[{text}]({link})'
+            ),
+            'b' => array(
+                'html' => '<b>{text}</b>',
+                'plaintext' => '{text}',
+                'markdown' => '**{text}**'
+            ),
+            'br' => array(
+                'html' => '<br>',
+                'plaintext' => "\r\n",
+                'markdown' => "\r\n"
+            )
+        );
+        
+        $final = str_replace('{text}', $text, $table[$tag][$format]);
+        
+        if ($link != "") {
+            $final = str_replace('{link}', $link, $final);
+        }
+        
+        return $final;
+    }
 }
 
