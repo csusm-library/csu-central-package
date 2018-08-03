@@ -82,22 +82,20 @@ if ($enableCaptcha == false || $proceed == true) {
 function sms(array $params)
 {
     $from = $params['from'];
-    $name = null;
-    $to = $params['to'];
     $subject = $params['subject'];
     $message = $params['message'];
-    $body = "";
-    $alt_body = "";
+    
+    // normalize phone number
+    
+    $to = $params['to'];
+    $parts = explode('@', $to);
+    $phone = preg_replace('/\D/', '', $parts[0]);
+    $to = $phone . '@' . $parts[1];
     
     // content
+    $body = str_replace('<br>', "\r\n", $message);
     
-    if (strlen($message) > 148) {
-        $alt_body = $body = $message;
-    } else {
-        $body = str_replace('<br>', "\r\n", $message);
-    }
-    
-    send_email($to, $name, $from, $subject, $body, $alt_body);
+    send_email($to, null, $from, $subject, $body);
 }
 
 /**
@@ -113,7 +111,7 @@ function problem_email(array $params)
     $subject = $params['subject'];
     $body = report_problem_content($params);
     
-    send_email($to, $name, $from, $subject, $body, "", true);
+    send_email($to, $name, $from, $subject, $body, true);
 }
 
 /**
@@ -162,7 +160,7 @@ function libanswers(array $params)
  * @return boolean
  */
 
-function send_email($to, $name, $from, $subject, $body, $alt_body = "", $is_html = false)
+function send_email($to, $name, $from, $subject, $body, $is_html = false)
 {
     $mail = new PHPMailer(true);
     $mail->isSMTP();
@@ -170,21 +168,16 @@ function send_email($to, $name, $from, $subject, $body, $alt_body = "", $is_html
     $mail->SMTPAuth = false;
     $mail->SMTPAutoTLS = false;
     // $mail->SMTPDebug = 2;
-    
-    // recipients
-    
+
     $mail->setFrom($from, $name);
     $mail->addAddress($to);
     $mail->Subject = $subject;
     $mail->isHTML($is_html);
-    
     $mail->Body = $body;
     
-    if ($alt_body != "") {
-        $mail->AltBody = str_replace('<br>', "\r\n", $content);
-    }
+    $result = $mail->send();
     
-    return $mail->send();
+    return $result;
 }
 
 /**
