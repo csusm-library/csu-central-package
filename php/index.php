@@ -115,7 +115,7 @@ function problem_email(array $params)
     $body = report_problem_content($params);
     $is_html = ($params['format'] == 'html') ? true: false;
     
-    send_email($to, $name, $from, $subject, $body, true);
+    send_email($to, $name, $from, $subject, $body, $is_html);
 }
 
 /**
