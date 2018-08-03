@@ -10,6 +10,7 @@
 $smtp_server = "smtp-rr.calstate.edu";
 $allowed_domain = "hosted.exlibrisgroup.com";
 $enable_captcha = false;
+$captcha_secret = ''; // get from google recaptcha admin
 $debug = false;
 
 
@@ -40,11 +41,10 @@ $action = $params['action'];
 // captcha
 
 $proceed = false;
-$gCaptchaSecret = ''; // get from google recaptcha admin
 
 if ($enable_captcha == true && isset($params['gCaptchaResponse'])) {
     $gCaptchaResponseVerify = json_decode(file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret=' .
-        $gCaptchaSecret . '&response=' . $params['gCaptchaResponse']), true);
+        $captcha_secret . '&response=' . $params['gCaptchaResponse']), true);
     if ($gCaptchaResponseVerify['success'] === true) {
         $proceed = true;
     }
