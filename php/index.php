@@ -10,7 +10,7 @@
 $domain = "hosted.exlibrisgroup.com";
 $origin = $_SERVER['HTTP_ORIGIN'];
 
-if (! preg_match("/$domain/", $origin)) {
+if (preg_match("/$domain/", $origin)) {
     header("Access-Control-Allow-Origin: $origin");
     header("Access-Control-Allow-Headers: Content-Type", false);
 } else {
