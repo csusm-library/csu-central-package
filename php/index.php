@@ -5,12 +5,19 @@
  * supplied action
  */
 
+// options
+
+$smtp_server = "smtp-rr.calstate.edu";
+$allowed_domain = "hosted.exlibrisgroup.com";
+$enable_captcha = false;
+$debug = false;
+
+
 // limit just to requests from primo
 
-$domain = "hosted.exlibrisgroup.com";
 $origin = $_SERVER['HTTP_ORIGIN'];
 
-if (preg_match("/$domain/", $origin)) {
+if (preg_match("/$allowed_domain/", $origin)) {
     header("Access-Control-Allow-Origin: $origin");
     header("Access-Control-Allow-Headers: Content-Type", false);
 } else {
@@ -32,11 +39,10 @@ $action = $params['action'];
 
 // captcha
 
-$enableCaptcha = false;
 $proceed = false;
 $gCaptchaSecret = ''; // get from google recaptcha admin
 
-if ($enableCaptcha == true && isset($params['gCaptchaResponse'])) {
+if ($enable_captcha == true && isset($params['gCaptchaResponse'])) {
     $gCaptchaResponseVerify = json_decode(file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret=' .
         $gCaptchaSecret . '&response=' . $params['gCaptchaResponse']), true);
     if ($gCaptchaResponseVerify['success'] === true) {
@@ -46,7 +52,7 @@ if ($enableCaptcha == true && isset($params['gCaptchaResponse'])) {
 
 // take action
 
-if ($enableCaptcha == false || $proceed == true) {
+if ($enable_captcha == false || $proceed == true) {
     try {
         switch ($action) {
             case 'libanswers':
@@ -83,17 +89,14 @@ function sms(array $params)
 {
     $from = $params['from'];
     $subject = $params['subject'];
-    $message = $params['message'];
+    $body = str_replace('<br>', "\r\n", $params['message']);
     
     // normalize phone number
     
     $to = $params['to'];
     $parts = explode('@', $to);
-    $phone = preg_replace('/\D/', '', $parts[0]);
+    $phone = preg_replace('/\D/', '', $parts[0]); // numbers only
     $to = $phone . '@' . $parts[1];
-    
-    // content
-    $body = str_replace('<br>', "\r\n", $message);
     
     send_email($to, null, $from, $subject, $body);
 }
@@ -155,19 +158,22 @@ function libanswers(array $params)
  * @param string $from      email address of sender
  * @param string $subject   subject line
  * @param string $body      email content
- * @param string $alt_body  alternate body content
  * @param boolean $is_html  is the content html
  * @return boolean
  */
-
 function send_email($to, $name, $from, $subject, $body, $is_html = false)
 {
+    global $smtp_server, $debug;
+    
     $mail = new PHPMailer(true);
     $mail->isSMTP();
-    $mail->Host = 'smtp-rr.calstate.edu';
+    $mail->Host = $smtp_server;
     $mail->SMTPAuth = false;
     $mail->SMTPAutoTLS = false;
-    // $mail->SMTPDebug = 2;
+    
+    if ($debug == true) {
+        $mail->SMTPDebug = 2;
+    }
 
     $mail->setFrom($from, $name);
     $mail->addAddress($to);
@@ -175,9 +181,7 @@ function send_email($to, $name, $from, $subject, $body, $is_html = false)
     $mail->isHTML($is_html);
     $mail->Body = $body;
     
-    $result = $mail->send();
-    
-    return $result;
+    return $mail->send();
 }
 
 /**
@@ -185,7 +189,6 @@ function send_email($to, $name, $from, $subject, $body, $is_html = false)
  *
  * @param array $params
  */
-
 function report_problem_content(array $params)
 {
     $url = $params['urlBase'] . '?' . http_build_query($params['urlParams']);
@@ -219,8 +222,8 @@ function report_problem_content(array $params)
  * @param string $key
  * @return string
  */
-function process_pnx_keys($key) {
-    
+function process_pnx_keys($key)
+{
     $keyValues = array(
         // addata - Data elements required for a number of functions that cannot be extracted from other sections of the PNX.
         'abstract' => 'Abstract',
@@ -604,3 +607,4 @@ function error_message($original)
     error_log($final);
     return $final;
 }
+
