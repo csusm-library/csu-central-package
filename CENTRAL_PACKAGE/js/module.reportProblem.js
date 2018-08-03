@@ -91,7 +91,7 @@ angular.module('reportProblem').component('ocaReportProblem', {
     this.requireName = reportProblem.hasOwnProperty("requireName") ? reportProblem.requireName : reportProblemDefault.requireName;
     this.requireEmail = reportProblem.hasOwnProperty("requireEmail") ? reportProblem.requireEmail : reportProblemDefault.requireEmail;
     this.requireDesc = reportProblem.hasOwnProperty("requireDesc") ? reportProblem.requireDesc : reportProblemDefault.requireDesc;
-    this.emailFormat = reportProblem.hasOwnProperty("emailFormat") ? reportProblem.emailFormat : reportProblemDefault.emailFormat;
+    this.format = reportProblem.hasOwnProperty("format") ? reportProblem.format : reportProblemDefault.format;
     this.messageText = this.messageText || (reportProblem.hasOwnProperty("messageText") ? reportProblem.messageText : reportProblemDefault.messageText);
     this.buttonText = this.buttonText || (reportProblem.hasOwnProperty("buttonText") ? reportProblem.buttonText : reportProblemDefault.buttonText);
     this.reportUrl = this.reportUrl || (reportProblem.hasOwnProperty("reportUrl") ? reportProblem.reportUrl : reportProblemDefault.reportUrl);
@@ -133,7 +133,7 @@ angular.module('reportProblem').component('ocaReportProblem', {
       if (_this.validate()) {
         var params = {
           'reportVendor': _this.reportVendor,
-          'emailFormat': _this.emailFormat,
+          'format': _this.format,
           'subject': reportProblem.hasOwnProperty("subject") ? reportProblem.subject : reportProblemDefault.subject,
           'name': _this.name,
           'from': _this.email ? _this.email : (reportProblem.hasOwnProperty("from") ? reportProblem.from : reportProblemDefault.from),
@@ -209,7 +209,7 @@ angular.module('reportProblem').value('reportProblem', {}).value('reportProblemD
   requireName: false,
   requireEmail: true,
   requireDesc: true,
-  emailFormat: 'html', //html | plaintext | markdown
+  format: 'html', //html | plaintext | markdown
   reportUrl: 'https://library.calstate.edu/primo-gateway/',
   reportVendor: 'email',
   messageText: 'See something that doesn\'t look right?',

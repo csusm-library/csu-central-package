@@ -113,6 +113,7 @@ function problem_email(array $params)
     $name = $params['name'];
     $subject = $params['subject'];
     $body = report_problem_content($params);
+    $is_html = ($params['format'] == 'html') ? true: false;
     
     send_email($to, $name, $from, $subject, $body, true);
 }
@@ -193,9 +194,11 @@ function report_problem_content(array $params)
 {
     $url = $params['urlBase'] . '?' . http_build_query($params['urlParams']);
     
-    $message = '<h1>Reported Problem</h1>' .
-        strip_tags($params['description']) .
-        "<h1>Record Details</h1>" .
+    $f = $params['format']; // html, plaintext, or markdown
+    
+    $message = format_text($f, 'h1', 'Reported Problem') .
+        format_text($f, 'p', strip_tags($params['description'])) .
+        format_text($f, 'h1', 'Record Details') .
         "<a href='$url' target='_blank'>Record URL</a><hr>" .
         "<a href='$url&showPnx' target='_blank'>Record Full PNX</a><hr>";
         
@@ -203,17 +206,69 @@ function report_problem_content(array $params)
     
     foreach($params['item']['pnx'] as $header => $keys) {
         if(in_array($header, $show_headers)) {
-            $message .= '<h2>' . ucfirst($header) . '</h2>';
+            $message .= format_text($f, 'h2', ucfirst($header));
             foreach($keys as $key => $values) {
                 foreach($values as $value) {
-                    $message .= '<b>' . process_pnx_keys($key) . ':</b> ' .
-                        str_replace("\r\n", '<br>', preg_replace('!\s+!', ' ', strip_tags($value))) . '<br>';
+                    $clean_key = format_text($f, 'b', process_pnx_keys($key));
+                    $clean_value = preg_replace('!\s+!', ' ', strip_tags($value));
+                    $clean_value = str_replace("\r\n", format_text($f, 'br'), $clean_value);
+                    $message .= "$clean_key: $clean_value" . format_text($f, 'br');
                 }
             }
         }
     }
     
     return $message;
+}
+
+/**
+ * Format text as html, plaintext, or markdown
+ * 
+ * @param string $format  html, plaintext, or markdown
+ * @param string $tag     equivalent html tag of intended format
+ * @param string $text    text to be formatted
+ * @return string         formatted text
+ */
+function format_text($format, $tag, $text = "") {
+    $table = array(
+        'h1' => array(
+            'html' => '<h1>{text}</h1>',
+            'plaintext' => '{text}',
+            'markdown' => '# {text}' . "\r\n"
+        ),
+        'h2' => array(
+            'html' => '<h2>{text}</h2>',
+            'plaintext' => '{text}',
+            'markdown' => '## {text}' . "\r\n"
+        ),
+        'p' => array(
+            'html' => '<p>{text}</p>',
+            'plaintext' => "\r\n\r\n" . '{text}' . "\r\n\r\n",
+            'markdown' => "\r\n\r\n" . '{text}' . "\r\n\r\n"
+        ),
+        'hr' => array(
+            'html' => '<hr>',
+            'plaintext' => "\r\n",
+            'markdown' => "---\r\n"
+        ),
+        'a' => array(
+            'html' => '<a href="{text}>{text}</a>',
+            'plaintext' => '{text}',
+            'markdown' => '[{text}]({text})'
+        ),
+        'b' => array(
+            'html' => '<b>{text}</b>',
+            'plaintext' => '{text}',
+            'markdown' => '**{text}**'
+        ),
+        'br' => array(
+            'html' => '<br>',
+            'plaintext' => "\r\n",
+            'markdown' => "\r\n"
+        )
+    );
+    
+    return str_replace('{text}', $text, $table[$tag][$format]);
 }
 
 /**
