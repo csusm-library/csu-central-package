@@ -226,7 +226,8 @@ angular.module('sendSms').component('ocaSendSms', {
     };
     this.sendSms = function () {
       if (_this.validate()) {
-        var message = 'Title: ' + _this.item.pnx.display.title + '<br><br>';
+        var message = "";
+        var title = 'Title: ' + _this.item.pnx.display.title;
         if (_this.item.delivery.holding.length > 0) {
           var holdings = '';
           _this.item.delivery.holding.forEach(function (holding) {
@@ -237,8 +238,15 @@ angular.module('sendSms').component('ocaSendSms', {
               holdings += 'Currently ' + holding.availabilityStatus;
             }
           });
-          if (holdings == '') message += _this.noPrintFoundLabel;
-          else message += holdings;
+          if (holdings == '') {
+              holdings = _this.noPrintFoundLabel;
+          }
+          // make sure we don't exceed 160 (148 chars + stuff)
+          if (title.length + holdings.length > 148) {
+              title = title.substring(0,148 - holdings.length) + '...';
+          }
+          message = title + '<br><br>' + holdings;
+          console.log("SMS length: " + message.length);
         } else message += _this.noPrintFoundLabel;
         $http.post(smsOptions.formUrl || smsOptionsDefault.formUrl, {
           "action": "sms",
