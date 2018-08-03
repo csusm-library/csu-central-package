@@ -182,6 +182,10 @@ function send_email($to, $name, $from, $subject, $body, $is_html = false)
     $mail->isHTML($is_html);
     $mail->Body = $body;
     
+    if ($debug == true) {
+        file_put_contents('log.txt', $body);
+    }
+    
     return $mail->send();
 }
 
