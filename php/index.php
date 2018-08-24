@@ -133,7 +133,7 @@ function libanswers(array $params)
         'source' => $params['source'],
         'pquestion' => $params['subject'],
         'pdetails' => report_problem_content($params),
-        'pemail' => $params['email'],
+        'pemail' => $params['from'],
         'pname' => $params['name']
     );
     
@@ -700,4 +700,3 @@ class Text
         return $final;
     }
 }
-
