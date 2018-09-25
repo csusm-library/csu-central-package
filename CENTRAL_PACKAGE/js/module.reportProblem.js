@@ -14,9 +14,9 @@ angular.module('reportProblem').component('ocaReportProblem', {
   template: `
   <div ng-if="$ctrl.show" class="bar filter-bar layout-align-center-center layout-row margin-top-medium" layout="row" layout-align="center center">
     <span class="margin-right-small">{{$ctrl.messageText}}</span>
-    <button class="button-with-icon zero-margin md-button md-button-raised md-primoExplore-theme" type="button" aria-label="Report a Problem" style="color: #5c92bd;" ng-click="$ctrl.showReportForm()">
+    <button class="button-with-icon zero-margin md-button md-button-raised md-primoExplore-theme" type="button" aria-label="Report a Problem" ng-click="$ctrl.showReportForm()">
       <prm-icon icon-type="svg" svg-icon-set="action" icon-definition="ic_report_problem_24px"></prm-icon>
-      <span style="text-transform: none;">{{$ctrl.buttonText}}</span>
+      <span>{{$ctrl.buttonText}}</span>
     </button>
   </div>
   <div ng-if="$ctrl.showRPForm" class="send-actions-content-item" layout="row">
