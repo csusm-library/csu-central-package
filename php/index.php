@@ -197,7 +197,7 @@ function send_email($to, $name, $from, $subject, $body, $is_html = false)
 function report_problem_content(array $params)
 {
     $url = $params['urlBase'] . '?' . http_build_query($params['urlParams']);
-    
+    $pnxurl = ((strpos($url, '/openurl') !== false) ? str_replace('/primo-explore', '/primo_library/libweb/action', $url) : $url) . '&showPnx';
     $t = new Text($params['format']);
     
     // extra \r\n below for Trello
@@ -207,7 +207,7 @@ function report_problem_content(array $params)
         $t->h1('Record Details') .
         $t->a('Record URL', $url) . 
         "\r\n" . $t->hr() . "\r\n" .
-        $t->a('Record Full PNX', $url . '&showPnx') . 
+        $t->a('Record Full PNX', $pnxurl) . 
         "\r\n" . $t->hr() . "\r\n";
         
     $show_headers = array('addata', 'control', 'delivery', 'display');
