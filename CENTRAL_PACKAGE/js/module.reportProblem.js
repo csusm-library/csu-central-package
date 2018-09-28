@@ -19,22 +19,28 @@ angular.module('reportProblem').component('ocaReportProblem', {
       <span>{{$ctrl.buttonText}}</span>
     </button>
   </div>
-  <div ng-if="$ctrl.showRPForm" class="send-actions-content-item" layout="row">
-    <md-content layout-wrap layout-padding layout-fill>
-      <form name="$ctrl.reportForm" novalidate layout="column" layout-align="center center" (submit)="$ctrl.submitReport();">
-        <div layout="row" class="layout-full-width" layout-align="center center">
-          <div flex="20" flex-sm="10" hide-xs></div>
-          <div class="form-focus service-form" layout-padding flex>
-            <div layout-margin>
-              <div layout="column">
-                <h4 class="md-subhead">Report Your Problem here:</h4>
-                <md-input-container class="underlined-input md-required" ng-if="$ctrl.requireName">
-                  <label>Name:</label>
-                  <input ng-model="$ctrl.name" name="name" type="text" >
-                  <div ng-messages="reportForm.name.$error">
-                    <div ng-message="required">please enter your name</div>
-                  </div>
-                </md-input-container>
+    <div class="alert-panel" ng-show="successMessagebool">
+      <div class="alert-message">
+        Submitted Successfully
+        <button class="md-button md-primoExplore-theme md-ink-ripple" type="button" ng-click="$ctrl.ok()"><span>DISMISS</span><div class="md-ripple-container"></div></button>
+      </div>
+    </div>
+    <div ng-if="$ctrl.showRPForm" class="send-actions-content-item report-problem-form-wrapper" layout="row">
+      <md-content layout-wrap layout-padding layout-fill>
+        <form name="$ctrl.reportForm" novalidate layout="column" layout-align="center center" (submit)="$ctrl.submitReport();">
+          <div layout="row" class="layout-full-width" layout-align="center center">
+            <div flex="10" flex-sm="5" hide-xs></div>
+            <div class="form-focus service-form" layout-padding flex>
+              <div layout-margin>
+                <div layout="column">
+                  <h4 class="md-subhead">Report a Problem</h4>
+                  <md-input-container class="underlined-input">
+                    <label>Name:</label>
+                    <input ng-model="$ctrl.name" name="name" type="text" >
+                    <div ng-messages="reportForm.name.$error">
+                      <div ng-message="required">please enter your name</div>
+                    </div>
+                  </md-input-container>
                 <md-input-container class="underlined-input" ng-if="!$ctrl.requireName">
                   <label>Name:</label>
                   <input ng-model="$ctrl.name" name="name" type="text" >
@@ -84,7 +90,7 @@ angular.module('reportProblem').component('ocaReportProblem', {
     </md-content>
   </div>
   `,
-  controller: ['$location', '$httpParamSerializer', '$http', 'reportProblem', 'reportProblemDefault', function ($location, $httpParamSerializer, $http, reportProblem, reportProblemDefault) {
+  controller: ['$location', '$httpParamSerializer', '$http', 'reportProblem', 'reportProblemDefault', '$timeout', '$scope', function ($location, $httpParamSerializer, $http, reportProblem, reportProblemDefault, $timeout, $scope) {
     var _this = this;
 
     this.enabled = reportProblem.hasOwnProperty("enabled") ? reportProblem.enabled : reportProblemDefault.enabled;
@@ -128,6 +134,9 @@ angular.module('reportProblem').component('ocaReportProblem', {
     this.showReportForm = function () {
       return _this.showRPForm = !_this.showRPForm;
     };
+    this.ok = function(){
+      $scope.successMessagebool = false;
+    }
 
     this.submitReport = function () {
       if (_this.validate()) {
@@ -177,13 +186,18 @@ angular.module('reportProblem').component('ocaReportProblem', {
         $http.post(_this.reportUrl, params).then(function (msg) {
           _this.setStatusCode(msg.status);
           _this.setStatusMessage(msg.statusText);
-          console.log('report successfully sent', msg);
+          $scope.successMessage = "Submitted successfully";
+          $scope.successMessagebool = true;
+          $scope.successMessagebool = true;
+          $timeout(function () {
+              $scope.successMessagebool = false;
+          }, 8000);
         }).catch(function (err) {
           _this.setStatusCode(err.status);
           _this.setStatusMessage(err.statusText);
           _this.setResponse('');
           if (typeof grecaptcha !== 'undefined') grecaptcha.reset();
-          console.error('report sending failed', err);
+          alert('report sending failed');
         }).finally(function () {
           if (_this.statusCode == 200) {
             _this.name = _this.email = _this.phoneNumber = _this.description = _this.gCaptchaResponse = _this.statusMessage = '';
@@ -198,7 +212,7 @@ angular.module('reportProblem').component('ocaReportProblem', {
 }).run(['$templateCache', 'reportProblem', 'reportProblemDefault', function ($templateCache, reportProblem, reportProblemDefault) {
   if (reportProblem.hasOwnProperty("enabledDefault") ? reportProblem.enabledDefault : reportProblemDefault.enabledDefault) {
     $templateCache.put('components/search/fullView/fullViewServiceContainer/full-view-service-container.html', $templateCache.get('components/search/fullView/fullViewServiceContainer/full-view-service-container.html')
-      .replace('</prm-login-alma-mashup>', '</prm-login-alma-mashup><oca-report-problem ng-if="$ctrl.index == 1 && $ctrl.service.serviceName===\'activate\'" parent-ctrl="$ctrl"></oca-report-problem>') // get/view it
+      .replace('<prm-login-alma-mashup', '<oca-report-problem ng-if="$ctrl.index == 1 && $ctrl.service.serviceName===\'activate\'" parent-ctrl="$ctrl"></oca-report-problem><prm-login-alma-mashup') // get/view it
       .replace('<prm-full-view-service-container-after', '<oca-report-problem ng-if="$ctrl.index == 1 && $ctrl.service.serviceName!==\'activate\'" parent-ctrl="$ctrl"></oca-report-problem><prm-full-view-service-container-after')); // everything else catch-all
   }
 }]);
