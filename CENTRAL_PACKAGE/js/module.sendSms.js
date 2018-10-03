@@ -321,7 +321,7 @@ angular.module('sendSms').value('smsAction', {}).value('smsActionDefault', {
   'Virgin': 'vmobl.com'
 }).value('smsOptions', {}).value('smsOptionsDefault', {
   enabled: false,
-  formUrl: 'https://slips.calstate.edu/primo-gateway/',
+  formUrl: 'https://library.calstate.edu/primo-gateway/',
   fromEmail: 'do-not-respond@calstate.edu',
   subject: '',
   noPrintFoundLabel: 'No Print Locations'
