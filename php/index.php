@@ -16,8 +16,14 @@ $debug = false;
 
 // limit just to requests from primo
 
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Headers: Content-Type", false);
+$origin = $_SERVER['HTTP_ORIGIN'];
+
+if (preg_match("/$allowed_domain/", $origin)) {
+    header("Access-Control-Allow-Origin: $origin");
+    header("Access-Control-Allow-Headers: Content-Type", false);
+} else {
+    exit;
+}
 
 // if preflight request, just exit
 
@@ -76,7 +82,7 @@ if ($enable_captcha == false || $proceed == true) {
 
 /**
  * Send to SMS
- *
+ * 
  * @param array $params
  */
 function sms(array $params)
@@ -97,7 +103,7 @@ function sms(array $params)
 
 /**
  * Problem email
- *
+ * 
  * @param array $params
  */
 function problem_email(array $params)
@@ -114,7 +120,7 @@ function problem_email(array $params)
 
 /**
  * Libanswers
- *
+ * 
  * @param array $params
  */
 function libanswers(array $params)
@@ -169,7 +175,7 @@ function send_email($to, $name, $from, $subject, $body, $is_html = false)
     if ($debug == true) {
         $mail->SMTPDebug = 2;
     }
-    
+
     $mail->setFrom($from, $name);
     $mail->addAddress($to);
     $mail->Subject = $subject;
@@ -191,7 +197,7 @@ function send_email($to, $name, $from, $subject, $body, $is_html = false)
 function report_problem_content(array $params)
 {
     $url = $params['urlBase'] . '?' . http_build_query($params['urlParams']);
-    $pnxurl = ((strpos($url, '/openurl') !== false) ? str_replace('/primo-explore', '/primo_library/libweb/action', $url) : $url) . '&showPnx';
+    
     $t = new Text($params['format']);
     
     // extra \r\n below for Trello
@@ -201,7 +207,7 @@ function report_problem_content(array $params)
         $t->h1('Record Details') .
         $t->a('Record URL', $url) . 
         "\r\n" . $t->hr() . "\r\n" .
-        $t->a('Record Full PNX', $pnxurl) . 
+        $t->a('Record Full PNX', $url . '&showPnx') . 
         "\r\n" . $t->hr() . "\r\n";
         
     $show_headers = array('addata', 'control', 'delivery', 'display');
