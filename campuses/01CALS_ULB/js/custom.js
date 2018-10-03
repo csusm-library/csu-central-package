@@ -4,13 +4,17 @@
 
   var app = angular.module('viewCustom', ['sendSms','reportProblem','multipleAnalytics', 'angularLoad']);
 
-  app.constant('smsOptions', {
-    enabled: true
-  });
+    app.constant('smsOptions', {
+      enabled: true,
+      index: 5,
+      label: 'SMS'
+    });
 
   app.constant('reportProblem', {
-    to: 'dwalker@calstate.edu',
-    enabled: true
+    to: 'davidwalker126+n5r6m2xtcdeeprctegdt@boards.trello.com',
+    enabled: true,
+    messageText: 'This better work',
+    format: 'markdown'
   });
 
   app.constant('analyticsOptions', {

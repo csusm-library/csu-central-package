@@ -309,7 +309,7 @@ angular.module('sendSms').value('smsAction', {}).value('smsActionDefault', {
     type: 'svg'
   }
 }).value('smsCarriers', {}).value('smsCarriersDefault', {
-  'ATT': 'txt.att.net',
+  'ATT': 'sms.att.net',
   'Boost': 'sms.myboostmobile.com',
   'Cricket': 'mms.mycricket.com',
   'Nextel': 'messaging.nextel.com',
@@ -321,7 +321,7 @@ angular.module('sendSms').value('smsAction', {}).value('smsActionDefault', {
   'Virgin': 'vmobl.com'
 }).value('smsOptions', {}).value('smsOptionsDefault', {
   enabled: false,
-  formUrl: 'https://library.calstate.edu/primo-gateway/',
+  formUrl: 'https://slips.calstate.edu/primo-gateway/',
   fromEmail: 'do-not-respond@calstate.edu',
   subject: '',
   noPrintFoundLabel: 'No Print Locations'

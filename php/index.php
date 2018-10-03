@@ -16,14 +16,8 @@ $debug = false;
 
 // limit just to requests from primo
 
-$origin = $_SERVER['HTTP_ORIGIN'];
-
-if (preg_match("/$allowed_domain/", $origin)) {
-    header("Access-Control-Allow-Origin: $origin");
-    header("Access-Control-Allow-Headers: Content-Type", false);
-} else {
-    exit;
-}
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Headers: Content-Type", false);
 
 // if preflight request, just exit
 
@@ -82,7 +76,7 @@ if ($enable_captcha == false || $proceed == true) {
 
 /**
  * Send to SMS
- * 
+ *
  * @param array $params
  */
 function sms(array $params)
@@ -103,7 +97,7 @@ function sms(array $params)
 
 /**
  * Problem email
- * 
+ *
  * @param array $params
  */
 function problem_email(array $params)
@@ -120,7 +114,7 @@ function problem_email(array $params)
 
 /**
  * Libanswers
- * 
+ *
  * @param array $params
  */
 function libanswers(array $params)
@@ -175,7 +169,7 @@ function send_email($to, $name, $from, $subject, $body, $is_html = false)
     if ($debug == true) {
         $mail->SMTPDebug = 2;
     }
-
+    
     $mail->setFrom($from, $name);
     $mail->addAddress($to);
     $mail->Subject = $subject;
