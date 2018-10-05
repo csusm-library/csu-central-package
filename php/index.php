@@ -12,17 +12,22 @@ $allowed_domain = "hosted.exlibrisgroup.com";
 $enable_captcha = false;
 $captcha_secret = ''; // get from google recaptcha admin
 $debug = false;
+$testing = false;
 
+// limit just to requests from primo, unless testing
 
-// limit just to requests from primo
-
-$origin = $_SERVER['HTTP_ORIGIN'];
-
-if (preg_match("/$allowed_domain/", $origin)) {
-    header("Access-Control-Allow-Origin: $origin");
+if ($testing == true) {
+    header("Access-Control-Allow-Origin: *");
     header("Access-Control-Allow-Headers: Content-Type", false);
 } else {
-    exit;
+    $origin = $_SERVER['HTTP_ORIGIN'];
+    
+    if (preg_match("/$allowed_domain/", $origin)) {
+        header("Access-Control-Allow-Origin: $origin");
+        header("Access-Control-Allow-Headers: Content-Type", false);
+    } else {
+        exit;
+    }
 }
 
 // if preflight request, just exit
