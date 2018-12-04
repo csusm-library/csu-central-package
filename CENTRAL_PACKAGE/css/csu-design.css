@@ -18,10 +18,6 @@
 	flex: 0 0 26%;
 	max-width: none;
 }
-.main{
-	webkit-flex: 0 0 55%;
-	flex: 0 0 55%;
-}
 #mainResults {
 	padding-left: 1em;
 }
