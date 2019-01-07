@@ -4,6 +4,7 @@ angular.module('reportProblem').component('ocaReportProblem', {
   bindings: {
     messageText: '@',
     buttonText: '@',
+    submitText: '@',
     reportUrl: '@',
     reportVendor: '@',
     alertLocation:'@',
@@ -83,7 +84,7 @@ angular.module('reportProblem').component('ocaReportProblem', {
           <div layout="row" layout-align="center" layout-fill>
             <md-button type="submit" class="button-with-icon button-large button-confirm" aria-label="Submit Report">
               <prm-icon icon-type="svg" svg-icon-set="primo-ui" icon-definition="send"></prm-icon>
-              <span translate="report"></span>
+              <span>{{$ctrl.submitText}}</span>
             </md-button>
           </div>
         </div>
@@ -101,6 +102,7 @@ angular.module('reportProblem').component('ocaReportProblem', {
     this.format = reportProblem.hasOwnProperty("format") ? reportProblem.format : reportProblemDefault.format;
     this.messageText = this.messageText || (reportProblem.hasOwnProperty("messageText") ? reportProblem.messageText : reportProblemDefault.messageText);
     this.buttonText = this.buttonText || (reportProblem.hasOwnProperty("buttonText") ? reportProblem.buttonText : reportProblemDefault.buttonText);
+    this.submitText = this.submitText || (reportProblem.hasOwnProperty("submitText") ? reportProblem.submitText : reportProblemDefault.submitText);
     this.reportUrl = this.reportUrl || (reportProblem.hasOwnProperty("reportUrl") ? reportProblem.reportUrl : reportProblemDefault.reportUrl);
     this.reportVendor = this.reportVendor || (reportProblem.hasOwnProperty("reportVendor") ? reportProblem.reportVendor : reportProblemDefault.reportVendor);
     this.alertLocation = this.alertLocation || (reportProblem.hasOwnProperty("alertLocation") ? reportProblem.alertLocation : reportProblemDefault.alertLocation);
@@ -235,6 +237,7 @@ angular.module('reportProblem').value('reportProblem', {}).value('reportProblemD
   alertLocation: 'top',
   messageText: 'See something that doesn\'t look right?',
   buttonText: 'Report a Problem',
+  submitText: 'Report',
   subject: 'Problem report',
   to: '',
   from: 'donotreply@calstate.edu',
