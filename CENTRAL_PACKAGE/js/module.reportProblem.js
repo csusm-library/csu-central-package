@@ -35,7 +35,7 @@ angular.module('reportProblem').component('ocaReportProblem', {
               <div layout-margin>
                 <div layout="column">
                   <h4 class="md-subhead">Report a Problem</h4>
-                  <md-input-container class="underlined-input">
+                  <md-input-container class="underlined-input" ng-if="$ctrl.requireName">
                     <label>Name:</label>
                     <input ng-model="$ctrl.name" name="name" type="text" >
                     <div ng-messages="reportForm.name.$error">
