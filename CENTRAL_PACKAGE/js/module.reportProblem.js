@@ -215,12 +215,9 @@ angular.module('reportProblem').component('ocaReportProblem', {
   }]
 }).run(['$templateCache', 'reportProblem', 'reportProblemDefault', function ($templateCache, reportProblem, reportProblemDefault) {
   if (reportProblem.hasOwnProperty("enabledDefault") ? reportProblem.enabledDefault : reportProblemDefault.enabledDefault) {
-    var afterThisElement = 'prm-login-alma-mashup';
-    if (reportProblem.hasOwnProperty("alertLocation") && reportProblem.alertLocation === "bottom") {
-      afterThisElement = 'prm-alma-mashup';
-    }
-    console.log('reportProblem.hasOwnProperty("messageText")', reportProblem.messageText);
-    $templateCache.put('components/search/fullView/fullViewServiceContainer/full-view-service-container.html', $templateCache.get('components/search/fullView/fullViewServiceContainer/full-view-service-container.html').replace('</' + afterThisElement + '>', '</' + afterThisElement + '><oca-report-problem ng-if="$ctrl.index == 1 && $ctrl.service.serviceName===\'activate\'" parent-ctrl="$ctrl"></oca-report-problem>') // get/view it
+    var alertLocation = (reportProblem.hasOwnProperty("alertLocation") ? reportProblem.alertLocation : reportProblemDefault.alertLocation) {
+    $templateCache.put('components/search/fullView/fullViewServiceContainer/full-view-service-container.html', $templateCache.get('components/search/fullView/fullViewServiceContainer/full-view-service-container.html')
+    .replace('</' + alertLocation + '>', '</' + alertLocation + '><oca-report-problem ng-if="$ctrl.index == 1 && $ctrl.service.serviceName===\'activate\'" parent-ctrl="$ctrl"></oca-report-problem>') // get/view it
     .replace('<prm-full-view-service-container-after', '<oca-report-problem ng-if="$ctrl.index == 1 && $ctrl.service.serviceName!==\'activate\'" parent-ctrl="$ctrl"></oca-report-problem><prm-full-view-service-container-after')); // everything else catch-all
   }
 }]);
@@ -234,7 +231,7 @@ angular.module('reportProblem').value('reportProblem', {}).value('reportProblemD
   format: 'html', //html | plaintext | markdown
   reportUrl: 'https://library.calstate.edu/primo-gateway/',
   reportVendor: 'email',
-  alertLocation: 'top',
+  alertLocation: 'prm-login-alma-mashup',
   messageText: 'See something that doesn\'t look right?',
   buttonText: 'Report a Problem',
   submitText: 'Report',
