@@ -4,8 +4,10 @@ angular.module('reportProblem').component('ocaReportProblem', {
   bindings: {
     messageText: '@',
     buttonText: '@',
+    submitText: '@',
     reportUrl: '@',
     reportVendor: '@',
+    alertLocation:'@',
     parentCtrl: '<'
   },
   require: {
@@ -34,7 +36,7 @@ angular.module('reportProblem').component('ocaReportProblem', {
               <div layout-margin>
                 <div layout="column">
                   <h4 class="md-subhead">Report a Problem</h4>
-                  <md-input-container class="underlined-input">
+                  <md-input-container class="underlined-input" ng-if="$ctrl.requireName">
                     <label>Name:</label>
                     <input ng-model="$ctrl.name" name="name" type="text" >
                     <div ng-messages="reportForm.name.$error">
@@ -82,7 +84,7 @@ angular.module('reportProblem').component('ocaReportProblem', {
           <div layout="row" layout-align="center" layout-fill>
             <md-button type="submit" class="button-with-icon button-large button-confirm" aria-label="Submit Report">
               <prm-icon icon-type="svg" svg-icon-set="primo-ui" icon-definition="send"></prm-icon>
-              <span translate="report"></span>
+              <span>{{$ctrl.submitText}}</span>
             </md-button>
           </div>
         </div>
@@ -100,8 +102,10 @@ angular.module('reportProblem').component('ocaReportProblem', {
     this.format = reportProblem.hasOwnProperty("format") ? reportProblem.format : reportProblemDefault.format;
     this.messageText = this.messageText || (reportProblem.hasOwnProperty("messageText") ? reportProblem.messageText : reportProblemDefault.messageText);
     this.buttonText = this.buttonText || (reportProblem.hasOwnProperty("buttonText") ? reportProblem.buttonText : reportProblemDefault.buttonText);
+    this.submitText = this.submitText || (reportProblem.hasOwnProperty("submitText") ? reportProblem.submitText : reportProblemDefault.submitText);
     this.reportUrl = this.reportUrl || (reportProblem.hasOwnProperty("reportUrl") ? reportProblem.reportUrl : reportProblemDefault.reportUrl);
     this.reportVendor = this.reportVendor || (reportProblem.hasOwnProperty("reportVendor") ? reportProblem.reportVendor : reportProblemDefault.reportVendor);
+    this.alertLocation = this.alertLocation || (reportProblem.hasOwnProperty("alertLocation") ? reportProblem.alertLocation : reportProblemDefault.alertLocation);
     this.showLocations = ['/fulldisplay', '/openurl'];
     this.$onInit = function () {
       this.targetUrl = this.reportUrl + $httpParamSerializer($location.search());
@@ -211,9 +215,10 @@ angular.module('reportProblem').component('ocaReportProblem', {
   }]
 }).run(['$templateCache', 'reportProblem', 'reportProblemDefault', function ($templateCache, reportProblem, reportProblemDefault) {
   if (reportProblem.hasOwnProperty("enabledDefault") ? reportProblem.enabledDefault : reportProblemDefault.enabledDefault) {
+    var alertLocation = (reportProblem.hasOwnProperty("alertLocation") ? reportProblem.alertLocation : reportProblemDefault.alertLocation) {
     $templateCache.put('components/search/fullView/fullViewServiceContainer/full-view-service-container.html', $templateCache.get('components/search/fullView/fullViewServiceContainer/full-view-service-container.html')
-      .replace('<prm-login-alma-mashup', '<oca-report-problem ng-if="$ctrl.index == 1 && $ctrl.service.serviceName===\'activate\'" parent-ctrl="$ctrl"></oca-report-problem><prm-login-alma-mashup') // get/view it
-      .replace('<prm-full-view-service-container-after', '<oca-report-problem ng-if="$ctrl.index == 1 && $ctrl.service.serviceName!==\'activate\'" parent-ctrl="$ctrl"></oca-report-problem><prm-full-view-service-container-after')); // everything else catch-all
+    .replace('</' + alertLocation + '>', '</' + alertLocation + '><oca-report-problem ng-if="$ctrl.index == 1 && $ctrl.service.serviceName===\'activate\'" parent-ctrl="$ctrl"></oca-report-problem>') // get/view it
+    .replace('<prm-full-view-service-container-after', '<oca-report-problem ng-if="$ctrl.index == 1 && $ctrl.service.serviceName!==\'activate\'" parent-ctrl="$ctrl"></oca-report-problem><prm-full-view-service-container-after')); // everything else catch-all
   }
 }]);
 
@@ -226,8 +231,10 @@ angular.module('reportProblem').value('reportProblem', {}).value('reportProblemD
   format: 'html', //html | plaintext | markdown
   reportUrl: 'https://library.calstate.edu/primo-gateway/',
   reportVendor: 'email',
+  alertLocation: 'prm-login-alma-mashup',
   messageText: 'See something that doesn\'t look right?',
   buttonText: 'Report a Problem',
+  submitText: 'Report',
   subject: 'Problem report',
   to: '',
   from: 'donotreply@calstate.edu',
