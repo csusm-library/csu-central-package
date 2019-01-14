@@ -1,10 +1,9 @@
-oca-report-problem .md-button.button-with-icon span {
+oca-report-problem .md-button span {
     display: inline-block;
     margin-left: 3px;
     padding-right: .5em;
     white-space: normal;
     text-align: left;
-    text-transform: capitalize;
 }
 
 oca-report-problem .md-button {
