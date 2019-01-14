@@ -215,7 +215,7 @@ angular.module('reportProblem').component('ocaReportProblem', {
   }]
 }).run(['$templateCache', 'reportProblem', 'reportProblemDefault', function ($templateCache, reportProblem, reportProblemDefault) {
   if (reportProblem.hasOwnProperty("enabledDefault") ? reportProblem.enabledDefault : reportProblemDefault.enabledDefault) {
-    var alertLocation = (reportProblem.hasOwnProperty("alertLocation") ? reportProblem.alertLocation : reportProblemDefault.alertLocation) {
+    var alertLocation = (reportProblem.hasOwnProperty("alertLocation") ? reportProblem.alertLocation : reportProblemDefault.alertLocation);
     $templateCache.put('components/search/fullView/fullViewServiceContainer/full-view-service-container.html', $templateCache.get('components/search/fullView/fullViewServiceContainer/full-view-service-container.html')
     .replace('</' + alertLocation + '>', '</' + alertLocation + '><oca-report-problem ng-if="$ctrl.index == 1 && $ctrl.service.serviceName===\'activate\'" parent-ctrl="$ctrl"></oca-report-problem>') // get/view it
     .replace('<prm-full-view-service-container-after', '<oca-report-problem ng-if="$ctrl.index == 1 && $ctrl.service.serviceName!==\'activate\'" parent-ctrl="$ctrl"></oca-report-problem><prm-full-view-service-container-after')); // everything else catch-all
