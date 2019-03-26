@@ -1,0 +1,48 @@
+csu-custom-uresolver prm-spinner {
+	position: relative !important;
+}
+csu-custom-uresolver prm-spinner .spinner-wrapper {
+	transform: rotate(90deg) scale(1) translateY(0);
+}
+csu-custom-uresolver prm-spinner.small {
+	display: inline-flex !important;
+}
+csu-custom-uresolver prm-spinner.small .spinner-wrapper .loader {
+	width: 20px;
+	height: 20px;
+}
+csu-custom-uresolver prm-spinner.small .spinner-wrapper .loader .diamond {
+	left: initial;
+	width: 10px;
+	height: 10px;
+	animation-name: diamondsSmall;
+}
+@keyframes diamondsSmall {
+	50% {
+		transform: translateY(-1.5em) rotate(45deg) scale(1);
+	}
+	100% {
+		transform: translateY(-3em) rotate(45deg) scale(0);
+	}
+}
+span.location {
+	font-weight: bold; font-size: 16px; padding-left: 1em;
+}
+span.subLocation {
+	font-weight: bold; font-size: 14px; padding-left: 2em;
+}
+span.callNumber {
+	font-style: italic; font-size: 14px;
+}
+span.avaNote {
+	position: relative; top: -.4em; padding-left: 2em; font-style: italic; font-size: 14px;
+}
+span.items_available {
+	font-weight: bold; font-size: 14px; padding-left: 5px; color: #0f7d00;
+}
+span.items_unavailable {
+	font-weight: bold; font-size: 14px; padding-left: 5px; color: #b00015;
+}
+div.localHoldings, div.extHoldings {
+	margin: .75em 0 1.5em;
+}

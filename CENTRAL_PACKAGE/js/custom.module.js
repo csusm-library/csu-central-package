@@ -1,2 +1,2 @@
 
-    var app = angular.module('centralCustom', ['angularLoad']);
+    var app = angular.module('centralCustom', ['angularLoad','customUresolver']);
