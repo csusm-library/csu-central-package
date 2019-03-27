@@ -1,0 +1,103 @@
+<div class="localHoldings" ng-if="localLocations.length > 0 && !isLinktoOnline && showCompact">
+    <h4 (click)="$ctrl.toggleShowCompact()">Available at the Library</h4>
+    <div ng-if="holdings" class="animate-if" ng-repeat="holding in holdings" layout="column">
+        <p ng-if="holding.mms_id" (click)="$ctrl.toggleShowItems(holding)">
+            <span class="location">{{ holding.location }}</span> - <span class="callNumber">{{ holding.call_number }}</span>
+            <span class="items_available" ng-if="holding.availability == 'available'">({{ holding.available_items }} of {{ holding.total_items }} available)</span>
+            <span class="items_unavailable" ng-if="holding.availability == 'unavailable'">({{ holding.available_items }} of {{ holding.total_items }} available)</span>
+            <span ng-if="!holding.showItems" class="showItemsDown">V</span>
+            <span ng-if="holding.showItems" class="showItemsUp">^</span>
+        </p>
+        <p ng-if="holding.items && holding.showItems" ng-repeat="item in holding.items" class="animate-if">
+            <span class="subLocation">> Barcode: {{ item.barcode }}</span> - <span class="callNumber">{{ item.status }}</span>
+        </p>
+        <prm-spinner ng-if="!holding.items && holding.showItems" class="default-loader dark-on-light" layout="row" layout-align="center center">
+        </prm-spinner>
+    </div>
+    <prm-spinner ng-if="!holdings" class="default-loader dark-on-light" layout="row" layout-align="center center">
+    </prm-spinner>
+</div>
+<div class="localHoldings" ng-if="localLocations.length > 0 && !isLinktoOnline && !showCompact">
+    <h4 (click)="$ctrl.toggleShowCompact()">Available at the Library</h4>
+    <div ng-if="holdings" class="animate-if" ng-repeat="holding in holdings" layout="column">
+        <p ng-if="holding.mms_id && holding.items.length > 1" (click)="$ctrl.toggleShowItems(holding)" class="animate-if">
+            <span class="location">{{ holding.location }}</span> - <span class="callNumber">{{ holding.call_number }}</span>
+            <span class="items_available" ng-if="holding.availability == 'available'">({{ holding.available_items }} of {{ holding.total_items }} available)</span>
+            <span class="items_unavailable" ng-if="holding.availability == 'unavailable'">({{ holding.available_items }} of {{ holding.total_items }} available)</span>
+            <span ng-if="!holding.showItems" class="showItemsDown">V</span>
+            <span ng-if="holding.showItems" class="showItemsUp">^</span>
+        </p>
+        <p ng-if="holding.mms_id && holding.items.length == 1" ng-repeat="item in holding.items" class="animate-if">
+            <span class="location">{{ holding.location }}</span> - <span class="callNumber">{{ holding.call_number }}</span>
+            <span class="items_available" ng-if="item.availability == 'available'">{{ item.status }}</span>
+            <span class="items_unavailable" ng-if="item.availability == 'unavailable'">{{ item.status }}</span>
+            <span class="callNumber" ng-if="item.description != ''"> ({{ item.description }})</span>
+        </p>
+        <p ng-if="holding.mms_id && holding.items.length <= 0 && holdingsCount <= 0" class="animate-if">
+            <span class="location">{{ holding.location }}</span> - <span class="callNumber">{{ holding.call_number }}</span>
+            <span class="items_unavailable" translate="item.noitems">
+            </span>
+        </p>
+        <p ng-if="holding.mms_id && holding.items.length <= 0 && holdingsCount > 0" class="animate-if">
+            <span class="location">{{ holding.location }}</span> - <span class="callNumber">{{ holding.call_number }}</span>
+            <prm-spinner class="small default-loader dark-on-light" layout="row" layout-align="left center">
+            </prm-spinner>
+        </p>
+        <p ng-if="holding.mms_id && !holding.items" class="animate-if">
+            <span class="location">{{ holding.location }}</span> - <span class="callNumber">{{ holding.call_number }}</span>
+            <prm-spinner class="small default-loader dark-on-light" layout="row" layout-align="left center">
+            </prm-spinner>
+        </p>
+        <p ng-if="holding.mms_id && !holding.items" ng-repeat="x in holding.numberItemsArray track by $index" class="animate-if" style="display:none;">
+            <span class="location">{{ holding.location }}</span> - <span class="callNumber">{{ holding.call_number }}</span>
+            <prm-spinner class="small default-loader dark-on-light" layout="row" layout-align="left center">
+            </prm-spinner>
+            <p ng-if="holding.mms_id && holding.ava_note != ''" (click)="$ctrl.toggleShowItems(holding)" class="animate-if">
+                <span class="avaNote">{{ holding.ava_note }}</span>
+            </p>
+            <p ng-if="holding.mms_id && holding.ava_note == '' && holding.items.length <= 0 && holding.items[0].ava_note && holding.items[0].ava_note !=''" (click)="$ctrl.toggleShowItems(holding)" class="animate-if">
+                <span class="avaNote">{{ holding.items[0].ava_note }}</span>
+            </p>
+            <p ng-if="holding.mms_id && holding.items.length > 1 && holding.showItems" ng-repeat="item in holding.items" class="animate-if">
+                <span class="subLocation">{{ holding.location }}</span> - <span class="callNumber">{{ holding.call_number }}</span>
+                <span class="items_available" ng-if="item.availability == 'available'">{{ item.status }}</span>
+                <span class="items_unavailable" ng-if="item.availability == 'unavailable'">{{ item.status }}</span>
+                <span class="callNumber" ng-if="item.description != ''"> ({{ item.description }})</span>
+            </p>
+        </p>
+    </div>
+    <div ng-if="preholdings && !holdings" class="animate-if" ng-repeat="holding in preholdings" layout="column">
+        <p>
+            <span class="location">{{ holding.subLocation }}</span> - <span class="callNumber">{{ holding.callNumber }}</span>
+            <prm-spinner class="small default-loader dark-on-light" layout="row" layout-align="left center">
+            </prm-spinner>
+        </p>
+    </div>
+    <prm-spinner ng-if="!preholdings && !holdings" class="default-loader dark-on-light" layout="row" layout-align="center center">
+    </prm-spinner>
+</div>
+<div class="extHoldings" ng-if="extLocations.length > 0 && !isLinktoOnline">
+    <h4 (click)="$ctrl.toggleShowExtHoldings()">
+        <span translate="nui.brief.results.tabs.getit_other">
+        </span>
+        <span ng-if="!showExtHoldings" class="showItemsDown">V</span>
+        <span ng-if="showExtHoldings" class="showItemsUp">^</span>
+    </h4>
+    <div ng-if="extLocations && showExtHoldings" class="animate-if" ng-repeat="campus in extLocations" layout="column">
+        <p ng-if="campus.organization" (click)="$ctrl.toggleShowItems(campus)">
+            <span class="location" translate="{{campus.organization}}">{{campus.organization}}</span>
+            <span ng-if="!campus.showItems" class="showItemsDown">V</span>
+            <span ng-if="campus.showItems" class="showItemsUp">^</span>
+        </p>
+        <p ng-if="campus.showItems" ng-repeat="location in campus.locations">
+            <span class="subLocation">{{ location.subLocation }}</span> - <span class="callNumber">{{ location.callNumber }}</span>
+            <span class="items_available" ng-if="location.availabilityStatus == 'available'">({{ location.availabilityStatus }})</span>
+            <span class="items_unavailable" ng-if="location.availabilityStatus != 'available'">({{ location.availabilityStatus }})</span>
+        </p>
+    </div>
+</div>
+<div ng-if="isLinktoOnline">
+    <iframe iframe-onload="{{::$ctrl.parentCtrl.iframeResize()}}" class="mashup-iframe" ng-src="{{$ctrl.parentCtrl.getLink()}}" style="width:100%;border:none;" ng-if="::$ctrl.parentCtrl.isLinkAvailable()"/>
+    <prm-alma-mashup-after parent-ctrl="$ctrl.parentCtrl">
+    </prm-alma-mashup-after>
+</div>
