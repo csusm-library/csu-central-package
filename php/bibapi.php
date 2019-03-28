@@ -455,7 +455,6 @@
 			$data['requestable'] = $available['html'];
 			$out = json_encode($data);
 			break;
-	}
-	
-	echo $out;
-?>  
+}
+
+echo $out;
