@@ -13,7 +13,9 @@ $vid = isset($_GET['vid']) ? $_GET['vid'] : '';
 $out = '';
 
 // enhanced function for getting url data
-function en_curl($url, $opts = array("timeout" => 120, "returnheader" => FALSE, "cookie" => null, "header" => array(), 'post' => false)) {
+function en_curl($url, $opts = array("timeout" => 120, "returnheader" => FALSE, 
+    "cookie" => null, "header" => array(), 'post' => false)) 
+{
 	if(!isset($opts['timeout'])) $opts['timeout'] = 120;
 	if(!isset($opts['returnheader'])) $opts['returnheader'] = FALSE;
 	if(!isset($opts['cookie'])) $opts['cookie'] = null;
@@ -48,6 +50,7 @@ function en_curl($url, $opts = array("timeout" => 120, "returnheader" => FALSE, 
 	curl_setopt( $curl, CURLOPT_TIMEOUT, $opts['timeout']  );
 
 	// RUN THE CURL REQUEST AND GET THE RESULTS
+	$output = array();
 	$output['html'] = curl_exec($curl);
 	$output['url'] = $url;
 	$output['header'] = $header;
@@ -59,7 +62,9 @@ function en_curl($url, $opts = array("timeout" => 120, "returnheader" => FALSE, 
 }
 
 //custom function for converting xml to json
-function xml2json($xml) {
+function xml2json($xml)
+{
+    $tags = array();
 	$parser = xml_parser_create();
 	xml_parser_set_option($parser, XML_OPTION_CASE_FOLDING, 0);
 	xml_parser_set_option($parser, XML_OPTION_SKIP_WHITE, 1);
@@ -99,7 +104,8 @@ function xml2json($xml) {
 }
 
 //custom helper function for converting xml to json
-function recur_append($nodes, $append = array(), $isAttributes = false) {
+function recur_append($nodes, $append = array(), $isAttributes = false)
+{
 	$out = array();
 	$newnodes = array();
 	for($i = 0; $i < count($nodes); $i++) {
@@ -136,7 +142,8 @@ function recur_append($nodes, $append = array(), $isAttributes = false) {
 }
 
 //custom helper function for converting xml to json
-function recur_merge($array1, $array2, $tag, $current_parents, $target_parents = array()) {
+function recur_merge($array1, $array2, $tag, $current_parents, $target_parents = array())
+{
 	foreach($array2 as $key => $value) {
 		$target_parents[] = $key;
 		$compare_parents = $current_parents == $target_parents;
