@@ -199,5 +199,6 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 }])
 .value('customUresolver', {}).value('customUresolverDefault', {
 	enabled: true,
-	bibURL: 'https://libapps.cpp.edu/primoreserves/reserves.php?'
+	bibURL: 'https://library.test.calstate.edu/primo-resolver/bibapi.php?'
+	//
 });
