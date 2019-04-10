@@ -94,7 +94,7 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 		 * Includes basic info for local holdings and external holdings
 		 */
 		for(var i = 0; i < _this.item.delivery.holding.length; i++) {
-			if(_this.item.delivery.holding[i].organization == '01CALS_PUP') {
+			if(_this.item.delivery.holding[i].organization == _this.vid) {
 				let mms_id = _this.item.pnx.display.lds04;
 				$scope.hasLocal = true;
 				$scope.localLocations.push({
