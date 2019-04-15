@@ -106,7 +106,7 @@ angular.module('reportProblem').component('ocaReportProblem', {
     this.reportUrl = this.reportUrl || (reportProblem.hasOwnProperty("reportUrl") ? reportProblem.reportUrl : reportProblemDefault.reportUrl);
     this.reportVendor = this.reportVendor || (reportProblem.hasOwnProperty("reportVendor") ? reportProblem.reportVendor : reportProblemDefault.reportVendor);
     this.alertLocation = this.alertLocation || (reportProblem.hasOwnProperty("alertLocation") ? reportProblem.alertLocation : reportProblemDefault.alertLocation);
-    this.showLocations = ['/fulldisplay', '/openurl'];
+    this.showLocations = ['/fulldisplay', '/openurl', '/jfulldisplay'];
     this.$onInit = function () {
       this.targetUrl = this.reportUrl + $httpParamSerializer($location.search());
       this.show = this.showLocations.includes($location.path()) && this.enabled === true;
