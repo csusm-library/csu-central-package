@@ -49,8 +49,8 @@
 		curl_setopt($curl, CURLOPT_FOLLOWLOCATION, TRUE);
 		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
 		if($opts['post'] === true) curl_setopt($curl, CURLOPT_POSTFIELDS, '');
-		//curl_setopt( $curl, CURLOPT_MAXREDIRS,      2  );
-		curl_setopt( $curl, CURLOPT_TIMEOUT, $opts['timeout']  );
+		//curl_setopt( $curl, CURLOPT_MAXREDIRS, 2);
+		curl_setopt( $curl, CURLOPT_TIMEOUT, $opts['timeout']);
 		
 		// RUN THE CURL REQUEST AND GET THE RESULTS
 		$output['html'] = curl_exec($curl);
@@ -249,10 +249,10 @@
 		switch($vid) {
 			case '01CALS_PUP_ZTEST':
 			case '01CALS_PUP':
-				$apikey =  ''; //local api key
+				$apikey = ''; //local api key
 				break;
 			default:
-				$apikey =  ''; //network api key
+				$apikey = ''; //network api key
 				break;
 		}
 		return $apikey;
@@ -309,42 +309,38 @@
 			$params = array('expand' => 'p_avail,e_avail');
 			$out = json_decode(getAPIData($vid, $api, $params));
 			$out->bibapiurl = $api . '?format=json&apikey=&' . urlencode(http_build_query($params));
-        	$out->record = json_decode(xml2json(strstr($out->anies[0], '<record>')))->record;
-        	unset($out->anies);
+			$out->record = json_decode(xml2json(strstr($out->anies[0], '<record>')))->record;
+			unset($out->anies);
 			$api .= '/holdings';
 			$params = array('limit' => '100');
 			$holdings = json_decode(getAPIData($vid, $api, $params));
 			$out->holdingsapiurl = $api . '?format=json&apikey=&' . urlencode(http_build_query($params));
-            $out->holdings = array();
-            if(array_key_exists('holding', $holdings)) {
-                foreach($holdings->holding as $holding) {
-                    
-                    $api .= '/' . $holding->holding_id . '/items';
-		        	$items = json_decode(getAPIData($vid, $api, $params));
+			$out->holdings = array();
+			if(array_key_exists('holding', $holdings)) {
+				foreach($holdings->holding as $holding) {
+					$api .= '/' . $holding->holding_id . '/items';
+					$items = json_decode(getAPIData($vid, $api, $params));
 					$out->itemsapiurl = $api . '?format=json&apikey=&' . urlencode(http_build_query($params));
-                   if(array_key_exists('item', $items)) {
-                        foreach($items->item as $item) {
-                            
-                            $location = $item->holding_data->temp_location->desc;
-                            
-                            if($location == "") {
-                                $location = $item->item_data->location->desc;
-                            }
-                            
-                            $out->holdings[] = array(
-                                'mms_id' => $id,
-                                'location' => $location,
-                                'call_number' => $item->holding_data->call_number,
-                                'availability' => $item->item_data->base_status->desc,
-                                'available' => $item->item_data->base_status->value,
-                                'material_type' => strtolower($item->item_data->physical_material_type->value),
-                                'barcode' => $item->item_data->barcode,
-                                'policy' => $item->item_data->policy->value
-                            );
-                        }
-                    }
-                }
-            }
+					if(array_key_exists('item', $items)) {
+						foreach($items->item as $item) {
+							$location = $item->holding_data->temp_location->desc;
+							if($location == "") {
+								$location = $item->item_data->location->desc;
+							}
+							$out->holdings[] = array(
+								'mms_id' => $id,
+								'location' => $location,
+								'call_number' => $item->holding_data->call_number,
+								'availability' => $item->item_data->base_status->desc,
+								'available' => $item->item_data->base_status->value,
+								'material_type' => strtolower($item->item_data->physical_material_type->value),
+								'barcode' => $item->item_data->barcode,
+								'policy' => $item->item_data->policy->value
+							);
+						}
+					}
+				}
+			}
 			$out = json_encode($out);
 			break;
 
@@ -353,13 +349,18 @@
 			$params = array('expand' => 'p_avail,e_avail', 'mms_id' => $id);
 			$out = json_decode(getAPIData('', $api, $params));
 			$out = $out->bib[0];
-        	if(property_exists($out, 'anies')) $out->record = json_decode(xml2json(strstr($out->anies[0], '<record>')))->record;
-        	unset($out->anies);
-            $out->holdings = array();
+			if(property_exists($out, 'anies')) $out->record = json_decode(xml2json(strstr($out->anies[0], '<record>')))->record;
+			unset($out->anies);
+			$out->holdings = array();
 			$out->ava = getDatafield($out->record->datafield, 'AVA');
 			foreach($out->ava as $ava) {
 				$mms_id = getAVACode($ava, '0');
 				$holding_id = getAVACode($ava, '8');
+				if(empty($holding_id)) {
+					$temp_holding_id = json_decode(getAPIData($vid, 'bibs/' . $mms_id . '/holdings/'));
+					if(property_exists($temp_holding_id, 'holding')) if(isset($temp_holding_id->holding[0])) if(property_exists($temp_holding_id->holding[0], 'holding_id')) $holding_id = $temp_holding_id->holding[0]->holding_id;
+					unset($temp_holding_id);
+				}
 				$getNotes = false;
 				if($getNotes) {
 					if(!empty($holding_id)) {
@@ -458,4 +459,4 @@
 	}
 	
 	echo $out;
-?>  
+?>
