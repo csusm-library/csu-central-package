@@ -38,7 +38,7 @@
                                      otherwise the table flickers on reload -->
                                 <tr ng-if="holding.mms_id && holding.items.length <= 0 && holdingsCount > 0" class="animate-if">
                                     <td class="location">{{ holding.location }}</td>
-                                    <td class="callNumber">{{ holding.call_number }}</td>
+                                    <td class="callNumber">{{ holding.call_number | trim }}</td>
                                     <td class="status">
                                         <prm-spinner class="small default-loader dark-on-light" layout="row" layout-align="left center"></prm-spinner>
                                     </td>
@@ -48,7 +48,7 @@
                                 </tr>
                                 <tr ng-if="holding.mms_id && !holding.items" class="animate-if">
                                     <td class="location">{{ holding.location }}</td>
-                                    <td class="callNumber">{{ holding.call_number }}</td>
+                                    <td class="callNumber">{{ holding.call_number | trim }}</td>
                                     <td class="status">
                                         <prm-spinner class="small default-loader dark-on-light" layout="row" layout-align="left center"></prm-spinner>
                                     </td>
@@ -103,7 +103,7 @@
                             <tbody>
                                 <tr ng-repeat="holding in preholdings">
                                     <td class="location">{{ holding.subLocation }}</td>
-                                    <td class="callNumber">{{ holding.callNumber }}</td>
+                                    <td class="callNumber">{{ holding.callNumber | trim }}</td>
                                     <td class="status">
                                         <prm-spinner class="small default-loader dark-on-light" layout="row" layout-align="left center"></prm-spinner>
                                     </td>

@@ -202,3 +202,9 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 	bibURL: 'https://library.test.calstate.edu/primo-resolver/bibapi.php?'
 	//
 });
+
+app.filter('trim', function () {
+    return function(value) {
+        return value.replace(/^\(|\)$/g, '');
+    };
+});
