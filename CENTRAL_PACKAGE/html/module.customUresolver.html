@@ -3,6 +3,7 @@
 <div class="localHoldings" ng-if="localLocations.length > 0 && !isLinktoOnline && !showCompact">
     <h4>Available at the Library</h4>
 
+    <!-- holdings have already loaded -->
     <div ng-if="holdings" class="animate-if" layout="column">
 
         <div class="csu-holdings-limiter">
@@ -19,6 +20,8 @@
                                 </tr>
                             </thead>
                             <tbody ng-repeat="holding in holdings">
+
+                                <!-- items loaded and ready for display -->
                                 <tr ng-if="holding.mms_id && holding.items.length <= 0" class="animate-if">
                                     <td colspan="4">
                                         <span class="items_unavailable" translate="item.noitems">
@@ -30,6 +33,29 @@
                                     <td class="available">{{ item.status }}</td>
                                     <td class="description">{{ item.description }}</td>
                                 </tr>
+
+                                <!-- next two rows are temporary display until the items fully load
+                                     otherwise the table flickers on reload -->
+                                <tr ng-if="holding.mms_id && holding.items.length <= 0 && holdingsCount > 0" class="animate-if">
+                                    <td class="location">{{ holding.location }}</td>
+                                    <td class="callNumber">{{ holding.call_number }}</td>
+                                    <td class="status">
+                                        <prm-spinner class="small default-loader dark-on-light" layout="row" layout-align="left center"></prm-spinner>
+                                    </td>
+                                    <td class="description">
+                                        <prm-spinner class="small default-loader dark-on-light" layout="row" layout-align="left center"></prm-spinner>
+                                    </td>
+                                </tr>
+                                <tr ng-if="holding.mms_id && !holding.items" class="animate-if">
+                                    <td class="location">{{ holding.location }}</td>
+                                    <td class="callNumber">{{ holding.call_number }}</td>
+                                    <td class="status">
+                                        <prm-spinner class="small default-loader dark-on-light" layout="row" layout-align="left center"></prm-spinner>
+                                    </td>
+                                    <td class="description">
+                                        <prm-spinner class="small default-loader dark-on-light" layout="row" layout-align="left center"></prm-spinner>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -37,6 +63,8 @@
             </div>
         </div>
     </div>
+
+    <!-- temp: holdings over item display -->
     <div ng-repeat="holding in holdings">
         <p ng-if="holding.mms_id && !holding.items" ng-repeat="x in holding.numberItemsArray track by $index" class="animate-if" style="display:none;">
             <span class="location">{{ holding.location }}</span> - <span class="callNumber">{{ holding.call_number }}</span>
@@ -57,6 +85,7 @@
         </p>
     </div>
 
+    <!-- temporary display until data fetched  -->
     <div ng-if="preholdings && !holdings" class="animate-if" layout="column">
         <div class="csu-holdings-limiter">
             <div class="csu-holdings-container">
