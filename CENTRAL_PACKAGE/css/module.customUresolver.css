@@ -46,3 +46,171 @@ span.items_unavailable {
 div.localHoldings, div.extHoldings {
 	margin: .75em 0 1.5em;
 }
+
+/** csu holdings table **/
+
+.csu-holdings-limiter {
+	width: 100%;
+	margin: 0 auto;
+}
+.csu-holdings-container {
+	width: 100%;
+	background-color: #ccc;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-wrap: wrap;
+	padding: 33px 30px;
+}
+.csu-holdings-wrap {
+	width: 1170px;
+}
+.csu-holdings table {
+	border-spacing: 1;
+	border-collapse: collapse;
+	background: white;
+	border: 1px solid #ccc;
+	border-radius: 10px;
+	overflow: hidden;
+	width: 100%;
+	margin: 0 auto;
+	position: relative;
+}
+.csu-holdings table td.available {
+	font-weight: bold;
+}
+.csu-holdings table * {
+	position: relative;
+}
+.csu-holdings table td, .csu-holdings table th {
+	padding-left: 8px;
+}
+.csu-holdings table thead tr {
+	height: 60px;
+	background: #36304a;
+}
+.csu-holdings table tbody tr {
+	height: 50px;
+}
+.csu-holdings table tbody tr:last-child {
+	border: 0;
+}
+.csu-holdings table td, .csu-holdings table th {
+	text-align: left;
+}
+.csu-holdings table td.l, .csu-holdings table th.l {
+	text-align: right;
+}
+.csu-holdings table td.c, .csu-holdings table th.c {
+	text-align: center;
+}
+.csu-holdings table td.r, .csu-holdings table th.r {
+	text-align: center;
+}
+.csu-holdings table th {
+	font-size: 16px;
+	color: #fff;
+	line-height: 1.2;
+	font-weight: unset;
+}
+.csu-holdings tbody tr:nth-child(even) {
+	background-color: #f5f5f5;
+}
+.csu-holdings tbody tr {
+	font-size: 15px;
+	color: #000;
+	line-height: 1.2;
+	font-weight: unset;
+}
+.csu-holdings tbody tr:hover {
+	background-color: #f5f5f5;
+	cursor: pointer;
+}
+.csu-holdings .column1 {
+	width: 260px;
+	padding-left: 40px;
+}
+.csu-holdings .column2 {
+	width: 160px;
+}
+.csu-holdings .column3 {
+	width: 245px;
+}
+.csu-holdings .column4 {
+	width: 110px;
+	text-align: right;
+}
+.csu-holdings .column5 {
+	width: 170px;
+	text-align: right;
+}
+.csu-holdings .column6 {
+	width: 222px;
+	text-align: right;
+	padding-right: 62px;
+}
+@media screen and (max-width: 992px) {
+	.csu-holdings table {
+		display: block;
+	}
+	.csu-holdings table > *, .csu-holdings table tr, .csu-holdings table td, .csu-holdings table th {
+		display: block;
+	}
+	.csu-holdings table thead {
+		display: none;
+	}
+	.csu-holdings table tbody tr {
+		height: auto;
+		padding: 37px 0;
+	}
+	.csu-holdings table tbody tr td {
+		padding-left: 40% !important;
+		margin-bottom: 24px;
+	}
+	.csu-holdings table tbody tr td:last-child {
+		margin-bottom: 0;
+	}
+	.csu-holdings table tbody tr td:before {
+		font-size: 14px;
+		color: #999999;
+		line-height: 1.2;
+		font-weight: unset;
+		position: absolute;
+		width: 40%;
+		left: 30px;
+		top: 0;
+	}
+	.csu-holdings table tbody tr td:nth-child(1):before {
+		content: "Location";
+	}
+	.csu-holdings table tbody tr td:nth-child(2):before {
+		content: "Call Number";
+	}
+	.csu-holdings table tbody tr td:nth-child(3):before {
+		content: "Status";
+	}
+	.csu-holdings table tbody tr td:nth-child(4):before {
+		content: "Description";
+	}
+	.csu-holdings .column4,
+	.csu-holdings .column5,
+	.csu-holdings .column6,
+	.csu-holdings .column1,
+	.csu-holdings .column2,
+	.csu-holdings .column3 {
+		width: 100%;
+	}
+	.csu-holdings tbody tr {
+		font-size: 14px;
+	}
+}
+@media (max-width: 576px) {
+	.csu-holdings-container {
+		padding-left: 15px;
+		padding-right: 15px;
+	}
+}
