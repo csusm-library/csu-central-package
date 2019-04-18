@@ -55,7 +55,6 @@ div.localHoldings, div.extHoldings {
 }
 .csu-holdings-container {
 	width: 100%;
-	background-color: #ccc;
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: -moz-box;
@@ -70,8 +69,9 @@ div.localHoldings, div.extHoldings {
 	width: 1170px;
 }
 .csu-holdings table {
-	border-spacing: 1;
-	border-collapse: collapse;
+	border-spacing: 0;
+	border: 1px solid #36304a;
+	box-shadow: 0 2px 6px 0 #eee;
 	background: white;
 	border: 1px solid #ccc;
 	border-radius: 10px;
@@ -90,7 +90,7 @@ div.localHoldings, div.extHoldings {
 	padding-left: 8px;
 }
 .csu-holdings table thead tr {
-	height: 60px;
+	height: 50px;
 	background: #36304a;
 }
 .csu-holdings table tbody tr {
