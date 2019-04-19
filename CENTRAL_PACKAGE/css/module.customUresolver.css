@@ -37,10 +37,10 @@ span.callNumber {
 span.avaNote {
 	position: relative; top: -.4em; padding-left: 2em; font-style: italic; font-size: 14px;
 }
-span.items_available {
+span.items-available {
 	font-weight: bold; font-size: 14px; padding-left: 5px; color: #0f7d00;
 }
-span.items_unavailable {
+span.items-unavailable {
 	font-weight: bold; font-size: 14px; padding-left: 5px; color: #b00015;
 }
 div.localHoldings, div.extHoldings {
@@ -72,7 +72,7 @@ div.localHoldings, div.extHoldings {
 	align-items: center;
 	justify-content: center;
 	flex-wrap: wrap;
-	padding: 33px 30px;
+	padding: 33px 0px;
 }
 .csu-holdings-wrap {
 	width: 1170px;

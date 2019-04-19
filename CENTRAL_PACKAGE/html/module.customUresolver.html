@@ -24,17 +24,17 @@
                                 <!-- items loaded and ready for display -->
                                 <tr ng-if="holding.mms_id && holding.items.length <= 0" class="animate-if">
                                     <td colspan="4">
-                                        <span class="items_unavailable" translate="item.noitems">
+                                        <span class="items-unavailable" translate="item.noitems">
                                     </td>
                                 </tr>
                                 <tr ng-repeat="item in holding.items">
                                     <td class="location">{{ holding.location }}</td>
                                     <td class="callNumber">{{ holding.call_number }}</td>
                                     <td class="available">
-                                        <span class="items_available" ng-if="item.availability == 'available'">
+                                        <span class="items-available" ng-if="item.availability == 'available'">
                                             {{ item.status }}
                                         </span>
-                                        <span class="items_unavailable" ng-if="item.availability == 'unavailable'">
+                                        <span class="items-unavailable" ng-if="item.availability == 'unavailable'">
                                             {{ item.status }}
                                         </span>
                                     </td>
@@ -85,8 +85,8 @@
             </p>
             <p ng-if="holding.mms_id && holding.items.length > 1 && holding.showItems" ng-repeat="item in holding.items" class="animate-if">
                 <span class="subLocation">{{ holding.location }}</span> - <span class="callNumber">{{ holding.call_number }}</span>
-                <span class="items_available" ng-if="item.availability == 'available'">{{ item.status }}</span>
-                <span class="items_unavailable" ng-if="item.availability == 'unavailable'">{{ item.status }}</span>
+                <span class="items-available" ng-if="item.availability == 'available'">{{ item.status }}</span>
+                <span class="items-unavailable" ng-if="item.availability == 'unavailable'">{{ item.status }}</span>
                 <span class="callNumber" ng-if="item.description != ''"> ({{ item.description }})</span>
             </p>
         </p>
@@ -150,8 +150,8 @@
                                 <td class="location">{{ location.subLocation }}</td>
                                 <td class="callNumber">{{ location.callNumber | trim }}</td>
                                 <td class="status">
-                                    <span class="items_available" ng-if="location.availabilityStatus == 'available'">{{ location.availabilityStatus | trim }}</span>
-                                    <span class="items_unavailable" ng-if="location.availabilityStatus != 'available'">{{ location.availabilityStatus }}</span>
+                                    <span class="items-available" ng-if="location.availabilityStatus == 'available'">{{ location.availabilityStatus | trim }}</span>
+                                    <span class="items-unavailable" ng-if="location.availabilityStatus != 'available'">{{ location.availabilityStatus }}</span>
                                 </td>
                             </tr>
                         </tbody>
