@@ -118,30 +118,44 @@
             </div>
         </div>
     </div>
+
+    <!-- nada -->
     <prm-spinner ng-if="!preholdings && !holdings" class="default-loader dark-on-light" layout="row" layout-align="center center">
     </prm-spinner>
 </div>
 
 <!-- Other campuses -->
 
-<div class="extHoldings" ng-if="extLocations.length > 0 && !isLinktoOnline">
-    <h4 (click)="$ctrl.toggleShowExtHoldings()">
-        <span translate="nui.brief.results.tabs.getit_other">
-        </span>
-        <span ng-if="!showExtHoldings" class="showItemsDown">V</span>
-        <span ng-if="showExtHoldings" class="showItemsUp">^</span>
-    </h4>
-    <div ng-if="extLocations && showExtHoldings" class="animate-if" ng-repeat="campus in extLocations" layout="column">
-        <p ng-if="campus.organization" (click)="$ctrl.toggleShowItems(campus)">
-            <span class="location" translate="{{campus.organization}}">{{campus.organization}}</span>
-            <span ng-if="!campus.showItems" class="showItemsDown">V</span>
-            <span ng-if="campus.showItems" class="showItemsUp">^</span>
-        </p>
-        <p ng-if="campus.showItems" ng-repeat="location in campus.locations">
-            <span class="subLocation">{{ location.subLocation }}</span> - <span class="callNumber">{{ location.callNumber }}</span>
-            <span class="items_available" ng-if="location.availabilityStatus == 'available'">({{ location.availabilityStatus }})</span>
-            <span class="items_unavailable" ng-if="location.availabilityStatus != 'available'">({{ location.availabilityStatus }})</span>
-        </p>
+<div class="consortia-holdings" ng-if="extLocations.length > 0 && !isLinktoOnline" layout="column">
+    <h4>Holdings at other campuses</h4>
+    <div class="csu-holdings-limiter">
+        <div class="csu-holdings-container">
+            <div class="csu-holdings-wrap">
+                <div class="csu-holdings">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Campus</th>
+                                <th>Location</th>
+                                <th>Call Number</th>
+                                <th>Availability</th>
+                            </tr>
+                        </thead>
+                        <tbody ng-repeat="campus in extLocations">
+                            <tr ng-repeat="location in campus.locations">
+                                <td class="campus">{{ campus.organization | campus_name }}</td>
+                                <td class="location">{{ location.subLocation }}</td>
+                                <td class="callNumber">{{ location.callNumber | trim }}</td>
+                                <td class="status">
+                                    <span class="items_available" ng-if="location.availabilityStatus == 'available'">{{ location.availabilityStatus | trim }}</span>
+                                    <span class="items_unavailable" ng-if="location.availabilityStatus != 'available'">{{ location.availabilityStatus }}</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 

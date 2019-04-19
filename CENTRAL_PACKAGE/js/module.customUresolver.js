@@ -208,3 +208,32 @@ app.filter('trim', function () {
         return value.replace(/^\(|\)$/g, '');
     };
 });
+
+app.filter('campus_name', function () {
+    return function(value) {
+		if (value == '01CALS_UBA') return 'Bakersfield';
+		if (value == '01CALS_UCI') return 'Channel Islands';
+		if (value == '01CALS_CHI') return 'Chico';
+		if (value == '01CALS_UDH') return 'Dominguez Hills';
+		if (value == '01CALS_UHL') return 'East Bay';
+		if (value == '01CALS_UFR') return 'Fresno';
+		if (value == '01CALS_FUL') return 'Fullerton';
+		if (value == '01CALS_HUL') return 'Humboldt';
+		if (value == '01CALS_ULB') return 'Long Beach';
+		if (value == '01CALS_ULA') return 'Los Angeles';
+		if (value == '01CALS_MAL') return 'Maritime';
+		if (value == '01CALS_UMB') return 'Monterey Bay';
+		if (value == '01CALS_MLM') return 'Moss Landing';
+		if (value == '01CALS_UNO') return 'Northridge';
+		if (value == '01CALS_PUP') return 'Pomona';
+		if (value == '01CALS_USL') return 'Sacramento';
+		if (value == '01CALS_USB') return 'San Bernardino';
+		if (value == '01CALS_SDL') return 'San Diego';
+		if (value == '01CALS_SFR') return 'San Francisco';
+		if (value == '01CALS_SJO') return 'San José';
+		if (value == '01CALS_PSU') return 'San Luis Obispo';
+		if (value == '01CALS_USM') return 'San Marcos';
+		if (value == '01CALS_SOL') return 'Sonoma';
+		if (value == '01CALS_UST') return 'Stanislaus';
+    };
+});
