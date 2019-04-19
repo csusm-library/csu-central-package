@@ -139,7 +139,7 @@
                         </thead>
                         <tbody ng-repeat="campus in extLocations">
                             <tr ng-repeat="location in campus.locations">
-                                <td class="campus">{{ campus.organization | campus_name }}</td>
+                                <td class="campus">{{ campus.organization }}</td>
                                 <td class="location">{{ location.subLocation }}</td>
                                 <td class="callNumber">{{ location.callNumber | trim }}</td>
                                 <td class="status">

@@ -139,9 +139,13 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 			)
 		}
 
+		// other campus holdings, sorted by campus name
+
 		for (var extLib in _this.tempExt){
 			$scope.extLocations.push(_this.tempExt[extLib]);
 		}
+		$scope.extLocations.forEach(translate_campus_name);
+		$scope.extLocations.sort(compare_campuses);
 
 		_this.tempExt = null;
 	}]
@@ -209,31 +213,37 @@ app.filter('trim', function () {
     };
 });
 
-app.filter('campus_name', function () {
-    return function(value) {
-		if (value == '01CALS_UBA') return 'Bakersfield';
-		if (value == '01CALS_UCI') return 'Channel Islands';
-		if (value == '01CALS_CHI') return 'Chico';
-		if (value == '01CALS_UDH') return 'Dominguez Hills';
-		if (value == '01CALS_UHL') return 'East Bay';
-		if (value == '01CALS_UFR') return 'Fresno';
-		if (value == '01CALS_FUL') return 'Fullerton';
-		if (value == '01CALS_HUL') return 'Humboldt';
-		if (value == '01CALS_ULB') return 'Long Beach';
-		if (value == '01CALS_ULA') return 'Los Angeles';
-		if (value == '01CALS_MAL') return 'Maritime';
-		if (value == '01CALS_UMB') return 'Monterey Bay';
-		if (value == '01CALS_MLM') return 'Moss Landing';
-		if (value == '01CALS_UNO') return 'Northridge';
-		if (value == '01CALS_PUP') return 'Pomona';
-		if (value == '01CALS_USL') return 'Sacramento';
-		if (value == '01CALS_USB') return 'San Bernardino';
-		if (value == '01CALS_SDL') return 'San Diego';
-		if (value == '01CALS_SFR') return 'San Francisco';
-		if (value == '01CALS_SJO') return 'San José';
-		if (value == '01CALS_PSU') return 'San Luis Obispo';
-		if (value == '01CALS_USM') return 'San Marcos';
-		if (value == '01CALS_SOL') return 'Sonoma';
-		if (value == '01CALS_UST') return 'Stanislaus';
-    };
-});
+function translate_campus_name(item, index) {
+	if (item.organization == '01CALS_UBA') item.organization = 'Bakersfield';
+	if (item.organization == '01CALS_UCI') item.organization = 'Channel Islands';
+	if (item.organization == '01CALS_CHI') item.organization = 'Chico';
+	if (item.organization == '01CALS_UDH') item.organization = 'Dominguez Hills';
+	if (item.organization == '01CALS_UHL') item.organization = 'East Bay';
+	if (item.organization == '01CALS_UFR') item.organization = 'Fresno';
+	if (item.organization == '01CALS_FUL') item.organization = 'Fullerton';
+	if (item.organization == '01CALS_HUL') item.organization = 'Humboldt';
+	if (item.organization == '01CALS_ULB') item.organization = 'Long Beach';
+	if (item.organization == '01CALS_ULA') item.organization = 'Los Angeles';
+	if (item.organization == '01CALS_MAL') item.organization = 'Maritime';
+	if (item.organization == '01CALS_UMB') item.organization = 'Monterey Bay';
+	if (item.organization == '01CALS_MLM') item.organization = 'Moss Landing';
+	if (item.organization == '01CALS_UNO') item.organization = 'Northridge';
+	if (item.organization == '01CALS_PUP') item.organization = 'Pomona';
+	if (item.organization == '01CALS_USL') item.organization = 'Sacramento';
+	if (item.organization == '01CALS_USB') item.organization = 'San Bernardino';
+	if (item.organization == '01CALS_SDL') item.organization = 'San Diego';
+	if (item.organization == '01CALS_SFR') item.organization = 'San Francisco';
+	if (item.organization == '01CALS_SJO') item.organization = 'San José';
+	if (item.organization == '01CALS_PSU') item.organization = 'San Luis Obispo';
+	if (item.organization == '01CALS_USM') item.organization = 'San Marcos';
+	if (item.organization == '01CALS_SOL') item.organization = 'Sonoma';
+	if (item.organization == '01CALS_UST') item.organization = 'Stanislaus';
+}
+
+function compare_campuses(a, b) {
+  if (a.organization < b.organization)
+    return -1;
+  if (a.organization > b.organization)
+    return 1;
+  return 0;
+}
