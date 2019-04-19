@@ -139,13 +139,29 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 			)
 		}
 
-		// other campus holdings, sorted by campus name
+		// other campus holdings
 
 		for (var extLib in _this.tempExt){
 			$scope.extLocations.push(_this.tempExt[extLib]);
 		}
+
+		// sorted by readable campus name
+
 		$scope.extLocations.forEach(translate_campus_name);
 		$scope.extLocations.sort(compare_campuses);
+
+		// break out each holding and add campus name
+
+		$scope.consortiaHoldings = new Array();
+
+		for (var i = 0; i < $scope.extLocations.length; i++) {
+			for (var j = 0; j < $scope.extLocations[i].locations.length; j++) {
+				$scope.extLocations[i].locations[j].campus = $scope.extLocations[i].organization;
+				$scope.consortiaHoldings.push($scope.extLocations[i].locations[j]);
+			}
+		}
+
+		console.log($scope.consortiaHoldings);
 
 		_this.tempExt = null;
 	}]
@@ -233,7 +249,7 @@ function translate_campus_name(item, index) {
 	if (item.organization == '01CALS_USB') item.organization = 'San Bernardino';
 	if (item.organization == '01CALS_SDL') item.organization = 'San Diego';
 	if (item.organization == '01CALS_SFR') item.organization = 'San Francisco';
-	if (item.organization == '01CALS_SJO') item.organization = 'San José';
+	if (item.organization == '01CALS_SJO') item.organization = 'San Jose';
 	if (item.organization == '01CALS_PSU') item.organization = 'San Luis Obispo';
 	if (item.organization == '01CALS_USM') item.organization = 'San Marcos';
 	if (item.organization == '01CALS_SOL') item.organization = 'Sonoma';

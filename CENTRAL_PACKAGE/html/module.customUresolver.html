@@ -137,9 +137,9 @@
                                 <th>Availability</th>
                             </tr>
                         </thead>
-                        <tbody ng-repeat="campus in extLocations">
-                            <tr ng-repeat="location in campus.locations">
-                                <td class="campus">{{ campus.organization }}</td>
+                        <tbody>
+                            <tr ng-repeat="location in consortiaHoldings">
+                                <td class="campus">{{ location.campus }}</td>
                                 <td class="location">{{ location.subLocation }}</td>
                                 <td class="callNumber">{{ location.callNumber | trim }}</td>
                                 <td class="status">
