@@ -30,7 +30,14 @@
                                 <tr ng-repeat="item in holding.items">
                                     <td class="location">{{ holding.location }}</td>
                                     <td class="callNumber">{{ holding.call_number }}</td>
-                                    <td class="available">{{ item.status }}</td>
+                                    <td class="available">
+                                        <span class="items_available" ng-if="item.availability == 'available'">
+                                            {{ item.status }}
+                                        </span>
+                                        <span class="items_unavailable" ng-if="item.availability == 'unavailable'">
+                                            {{ item.status }}
+                                        </span>
+                                    </td>
                                     <td class="description">{{ item.description }}</td>
                                 </tr>
 
