@@ -161,8 +161,6 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 			}
 		}
 
-		console.log($scope.consortiaHoldings);
-
 		_this.tempExt = null;
 	}]
 })
