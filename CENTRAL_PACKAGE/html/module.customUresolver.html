@@ -1,7 +1,7 @@
 <!-- Local holdings -->
 
 <div class="local-holdings" ng-if="localLocations.length > 0 && !isLinktoOnline && !showCompact">
-    <h4>Available at the Library</h4>
+    <h4 class="csu-holdings-header">Available at the Library</h4>
 
     <!-- holdings have already loaded -->
     <div ng-if="holdings" class="animate-if" layout="column">
@@ -130,7 +130,7 @@
 <!-- Other campuses -->
 
 <div class="consortia-holdings" ng-if="consortiaHoldings.length > 0 && !isLinktoOnline" layout="column">
-    <h4>Holdings at other campuses</h4>
+    <h4 class="csu-holdings-header">Holdings at other campuses</h4>
     <div class="csu-holdings-limiter">
         <div class="csu-holdings-container">
             <div class="csu-holdings-wrap">
@@ -164,7 +164,8 @@
 
 <!-- Online link -->
 
-<div ng-if="isLinktoOnline">
+<div class="online-holdings" ng-if="isLinktoOnline">
+    <h4 class="csu-holdings-header">Available online</h4>
     <iframe iframe-onload="{{::$ctrl.parentCtrl.iframeResize()}}" class="mashup-iframe" ng-src="{{$ctrl.parentCtrl.getLink()}}" style="width:100%;border:none;" ng-if="::$ctrl.parentCtrl.isLinkAvailable()"/>
     <prm-alma-mashup-after parent-ctrl="$ctrl.parentCtrl">
     </prm-alma-mashup-after>

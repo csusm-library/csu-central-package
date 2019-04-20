@@ -49,8 +49,10 @@ div.localHoldings, div.extHoldings {
 
 /** csu holdings table **/
 
-.local-holdings h4, .consortia-holdings h4 {
+h4.csu-holdings-header {
     margin: 0;
+	margin-bottom: 20px;
+	margin-top: 20px;
     line-height: 1.2em;
     position: relative;
     padding-right: 1em;
@@ -72,7 +74,6 @@ div.localHoldings, div.extHoldings {
 	align-items: center;
 	justify-content: center;
 	flex-wrap: wrap;
-	padding: 33px 0px;
 }
 .csu-holdings-wrap {
 	width: 1170px;
