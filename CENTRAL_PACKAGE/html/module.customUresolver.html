@@ -22,6 +22,7 @@
                             <tbody ng-repeat="holding in holdings">
 
                                 <!-- items loaded and ready for display -->
+
                                 <tr ng-if="holding.mms_id && holding.items.length <= 0" class="animate-if">
                                     <td colspan="4">
                                         <span class="items-unavailable" translate="item.noitems">
@@ -41,8 +42,9 @@
                                     <td class="description">{{ item.description }}</td>
                                 </tr>
 
-                                <!-- next two rows are temporary display until the items fully load
+                                <!-- next two rows provicde temporary display until the items fully load,
                                      otherwise the table flickers on reload -->
+
                                 <tr ng-if="holding.mms_id && holding.items.length <= 0 && holdingsCount > 0" class="animate-if">
                                     <td class="location">{{ holding.location }}</td>
                                     <td class="callNumber">{{ holding.call_number | trim }}</td>
@@ -93,6 +95,7 @@
     </div>
 
     <!-- temporary display until data fetched  -->
+
     <div ng-if="preholdings && !holdings" class="animate-if" layout="column">
         <div class="csu-holdings-limiter">
             <div class="csu-holdings-container">
@@ -150,8 +153,12 @@
                                 <td class="location">{{ location.subLocation }}</td>
                                 <td class="callNumber">{{ location.callNumber | trim }}</td>
                                 <td class="status">
-                                    <span class="items-available" ng-if="location.availabilityStatus == 'available'">{{ location.availabilityStatus | trim }}</span>
-                                    <span class="items-unavailable" ng-if="location.availabilityStatus != 'available'">{{ location.availabilityStatus }}</span>
+                                    <span class="items-available" ng-if="location.availabilityStatus == 'available'">
+                                        {{ location.availabilityStatus | trim }}
+                                    </span>
+                                    <span class="items-unavailable" ng-if="location.availabilityStatus != 'available'">
+                                        {{ location.availabilityStatus }}
+                                    </span>
                                 </td>
                             </tr>
                         </tbody>
