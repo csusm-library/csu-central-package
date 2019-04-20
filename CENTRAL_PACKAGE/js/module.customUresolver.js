@@ -152,7 +152,7 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 
 		// break out each holding and add campus name
 
-		$scope.consortiaHoldings = new Array();
+		$scope.consortiaHoldings = [];
 
 		for (var i = 0; i < $scope.extLocations.length; i++) {
 			for (var j = 0; j < $scope.extLocations[i].locations.length; j++) {
