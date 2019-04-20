@@ -135,11 +135,9 @@
 <div class="consortia-holdings" ng-if="consortiaHoldings.length > 0 && !isLinktoOnline" layout="column">
     <h4 class="csu-holdings-header">Holdings at other campuses</h4>
     <div>
-        <button class="md-raised md-button md-primoExplore-theme md-ink-ripple" type="button" ng-click="$ctrl.toggleShowExtHoldings()">
-            <span ng-if="!showExtHoldings">Show holdings »</span>
-            <span ng-if="showExtHoldings">Hide holdings «</span>
-            <div class="md-ripple-container" style=""></div>
-        </button>
+        <md-button class="md-raised" ng-click="$ctrl.toggleShowExtHoldings()">
+            {{ showExtHoldings ? 'Hide holdings &laquo;' : 'Show holdings &raquo;' }}
+        </md-button>
     </div>
     <div class="csu-holdings-limiter" ng-if="extLocations && showExtHoldings">
         <div class="csu-holdings-container">
