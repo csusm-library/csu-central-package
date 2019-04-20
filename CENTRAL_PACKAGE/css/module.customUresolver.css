@@ -64,6 +64,9 @@ h4.csu-holdings-header {
 	width: 100%;
 	margin: 0 auto;
 }
+.consortia-holdings .csu-holdings-limiter {
+	margin-top: 30px;
+}
 .csu-holdings-container {
 	width: 100%;
 	display: -webkit-box;
