@@ -1,6 +1,13 @@
+<!-- Resource sharing login/request -->
+
+<div ng-if="showResourceSharing && userIsLoggedIn == false" class="csu-resource-sharing-request">
+    <prm-authentication [is-logged-in]="$ctrl.jwtData.userName.length != null">
+    </prm-authentication>
+</div>
+
 <!-- Local holdings -->
 
-<div class="local-holdings" ng-if="localLocations.length > 0 && !isLinktoOnline && !showCompact">
+<div class="local-holdings" ng-if="localLocations.length > 0">
     <h4 class="csu-holdings-header">Available at the Library</h4>
 
     <!-- holdings have already loaded -->
@@ -42,7 +49,7 @@
                                     <td class="description">{{ item.description }}</td>
                                 </tr>
 
-                                <!-- next two rows provicde temporary display until the items fully load,
+                                <!-- next two rows provide temporary display until the items fully load,
                                      otherwise the table flickers on reload -->
 
                                 <tr ng-if="holding.mms_id && holding.items.length <= 0 && holdingsCount > 0" class="animate-if">
@@ -132,14 +139,14 @@
 
 <!-- Other campuses -->
 
-<div class="consortia-holdings" ng-if="consortiaHoldings.length > 0 && !isLinktoOnline" layout="column">
-    <h4 class="csu-holdings-header">Holdings at other campuses</h4>
+<div class="consortia-holdings" ng-if="consortiaHoldings.length > 0">
+    <h4 class="csu-holdings-header">Available at other campuses</h4>
     <div>
         <md-button class="md-raised" ng-click="$ctrl.toggleShowExtHoldings()">
             {{ showExtHoldings ? 'Hide holdings &laquo;' : 'Show holdings &raquo;' }}
         </md-button>
     </div>
-    <div class="csu-holdings-limiter" ng-if="extLocations && showExtHoldings">
+    <div class="csu-holdings-limiter" ng-if="consortiaHoldings && showExtHoldings">
         <div class="csu-holdings-container">
             <div class="csu-holdings-wrap">
                 <div class="csu-holdings">
@@ -174,11 +181,14 @@
     </div>
 </div>
 
-<!-- Online link -->
+<!-- Online or Resource sharing link -->
 
-<div class="online-holdings" ng-if="isLinktoOnline">
-    <h4 class="csu-holdings-header">Available online</h4>
-    <iframe iframe-onload="{{::$ctrl.parentCtrl.iframeResize()}}" class="mashup-iframe" ng-src="{{$ctrl.parentCtrl.getLink()}}" style="width:100%;border:none;" ng-if="::$ctrl.parentCtrl.isLinkAvailable()"/>
+<div class="online-holdings">
+
+    <h4 class="csu-holdings-header" ng-if="isLinktoOnline">Available online</h4>
+    <h4 class="csu-holdings-header" ng-if="isLinkToResourceSharing && userIsLoggedIn">Request options</h4>
+
+    <iframe iframe-onload="{{::$ctrl.parentCtrl.iframeResize()}}" class="mashup-iframe" ng-src="{{$ctrl.parentCtrl.getLink()}}" style="width:100%;border:none;" ng-if="::$ctrl.parentCtrl.isLinkAvailable() && (isLinktoOnline || (isLinkToResourceSharing && userIsLoggedIn))"/>
     <prm-alma-mashup-after parent-ctrl="$ctrl.parentCtrl">
     </prm-alma-mashup-after>
 </div>
