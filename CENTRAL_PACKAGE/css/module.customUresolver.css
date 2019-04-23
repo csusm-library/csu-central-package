@@ -227,3 +227,8 @@ h4.csu-holdings-header {
 		padding-right: 15px;
 	}
 }
+
+.csu-resource-sharing-request button {
+	background-color: #f7eda3;
+	border: 1px solid #e1cd51 !important;
+}

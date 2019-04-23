@@ -1,3 +1,9 @@
+/* Load JQuery */
+
+var js = document.createElement('script');
+js.src = "//ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js";
+document.head.appendChild(js);
+
 angular.module('customUresolver', []);
 
 angular.module('customUresolver').component('csuCustomUresolver', {
@@ -5,22 +11,24 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 		parentCtrl: '<'
 	},
 	templateUrl: 'custom/CENTRAL_PACKAGE/html/module.customUresolver.html',
-	controller: ['$scope', 'customUresolverService', function ($scope, customUresolverService) {
+	controller: ['$scope', '$sce', 'customUresolverService', function ($scope, $sce, customUresolverService) {
 		var _this = this;
 
 		_this.vid = _this.parentCtrl.configurationUtil.vid;
 		_this.item = $scope.$parent.$parent.$parent.$parent.$ctrl.item;
 		_this.link = _this.parentCtrl.linksArray[0].link;
+		$scope.isLinktoOnline = false;
+		$scope.isLinkToResourceSharing = false;
 		_this.tempExt = [];
-		_this.mms_id = _this.item.pnx.display.lds04[0];
+		_this.mms_id = _this.item.pnx.display.hasOwnProperty('lds04') ? _this.item.pnx.display.lds04[0] : null;
 		_this.logToConsole = false;
 		$scope.hasLocal = false;
 		$scope.preholdings = _this.item.delivery.holding.filter(function(holding, index) {return holding.organization == _this.vid.substring(0, 10)});
 		$scope.localLocations = [];
 		$scope.extLocations = [];
-		$scope.isLinktoOnline = _this.parentCtrl.linksArray[0].isLinktoOnline;
 		$scope.showCompact = false;
 		$scope.showExtHoldings = false;
+		$scope.showResourceSharing = false;
 		_this.toggleShowItems = function (holding) {
 			holding.showItems = holding.showItems ? false : true;
 			if (_this.logToConsole) console.log(holding);
@@ -39,6 +47,15 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 				if (bib[i].institution_code == vid.substring(0, 10)) count++;
 			}
 			return count;
+		}
+
+		// determine if links is to resource sharing or online
+
+		if (_this.parentCtrl.linksArray[0].getItTabText == "alma_tab1_unavail" ||
+			_this.parentCtrl.linksArray[0].getItTabText == "alma_tab1_restrict") {
+				$scope.isLinkToResourceSharing = true;
+		} else if (_this.parentCtrl.linksArray[0].isLinktoOnline == true) {
+			$scope.isLinktoOnline = true;
 		}
 
 		/**
@@ -126,19 +143,6 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 			}
 		}
 
-		/**
-		 * If there is no local holdings, do something
-		 * Needs to show request options (ILL, CSU+, etc)
-		 * Currently is a work in progress, and shows nothing
-		 */
-		if (!$scope.hasLocal) {
-			customUresolverService.getUresolver(_this.link).then(
-				data => {
-					if (_this.logToConsole) console.log(data);
-				}
-			)
-		}
-
 		// other campus holdings
 
 		for (var extLib in _this.tempExt){
@@ -150,7 +154,8 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 		$scope.extLocations.forEach(translate_campus_name);
 		$scope.extLocations.sort(compare_campuses);
 
-		// break out each holding and add campus name
+		// break out each holding and add campus name,
+		// so we can have a flatter list for the table
 
 		$scope.consortiaHoldings = [];
 
@@ -162,6 +167,38 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 		}
 
 		_this.tempExt = null;
+
+		// user logged-in
+
+		var rootScope = $scope.$root;
+		var uSMS = rootScope.$$childHead.$ctrl.userSessionManagerService;
+		var jwtData = uSMS.jwtUtilService.getDecodedToken();
+		$scope.userIsLoggedIn = jwtData.userName ? true: false;
+		console.log('userIsLoggedIn:' + $scope.userIsLoggedIn)
+
+		// resource sharing
+		// there are other holdings and not locally available
+
+		if ($scope.consortiaHoldings.length > 0 && (
+			_this.item.delivery.availability[0] != "available_in_my_institution" &&
+			_this.item.delivery.availability[0] != "available_in_maininstitution" &&
+			_this.item.delivery.availability[0] != "available_in_institution" &&
+			_this.item.delivery.availability[0] != "not_restricted")) {
+				$scope.showResourceSharing = true;
+		 }
+
+		console.log('links array:');
+ 		console.log(_this.parentCtrl.linksArray);
+		console.log('link: ' + _this.link);
+		console.log('isLinkToOnline: ' + $scope.isLinktoOnline);
+		console.log('isLinkToResourceSharing: ' + $scope.isLinkToResourceSharing);
+		console.log('availability: ' + _this.item.delivery.availability[0]);
+		console.log('showResourceSharing: ' + $scope.showResourceSharing);
+
+		angular.element(document).ready(function () {
+			$("prm-login-alma-mashup prm-authentication").remove();
+			jQuery(".csu-resource-sharing-request prm-authentication button span").text("Request from CSU+ (2-5 day delivery)");
+		});
 	}]
 })
 .factory('customUresolverService', ['$http', 'customUresolver', 'customUresolverDefault', function ($http, customUresolver, customUresolverDefault) {
@@ -212,7 +249,7 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 	if (customUresolver.hasOwnProperty("enabled") ? customUresolver.enabled : customUresolverDefault.enabled) {
 		$http.defaults.headers.common = {"X-From-ExL-API-Gateway": undefined}
 		$templateCache.put('components/search/fullView/getit/almaMashup/almaMashup.html', '<csu-custom-uresolver parent-ctrl="$ctrl"></csu-custom-uresolver>'); //replaces the alma mashup template with the custom uresolver template
-		$templateCache.put('components/search/fullView/getit/almaMoreInst/alma-more-inst.html', ''); //No longer needed, provided by the custom template
+		$templateCache.put('components/search/fullView/getit/almaMoreInst/alma-more-inst.html', ''); // no longer needed, provided by the custom template
 	}
 }])
 .value('customUresolver', {}).value('customUresolverDefault', {
