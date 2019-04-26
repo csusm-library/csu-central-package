@@ -3,9 +3,11 @@
 <div ng-if="showResourceSharing" class="csu-resource-sharing">
 
     <!-- login/request -->
-    <div ng-if="showResourceSharing && userIsLoggedIn == false" class="csu-resource-sharing-request">
-        <prm-authentication [is-logged-in]="$ctrl.jwtData.userName.length != null">
-        </prm-authentication>
+    <div ng-if="userIsLoggedIn == false" class="csu-resource-sharing-request">
+		<md-button ng-click="$ctrl.loginService.handleLogin();" aria-label="Request from CSU+ (2-5 day delivery)" class="button-with-icon zero-margin">
+			<prm-icon icon-type="svg" svg-icon-set="primo-ui" icon-definition="sign-in"></prm-icon>
+			<span>Request from CSU+ (2-5 day delivery)</span>
+		</md-button>
     </div>
 
     <!-- inline get-it menu -->
@@ -51,17 +53,31 @@
                                         <th>Notes</th>
                                     </tr>
                                 </thead>
-                                <tbody ng-repeat="holding in holdings">
+								<tbody ng-repeat="holding in holdings" ng-if="holding.mms_id">
 
                                     <!-- items loaded and ready for display -->
 
-                                    <tr ng-if="holding.mms_id && holding.items.length <= 0" class="animate-if">
+                                    <tr tabindex="0" ng-if="holding.mms_id && holding.items.length <= 0" class="animate-if">
                                         <td colspan="4">
                                             <span class="items-unavailable" translate="item.noitems">
                                         </td>
                                     </tr>
-                                    <tr ng-repeat="item in holding.items">
-                                        <td class="location">{{ holding.location }}</td>
+									<tr tabindex="0" class="holding-header" (click)="$ctrl.toggleShowItems(holding)" (keydown)="$ctrl.toggleShowItems(holding, $event)">
+										<td class="location"><prm-icon ng-if="!holding.showItems" icon-type="svg" svg-icon-set="primo-ui" icon-definition="chevron-down"></prm-icon><prm-icon ng-if="holding.showItems" icon-type="svg" svg-icon-set="primo-ui" icon-definition="chevron-up"></prm-icon> {{ holding.location }}</td>
+										<td class="callNumber">{{ holding.call_number }}</td>
+										<td class="available">
+											<span class="items-available" ng-if="holding.availability == 'available'">
+												{{ holding.available_items }} of {{ holding.total_items }} available
+											</span>
+											<span class="items-unavailable" ng-if="holding.availability == 'unavailable'">
+												{{ holding.available_items }} of {{ holding.total_items }} available
+											</span>
+										</td>
+										<td class="description" ng-if="holding.ava_note">{{ holding.ava_note }}</td>
+										<td class="description hideme" ng-if="!holding.ava_note"></td>
+									</tr>
+                                    <tr tabindex="0" class="holding-item" ng-repeat="item in holding.items" ng-if="holding.showItems">
+                                        <td class="sublocation">{{ holding.location }}</td>
                                         <td class="callNumber">{{ holding.call_number }}</td>
                                         <td class="available">
                                             <span class="items-available" ng-if="item.availability == 'available'">
@@ -71,26 +87,27 @@
                                                 {{ item.status }}
                                             </span>
                                         </td>
-                                        <td class="description">{{ item.description }}</td>
+										<td class="description" ng-if="item.description">{{ item.description }}</td>
+										<td class="description hideme" ng-if="!item.description"></td>
                                     </tr>
 
                                     <!-- next two rows provide temporary display until the items fully load,
                                          otherwise the table flickers on reload -->
 
-                                    <tr ng-if="holding.mms_id && holding.items.length <= 0 && holdingsCount > 0" class="animate-if">
+                                    <tr tabindex="0" class="holding-item" ng-if="holding.mms_id && holding.items.length <= 0 && holdingsCount > 0 && holding.showItems" class="animate-if">
                                         <td class="location">{{ holding.location }}</td>
-                                        <td class="callNumber">{{ holding.call_number | trim }}</td>
-                                        <td class="status">
+                                        <td class="callNumber">{{ holding.call_number }}</td>
+                                        <td class="available">
                                             <prm-spinner class="small default-loader dark-on-light" layout="row" layout-align="left center"></prm-spinner>
                                         </td>
                                         <td class="description">
                                             <prm-spinner class="small default-loader dark-on-light" layout="row" layout-align="left center"></prm-spinner>
                                         </td>
                                     </tr>
-                                    <tr ng-if="holding.mms_id && !holding.items" class="animate-if">
+                                    <tr tabindex="0" class="holding-item" ng-if="holding.mms_id && !holding.items && holding.showItems" class="animate-if">
                                         <td class="location">{{ holding.location }}</td>
-                                        <td class="callNumber">{{ holding.call_number | trim }}</td>
-                                        <td class="status">
+                                        <td class="callNumber">{{ holding.call_number }}</td>
+                                        <td class="available">
                                             <prm-spinner class="small default-loader dark-on-light" layout="row" layout-align="left center"></prm-spinner>
                                         </td>
                                         <td class="description">
@@ -105,7 +122,7 @@
             </div>
         </div>
 
-        <!-- temp: holdings over item display -->
+        <!-- temp: holdings over item display 
         
         <div ng-repeat="holding in holdings">
             <p ng-if="holding.mms_id && !holding.items" ng-repeat="x in holding.numberItemsArray track by $index" class="animate-if" style="display:none;">
@@ -127,6 +144,8 @@
             </p>
         </div>
 
+		-->
+
         <!-- temporary display until data fetched  -->
 
         <div ng-if="preholdings && !holdings" class="animate-if" layout="column">
@@ -143,16 +162,14 @@
                                         <th>Notes</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr ng-repeat="holding in preholdings">
+                                <tbody ng-repeat="holding in preholdings">
+                                    <tr tabindex="0" class="holding-header">
                                         <td class="location">{{ holding.subLocation }}</td>
-                                        <td class="callNumber">{{ holding.callNumber | trim }}</td>
-                                        <td class="status">
+                                        <td class="callNumber">{{ holding.callNumber }}</td>
+                                        <td class="available">
                                             <prm-spinner class="small default-loader dark-on-light" layout="row" layout-align="left center"></prm-spinner>
                                         </td>
-                                        <td class="description">
-                                            <prm-spinner class="small default-loader dark-on-light" layout="row" layout-align="left center"></prm-spinner>
-                                        </td>
+										<td class="description hideme"></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -186,13 +203,13 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="location in consortiaHoldings">
+                                <tr tabindex="0" class="holding-header" ng-repeat="location in consortiaHoldings">
                                     <td class="campus">{{ location.campus }}</td>
                                     <td class="location">{{ location.subLocation }}</td>
-                                    <td class="callNumber">{{ location.callNumber | trim }}</td>
-                                    <td class="status">
+                                    <td class="callNumber">{{ location.callNumber }}</td>
+                                    <td class="available">
                                         <span class="items-available" ng-if="location.availabilityStatus == 'available'">
-                                            {{ location.availabilityStatus | trim }}
+                                            {{ location.availabilityStatus }}
                                         </span>
                                         <span class="items-unavailable" ng-if="location.availabilityStatus != 'available'">
                                             {{ location.availabilityStatus }}

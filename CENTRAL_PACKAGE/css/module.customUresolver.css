@@ -38,10 +38,14 @@ span.avaNote {
 	position: relative; top: -.4em; padding-left: 2em; font-style: italic; font-size: 14px;
 }
 span.items-available {
-	font-weight: bold; font-size: 14px; padding-left: 5px; color: #0f7d00;
+	font-weight: bold;
+	font-size: 14px;
+	color: #0f7d00;
 }
 span.items-unavailable {
-	font-weight: bold; font-size: 14px; padding-left: 5px; color: #b00015;
+	font-weight: bold;
+	font-size: 14px;
+	color: #b00015;
 }
 div.localHoldings, div.extHoldings {
 	margin: .75em 0 1.5em;
@@ -130,8 +134,32 @@ h4.csu-holdings-header {
 	line-height: 1.2;
 	font-weight: unset;
 }
-.csu-holdings tbody tr:nth-child(even) {
+.csu-holdings tbody tr:nth-child(even), .csu-holdings tbody:nth-child(even) tr.holding-header {
 	background-color: #f5f5f5;
+}
+.csu-holdings tbody tr:nth-child(even):hover, .csu-holdings tbody tr:nth-child(even):focus, .csu-holdings tbody:nth-child(even) tr.holding-header:hover, .csu-holdings tbody:nth-child(even) tr.holding-header:focus {
+	background-color: #fff;
+}
+.consortia-holdings .csu-holdings tbody:nth-child(even) tr.holding-header {
+	background-color: initial;
+}
+.consortia-holdings .csu-holdings tbody tr:nth-child(even) {
+	background-color: #f5f5f5 !important;
+}
+.consortia-holdings .csu-holdings tbody tr:nth-child(even):hover, .consortia-holdings .csu-holdings tbody tr:nth-child(even):focus {
+	background-color: #fff !important;
+}
+.consortia-holdings .csu-holdings tbody tr:nth-child(odd):hover, .consortia-holdings .csu-holdings tbody tr:nth-child(odd):focus {
+	background-color: #f5f5f5 !important;
+}
+.csu-holdings tbody:nth-child(odd) {
+	border-bottom: 1px solid #000;
+}
+.csu-holdings tbody:nth-child(even) {
+	border-bottom: 1px solid #000;
+}
+.csu-holdings tbody:last-child {
+	border-bottom: none;
 }
 .csu-holdings tbody tr {
 	font-size: 15px;
@@ -139,7 +167,7 @@ h4.csu-holdings-header {
 	line-height: 1.2;
 	font-weight: unset;
 }
-.csu-holdings tbody tr:hover {
+.csu-holdings tbody tr:hover, .csu-holdings tbody tr:focus {
 	background-color: #f5f5f5;
 	cursor: pointer;
 }
@@ -166,21 +194,53 @@ h4.csu-holdings-header {
 	text-align: right;
 	padding-right: 62px;
 }
+@media screen and (min-width: 993px) {
+	.csu-holdings table tbody tr td.location {
+		padding-right: 25px;
+	}
+	.csu-holdings table tbody tr td.sublocation {
+		padding-left: 25px;
+	}
+	.csu-holdings table tbody tr td.location {
+		width: 40%;
+	}
+	.csu-holdings table tbody tr td.callNumber {
+		width: 15%;
+	}
+	.csu-holdings table tbody tr td.available {
+		width: 20%;
+	}
+	.csu-holdings table tbody tr td.description {
+		width: 25%;
+	}
+}
 @media screen and (max-width: 992px) {
 	.csu-holdings table {
 		display: block;
 	}
-	.csu-holdings table > *, .csu-holdings table tr, .csu-holdings table td, .csu-holdings table th {
+	.csu-holdings table > *, .csu-holdings table tr, .csu-holdings table tr.holding-item td, .csu-holdings table tr.holding-header td:last-child, .csu-holdings table th {
 		display: block;
+	}
+	.csu-holdings table tr.holding-header td {
+		display: inline-block;
+		line-height: 24px;
+		vertical-align: top;
 	}
 	.csu-holdings table thead {
 		display: none;
 	}
-	.csu-holdings table tbody tr {
+	.csu-holdings table tbody tr.holding-header {
 		height: auto;
-		padding: 37px 0;
+		padding: 17px 10px 10px 8px;
 	}
-	.csu-holdings table tbody tr td {
+	.csu-holdings table tbody tr.holding-header:first-child {
+		padding-top: 21px;
+	}
+	.csu-holdings table tbody tr.holding-item {
+		height: auto;
+		padding: 25px 0;
+	}
+	.csu-holdings table tbody tr.holding-item td {
 		padding-left: 40% !important;
 		margin-bottom: 24px;
 	}
@@ -197,17 +257,49 @@ h4.csu-holdings-header {
 		left: 30px;
 		top: 0;
 	}
-	.csu-holdings table tbody tr td:nth-child(1):before {
+	.csu-holdings table tbody tr.holding-header td:before {
+		font-size: 14px;
+		color: #999999;
+		line-height: 1.2;
+		font-weight: unset;
+		position: absolute;
+		width: 100%;
+		left: 5px;
+		top: -12px;
+	}
+	.csu-holdings table tbody tr.holding-header td.location {
+		width: calc(100% - 210px);
+	}
+	.csu-holdings table tbody tr.holding-header td.callNumber {
+		width: 90px;
+	}
+	.csu-holdings table tbody tr.holding-header td.available {
+		width: 110px;
+	}
+	.csu-holdings table tbody tr.holding-header td.description {
+		width: 100%;
+		padding-top: 15px;
+	}
+	.csu-holdings table tbody tr.holding-header td.description.hideme {
+		display: none;
+	}
+	.csu-holdings table tbody tr.holding-item td.campus:before, .csu-holdings table tbody tr.holding-header td.campus:before {
+		content: "Campus";
+	}
+	.csu-holdings table tbody tr.holding-item td.sublocation:before, .csu-holdings table tbody tr.holding-header td.location:before {
 		content: "Location";
 	}
-	.csu-holdings table tbody tr td:nth-child(2):before {
+	.csu-holdings table tbody tr.holding-item td.callNumber:before, .csu-holdings table tbody tr.holding-header td.callNumber:before {
 		content: "Call Number";
 	}
-	.csu-holdings table tbody tr td:nth-child(3):before {
-		content: "Status";
+	.csu-holdings table tbody tr.holding-item td.available:before, .csu-holdings table tbody tr.holding-header td.available:before {
+		content: "Available";
 	}
-	.csu-holdings table tbody tr td:nth-child(4):before {
+	.csu-holdings table tbody tr.holding-item td.description:before, .csu-holdings table tbody tr.holding-header td.description:before {
 		content: "Description";
+	}
+	.csu-holdings table tbody tr.holding-header td.description:before {
+		padding-top: 12px;
 	}
 	.csu-holdings .column4,
 	.csu-holdings .column5,
@@ -220,11 +312,81 @@ h4.csu-holdings-header {
 	.csu-holdings tbody tr {
 		font-size: 14px;
 	}
+	.consortia-holdings .csu-holdings table tbody tr.holding-header td:last-child {
+		display: inline-block;
+	}
+	.consortia-holdings .csu-holdings table tbody tr.holding-header td.location {
+		width: 35%;
+		display: inline-block;
+	}
+	.consortia-holdings .csu-holdings table tbody tr.holding-header td.campus, .consortia-holdings .csu-holdings table tbody tr.holding-header td.callNumber {
+		width: 140px;
+	}
+	.full-view-section-content:after { /* this needs to be hidden to prevent some weird hover behavior */
+		display: none;
+	}
+}
+@media (max-width: 860px) {
+	.consortia-holdings .csu-holdings table tbody tr.holding-header td.campus, .consortia-holdings .csu-holdings table tbody tr.holding-header td.location, .consortia-holdings .csu-holdings table tbody tr.holding-header td.callNumber, .consortia-holdings .csu-holdings table tbody tr.holding-header td.available {
+		width: 45%;
+	}
+	.consortia-holdings .csu-holdings table tbody tr.holding-header td.callNumber, .consortia-holdings .csu-holdings table tbody tr.holding-header td.available {
+		padding-top: 15px;
+	}
+	.consortia-holdings .csu-holdings table tbody tr.holding-header td.callNumber:before, .consortia-holdings .csu-holdings table tbody tr.holding-header td.available:before {
+		padding-top: 12px;
+	}
+}
+@media (max-width: 675px) {
+	.consortia-holdings .csu-holdings table tbody tr.holding-header td.campus, .consortia-holdings .csu-holdings table tbody tr.holding-header td.location, .consortia-holdings .csu-holdings table tbody tr.holding-header td.callNumber, .consortia-holdings .csu-holdings table tbody tr.holding-header td.available {
+		width: 49%;
+	}
+}
+@media (max-width: 400px) {
+	.csu-holdings table tbody tr.holding-header td.campus, .csu-holdings table tbody tr.holding-header td.location, .csu-holdings table tbody tr.holding-header td.callNumber,  .csu-holdings table tbody tr.holding-header td.available,  .csu-holdings table tbody tr.holding-header td.description {
+		width: 100% !important;
+	}
+	.consortia-holdings .csu-holdings table tbody tr.holding-header td.callNumber, .consortia-holdings .csu-holdings table tbody tr.holding-header td.available, .consortia-holdings .csu-holdings table tbody tr.holding-header td.callNumber:before, .consortia-holdings .csu-holdings table tbody tr.holding-header td.available:before {
+		padding-top: 0px;
+	}
 }
 @media (max-width: 576px) {
 	.csu-holdings-container {
 		padding-left: 15px;
 		padding-right: 15px;
+	}
+}
+@media (max-width: 450px) {
+	.csu-holdings table tbody tr.holding-header td.location {
+		width: 50%;
+	}
+	.csu-holdings table tr.holding-header td {
+		margin-top: 17px;
+	}
+	.csu-holdings table tbody tr.holding-header {
+		padding-top: 0;
+	}
+	.consortia-holdings .csu-holdings table tr.holding-header td {
+		margin-top: 12px;
+	}
+	.consortia-holdings .csu-holdings table tbody tr.holding-header:first-child, .consortia-holdings .csu-holdings table tbody tr.holding-header {
+		padding-top: 12px;
+	}
+}
+@media (max-width: 375px) {
+	.csu-holdings table tbody tr.holding-item td {
+		padding-left: 45% !important;
+	}
+	.csu-holdings table tbody tr td:before {
+		left: 10px;
+	}
+}
+@media (max-width: 250px) {
+	.csu-holdings table tbody tr.holding-item td {
+		padding-left: 55% !important;
+	}
+	.csu-holdings table tbody tr td:before {
+		left: 2px;
 	}
 }
 
