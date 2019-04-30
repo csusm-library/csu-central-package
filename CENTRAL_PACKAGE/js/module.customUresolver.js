@@ -76,7 +76,7 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 								items => {
 									if (_this.logToConsole) console.log(items)
 									holding.items = items
-									holding.showItems = false
+									if (!holding.hasOwnProperty('showItems')) holding.showItems = false
 									if ($scope.holdings.length > 0) {
 										for (var i = 0; i < $scope.holdings.length; i++) {
 											if (typeof $scope.holdings[i]['isTempHolding'] !== 'undefined') {
