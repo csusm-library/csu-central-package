@@ -1,20 +1,75 @@
+
 <!-- Resource sharing -->
 
 <div ng-if="showResourceSharing" class="csu-resource-sharing">
 
-    <!-- login/request -->
-    <div ng-if="userIsLoggedIn == false" class="csu-resource-sharing-request">
-		<md-button ng-click="$ctrl.loginService.handleLogin();" aria-label="Request from CSU+ (2-5 day delivery)" class="button-with-icon zero-margin">
+	<!-- login/request -->
+	<div ng-if="userIsLoggedIn == false" class="csu-resource-sharing-request">
+		<md-button ng-click="$ctrl.loginService.handleLoginClick()" aria-label="Sign in to request from CSU+ (2-5 day delivery)" class="button-with-icon zero-margin">
 			<prm-icon icon-type="svg" svg-icon-set="primo-ui" icon-definition="sign-in"></prm-icon>
+			<span>Sign in to request from CSU+ (2-5 day delivery)</span>
+		</md-button>
+	</div>
+
+	<!-- inline get-it menu
+	<div ng-if="isLinkToResourceSharing && userIsLoggedIn">
+		<h4 class="csu-holdings-header">Request options</h4>
+		<iframe iframe-onload="{{::$ctrl.parentCtrl.iframeResize()}}" class="mashup-iframe" ng-src="{{$ctrl.parentCtrl.getLink()}}" style="width:100%;border:none;" ng-if="::$ctrl.parentCtrl.isLinkAvailable()"></iframe>
+	</div> -->
+	<div ng-if="userIsLoggedIn">
+		<h4 class="csu-holdings-header">Request options</h4>
+		<md-button ng-click="$ctrl.sendRequest(true)" aria-label="Request from CSU+ (2-5 day delivery)" class="button-with-icon zero-margin">
+			<prm-icon icon-type="svg" svg-icon-set="primo-ui" icon-definition="book-open"></prm-icon>
 			<span>Request from CSU+ (2-5 day delivery)</span>
 		</md-button>
-    </div>
+	</div>
 
-    <!-- inline get-it menu -->
-    <div ng-if="isLinkToResourceSharing && userIsLoggedIn">
-        <h4 class="csu-holdings-header">Request options</h4>
-        <iframe iframe-onload="{{::$ctrl.parentCtrl.iframeResize()}}" class="mashup-iframe" ng-src="{{$ctrl.parentCtrl.getLink()}}" style="width:100%;border:none;" ng-if="::$ctrl.parentCtrl.isLinkAvailable()"></iframe>
-    </div>
+
+</div>
+
+<!-- Interlibrary Loan -->
+
+<div ng-if="showILL" class="csu-resource-sharing">
+
+	<!-- login/request -->
+	<div ng-if="userIsLoggedIn == false" class="csu-resource-sharing-request">
+		<md-button ng-click="$ctrl.loginService.handleLoginClick();" aria-label="Sign in to request from Interlibrary Loan (7-10 day delivery)" class="button-with-icon zero-margin">
+			<prm-icon icon-type="svg" svg-icon-set="primo-ui" icon-definition="sign-in"></prm-icon>
+			<span>Sign in to request from Interlibrary Loan (7-10 day delivery)</span>
+		</md-button>
+	</div>
+
+	<!-- inline get-it menu -->
+	<div ng-if="userIsLoggedIn">
+		<h4 class="csu-holdings-header">Request options</h4>
+		<md-button ng-click="$ctrl.openILL()" aria-label="Request from Interlibrary Loan (7-10 day delivery)" class="button-with-icon zero-margin">
+			<prm-icon icon-type="svg" svg-icon-set="primo-ui" icon-definition="book-open"></prm-icon>
+			<span>Request from Interlibrary Loan (7-10 day delivery)</span>
+		</md-button>
+	</div>
+
+</div>
+
+<!-- Local Request -->
+
+<div ng-if="!showResourceSharing && !showILL" class="csu-resource-sharing">
+
+	<!-- login/request -->
+	<div ng-if="userIsLoggedIn == false" class="csu-resource-sharing-request">
+		<md-button ng-click="$ctrl.loginService.handleLoginClick()" aria-label="Sign in to see request options" class="button-with-icon zero-margin">
+			<prm-icon icon-type="svg" svg-icon-set="primo-ui" icon-definition="sign-in"></prm-icon>
+			<span>Sign in to see request options</span>
+		</md-button>
+	</div>
+
+	<!-- inline get-it menu -->
+	<div ng-if="userIsLoggedIn && requestOptions.local">
+		<h4 class="csu-holdings-header">Request options</h4>
+		<md-button ng-click="$ctrl.sendRequest(false)" aria-label="Request this item" class="button-with-icon zero-margin">
+			<prm-icon icon-type="svg" svg-icon-set="primo-ui" icon-definition="book-open"></prm-icon>
+			<span>Request this item</span>
+		</md-button>
+	</div>
 
 </div>
 
@@ -22,9 +77,9 @@
 
 <div class="online-holdings" ng-if="isLinktoOnline">
 
-    <h4 class="csu-holdings-header">Available online</h4>
+	<h4 class="csu-holdings-header">Available online</h4>
 
-    <iframe iframe-onload="{{::$ctrl.parentCtrl.iframeResize()}}" class="mashup-iframe" ng-src="{{$ctrl.parentCtrl.getLink()}}" style="width:100%;border:none;" ng-if="::$ctrl.parentCtrl.isLinkAvailable()"></iframe>
+	<iframe iframe-onload="{{::$ctrl.parentCtrl.iframeResize()}}" class="mashup-iframe" ng-src="{{$ctrl.parentCtrl.getLink()}}" style="width:100%;border:none;" ng-if="::$ctrl.parentCtrl.isLinkAvailable()"></iframe>
 
 </div>
 
@@ -32,36 +87,36 @@
 
 <div class="local-holdings" ng-if="!isLinktoOnline">
 
-    <!-- Local holdings -->
+	<!-- Local holdings -->
 
-    <div class="local-holdings" ng-if="localLocations.length > 0">
-        <h4 class="csu-holdings-header">Available at the Library</h4>
+	<div class="local-holdings" ng-if="localLocations.length > 0">
+		<h4 class="csu-holdings-header">Available at the Library</h4>
 
-        <!-- holdings have already loaded -->
-        <div ng-if="holdings" class="animate-if" layout="column">
+		<!-- holdings have already loaded -->
+		<div ng-if="holdings" class="animate-if" layout="column">
 
-            <div class="csu-holdings-limiter">
-                <div class="csu-holdings-container">
-                    <div class="csu-holdings-wrap">
-                        <div class="csu-holdings">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Location</th>
-                                        <th>Call Number</th>
-                                        <th>Availability</th>
-                                        <th>Notes</th>
-                                    </tr>
-                                </thead>
+			<div class="csu-holdings-limiter">
+				<div class="csu-holdings-container">
+					<div class="csu-holdings-wrap">
+						<div class="csu-holdings">
+							<table>
+								<thead>
+									<tr>
+										<th>Location</th>
+										<th>Call Number</th>
+										<th>Availability</th>
+										<th>Notes</th>
+									</tr>
+								</thead>
 								<tbody ng-repeat="holding in holdings" ng-if="holding.mms_id">
 
-                                    <!-- items loaded and ready for display -->
+									<!-- items loaded and ready for display -->
 
-                                    <tr tabindex="0" ng-if="holding.mms_id && holding.items.length <= 0" class="animate-if">
-                                        <td colspan="4">
-                                            <span class="items-unavailable" translate="item.noitems">
-                                        </td>
-                                    </tr>
+									<tr tabindex="0" ng-if="holding.mms_id && holding.items.length <= 0" class="animate-if">
+										<td colspan="4">
+											<span class="items-unavailable" translate="item.noitems">
+										</td>
+									</tr>
 									<tr tabindex="0" class="holding-header" (click)="$ctrl.toggleShowItems(holding)" (keydown)="$ctrl.toggleShowItems(holding, $event)">
 										<td class="location"><prm-icon ng-if="!holding.showItems" icon-type="svg" svg-icon-set="primo-ui" icon-definition="chevron-down"></prm-icon><prm-icon ng-if="holding.showItems" icon-type="svg" svg-icon-set="primo-ui" icon-definition="chevron-up"></prm-icon> {{ holding.location }}</td>
 										<td class="callNumber">{{ holding.call_number }}</td>
@@ -76,151 +131,157 @@
 										<td class="description" ng-if="holding.ava_note">{{ holding.ava_note }}</td>
 										<td class="description hideme" ng-if="!holding.ava_note"></td>
 									</tr>
-                                    <tr tabindex="0" class="holding-item" ng-repeat="item in holding.items" ng-if="holding.showItems">
-                                        <td class="sublocation">{{ holding.location }}</td>
-                                        <td class="callNumber">{{ holding.call_number }}</td>
-                                        <td class="available">
-                                            <span class="items-available" ng-if="item.availability == 'available'">
-                                                {{ item.status }}
-                                            </span>
-                                            <span class="items-unavailable" ng-if="item.availability == 'unavailable'">
-                                                {{ item.status }}
-                                            </span>
-                                        </td>
+									<tr tabindex="0" class="holding-item" ng-repeat="item in holding.items track by $index" ng-if="holding.showItems">
+										<td class="sublocation">{{ holding.location }}</td>
+										<td class="callNumber">{{ holding.call_number }}</td>
+										<td class="available">
+											<span class="items-available" ng-if="item.availability == 'available'">
+												{{ item.status }}
+											</span>
+											<span class="items-unavailable" ng-if="item.availability == 'unavailable'">
+												{{ item.status }}
+											</span>
+										</td>
 										<td class="description" ng-if="item.description">{{ item.description }}</td>
 										<td class="description hideme" ng-if="!item.description"></td>
-                                    </tr>
+									</tr>
 
-                                    <!-- next two rows provide temporary display until the items fully load,
-                                         otherwise the table flickers on reload -->
+									<!-- next two rows provide temporary display until the items fully load,
+										 otherwise the table flickers on reload -->
 
-                                    <tr tabindex="0" class="holding-item" ng-if="holding.mms_id && holding.items.length <= 0 && holdingsCount > 0 && holding.showItems" class="animate-if">
-                                        <td class="location">{{ holding.location }}</td>
-                                        <td class="callNumber">{{ holding.call_number }}</td>
-                                        <td class="available">
-                                            <prm-spinner class="small default-loader dark-on-light" layout="row" layout-align="left center"></prm-spinner>
-                                        </td>
-                                        <td class="description">
-                                            <prm-spinner class="small default-loader dark-on-light" layout="row" layout-align="left center"></prm-spinner>
-                                        </td>
-                                    </tr>
-                                    <tr tabindex="0" class="holding-item" ng-if="holding.mms_id && !holding.items && holding.showItems" class="animate-if">
-                                        <td class="location">{{ holding.location }}</td>
-                                        <td class="callNumber">{{ holding.call_number }}</td>
-                                        <td class="available">
-                                            <prm-spinner class="small default-loader dark-on-light" layout="row" layout-align="left center"></prm-spinner>
-                                        </td>
-                                        <td class="description">
-                                            <prm-spinner class="small default-loader dark-on-light" layout="row" layout-align="left center"></prm-spinner>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+									<tr tabindex="0" class="holding-item" ng-if="holding.mms_id && holding.items.length <= 0 && holdingsCount > 0 && holding.showItems" class="animate-if">
+										<td class="location">{{ holding.location }}</td>
+										<td class="callNumber">{{ holding.call_number }}</td>
+										<td class="available">
+											<prm-spinner class="small default-loader dark-on-light" layout="row" layout-align="left center"></prm-spinner>
+										</td>
+										<td class="description">
+											<prm-spinner class="small default-loader dark-on-light" layout="row" layout-align="left center"></prm-spinner>
+										</td>
+									</tr>
+									<tr tabindex="0" class="holding-item" ng-if="holding.mms_id && !holding.items && holding.showItems" class="animate-if">
+										<td class="location">{{ holding.location }}</td>
+										<td class="callNumber">{{ holding.call_number }}</td>
+										<td class="available">
+											<prm-spinner class="small default-loader dark-on-light" layout="row" layout-align="left center"></prm-spinner>
+										</td>
+										<td class="description">
+											<prm-spinner class="small default-loader dark-on-light" layout="row" layout-align="left center"></prm-spinner>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 
-        <!-- temp: holdings over item display 
-        
-        <div ng-repeat="holding in holdings">
-            <p ng-if="holding.mms_id && !holding.items" ng-repeat="x in holding.numberItemsArray track by $index" class="animate-if" style="display:none;">
-                <span class="location">{{ holding.location }}</span> - <span class="callNumber">{{ holding.call_number }}</span>
-                <prm-spinner class="small default-loader dark-on-light" layout="row" layout-align="left center">
-                </prm-spinner>
-                <p ng-if="holding.mms_id && holding.ava_note != ''" (click)="$ctrl.toggleShowItems(holding)" class="animate-if">
-                    <span class="avaNote">{{ holding.ava_note }}</span>
-                </p>
-                <p ng-if="holding.mms_id && holding.ava_note == '' && holding.items.length <= 0 && holding.items[0].ava_note && holding.items[0].ava_note !=''" (click)="$ctrl.toggleShowItems(holding)" class="animate-if">
-                    <span class="avaNote">{{ holding.items[0].ava_note }}</span>
-                </p>
-                <p ng-if="holding.mms_id && holding.items.length > 1 && holding.showItems" ng-repeat="item in holding.items" class="animate-if">
-                    <span class="subLocation">{{ holding.location }}</span> - <span class="callNumber">{{ holding.call_number }}</span>
-                    <span class="items-available" ng-if="item.availability == 'available'">{{ item.status }}</span>
-                    <span class="items-unavailable" ng-if="item.availability == 'unavailable'">{{ item.status }}</span>
-                    <span class="callNumber" ng-if="item.description != ''"> ({{ item.description }})</span>
-                </p>
-            </p>
-        </div>
+		<!-- temp: holdings over item display 
+
+		<div ng-repeat="holding in holdings">
+			<p ng-if="holding.mms_id && !holding.items" ng-repeat="x in holding.numberItemsArray track by $index" class="animate-if" style="display:none;">
+				<span class="location">{{ holding.location }}</span> - <span class="callNumber">{{ holding.call_number }}</span>
+				<prm-spinner class="small default-loader dark-on-light" layout="row" layout-align="left center">
+				</prm-spinner>
+				<p ng-if="holding.mms_id && holding.ava_note != ''" (click)="$ctrl.toggleShowItems(holding)" class="animate-if">
+					<span class="avaNote">{{ holding.ava_note }}</span>
+				</p>
+				<p ng-if="holding.mms_id && holding.ava_note == '' && holding.items.length <= 0 && holding.items[0].ava_note && holding.items[0].ava_note !=''" (click)="$ctrl.toggleShowItems(holding)" class="animate-if">
+					<span class="avaNote">{{ holding.items[0].ava_note }}</span>
+				</p>
+				<p ng-if="holding.mms_id && holding.items.length > 1 && holding.showItems" ng-repeat="item in holding.items" class="animate-if">
+					<span class="subLocation">{{ holding.location }}</span> - <span class="callNumber">{{ holding.call_number }}</span>
+					<span class="items-available" ng-if="item.availability == 'available'">{{ item.status }}</span>
+					<span class="items-unavailable" ng-if="item.availability == 'unavailable'">{{ item.status }}</span>
+					<span class="callNumber" ng-if="item.description != ''"> ({{ item.description }})</span>
+				</p>
+			</p>
+		</div>
 
 		-->
 
-        <!-- temporary display until data fetched  -->
+		<!-- temporary display until data fetched  -->
 
-        <div ng-if="preholdings && !holdings" class="animate-if" layout="column">
-            <div class="csu-holdings-limiter">
-                <div class="csu-holdings-container">
-                    <div class="csu-holdings-wrap">
-                        <div class="csu-holdings">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Location</th>
-                                        <th>Call Number</th>
-                                        <th>Availability</th>
-                                        <th>Notes</th>
-                                    </tr>
-                                </thead>
-                                <tbody ng-repeat="holding in preholdings">
-                                    <tr tabindex="0" class="holding-header">
-                                        <td class="location">{{ holding.subLocation }}</td>
-                                        <td class="callNumber">{{ holding.callNumber }}</td>
-                                        <td class="available">
-                                            <prm-spinner class="small default-loader dark-on-light" layout="row" layout-align="left center"></prm-spinner>
-                                        </td>
+		<div ng-if="preholdings && !holdings" class="animate-if" layout="column">
+			<div class="csu-holdings-limiter">
+				<div class="csu-holdings-container">
+					<div class="csu-holdings-wrap">
+						<div class="csu-holdings">
+							<table>
+								<thead>
+									<tr>
+										<th>Location</th>
+										<th>Call Number</th>
+										<th>Availability</th>
+										<th>Notes</th>
+									</tr>
+								</thead>
+								<tbody ng-repeat="holding in preholdings">
+									<tr tabindex="0" class="holding-header">
+										<td class="location">{{ holding.subLocation }}</td>
+										<td class="callNumber">{{ holding.callNumber }}</td>
+										<td class="available">
+											<prm-spinner class="small default-loader dark-on-light" layout="row" layout-align="left center"></prm-spinner>
+										</td>
 										<td class="description hideme"></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
-    <!-- Other campuses -->
+	<!-- Other campuses -->
 
-    <div class="consortia-holdings" ng-if="consortiaHoldings.length > 0">
-        <h4 class="csu-holdings-header">Available at other campuses</h4>
-        <div>
-            <md-button class="md-raised" ng-click="$ctrl.toggleShowExtHoldings()">
-                {{ showExtHoldings ? 'Hide holdings &laquo;' : 'Show holdings &raquo;' }}
-            </md-button>
-        </div>
-        <div class="csu-holdings-limiter" ng-if="consortiaHoldings && showExtHoldings">
-            <div class="csu-holdings-container">
-                <div class="csu-holdings-wrap">
-                    <div class="csu-holdings">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Campus</th>
-                                    <th>Location</th>
-                                    <th>Call Number</th>
-                                    <th>Availability</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr tabindex="0" class="holding-header" ng-repeat="location in consortiaHoldings">
-                                    <td class="campus">{{ location.campus }}</td>
-                                    <td class="location">{{ location.subLocation }}</td>
-                                    <td class="callNumber">{{ location.callNumber }}</td>
-                                    <td class="available">
-                                        <span class="items-available" ng-if="location.availabilityStatus == 'available'">
-                                            {{ location.availabilityStatus }}
-                                        </span>
-                                        <span class="items-unavailable" ng-if="location.availabilityStatus != 'available'">
-                                            {{ location.availabilityStatus }}
-                                        </span>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+	<div class="consortia-holdings" ng-if="consortiaHoldings.length > 0">
+		<h4 class="csu-holdings-header">Available at other campuses</h4>
+		<div>
+			<md-button class="md-raised" ng-click="$ctrl.toggleShowExtHoldings()">
+				{{ showExtHoldings ? 'Hide holdings &laquo;' : 'Show holdings &raquo;' }}
+			</md-button>
+		</div>
+		<div class="csu-holdings-limiter" ng-if="consortiaHoldings && showExtHoldings">
+			<div class="csu-holdings-container">
+				<div class="csu-holdings-wrap">
+					<div class="csu-holdings">
+						<table>
+							<thead>
+								<tr>
+									<th>Campus</th>
+									<th>Location</th>
+									<th>Call Number</th>
+									<th>Availability</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr tabindex="0" class="holding-header" ng-repeat="location in consortiaHoldings">
+									<td class="campus">{{ location.campus }}</td>
+									<td class="location">{{ location.subLocation }}</td>
+									<td class="callNumber">{{ location.callNumber }}</td>
+									<td class="available">
+										<span class="items-available" ng-if="location.availabilityStatus == 'available'">
+											{{ location.availabilityStatus }}
+										</span>
+										<span class="items-available" ng-if="location.availabilityStatus == 'available' && location.localOnly">
+											(on campus only)
+										</span>
+										<span class="items-unavailable" ng-if="location.availabilityStatus != 'available'">
+											{{ location.availabilityStatus }}
+										</span>
+										<span class="items-available" ng-if="location.availabilityStatus != 'available' && location.localOnly">
+											(on campus only)
+										</span>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
