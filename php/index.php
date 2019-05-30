@@ -203,6 +203,10 @@ function report_problem_content(array $params)
     
     $message = $t->h1('Reported Problem') .
         $t->p(strip_tags($params['description'])) .
+        ($params['addPatronInfo'] ? 
+            ($t->h1('Requester Information') .
+            $t->p(strip_tags($params['name']) .
+            "\r\n" . strip_tags($params['from']))) : '') .
         $t->h1('Record Details') .
         $t->a('Record URL', $url) . 
         "\r\n" . $t->hr() . "\r\n" .
