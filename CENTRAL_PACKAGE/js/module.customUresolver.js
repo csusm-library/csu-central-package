@@ -4,12 +4,13 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 	bindings: {
 		parentCtrl: '<'
 	},
-	templateUrl: 'custom/01CALS_PUP_ZTEST/html/module.customUresolver.html',
+	templateUrl: 'custom/CENTRAL_PACKAGE/html/module.customUresolver.html',
 	controller: ['$scope', '$sce', 'customUresolverService', 'customUresolver', 'customUresolverDefault', function ($scope, $sce, customUresolverService, customUresolver, customUresolverDefault) {
 		var _this = this;
 
 		_this.vid = _this.parentCtrl.configurationUtil.vid;
-		_this.item = $scope.$parent.$parent.$parent.$parent.$ctrl.item;
+		_this.itemCtrl = $scope.$parent.$parent.$parent.$parent.$ctrl;
+		_this.item = _this.itemCtrl.item;
 		_this.link = _this.parentCtrl.linksArray[0].link;
 		_this.linkPrefix = _this.parentCtrl.linksArray[0].link.match(new RegExp("(?:\:\/\/)(.*?)(?:\\.)"))[1];
 		_this.loginService = $scope.$root.$$childHead.$$childHead.$$nextSibling.$ctrl.loginIframeService.loginService;
@@ -18,12 +19,19 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 		_this.tempExt = [];
 		_this.mms_id = _this.item.pnx.display.hasOwnProperty('lds04') ? _this.item.pnx.display.lds04[0] : null;
 		_this.logToConsole = false;
-		
+		// user logged-in
+		_this.userSessionManagerService = _this.itemCtrl.userSessionManagerService;
+		$scope.userIsLoggedIn = _this.userSessionManagerService.jwtUtilService.getDecodedToken().userName ? true: false;
+		console.log('userIsLoggedIn:' + $scope.userIsLoggedIn)
+
+		_this.servicesArray = _this.parentCtrl.fullViewService.servicesArray;
+
 		$scope.hasLocal = false;
 		$scope.preholdings = _this.item.delivery.holding.filter(function(holding, index) {return holding.organization == _this.vid.substring(0, 10)});
 		$scope.localLocations = [];
 		$scope.extLocations = [];
-		$scope.showCompact = false;
+		$scope.showCompact = customUresolver.hasOwnProperty("showCompact") ? customUresolver.showCompact : customUresolverDefault.showCompact;
+		$scope.showRequestInViewIt = customUresolver.hasOwnProperty("showRequestInViewIt") ? customUresolver.showRequestInViewIt : customUresolverDefault.showRequestInViewIt;
 		$scope.showExtHoldings = false;
 		$scope.showResourceSharing = false;
 		$scope.showILL = false;
@@ -34,7 +42,24 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 		$scope.availableConsortiaHoldings = false;
 		$scope.hasNonForbiddenLocations = false;
 		$scope.availableLocalHoldings = false;
+		$scope.hasGetIt = false;
 
+		for (var i = 0; i < _this.servicesArray.length; i++) {
+			if ($scope.showRequestInViewIt) $scope.hasGetIt = true;
+			if (_this.servicesArray[i].serviceName == 'activate') {
+				if (_this.servicesArray[i].linkElement.category == 'Alma-P') {
+					$scope.hasGetIt = true;
+				}
+			}
+		}
+
+		$scope.doShowButton = function () {
+			if (_this.itemCtrl.index === 1) {
+				if ($scope.userIsLoggedIn) return true;
+				return $scope.hasGetIt;
+			}
+			return false;
+		}
 		_this.toggleShowItems = function (holding, event = false) {
 			if(event != false && event.keyCode !== 13 && event.keyCode !== 32) return;
 			holding.showItems = holding.showItems ? false : true;
@@ -69,8 +94,11 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 				_this.requestData.requestType = '';
 			}
 		}
+		_this.getILLData = function() {
+			return '';
+		}
 		_this.openILL = function () {
-			window.open(customUresolver.hasOwnProperty("illURL") ? customUresolver.illURL : customUresolverDefault.illURL, '_newTab');
+			window.open((customUresolver.hasOwnProperty("illURL") ? customUresolver.illURL : customUresolverDefault.illURL) + _this.getILLData, '_newTab');
 		}
 
 		// determine if links is to resource sharing or online
@@ -118,7 +146,7 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 		}
 		_this.requestData.institutionCode = _this.vid.substring(0, 10);
 		_this.requestData.pickupInstitutionCode = _this.vid.substring(0, 10);
-		
+
 		/**
 		 * Get detailed holdings information from the API
 		 * Includes detailed info for local holdings only
@@ -139,7 +167,7 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 				console.log(_this.requestData);
 			}
 		)
-		
+
 		customUresolverService.getNzBib(_this.vid, _this.mms_id).then(
 			bib => {
 				$scope.holdings = [{}];
@@ -193,9 +221,9 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 			if (_this.item.delivery.holding[i].organization == _this.vid.substring(0, 10)) {
 				let mms_id = _this.item.pnx.display.lds04;
 				$scope.hasLocal = true;
-				
+
 				if(_this.item.delivery.holding[i].availabilityStatus.replace(/^\(|\)$/g, '') == 'available') $scope.availableLocalHoldings = true;
-				
+
 				$scope.localLocations.push({
 					subLocation: _this.item.delivery.holding[i].subLocation,
 					callNumber: _this.item.delivery.holding[i].callNumber.replace(/^\(|\)$/g, ''),
@@ -217,7 +245,7 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 				}
 
 				if(_this.item.delivery.holding[i].availabilityStatus.replace(/^\(|\)$/g, '') == 'available') $scope.availableConsortiaHoldings = true;
-				
+
 				_this.tempExt[_this.item.delivery.holding[i].organization].locations.push({
 					mainLocation: _this.item.delivery.holding[i].mainLocation,
 					subLocationCode: _this.item.delivery.holding[i].subLocationCode,
@@ -293,13 +321,6 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 
 		_this.tempExt = null;
 
-		// user logged-in
-
-		var rootScope = $scope.$root;
-		var uSMS = rootScope.$$childHead.$ctrl.userSessionManagerService;
-		var jwtData = uSMS.jwtUtilService.getDecodedToken();
-		$scope.userIsLoggedIn = jwtData.userName ? true: false;
-		console.log('userIsLoggedIn:' + $scope.userIsLoggedIn)
 
 		// resource sharing
 		// there are other holdings and not locally available
@@ -311,12 +332,12 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 			_this.item.delivery.availability[0] != "not_restricted")) {
 			$scope.showResourceSharing = true;
 		} else {
-			if(!$scope.availableLocalHoldings) $scope.showILL = true;
+			if(!$scope.availableLocalHoldings && $scope.hasGetIt) $scope.showILL = true;
 		}
-		
+
 		// logged into primo, but uresolver is logged out
 		// need to log out and log back in
-		
+
 		if(typeof _this.requestData.physicalServicesResultId !== 'undefined' && $scope.userIsLoggedIn) {
 			console.log('uresolver is not logged in, not going to get any data');
 		}
@@ -408,6 +429,8 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 }])
 .value('customUresolver', {}).value('customUresolverDefault', {
 	enabled: true,
+	showCompact: true,
+	showRequestInViewIt: false,
 	bibURL: 'https://library.test.calstate.edu/primo-resolver/bibapi.php?',
 	illURL: 'https://proxy.library.cpp.edu/login?url=https://illiad.library.cpp.edu/illiad/illiad.dll?Action=10&Form=30',
 	rsForbiddenLocations: {

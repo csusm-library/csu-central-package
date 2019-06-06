@@ -1,8 +1,8 @@
+<!-- Login Buttons -->
 
 <!-- Resource sharing -->
 
-<div ng-if="showResourceSharing" class="csu-resource-sharing">
-
+<div ng-if="doShowButton() && showResourceSharing" class="csu-resource-sharing">
 	<!-- login/request -->
 	<div ng-if="userIsLoggedIn == false" class="csu-resource-sharing-request">
 		<md-button ng-click="$ctrl.loginService.handleLoginClick()" aria-label="Sign in to request from CSU+ (2-5 day delivery)" class="button-with-icon zero-margin">
@@ -23,14 +23,11 @@
 			<span>Request from CSU+ (2-5 day delivery)</span>
 		</md-button>
 	</div>
-
-
 </div>
 
 <!-- Interlibrary Loan -->
 
-<div ng-if="showILL" class="csu-resource-sharing">
-
+<div ng-if="doShowButton() && showILL" class="csu-resource-sharing">
 	<!-- login/request -->
 	<div ng-if="userIsLoggedIn == false" class="csu-resource-sharing-request">
 		<md-button ng-click="$ctrl.loginService.handleLoginClick();" aria-label="Sign in to request from Interlibrary Loan (7-10 day delivery)" class="button-with-icon zero-margin">
@@ -47,13 +44,11 @@
 			<span>Request from Interlibrary Loan (7-10 day delivery)</span>
 		</md-button>
 	</div>
-
 </div>
 
 <!-- Local Request -->
 
-<div ng-if="!showResourceSharing && !showILL" class="csu-resource-sharing">
-
+<div ng-if="doShowButton() && !showResourceSharing && !showILL" class="csu-resource-sharing">
 	<!-- login/request -->
 	<div ng-if="userIsLoggedIn == false" class="csu-resource-sharing-request">
 		<md-button ng-click="$ctrl.loginService.handleLoginClick()" aria-label="Sign in to see request options" class="button-with-icon zero-margin">
@@ -70,17 +65,13 @@
 			<span>Request this item</span>
 		</md-button>
 	</div>
-
 </div>
 
 <!-- Online availability -->
 
 <div class="online-holdings" ng-if="isLinktoOnline">
-
 	<h4 class="csu-holdings-header">Available online</h4>
-
 	<iframe iframe-onload="{{::$ctrl.parentCtrl.iframeResize()}}" class="mashup-iframe" ng-src="{{$ctrl.parentCtrl.getLink()}}" style="width:100%;border:none;" ng-if="::$ctrl.parentCtrl.isLinkAvailable()"></iframe>
-
 </div>
 
 <!-- Physical availability -->
@@ -93,8 +84,8 @@
 		<h4 class="csu-holdings-header">Available at the Library</h4>
 
 		<!-- holdings have already loaded -->
-		<div ng-if="holdings" class="animate-if" layout="column">
 
+		<div ng-if="holdings" class="animate-if" layout="column">
 			<div class="csu-holdings-limiter">
 				<div class="csu-holdings-container">
 					<div class="csu-holdings-wrap">
@@ -117,7 +108,10 @@
 											<span class="items-unavailable" translate="item.noitems">
 										</td>
 									</tr>
-									<tr tabindex="0" class="holding-header" (click)="$ctrl.toggleShowItems(holding)" (keydown)="$ctrl.toggleShowItems(holding, $event)">
+
+									<!-- collapsed display -->
+
+									<tr tabindex="0" class="holding-header" (click)="$ctrl.toggleShowItems(holding)" (keydown)="$ctrl.toggleShowItems(holding, $event)" ng-if="showCompact == true">
 										<td class="location"><prm-icon ng-if="!holding.showItems" icon-type="svg" svg-icon-set="primo-ui" icon-definition="chevron-down"></prm-icon><prm-icon ng-if="holding.showItems" icon-type="svg" svg-icon-set="primo-ui" icon-definition="chevron-up"></prm-icon> {{ holding.location }}</td>
 										<td class="callNumber">{{ holding.call_number }}</td>
 										<td class="available">
@@ -131,7 +125,10 @@
 										<td class="description" ng-if="holding.ava_note">{{ holding.ava_note }}</td>
 										<td class="description hideme" ng-if="!holding.ava_note"></td>
 									</tr>
-									<tr tabindex="0" class="holding-item" ng-repeat="item in holding.items track by $index" ng-if="holding.showItems">
+
+									<!-- display of individual items -->
+
+									<tr tabindex="0" class="holding-item" ng-repeat="item in holding.items track by $index" ng-if="holding.showItems || showCompact == false">
 										<td class="sublocation">{{ holding.location }}</td>
 										<td class="callNumber">{{ holding.call_number }}</td>
 										<td class="available">
@@ -149,7 +146,7 @@
 									<!-- next two rows provide temporary display until the items fully load,
 										 otherwise the table flickers on reload -->
 
-									<tr tabindex="0" class="holding-item" ng-if="holding.mms_id && holding.items.length <= 0 && holdingsCount > 0 && holding.showItems" class="animate-if">
+									<tr tabindex="0" class="holding-item" ng-if="holding.mms_id && holding.items.length <= 0 && holdingsCount > 0 && (holding.showItems || showCompact == false)" class="animate-if">
 										<td class="location">{{ holding.location }}</td>
 										<td class="callNumber">{{ holding.call_number }}</td>
 										<td class="available">
@@ -159,7 +156,7 @@
 											<prm-spinner class="small default-loader dark-on-light" layout="row" layout-align="left center"></prm-spinner>
 										</td>
 									</tr>
-									<tr tabindex="0" class="holding-item" ng-if="holding.mms_id && !holding.items && holding.showItems" class="animate-if">
+									<tr tabindex="0" class="holding-item" ng-if="holding.mms_id && !holding.items && (holding.showItems || showCompact == false)" class="animate-if">
 										<td class="location">{{ holding.location }}</td>
 										<td class="callNumber">{{ holding.call_number }}</td>
 										<td class="available">
@@ -177,7 +174,7 @@
 			</div>
 		</div>
 
-		<!-- temp: holdings over item display 
+		<!-- temp: holdings over item display
 
 		<div ng-repeat="holding in holdings">
 			<p ng-if="holding.mms_id && !holding.items" ng-repeat="x in holding.numberItemsArray track by $index" class="animate-if" style="display:none;">
