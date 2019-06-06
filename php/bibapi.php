@@ -14,6 +14,7 @@
 	$get = isset($_GET['get']) ? $_GET['get'] : '';
 	$id = isset($_GET['id']) ? $_GET['id'] : '';
 	$id2 = isset($_GET['id2']) ? $_GET['id2'] : '';
+	$id3 = isset($_GET['id3']) ? $_GET['id3'] : '';
 	$vid = isset($_GET['vid']) ? $_GET['vid'] : '';
 	$out = '';
 	
@@ -242,17 +243,19 @@
 		return $array1;
 	}
 
-	//will need to be updated to include other institutions
 	//returns an apikey depending on the vid being accessed
 	function getAPIKey($vid) {
 		$apikey = '';
 		switch($vid) {
+			case '01CALS_UDH':
+				$apikey = 'l7xx69c29ae211c4408595e76d84ddb8d9e2';
+				break;
 			case '01CALS_PUP_ZTEST':
 			case '01CALS_PUP':
-				$apikey = ''; //local api key
+				$apikey = 'l7xx294fd4a0c6fa4f0a9c36520d83848f2d';
 				break;
 			default:
-				$apikey = ''; //network api key
+				$apikey = 'l7xx668e13de31f740a9b9a04b41713586c0';
 				break;
 		}
 		return $apikey;
@@ -265,7 +268,6 @@
 		return $html['html'];
 	}
 
-	//used for course reserves module, will need to be updated to include other institutions
 	//returns the data from the reserves app from the Chancellor's Office
 	function getPreloadData($vid) {
 		$html = en_curl('https://reserves.calstate.edu/pomona/json');
@@ -291,19 +293,18 @@
 
 	//main function to get and display the correct data depending on the api requested
 	switch($get) {
-		//used for course reserves module
 		case 'courses':
 			$out = getPreloadData($vid);
 			break;
-		
-		//used for course reserves module
+
 		case 'course':
 			$api = 'courses/' . $id;
-			$params = array('view' => 'full');
+			$params = array(
+				'view' => 'full'
+			);
 			$out = getAPIData($vid, $api, $params);
 			break;
-		
-		//used for course reserves module, but also might be usable for the uresolver module
+
 		case 'bib':
 			$api = 'bibs/' . $id;
 			$params = array('expand' => 'p_avail,e_avail');
@@ -324,9 +325,7 @@
 					if(array_key_exists('item', $items)) {
 						foreach($items->item as $item) {
 							$location = $item->holding_data->temp_location->desc;
-							if($location == "") {
-								$location = $item->item_data->location->desc;
-							}
+							if($location == '') $location = $item->item_data->location->desc;
 							$out->holdings[] = array(
 								'mms_id' => $id,
 								'location' => $location,
@@ -361,19 +360,6 @@
 					if(property_exists($temp_holding_id, 'holding')) if(isset($temp_holding_id->holding[0])) if(property_exists($temp_holding_id->holding[0], 'holding_id')) $holding_id = $temp_holding_id->holding[0]->holding_id;
 					unset($temp_holding_id);
 				}
-				$getNotes = false;
-				if($getNotes) {
-					if(!empty($holding_id)) {
-						$api2 = 'bibs/' . $mms_id . '/holdings/' . $holding_id;
-						$params2 = array('expand' => 'p_avail,e_avail');
-						$ava_note = json_decode(getAPIData($vid, $api2, $params2));
-						if(property_exists($ava_note, 'anies')) {
-							$ava_note = json_decode(xml2json(strstr($ava_note->anies[0], '<record>')))->record;
-							$ava_note = getDatafield($ava_note->datafield, '866');
-							$ava_note = (count($ava_note) > 0) ? getAVACode($ava_note, 'a') : '';
-						} else $ava_note = 'https://api-na.hosted.exlibrisgroup.com/almaws/v1/' . urldecode($api2 . '?format=json&apikey=' . getAPIKey($vid) . '&' . urlencode(http_build_query($params2)));
-					} else $ava_note = '';
-				} else $ava_note = '';
 				$out->holdings[] = array(
 					'mms_id' => $mms_id,
 					'holding_id' => $holding_id,
@@ -389,13 +375,14 @@
 					'call_number_type' => getAVACode($ava, 'k'),
 					'priority' => getAVACode($ava, 'p'),
 					'library_name' => getAVACode($ava, 'q'),
-					'ava_note' => $ava_note
+					//'ava_raw' => $ava,
+					'ava_note' => ''
 				);
 				
 			}
 			$out = json_encode($out->holdings);
 			break;
-		
+
 		case 'holdingnote':
 			if(!empty($id2)) {
 				$api = 'bibs/' . $id . '/holdings/' . $id2;
@@ -408,7 +395,7 @@
 				} else $out = '';
 			} else $out = '';
 			break;
-		
+
 		case 'status':
 			$api = 'bibs/' . $id . '/holdings/' . $id2 . '/items';
 			$params = array('limit' => '100');
@@ -443,17 +430,75 @@
 			}
 			$out = json_encode($items);
 			break;
-		
-		//a work in progress, doesn't work right now
-		case 'uresolver':
-			$url = urldecode($id);
-			$uresolver = en_curl($url);
+
+		case 'checkavailable':
+			$params = json_decode($id2);
+			$params->requestType = 'ill';
+			$params->specificEdition = true;
+			$params->allowOtherLibrary = true;
+			$request = en_curl('https://' . $id . '.userservices.exlibrisgroup.com/almaws/internalRest/uresolver/institutionCode/' . $vid . '/isItemAvailableForRequest' . '?' . http_build_query($params));
+			$data['is_requestable'] = ($request['html'] == "true" || $request['html'] === true) ? true : false;
+			//$data['is_requestable_raw'] = $request['html'];
+			$data['params'] = $params;
+			$out = json_encode($data);
+			break;
+
+		case 'requestdata':
 			$data = array(
-				'physicalServicesResultId' => explode('&', explode('physicalServicesResultId=', $uresolver['html'])[1])[0],
-				'userId' => explode('&', explode('userId=', $uresolver['html'])[1])[0]
+				'request_options' => array(
+					'local' => false,
+					'resource_sharing' => false,
+					'purchase' => false,
+					'ill' => false
+				),
+				'mms_id' => '',
+				'user_id' => '',
+				'physical_services_result_id' => ''
 			);
-			$available = en_curl('https://csu-csusm.userservices.exlibrisgroup.com/almaws/internalRest/uresolver/institutionCode/01CALS_CPP/isItemAvailableForRequest?&userId=' . $data['userId'] . '&physicalServicesResultId=' . $data['physicalServicesResultId']);
-			$data['requestable'] = $available['html'];
+			$iframe_src = en_curl($id)['html'];
+			$data['request_options']['local'] = (strpos($iframe_src, 'id="openRequest"') !== false) ? true : false;
+			$data['request_options']['resource_sharing'] = (strpos($iframe_src, 'id="openRSAlmaRequest"') !== false) ? true : false;
+			$data['request_options']['purchase'] = (strpos($iframe_src, 'id="openPurchaseRequest"') !== false) ? true : false;
+			$data['request_options']['ill'] = (strpos($iframe_src, 'id="openRSRequest1"') !== false) ? true : false;
+			if(strpos($iframe_src, 'getitNoHoldings') !== false) {
+				$mms_id = explode('mmsId=', $iframe_src);
+				$mms_id = explode('&', $mms_id[1]);
+				$data['mms_id'] = $mms_id[0];
+				$user_id = explode('userId=', $iframe_src);
+				$user_id = explode('&', $user_id[1]);
+				$data['user_id'] = $user_id[0];
+				$physical_services_result_id = explode('physicalServicesResultId=', $iframe_src);
+				$physical_services_result_id = explode('&', $physical_services_result_id[1]);
+				$data['physical_services_result_id'] = $physical_services_result_id[0];
+			} else {
+				$mms_id = explode('id="mmsId"', $iframe_src);
+				$mms_id = explode('value="', $mms_id[1]);
+				$mms_id = explode('"', $mms_id[1]);
+				$data['mms_id'] = $mms_id[0];
+				$user_id = explode('id="userId"', $iframe_src);
+				$user_id = explode('value="', $user_id[1]);
+				$user_id = explode('"', $user_id[1]);
+				$data['user_id'] = $user_id[0];
+				$physical_services_result_id = explode('id="physicalServicesResultId"', $iframe_src);
+				$physical_services_result_id = explode('value="', $physical_services_result_id[1]);
+				$physical_services_result_id = explode('"', $physical_services_result_id[1]);
+				$data['physical_services_result_id'] = $physical_services_result_id[0];
+			}
+			//$data['iframe_src_raw'] = $iframe_src;
+			$out = json_encode($data);
+			break;
+
+		case 'sendrequest':
+			$params = json_decode($id2);
+			$request = en_curl('https://' . $id . '.userservices.exlibrisgroup.com/view/action/uresolverRequest.do' . '?' . http_build_query($params), array('post' => true));
+			$data['request_successful'] = (strpos(strtolower($request['html']), 'request placed') !== false) ? true : false;
+			if(strpos($request['html'], 'validationFeedbacks') !== false) {
+				$error_message = explode('class="validationFeedback">', $request['html']);
+				$error_message = explode('</div>', $error_message[1]);
+				$data['error_message'] = trim($error_message[0]);
+			}
+			if(!$data['request_successful'] && !isset($data['error_message'])) $data['error_message'] = '';
+			//$data['request_raw_data'] = $request;
 			$out = json_encode($data);
 			break;
 	}
