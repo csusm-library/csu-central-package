@@ -5,7 +5,7 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 		parentCtrl: '<'
 	},
 	templateUrl: 'custom/CENTRAL_PACKAGE/html/module.customUresolver.html',
-	controller: ['$scope', '$sce', 'customUresolverService', 'customUresolver', 'customUresolverDefault', function ($scope, $sce, customUresolverService, customUresolver, customUresolverDefault) {
+	controller: ['$scope', '$rootScope', '$sce', 'customUresolverService', 'customUresolver', 'customUresolverDefault', function ($scope, $rootScope, $sce, customUresolverService, customUresolver, customUresolverDefault) {
 		var _this = this;
 
 		_this.vid = _this.parentCtrl.configurationUtil.vid;
@@ -13,7 +13,7 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 		_this.item = _this.itemCtrl.item;
 		_this.link = _this.parentCtrl.linksArray[0].link;
 		_this.linkPrefix = _this.parentCtrl.linksArray[0].link.match(new RegExp("(?:\:\/\/)(.*?)(?:\\.)"))[1];
-		_this.loginService = $scope.$root.$$childHead.$$childHead.$$nextSibling.$ctrl.loginIframeService.loginService;
+		_this.loginService = $rootScope.$$childHead.$$childHead.$$nextSibling.$ctrl.loginIframeService.loginService;
 		$scope.isLinktoOnline = false;
 		$scope.isLinkToResourceSharing = false;
 		_this.tempExt = [];
@@ -35,7 +35,6 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 		$scope.showExtHoldings = false;
 		$scope.showResourceSharing = false;
 		$scope.showILL = false;
-		$scope.requestReady = false;
 		$scope.resourceSharingAvailable = false;
 		$scope.requestOptions = {ill: false, local: false, purchase: false, resource_sharing: false};
 		$scope.consortiaHoldings = [];
@@ -43,6 +42,11 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 		$scope.hasNonForbiddenLocations = false;
 		$scope.availableLocalHoldings = false;
 		$scope.hasGetIt = false;
+		$scope.requestReady = false;
+		$scope.requestSent = false;
+		$scope.requestDataReceived = false;
+		$scope.requestSuccessful = false;
+		$scope.requestMessageCleared = false;
 
 		for (var i = 0; i < _this.servicesArray.length; i++) {
 			if ($scope.showRequestInViewIt) $scope.hasGetIt = true;
@@ -59,6 +63,11 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 				return $scope.hasGetIt;
 			}
 			return false;
+		}
+		_this.hideRequestMessage = function () {
+			$scope.requestDataReceived = false;
+			$scope.requestMessageCleared = true;
+			$scope.requestSent = false;
 		}
 		_this.toggleShowItems = function (holding, event = false) {
 			if(event != false && event.keyCode !== 13 && event.keyCode !== 32) return;
@@ -83,11 +92,19 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 		}
 		_this.sendRequest = function (isRS) {
 			if($scope.requestReady) {
+				$scope.requestSent = true;
+				$scope.requestMessageCleared = false;
 				if(isRS) _this.requestData.requestType = 'ill';
 				customUresolverService.getRequest(_this.linkPrefix, JSON.stringify(_this.requestData)).then(
 					data => {
-						if(data.request_successful === true) console.log('This should really be displayed to the patron and then hide the request button');
-						else console.log('Same as before, display a message to the user and then hide the request button or something');
+						$scope.requestDataReceived = true;
+						if(data.request_successful === true) {
+							$scope.requestSuccessful = true;
+							console.log('This should really be displayed to the patron and then hide the request button');
+						} else {
+							$scope.requestSuccessful = false;
+							console.log('Same as before, display a message to the user and then hide the request button or something');
+						}
 						console.log(data);
 					}
 				)
@@ -98,7 +115,7 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 			return '';
 		}
 		_this.openILL = function () {
-			window.open((customUresolver.hasOwnProperty("illURL") ? customUresolver.illURL : customUresolverDefault.illURL) + _this.getILLData, '_newTab');
+			window.open((customUresolver.hasOwnProperty("illURL") ? customUresolver.illURL : customUresolverDefault.illURL) + '?Action=10&Form=30' + _this.getILLData, '_newTab');
 		}
 
 		// determine if links is to resource sharing or online
@@ -432,7 +449,7 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 	showCompact: true,
 	showRequestInViewIt: false,
 	bibURL: 'https://library.test.calstate.edu/primo-resolver/bibapi.php?',
-	illURL: 'https://proxy.library.cpp.edu/login?url=https://illiad.library.cpp.edu/illiad/illiad.dll?Action=10&Form=30',
+	illURL: 'https://proxy.library.cpp.edu/login?url=https://illiad.library.cpp.edu/illiad/illiad.dll',
 	rsForbiddenLocations: {
 		'01CALS_PUP': {
 			'SPEC': ['*']
