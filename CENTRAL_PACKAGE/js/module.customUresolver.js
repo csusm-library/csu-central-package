@@ -11,18 +11,19 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 		_this.vid = _this.parentCtrl.configurationUtil.vid;
 		_this.itemCtrl = $scope.$parent.$parent.$parent.$parent.$ctrl;
 		_this.item = _this.itemCtrl.item;
+		_this.pnx = _this.item.pnx;
 		_this.link = _this.parentCtrl.linksArray[0].link;
 		_this.linkPrefix = _this.parentCtrl.linksArray[0].link.match(new RegExp("(?:\:\/\/)(.*?)(?:\\.)"))[1];
 		_this.loginService = $rootScope.$$childHead.$$childHead.$$nextSibling.$ctrl.loginIframeService.loginService;
 		$scope.isLinktoOnline = false;
 		$scope.isLinkToResourceSharing = false;
 		_this.tempExt = [];
-		_this.mms_id = _this.item.pnx.display.hasOwnProperty('lds04') ? _this.item.pnx.display.lds04[0] : null;
+		_this.mms_id = _this.pnx.display.hasOwnProperty('lds04') ? _this.pnx.display.lds04[0] : null;
 		_this.logToConsole = false;
 		// user logged-in
 		_this.userSessionManagerService = _this.itemCtrl.userSessionManagerService;
 		$scope.userIsLoggedIn = _this.userSessionManagerService.jwtUtilService.getDecodedToken().userName ? true: false;
-		console.log('userIsLoggedIn:' + $scope.userIsLoggedIn)
+		if (_this.logToConsole) console.log('userIsLoggedIn:' + $scope.userIsLoggedIn)
 
 		_this.servicesArray = _this.parentCtrl.fullViewService.servicesArray;
 
@@ -59,8 +60,10 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 
 		$scope.doShowButton = function () {
 			if (_this.itemCtrl.index === 1) {
-				if ($scope.userIsLoggedIn) return true;
-				return $scope.hasGetIt;
+				if ((!$scope.showResourceSharing && !$scope.showILL && $scope.requestOptions.local) || $scope.showResourceSharing || $scope.showILL) {
+					if ($scope.userIsLoggedIn) return true;
+					return $scope.hasGetIt;
+				}
 			}
 			return false;
 		}
@@ -70,9 +73,9 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 			$scope.requestSent = false;
 		}
 		_this.toggleShowItems = function (holding, event = false) {
-			if(event != false && event.keyCode !== 13 && event.keyCode !== 32) return;
+			if (event != false && event.keyCode !== 13 && event.keyCode !== 32) return;
 			holding.showItems = holding.showItems ? false : true;
-			if(event != false) event.preventDefault();
+			if (event != false) event.preventDefault();
 			if (_this.logToConsole) console.log(holding);
 		}
 		_this.toggleShowCompact = function () {
@@ -91,31 +94,37 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 			return count;
 		}
 		_this.sendRequest = function (isRS) {
-			if($scope.requestReady) {
+			if ($scope.requestReady) {
 				$scope.requestSent = true;
 				$scope.requestMessageCleared = false;
-				if(isRS) _this.requestData.requestType = 'ill';
+				if (isRS) _this.requestData.requestType = 'ill';
 				customUresolverService.getRequest(_this.linkPrefix, JSON.stringify(_this.requestData)).then(
 					data => {
 						$scope.requestDataReceived = true;
-						if(data.request_successful === true) {
+						if (data.request_successful === true) {
 							$scope.requestSuccessful = true;
-							console.log('This should really be displayed to the patron and then hide the request button');
+							if (_this.logToConsole) console.log('This should really be displayed to the patron and then hide the request button');
 						} else {
 							$scope.requestSuccessful = false;
-							console.log('Same as before, display a message to the user and then hide the request button or something');
+							if (_this.logToConsole) console.log('Same as before, display a message to the user and then hide the request button or something');
 						}
-						console.log(data);
+						if (_this.logToConsole) console.log(data);
 					}
 				)
 				_this.requestData.requestType = '';
 			}
 		}
-		_this.getILLData = function() {
-			return '';
+		_this.getOpenURLData = function() {
+			var openURLData = '';
+			for (var item in _this.pnx.addata) {
+				if (_this.pnx.addata[item][0] != 'undefined'){
+					openURLData += '&rft.' + item + '=' + _this.pnx.addata[item][0];
+				}
+			}
+			return openURLData;
 		}
 		_this.openILL = function () {
-			window.open((customUresolver.hasOwnProperty("illURL") ? customUresolver.illURL : customUresolverDefault.illURL) + '?Action=10&Form=30' + _this.getILLData, '_newTab');
+			window.open((customUresolver.hasOwnProperty("illURL") ? customUresolver.illURL : customUresolverDefault.illURL) + '?Action=10&Form=30' + _this.getOpenURLData(), '_newTab');
 		}
 
 		// determine if links is to resource sharing or online
@@ -129,32 +138,32 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 
 		_this.requestData = {};
 
-		if(_this.item.pnx.display.hasOwnProperty('title')) _this.requestData.bookTitle = _this.item.pnx.display.title[0];
-		if(_this.item.pnx.addata.hasOwnProperty('au')) _this.requestData.authors = _this.item.pnx.addata.au[0];
-		if(_this.item.pnx.display.hasOwnProperty('edition')) _this.requestData.edition = _this.item.pnx.display.edition[0];
-		if(_this.item.pnx.addata.hasOwnProperty('isbn')) _this.requestData.isbn = _this.item.pnx.addata.isbn[0];
-		if(_this.item.pnx.addata.hasOwnProperty('lccn')) _this.requestData.lccNumber = _this.item.pnx.addata.lccn[0];
-		if(_this.item.pnx.addata.hasOwnProperty('oclcid')) _this.requestData.oclcNumber = _this.item.pnx.addata.oclcid[0];
-		if(_this.item.pnx.addata.hasOwnProperty('pub')) _this.requestData.publisher = _this.item.pnx.addata.pub[0];
-		if(_this.item.pnx.display.hasOwnProperty('creationdate')) _this.requestData.year = _this.item.pnx.display.creationdate[0];
-		if(_this.item.pnx.addata.hasOwnProperty('date') && !_this.requestData.hasOwnProperty('year')) _this.requestData.year = _this.item.pnx.addata.date[0];
-		if(_this.item.pnx.addata.hasOwnProperty('cop')) _this.requestData.placeOfPublication = _this.item.pnx.addata.cop[0];
-		if(_this.item.pnx.addata.hasOwnProperty('addau')) _this.requestData.additionalAuthor = _this.item.pnx.addata.addau[0];
-		if(_this.item.pnx.addata.hasOwnProperty('volume')) _this.requestData.volume = _this.item.pnx.addata.volume[0];
-		if(_this.item.pnx.addata.hasOwnProperty('part')) _this.requestData.part = _this.item.pnx.addata.part[0];
-		if(_this.item.pnx.control.hasOwnProperty('sourceid')) _this.requestData.source = 'info:sid/primo.exlibrisgroup.com-' + _this.item.pnx.control.sourceid[0];
-		if(_this.item.pnx.addata.hasOwnProperty('pages')) _this.requestData.pages = _this.item.pnx.addata.pages[0];
-		if(!_this.requestData.hasOwnProperty('pages')) {
-			if(_this.item.pnx.addata.hasOwnProperty('spage')) _this.requestData.pages = _this.item.pnx.addata.spage[0];
-			if(_this.item.pnx.addata.hasOwnProperty('epage')) _this.requestData.pages = (_this.requestData.hasOwnProperty('pages') ? (_this.requestData.pages + '-') : '') + _this.item.pnx.addata.epage[0];
+		if (_this.pnx.display.hasOwnProperty('title')) _this.requestData.bookTitle = _this.pnx.display.title[0];
+		if (_this.pnx.addata.hasOwnProperty('au')) _this.requestData.authors = _this.pnx.addata.au[0];
+		if (_this.pnx.display.hasOwnProperty('edition')) _this.requestData.edition = _this.pnx.display.edition[0];
+		if (_this.pnx.addata.hasOwnProperty('isbn')) _this.requestData.isbn = _this.pnx.addata.isbn[0];
+		if (_this.pnx.addata.hasOwnProperty('lccn')) _this.requestData.lccNumber = _this.pnx.addata.lccn[0];
+		if (_this.pnx.addata.hasOwnProperty('oclcid')) _this.requestData.oclcNumber = _this.pnx.addata.oclcid[0];
+		if (_this.pnx.addata.hasOwnProperty('pub')) _this.requestData.publisher = _this.pnx.addata.pub[0];
+		if (_this.pnx.display.hasOwnProperty('creationdate')) _this.requestData.year = _this.pnx.display.creationdate[0];
+		if (_this.pnx.addata.hasOwnProperty('date') && !_this.requestData.hasOwnProperty('year')) _this.requestData.year = _this.pnx.addata.date[0];
+		if (_this.pnx.addata.hasOwnProperty('cop')) _this.requestData.placeOfPublication = _this.pnx.addata.cop[0];
+		if (_this.pnx.addata.hasOwnProperty('addau')) _this.requestData.additionalAuthor = _this.pnx.addata.addau[0];
+		if (_this.pnx.addata.hasOwnProperty('volume')) _this.requestData.volume = _this.pnx.addata.volume[0];
+		if (_this.pnx.addata.hasOwnProperty('part')) _this.requestData.part = _this.pnx.addata.part[0];
+		if (_this.pnx.control.hasOwnProperty('sourceid')) _this.requestData.source = 'info:sid/primo.exlibrisgroup.com-' + _this.pnx.control.sourceid[0];
+		if (_this.pnx.addata.hasOwnProperty('pages')) _this.requestData.pages = _this.pnx.addata.pages[0];
+		if (!_this.requestData.hasOwnProperty('pages')) {
+			if (_this.pnx.addata.hasOwnProperty('spage')) _this.requestData.pages = _this.pnx.addata.spage[0];
+			if (_this.pnx.addata.hasOwnProperty('epage')) _this.requestData.pages = (_this.requestData.hasOwnProperty('pages') ? (_this.requestData.pages + '-') : '') + _this.pnx.addata.epage[0];
 		}
-		if(_this.item.pnx.addata.hasOwnProperty('atitle')) _this.requestData.articleTitle = _this.item.pnx.addata.atitle[0];
-		if(_this.item.pnx.addata.hasOwnProperty('jtitle')) _this.requestData.journalTitle = _this.item.pnx.addata.jtitle[0];
-		if(_this.item.pnx.addata.hasOwnProperty('issue')) _this.requestData.journalIssue = _this.item.pnx.addata.issue[0];
-		if(_this.item.pnx.addata.hasOwnProperty('issn')) _this.requestData.issn = _this.item.pnx.addata.issn[0];
-		if(_this.item.pnx.addata.hasOwnProperty('doi')) _this.requestData.doi = _this.item.pnx.addata.doi[0];
-		if(_this.item.pnx.addata.hasOwnProperty('pmid')) _this.requestData.pmid = _this.item.pnx.addata.pmid[0];
-		if(_this.item.pnx.addata.hasOwnProperty('genre') && _this.item.pnx.addata.genre[0] != 'article') {
+		if (_this.pnx.addata.hasOwnProperty('atitle')) _this.requestData.articleTitle = _this.pnx.addata.atitle[0];
+		if (_this.pnx.addata.hasOwnProperty('jtitle')) _this.requestData.journalTitle = _this.pnx.addata.jtitle[0];
+		if (_this.pnx.addata.hasOwnProperty('issue')) _this.requestData.journalIssue = _this.pnx.addata.issue[0];
+		if (_this.pnx.addata.hasOwnProperty('issn')) _this.requestData.issn = _this.pnx.addata.issn[0];
+		if (_this.pnx.addata.hasOwnProperty('doi')) _this.requestData.doi = _this.pnx.addata.doi[0];
+		if (_this.pnx.addata.hasOwnProperty('pmid')) _this.requestData.pmid = _this.pnx.addata.pmid[0];
+		if (_this.pnx.addata.hasOwnProperty('genre') && _this.pnx.addata.genre[0] != 'article') {
 			_this.requestData.format = 'PHYSICAL';
 			_this.requestData.citationType = 'BK';
 		} else {
@@ -178,10 +187,10 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 				customUresolverService.getRequestable(_this.vid, _this.linkPrefix, _this.requestData).then(
 					available => {
 						$scope.resourceSharingAvailable = available.is_requestable;
-						console.log(available);
+						if (_this.logToConsole) console.log(available);
 					}
 				)
-				console.log(_this.requestData);
+				if (_this.logToConsole) console.log(_this.requestData);
 			}
 		)
 
@@ -202,7 +211,7 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 								items => {
 									if (_this.logToConsole) console.log(items)
 									holding.items = items
-									if(!holding.hasOwnProperty('showItems')) holding.showItems = false
+									if (!holding.hasOwnProperty('showItems')) holding.showItems = false
 									if ($scope.holdings.length > 0) {
 										for (var i = 0; i < $scope.holdings.length; i++) {
 											if (typeof $scope.holdings[i]['isTempHolding'] !== 'undefined') {
@@ -236,10 +245,10 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 		 */
 		for (var i = 0; i < _this.item.delivery.holding.length; i++) {
 			if (_this.item.delivery.holding[i].organization == _this.vid.substring(0, 10)) {
-				let mms_id = _this.item.pnx.display.lds04;
+				let mms_id = _this.pnx.display.lds04;
 				$scope.hasLocal = true;
 
-				if(_this.item.delivery.holding[i].availabilityStatus.replace(/^\(|\)$/g, '') == 'available') $scope.availableLocalHoldings = true;
+				if (_this.item.delivery.holding[i].availabilityStatus.replace(/^\(|\)$/g, '') == 'available') $scope.availableLocalHoldings = true;
 
 				$scope.localLocations.push({
 					subLocation: _this.item.delivery.holding[i].subLocation,
@@ -248,7 +257,7 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 					mms_id: mms_id
 				});
 			} else {
-				let mms_id = _this.item.pnx.display.lds03.find(function(item) {return item.search(_this.item.delivery.holding[i].organization) >= 0 ? true : false}, _this);
+				let mms_id = _this.pnx.display.lds03.find(function(item) {return item.search(_this.item.delivery.holding[i].organization) >= 0 ? true : false}, _this);
 
 				if (typeof _this.tempExt['length'] == 'undefined') {
 					_this.tempExt['length'] = 0
@@ -261,7 +270,7 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 					}
 				}
 
-				if(_this.item.delivery.holding[i].availabilityStatus.replace(/^\(|\)$/g, '') == 'available') $scope.availableConsortiaHoldings = true;
+				if (_this.item.delivery.holding[i].availabilityStatus.replace(/^\(|\)$/g, '') == 'available') $scope.availableConsortiaHoldings = true;
 
 				_this.tempExt[_this.item.delivery.holding[i].organization].locations.push({
 					mainLocation: _this.item.delivery.holding[i].mainLocation,
@@ -312,9 +321,9 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 
 		for (var i = 0; i < $scope.extLocations.length; i++) {
 			for (var j = 0; j < $scope.extLocations[i].locations.length; j++) {
-				if(customUresolverDefault.rsForbiddenLocations.hasOwnProperty($scope.extLocations[i].organization)) {
-					if(customUresolverDefault.rsForbiddenLocations[$scope.extLocations[i].organization].hasOwnProperty($scope.extLocations[i].locations[j].mainLocation)) {
-						if(customUresolverDefault.rsForbiddenLocations[$scope.extLocations[i].organization][$scope.extLocations[i].locations[j].mainLocation].indexOf($scope.extLocations[i].locations[j].subLocationCode) === -1 && customUresolverDefault.rsForbiddenLocations[$scope.extLocations[i].organization][$scope.extLocations[i].locations[j].mainLocation].indexOf('*') === -1 && !$scope.hasNonForbiddenLocations) {
+				if (customUresolverDefault.rsForbiddenLocations.hasOwnProperty($scope.extLocations[i].organization)) {
+					if (customUresolverDefault.rsForbiddenLocations[$scope.extLocations[i].organization].hasOwnProperty($scope.extLocations[i].locations[j].mainLocation)) {
+						if (customUresolverDefault.rsForbiddenLocations[$scope.extLocations[i].organization][$scope.extLocations[i].locations[j].mainLocation].indexOf($scope.extLocations[i].locations[j].subLocationCode) === -1 && customUresolverDefault.rsForbiddenLocations[$scope.extLocations[i].organization][$scope.extLocations[i].locations[j].mainLocation].indexOf('*') === -1 && !$scope.hasNonForbiddenLocations) {
 							$scope.hasNonForbiddenLocations = true;
 						} else {
 							$scope.extLocations[i].locations[j].localOnly = true;
@@ -349,23 +358,23 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 			_this.item.delivery.availability[0] != "not_restricted")) {
 			$scope.showResourceSharing = true;
 		} else {
-			if(!$scope.availableLocalHoldings && $scope.hasGetIt) $scope.showILL = true;
+			if (!$scope.availableLocalHoldings && $scope.hasGetIt) $scope.showILL = true;
 		}
 
 		// logged into primo, but uresolver is logged out
 		// need to log out and log back in
 
-		if(typeof _this.requestData.physicalServicesResultId !== 'undefined' && $scope.userIsLoggedIn) {
-			console.log('uresolver is not logged in, not going to get any data');
+		if (typeof _this.requestData.physicalServicesResultId !== 'undefined' && $scope.userIsLoggedIn) {
+			if (_this.logToConsole) console.log('uresolver is not logged in, not going to get any data');
 		}
 
-		console.log('links array:');
- 		console.log(_this.parentCtrl.linksArray);
-		console.log('link: ' + _this.link);
-		console.log('isLinkToOnline: ' + $scope.isLinktoOnline);
-		console.log('isLinkToResourceSharing: ' + $scope.isLinkToResourceSharing);
-		console.log('availability: ' + _this.item.delivery.availability[0]);
-		console.log('showResourceSharing: ' + $scope.showResourceSharing);
+		if (_this.logToConsole) console.log('links array:');
+ 		if (_this.logToConsole) console.log(_this.parentCtrl.linksArray);
+		if (_this.logToConsole) console.log('link: ' + _this.link);
+		if (_this.logToConsole) console.log('isLinkToOnline: ' + $scope.isLinktoOnline);
+		if (_this.logToConsole) console.log('isLinkToResourceSharing: ' + $scope.isLinkToResourceSharing);
+		if (_this.logToConsole) console.log('availability: ' + _this.item.delivery.availability[0]);
+		if (_this.logToConsole) console.log('showResourceSharing: ' + $scope.showResourceSharing);
 	}]
 })
 .factory('customUresolverService', ['$http', 'customUresolver', 'customUresolverDefault', function ($http, customUresolver, customUresolverDefault) {
