@@ -40,12 +40,12 @@ span.avaNote {
 .items-available {
 	font-weight: bold;
 	font-size: 14px;
-	color: #0f7d00;
+	color: #0f7d00 !important;
 }
 .items-unavailable {
 	font-weight: bold;
 	font-size: 14px;
-	color: #b00015;
+	color: #b00015 !important;
 }
 div.localHoldings, div.extHoldings {
 	margin: .75em 0 1.5em;
