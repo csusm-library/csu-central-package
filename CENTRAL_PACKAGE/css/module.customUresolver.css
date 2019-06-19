@@ -194,6 +194,7 @@ h4.csu-holdings-header {
 	text-align: right;
 	padding-right: 62px;
 }
+/*
 @media screen and (min-width: 993px) {
 	.csu-holdings table tbody tr td.location {
 		padding-right: 25px;
@@ -214,6 +215,7 @@ h4.csu-holdings-header {
 		width: 25%;
 	}
 }
+*/
 @media screen and (max-width: 992px) {
 	.csu-holdings table {
 		display: block;
