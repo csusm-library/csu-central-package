@@ -454,8 +454,8 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 	}
 }])
 .value('customUresolver', {}).value('customUresolverDefault', {
-	enabled: true,
-	showCompact: true,
+	enabled: false,
+	showCompact: false,
 	showRequestInViewIt: false,
 	bibURL: 'https://library.test.calstate.edu/primo-resolver/bibapi.php?',
 	illURL: 'https://proxy.library.cpp.edu/login?url=https://illiad.library.cpp.edu/illiad/illiad.dll',
