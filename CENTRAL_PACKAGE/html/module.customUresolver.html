@@ -3,7 +3,7 @@
 
 <div ng-if="doShowButton()" class="csu-resource-sharing">
 	<h4 class="csu-holdings-header">Request options</h4>
-	
+
 	<!-- Success / Fail Message -->
 
 	<div ng-if="requestDataReceived && requestMessageOnTop && !requestMessageCleared" class="csu-resource-sharing">
@@ -136,7 +136,10 @@
 											<span class="items-unavailable" translate="item.noitems">
 										</td>
 									</tr>
-									<tr tabindex="0" class="holding-header" (click)="$ctrl.toggleShowItems(holding)" (keydown)="$ctrl.toggleShowItems(holding, $event)">
+
+									<!-- collapsed display -->
+
+									<tr tabindex="0" class="holding-header" (click)="$ctrl.toggleShowItems(holding)" (keydown)="$ctrl.toggleShowItems(holding, $event)" ng-if="showCompact == true">
 										<td class="location"><prm-icon ng-if="!holding.showItems" icon-type="svg" svg-icon-set="primo-ui" icon-definition="chevron-down"></prm-icon><prm-icon ng-if="holding.showItems" icon-type="svg" svg-icon-set="primo-ui" icon-definition="chevron-up"></prm-icon> {{ holding.location }}</td>
 										<td class="callNumber">{{ holding.call_number }}</td>
 										<td class="available">
@@ -150,7 +153,10 @@
 										<td class="description" ng-if="holding.ava_note">{{ holding.ava_note }}</td>
 										<td class="description hideme" ng-if="!holding.ava_note"></td>
 									</tr>
-									<tr tabindex="0" class="holding-item" ng-repeat="item in holding.items track by $index" ng-if="holding.showItems">
+
+									<!-- individual item display -->
+
+									<tr tabindex="0" class="holding-item" ng-repeat="item in holding.items track by $index" ng-if="holding.showItems || showCompact == false">
 										<td class="sublocation">{{ holding.location }}</td>
 										<td class="callNumber">{{ holding.call_number }}</td>
 										<td class="available">
@@ -168,7 +174,7 @@
 									<!-- next two rows provide temporary display until the items fully load,
 										 otherwise the table flickers on reload -->
 
-									<tr tabindex="0" class="holding-item" ng-if="holding.mms_id && holding.items.length <= 0 && holdingsCount > 0 && holding.showItems" class="animate-if">
+									<tr tabindex="0" class="holding-item" ng-if="holding.mms_id && holding.items.length <= 0 && holdingsCount > 0 && && (holding.showItems || showCompact == false)" class="animate-if">
 										<td class="location">{{ holding.location }}</td>
 										<td class="callNumber">{{ holding.call_number }}</td>
 										<td class="available">
@@ -178,7 +184,7 @@
 											<prm-spinner class="small default-loader dark-on-light" layout="row" layout-align="left center"></prm-spinner>
 										</td>
 									</tr>
-									<tr tabindex="0" class="holding-item" ng-if="holding.mms_id && !holding.items && holding.showItems" class="animate-if">
+									<tr tabindex="0" class="holding-item" ng-if="holding.mms_id && !holding.items && (holding.showItems || showCompact == false)" class="animate-if">
 										<td class="location">{{ holding.location }}</td>
 										<td class="callNumber">{{ holding.call_number }}</td>
 										<td class="available">
@@ -196,7 +202,7 @@
 			</div>
 		</div>
 
-		<!-- temp: holdings over item display 
+		<!-- temp: holdings over item display
 
 		<div ng-repeat="holding in holdings">
 			<p ng-if="holding.mms_id && !holding.items" ng-repeat="x in holding.numberItemsArray track by $index" class="animate-if" style="display:none;">
