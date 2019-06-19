@@ -6,7 +6,7 @@
 
 	<!-- Success / Fail Message -->
 
-	<div ng-if="requestDataReceived && requestMessageOnTop && !requestMessageCleared" class="csu-resource-sharing">
+	<div ng-if="requestDataReceived && !requestMessageCleared" class="csu-resource-sharing">
 		<md-button ng-if="requestSuccessful" ng-click="$ctrl.hideRequestMessage()" aria-label="" class="button-with-icon zero-margin">
 			<span class="items-available">Request succesfully placed. Click to dismiss</span>
 			<prm-icon icon-type="svg" svg-icon-set="primo-ui" icon-definition="close" class="items-available"></prm-icon>
