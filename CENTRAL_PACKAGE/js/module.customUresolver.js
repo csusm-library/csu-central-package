@@ -37,7 +37,7 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 		$scope.showResourceSharing = false;
 		$scope.showILL = false;
 		$scope.resourceSharingAvailable = false;
-		$scope.requestOptions = {ill: false, local: false, purchase: false, resource_sharing: false};
+		$scope.requestOptions = {ill: false, local: false, local_diff: false, purchase: false, resource_sharing: false};
 		$scope.consortiaHoldings = [];
 		$scope.availableConsortiaHoldings = false;
 		$scope.hasNonForbiddenLocations = false;
@@ -48,6 +48,7 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 		$scope.requestDataReceived = false;
 		$scope.requestSuccessful = false;
 		$scope.requestMessageCleared = false;
+		$scope.requestError = false;
 
 		for (var i = 0; i < _this.servicesArray.length; i++) {
 			if ($scope.showRequestInViewIt) $scope.hasGetIt = true;
@@ -60,7 +61,7 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 
 		$scope.doShowButton = function () {
 			if (_this.itemCtrl.index === 1) {
-				if ((!$scope.showResourceSharing && !$scope.showILL && $scope.requestOptions.local) || $scope.showResourceSharing || $scope.showILL) {
+				if ((!$scope.showResourceSharing && !$scope.showILL && ($scope.requestOptions.local || $scope.requestOptions.local_diff)) || $scope.showResourceSharing || $scope.showILL) {
 					if ($scope.userIsLoggedIn) return true;
 					return $scope.hasGetIt;
 				}
@@ -71,6 +72,7 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 			$scope.requestDataReceived = false;
 			$scope.requestMessageCleared = true;
 			$scope.requestSent = false;
+			$scope.requestError = false;
 		}
 		_this.toggleShowItems = function (holding, event = false) {
 			if (event != false && event.keyCode !== 13 && event.keyCode !== 32) return;
@@ -106,6 +108,7 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 							if (_this.logToConsole) console.log('This should really be displayed to the patron and then hide the request button');
 						} else {
 							$scope.requestSuccessful = false;
+							if(typeof data.error_message !== 'undefined' && data.error_message != '') $scope.requestError = data.error_message;
 							if (_this.logToConsole) console.log('Same as before, display a message to the user and then hide the request button or something');
 						}
 						if (_this.logToConsole) console.log(data);
