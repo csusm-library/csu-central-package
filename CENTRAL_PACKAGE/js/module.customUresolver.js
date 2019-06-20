@@ -460,7 +460,7 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 	enabled: false,
 	showCompact: false,
 	showRequestInViewIt: false,
-	bibURL: 'https://library.test.calstate.edu/primo-resolver/bibapi.php?',
+	bibURL: 'https://library.test.calstate.edu/primo-resolver/?',
 	illURL: 'https://proxy.library.cpp.edu/login?url=https://illiad.library.cpp.edu/illiad/illiad.dll',
 	rsForbiddenLocations: {
 		'01CALS_PUP': {
