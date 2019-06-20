@@ -356,7 +356,9 @@ prm-full-view-cont prm-full-view .services-index-under {
     }
  }
 
-prm-login-alma-mashup {
+prm-alma-mashup iframe {
+	margin-top: 20px;
+	margin-bottom: 20px;
 }
 
 span[translate="getit.signin_link.sign_in"] {
