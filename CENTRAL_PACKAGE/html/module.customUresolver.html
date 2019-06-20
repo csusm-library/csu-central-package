@@ -8,12 +8,13 @@
 
 	<div ng-if="requestDataReceived && !requestMessageCleared" class="csu-resource-sharing">
 		<md-button ng-if="requestSuccessful" ng-click="$ctrl.hideRequestMessage()" aria-label="" class="button-with-icon zero-margin">
-			<span class="items-available">Request succesfully placed. Click to dismiss</span>
+			<span class="items-available">Request succesfully placed -- Click to dismiss</span>
 			<prm-icon icon-type="svg" svg-icon-set="primo-ui" icon-definition="close" class="items-available"></prm-icon>
 		</md-button>
 
 		<md-button ng-if="!requestSuccessful" ng-click="$ctrl.hideRequestMessage()" aria-label="" class="button-with-icon zero-margin">
-			<span class="items-unavailable">Request was unable to be placed. Click to dismiss</span>
+			<span ng-if="requestError" class="items-unavailable">{{ requestError }} -- Click to dismiss</span>
+			<span ng-if="!requestError" class="items-unavailable">Request was unable to be placed -- Click to dismiss</span>
 			<prm-icon icon-type="svg" svg-icon-set="primo-ui" icon-definition="close" class="items-unavailable"></prm-icon>
 		</md-button>
 
@@ -87,6 +88,13 @@
 			</md-button>
 		</div>
 
+		<div ng-if="userIsLoggedIn && requestOptions.local_diff">
+			<md-button ng-click="$ctrl.sendRequest(false)" ng-disabled="requestSent || requestSuccessful" aria-label="Request a different issue" class="button-with-icon zero-margin">
+				<prm-icon icon-type="svg" svg-icon-set="primo-ui" icon-definition="book-open"></prm-icon>
+				<span>Request a different issue</span>
+			</md-button>
+		</div>
+
 	</div>
 </div>
 
@@ -120,7 +128,7 @@
 						<div class="csu-holdings">
 							<table>
 								<thead>
-									<tr>
+									<tr class="prm-primary-bg prm-hue1">
 										<th>Location</th>
 										<th>Call Number</th>
 										<th>Availability</th>
@@ -235,7 +243,7 @@
 						<div class="csu-holdings">
 							<table>
 								<thead>
-									<tr>
+									<tr class="prm-primary-bg prm-hue1">
 										<th>Location</th>
 										<th>Call Number</th>
 										<th>Availability</th>
@@ -275,7 +283,7 @@
 					<div class="csu-holdings">
 						<table>
 							<thead>
-								<tr>
+								<tr class="prm-primary-bg prm-hue1">
 									<th>Campus</th>
 									<th>Location</th>
 									<th>Call Number</th>
