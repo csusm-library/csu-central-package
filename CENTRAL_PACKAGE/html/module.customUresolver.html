@@ -1,5 +1,5 @@
 
-<!-- Login Buttons -->
+<!-- Request options -->
 
 <div ng-if="doShowButton()" class="csu-resource-sharing">
 	<h4 class="csu-holdings-header">Request options</h4>
@@ -37,6 +37,7 @@
 			<h4 class="csu-holdings-header">Request options</h4>
 			<iframe iframe-onload="{{::$ctrl.parentCtrl.iframeResize()}}" class="mashup-iframe" ng-src="{{$ctrl.parentCtrl.getLink()}}" style="width:100%;border:none;" ng-if="::$ctrl.parentCtrl.isLinkAvailable()"></iframe>
 		</div> -->
+
 		<div ng-if="userIsLoggedIn">
 			<md-button ng-click="$ctrl.sendRequest(true)" ng-disabled="requestSent || requestSuccessful" aria-label="Request from CSU+ (2-5 day delivery)" class="button-with-icon zero-margin">
 				<prm-icon icon-type="svg" svg-icon-set="primo-ui" icon-definition="book-open"></prm-icon>
@@ -80,7 +81,7 @@
 			</md-button>
 		</div>
 
-		<!-- inline get-it menu -->
+		<!-- local request options -->
 		<div ng-if="userIsLoggedIn && requestOptions.local">
 			<md-button ng-click="$ctrl.sendRequest(false)" ng-disabled="requestSent || requestSuccessful" aria-label="Request this item" class="button-with-icon zero-margin">
 				<prm-icon icon-type="svg" svg-icon-set="primo-ui" icon-definition="book-open"></prm-icon>
@@ -103,11 +104,8 @@
 <!-- Online availability -->
 
 <div ng-if="isLinktoOnline" class="online-holdings">
-
 	<h4 class="csu-holdings-header">Available online</h4>
-
 	<iframe iframe-onload="{{::$ctrl.parentCtrl.iframeResize()}}" class="mashup-iframe" ng-src="{{$ctrl.parentCtrl.getLink()}}" style="width:100%;border:none;" ng-if="::$ctrl.parentCtrl.isLinkAvailable()"></iframe>
-
 </div>
 
 <!-- Physical availability -->
@@ -209,30 +207,6 @@
 				</div>
 			</div>
 		</div>
-
-		<!-- temp: holdings over item display
-
-		<div ng-repeat="holding in holdings">
-			<p ng-if="holding.mms_id && !holding.items" ng-repeat="x in holding.numberItemsArray track by $index" class="animate-if" style="display:none;">
-				<span class="location">{{ holding.location }}</span> - <span class="callNumber">{{ holding.call_number }}</span>
-				<prm-spinner class="small default-loader dark-on-light" layout="row" layout-align="left center">
-				</prm-spinner>
-				<p ng-if="holding.mms_id && holding.ava_note != ''" (click)="$ctrl.toggleShowItems(holding)" class="animate-if">
-					<span class="avaNote">{{ holding.ava_note }}</span>
-				</p>
-				<p ng-if="holding.mms_id && holding.ava_note == '' && holding.items.length <= 0 && holding.items[0].ava_note && holding.items[0].ava_note !=''" (click)="$ctrl.toggleShowItems(holding)" class="animate-if">
-					<span class="avaNote">{{ holding.items[0].ava_note }}</span>
-				</p>
-				<p ng-if="holding.mms_id && holding.items.length > 1 && holding.showItems" ng-repeat="item in holding.items" class="animate-if">
-					<span class="subLocation">{{ holding.location }}</span> - <span class="callNumber">{{ holding.call_number }}</span>
-					<span class="items-available" ng-if="item.availability == 'available'">{{ item.status }}</span>
-					<span class="items-unavailable" ng-if="item.availability == 'unavailable'">{{ item.status }}</span>
-					<span class="callNumber" ng-if="item.description != ''"> ({{ item.description }})</span>
-				</p>
-			</p>
-		</div>
-
-		-->
 
 		<!-- temporary display until data fetched  -->
 
