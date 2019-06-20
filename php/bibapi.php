@@ -457,6 +457,7 @@
 			);
 			$iframe_src = en_curl($id)['html'];
 			$data['request_options']['local'] = (strpos($iframe_src, 'id="openRequest"') !== false) ? true : false;
+			$data['request_options']['local_diff'] = (strpos($iframe_src, 'id="openRequestDiffIssue"') !== false) ? true : false;
 			$data['request_options']['resource_sharing'] = (strpos($iframe_src, 'id="openRSAlmaRequest"') !== false) ? true : false;
 			$data['request_options']['purchase'] = (strpos($iframe_src, 'id="openPurchaseRequest"') !== false) ? true : false;
 			$data['request_options']['ill'] = (strpos($iframe_src, 'id="openRSRequest1"') !== false) ? true : false;
