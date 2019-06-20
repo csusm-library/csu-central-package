@@ -164,10 +164,6 @@ prm-full-view prm-brief-result-container .search-result-availability-line-wrappe
     min-height: 0;
 }
 
-prm-alma-mashup {
-    margin-bottom: 0 !important;
-}
-
 prm-alma-mashup iframe {
     border: none;
     border-radius: 0;
