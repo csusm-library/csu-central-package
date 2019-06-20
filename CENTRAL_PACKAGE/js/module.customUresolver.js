@@ -61,7 +61,7 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 
 		$scope.doShowButton = function () {
 			if (_this.itemCtrl.index === 1) {
-				if ((!$scope.showResourceSharing && !$scope.showILL && ($scope.requestOptions.local || $scope.requestOptions.local_diff)) || $scope.showResourceSharing || $scope.showILL) {
+				if ((!$scope.showResourceSharing && !$scope.showILL && ($scope.requestOptions.local || $scope.requestOptions.local_diff)) || $scope.showResourceSharing || $scope.showILL || !$scope.userIsLoggedIn) {
 					if ($scope.userIsLoggedIn) return true;
 					return $scope.hasGetIt;
 				}
