@@ -153,6 +153,7 @@ angular.module('reportProblem').component('ocaReportProblem', {
           'phone': _this.phoneNumber,
           'description': _this.description,
           'gCaptchaResponse': _this.gCaptchaResponse,
+          'addPatronInfo': reportProblem.hasOwnProperty("addPatronInfo") ? reportProblem.addPatronInfo : reportProblemDefault.addPatronInfo,
           'urlBase': $location.protocol() + '://' + $location.host() + ($location.port() != 80 ? ':' + $location.port() : '') + '/primo-explore' + $location.path(),
           'urlParams': $location.search(),
           'item': _this.itemCtrl.item
@@ -238,6 +239,7 @@ angular.module('reportProblem').value('reportProblem', {}).value('reportProblemD
   subject: 'Problem report',
   to: '',
   from: 'donotreply@calstate.edu',
+  addPatronInfo: false,
   instid: '',
   quid: '',
   qlog: '',
