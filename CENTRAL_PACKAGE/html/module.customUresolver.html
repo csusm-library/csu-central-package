@@ -74,7 +74,7 @@
 	<div ng-if="!showResourceSharing && !showILL" class="csu-resource-sharing">
 
 		<!-- login/request -->
-		<div ng-if="userIsLoggedIn == false" class="csu-resource-sharing-request">
+		<div ng-if="userIsLoggedIn == false">
 			<md-button ng-click="$ctrl.loginService.handleLoginClick()" aria-label="Sign in to see request options" class="button-with-icon zero-margin">
 				<prm-icon icon-type="svg" svg-icon-set="primo-ui" icon-definition="sign-in"></prm-icon>
 				<span>Sign in to see request options</span>
