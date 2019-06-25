@@ -39,7 +39,7 @@
 		</div> -->
 
 		<div ng-if="userIsLoggedIn">
-			<md-button ng-click="$ctrl.sendRequest(true)" ng-disabled="requestSent || requestSuccessful" aria-label="Request from CSU+ (2-5 day delivery)" class="button-with-icon zero-margin">
+			<md-button ng-click="$ctrl.handleRequestForm('ill')" ng-disabled="requestSent || requestSuccessful" aria-label="Request from CSU+ (2-5 day delivery)" class="button-with-icon zero-margin">
 				<prm-icon icon-type="svg" svg-icon-set="primo-ui" icon-definition="book-open"></prm-icon>
 				<span>Request from CSU+ (2-5 day delivery)</span>
 			</md-button>
@@ -83,19 +83,56 @@
 
 		<!-- local request options -->
 		<div ng-if="userIsLoggedIn && requestOptions.local">
-			<md-button ng-click="$ctrl.sendRequest(false)" ng-disabled="requestSent || requestSuccessful" aria-label="Request this item" class="button-with-icon zero-margin">
+			<md-button ng-click="$ctrl.handleRequestForm('local')" ng-disabled="requestSent || requestSuccessful" aria-label="Request this item" class="button-with-icon zero-margin">
 				<prm-icon icon-type="svg" svg-icon-set="primo-ui" icon-definition="book-open"></prm-icon>
 				<span>Request this item</span>
 			</md-button>
 		</div>
 
 		<div ng-if="userIsLoggedIn && requestOptions.local_diff">
-			<md-button ng-click="$ctrl.sendRequest(false)" ng-disabled="requestSent || requestSuccessful" aria-label="Request a different issue" class="button-with-icon zero-margin">
+			<md-button ng-click="$ctrl.handleRequestForm('local_diff')" ng-disabled="requestSent || requestSuccessful" aria-label="Request a different issue" class="button-with-icon zero-margin">
 				<prm-icon icon-type="svg" svg-icon-set="primo-ui" icon-definition="book-open"></prm-icon>
 				<span>Request a different issue</span>
 			</md-button>
 		</div>
 
+	</div>
+
+	<!-- Request Form -->
+
+	<div ng-if="showRequestForm" class="uresolver-form-wrapper-outer" layout="row">
+		<md-content layout-wrap layout-padding layout-fill>
+			<form name="asdf" novalidate layout="column" layout-align="center center" (submit)="$ctrl.sendRequest();">
+				<div layout="row" class="uresolver-form-wrapper-inner" layout-align="center center">
+					<div class="form-focus service-form" layout-padding flex>
+						<div layout-margin>
+							<div class="uresolver-form-wrapper-inputs" layout="column">
+								<md-input-container class="underlined-input" ng-if="requestFormOptions.volume.show">
+									<label>Volume:</label>
+									<input ng-model="requestFormOptions.volume.value" name="volume" type="text">
+								</md-input-container>
+								<md-input-container class="underlined-input" ng-if="requestFormOptions.description.show && !requestFormOptions.description.required">
+									<label>Description:</label>
+									<textarea ng-model="requestFormOptions.description.value" name="description"></textarea>
+								</md-input-container>
+								<md-input-container class="underlined-input md-required" ng-if="requestFormOptions.description.show && requestFormOptions.description.required">
+									<label>Description:</label>
+									<textarea ng-model="requestFormOptions.description.value" name="description" required></textarea>
+								</md-input-container>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div layout="row">
+					<div layout="row" layout-align="center" layout-fill>
+						<md-button type="submit" class="button-with-icon button-large button-confirm" aria-label="Submit Report">
+							<prm-icon icon-type="svg" svg-icon-set="primo-ui" icon-definition="send"></prm-icon>
+							<span>Submit Request</span>
+						</md-button>
+					</div>
+				</div>
+			</form>
+		</md-content>
 	</div>
 </div>
 
