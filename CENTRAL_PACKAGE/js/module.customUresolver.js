@@ -20,7 +20,6 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 		_this.tempExt = [];
 		_this.mms_id = _this.pnx.display.hasOwnProperty('lds04') ? _this.pnx.display.lds04[0] : null;
 		_this.logToConsole = false;
-		// user logged-in
 		_this.userSessionManagerService = _this.itemCtrl.userSessionManagerService;
 		$scope.userIsLoggedIn = _this.userSessionManagerService.jwtUtilService.getDecodedToken().userName ? true: false;
 		if (_this.logToConsole) console.log('userIsLoggedIn:' + $scope.userIsLoggedIn)
@@ -37,18 +36,47 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 		$scope.showResourceSharing = false;
 		$scope.showILL = false;
 		$scope.resourceSharingAvailable = false;
-		$scope.requestOptions = {ill: false, local: false, local_diff: false, purchase: false, resource_sharing: false};
 		$scope.consortiaHoldings = [];
 		$scope.availableConsortiaHoldings = false;
 		$scope.hasNonForbiddenLocations = false;
 		$scope.availableLocalHoldings = false;
 		$scope.hasGetIt = false;
+		$scope.requestOptions = {ill: false, local: false, local_diff: false, purchase: false, resource_sharing: false};
+		$scope.requestedOption = false;
 		$scope.requestReady = false;
 		$scope.requestSent = false;
 		$scope.requestDataReceived = false;
 		$scope.requestSuccessful = false;
 		$scope.requestMessageCleared = false;
 		$scope.requestError = false;
+		$scope.showRequestForm = false;
+		$scope.requestShowOptions = customUresolver.hasOwnProperty("requestShowOptions") ? customUresolver.requestShowOptions : customUresolverDefault.requestShowOptions;
+		$scope.requestFormOptions = {
+			description: {
+				name: 'description',
+				show: false,
+				required: false,
+				value: ''
+			},
+			volume: {
+				name: 'volume',
+				show: false,
+				required: false,
+				value: ''
+			},
+			notNeededAfter: {
+				name: 'notNeededAfter.fullDateStr',
+				show: false,
+				required: false,
+				value: ''
+			},
+			comment: {
+				name: 'comment',
+				show: false,
+				required: false,
+				value: ''
+			}
+		};
 
 		for (var i = 0; i < _this.servicesArray.length; i++) {
 			if ($scope.showRequestInViewIt) $scope.hasGetIt = true;
@@ -95,26 +123,104 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 			}
 			return count;
 		}
-		_this.sendRequest = function (isRS) {
-			if ($scope.requestReady) {
-				$scope.requestSent = true;
-				$scope.requestMessageCleared = false;
-				if (isRS) _this.requestData.requestType = 'ill';
-				customUresolverService.getRequest(_this.linkPrefix, JSON.stringify(_this.requestData)).then(
-					data => {
-						$scope.requestDataReceived = true;
-						if (data.request_successful === true) {
-							$scope.requestSuccessful = true;
-							if (_this.logToConsole) console.log('This should really be displayed to the patron and then hide the request button');
-						} else {
-							$scope.requestSuccessful = false;
-							if(typeof data.error_message !== 'undefined' && data.error_message != '') $scope.requestError = data.error_message;
-							if (_this.logToConsole) console.log('Same as before, display a message to the user and then hide the request button or something');
+		_this.getItemsCountFromHoldings = function () {
+			let count = 0;
+			for(var i in $scope.holdings) {
+				count += $scope.holdings[i].total_items;
+			}
+			return count;
+		}
+		_this.resetRequestOptions = function () {
+			for(var i in $scope.requestFormOptions) {
+				$scope.requestFormOptions[i].show = false;
+				$scope.requestFormOptions[i].required = false;
+				$scope.requestFormOptions[i].value = '';
+			}
+		}
+		_this.handleRequestForm = function (which) {
+			_this.resetRequestOptions();
+			var showForm = true;
+			$scope.requestedOption = which;
+			switch(which) {
+				case 'local_diff':
+					$scope.requestFormOptions.description.show = true;
+					$scope.requestFormOptions.description.required = true;
+					break;
+				case 'local':
+					if($scope.requestShowOptions)
+						if(_this.getItemsCountFromHoldings() > 1)
+							$scope.requestFormOptions.volume.show = true;
+						else
+							showForm = false;
+					else
+						showForm = false;
+					break;
+				case 'ill':
+					if($scope.requestShowOptions)
+						if($scope.consortiaHoldings.length > 0)
+							$scope.requestFormOptions.volume.show = true;
+						else
+							showForm = false;
+					else
+						showForm = false;
+					break;
+				default:
+					showForm = false;
+					$scope.requestedOption = false;
+					break;
+			}
+			
+			if(showForm) $scope.showRequestForm = true;
+			else _this.sendRequest();
+		}
+		_this.validate = function() {
+			if($scope.showRequestForm) {
+				for(var i in $scope.requestFormOptions) {
+					if($scope.requestFormOptions[i].required)
+						if($scope.requestFormOptions[i].value == '')
+							return false;
+				}
+			}
+			return true;
+		}
+		_this.sendRequest = function () {
+			if (_this.validate()) {
+				if ($scope.requestReady) {
+					$scope.requestSent = true;
+					if($scope.showRequestForm) {
+						for(var i in $scope.requestFormOptions) {
+							if($scope.requestFormOptions[i].show) _this.requestData[$scope.requestFormOptions[i].name] = $scope.requestFormOptions[i].value;
 						}
-						if (_this.logToConsole) console.log(data);
 					}
-				)
-				_this.requestData.requestType = '';
+					$scope.showRequestForm = false;
+					$scope.requestMessageCleared = false;
+					if ($scope.requestedOption == 'ill') _this.requestData.requestType = 'ill';
+					else _this.requestData.requestType = 'available';
+					if ($scope.requestedOption == 'local_diff') {
+						for (var i in $scope.holdings) {
+							if ($scope.holdings[i].hasOwnProperty('items') && $scope.holdings[i].items.length > 0) {
+								_this.requestData.itemId = $scope.holdings[i].items[0].item_id;
+								continue;
+							}
+						}
+					}
+					$scope.requestedOption = false;
+					customUresolverService.getRequest(_this.linkPrefix, JSON.stringify(_this.requestData)).then(
+						data => {
+							$scope.requestDataReceived = true;
+							if (data.request_successful === true) {
+								$scope.requestSuccessful = true;
+								if (_this.logToConsole) console.log('This should really be displayed to the patron and then hide the request button');
+							} else {
+								$scope.requestSuccessful = false;
+								if(typeof data.error_message !== 'undefined' && data.error_message != '') $scope.requestError = data.error_message;
+								if (_this.logToConsole) console.log('Same as before, display a message to the user and then hide the request button or something');
+							}
+							if (_this.logToConsole) console.log(data);
+						}
+					)
+					_this.requestData.requestType = '';
+				}
 			}
 		}
 		_this.getOpenURLData = function() {
@@ -185,6 +291,8 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 				_this.requestData.mmsId = data.mms_id;
 				_this.requestData.userId = data.user_id;
 				_this.requestData.physicalServicesResultId = data.physical_services_result_id;
+				_this.requestData.holdingKey = data.holding_key;
+				_this.requestData.itemId = data.item_id;
 				$scope.requestReady = true;
 				$scope.requestOptions = data.request_options;
 				customUresolverService.getRequestable(_this.vid, _this.linkPrefix, _this.requestData).then(
