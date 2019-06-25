@@ -568,6 +568,7 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 	enabled: false,
 	showCompact: false,
 	showRequestInViewIt: false,
+	requestShowOptions: false,
 	bibURL: 'https://library.test.calstate.edu/primo-resolver/?',
 	illURL: 'https://proxy.library.cpp.edu/login?url=https://illiad.library.cpp.edu/illiad/illiad.dll',
 	rsForbiddenLocations: {
