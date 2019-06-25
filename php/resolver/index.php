@@ -481,6 +481,7 @@ switch ($get) {
         $data = array(
             'request_options' => array(
                 'local' => false,
+                'local_diff' => false,
                 'resource_sharing' => false,
                 'purchase' => false,
                 'ill' => false
@@ -518,6 +519,14 @@ switch ($get) {
             $physical_services_result_id = explode('value="', $physical_services_result_id[1]);
             $physical_services_result_id = explode('"', $physical_services_result_id[1]);
             $data['physical_services_result_id'] = $physical_services_result_id[0];
+            $holding_key = explode('id="holdingKey"', $iframe_src);
+            $holding_key = explode('value="', $holding_key[1]);
+            $holding_key = explode('"', $holding_key[1]);
+            $data['holding_key'] = $holding_key[0];
+            $item_id = explode('id="itemId"', $iframe_src);
+            $item_id = explode('value="', $item_id[1]);
+            $item_id = explode('"', $item_id[1]);
+            $data['item_id'] = $item_id[0];
         }
         // $data['iframe_src_raw'] = $iframe_src;
         $out = json_encode($data);
