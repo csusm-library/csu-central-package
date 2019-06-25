@@ -572,11 +572,114 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 	bibURL: 'https://library.test.calstate.edu/primo-resolver/?',
 	illURL: 'https://proxy.library.cpp.edu/login?url=https://illiad.library.cpp.edu/illiad/illiad.dll',
 	rsForbiddenLocations: {
-		'01CALS_PUP': {
-			'SPEC': ['*']
+		'01CALS_UBA': {
+			'CSUB': ['ACQ', 'ARCHIVES', 'ARCHIVEDOC', 'ARCHIVEAST', 'ATLAS', 'ATLASDOC', 'AVMAIN', 'AVREF', 'AVRESERVE', 'BIND', 'CATALOGING', 'CIRCDESK', 'CD REVIEW', 'CURRICULUM', 'DAMAGED', 'EQUIPMENT', 'GOVDOCREV', 'INDEX', 'INDEX2', 'INDEXDOC', 'INDEXDOC2', 'LAW', 'LAWDOC', 'MEND', 'MFLACHC', 'MIGRATERR', 'MUSIC', 'ODYSSEY', 'PERBD', 'PERBDDOC', 'PERCHECKIN', 'PERIODDOC', 'PERIODICAL', 'PERSW', 'PERSWDOC', 'PROCESSING', 'REFDESK', 'REFDESKDOC', 'REFDOC', 'REFERENCE', 'RESERVES', 'RESVDESK', 'REVIEW', 'RNRTXT', 'SPCOL4FLR', 'SPCOLDOC', 'SPC1AUTOGR', 'SPC2DODSON', 'SPC3WARREN', 'SPC4FACCOL', 'SPC5KCCOLL', 'SPC6RAREBK', 'SPC7THESES', 'SPC8CARARE', 'SPC9DONAHO', 'STUDYROOM3', 'STUDYROOM4', 'TECHSERV', 'WITHDRAWN']
+		},
+		'01CALS_UCI ': {
+			'JSBLIBRARY': ['ARCHIVES', 'CIRCDESK', 'CSULONG', 'CSUSHORT', 'POPULAR', 'REFERENCE', 'RESERVE', 'SPECIAL', 'SRIRSC', 'WMC'],
+			'MEDIADISTR': ['EQUIPMENT']
+		},
+		'01CALS_CHI': {
+			'CSUChico': ['Reserve24', 'Reserve2hr', 'ReserveLUO', 'CurrKit', 'Equipment', 'EquipRes', 'Error', 'GovFiche', 'GovFilm', 'inactive', 'Indexes', 'InstOffice', 'Kindles', 'Laptops', 'LaptopsEmp', 'LaptopsStd', 'Maps', 'Microcards', 'Microfiche', 'Microfilm', 'NewsMF', 'Newspapers', 'Per', 'PerMF', 'ReservePer', 'PerPop', 'PopularMed', 'PerPop2', 'UNASSIGNED', 'PROBLEMPER', 'Reference', 'RefAtlas', 'RefReady', 'ReserveFac', 'ReserveLib', 'Reserves', 'ReserveSLF', 'CSULONG', 'CSUSHORT', 'SPCMaps', 'SPCMapsX', 'SPCMapsXX', 'NECal', 'NECalDoc', 'NECalMSS', 'NECalMSSXB', 'NECalMSSXF', 'NECalMedia', 'NECalMF', 'NECalX', 'RareBooks', 'RareBooksX', 'RefSPC', 'UA', 'UAMSS', 'UAMSSX', 'UAMedia', 'UAX']
+		},
+		'01CALS_UDH': {
+			'CSUDH-RBR': ['2daycrf', '2daycr', '2hourcrf', '2hourcr', '2hournof', '2hourno', 'ttl2nol', 'ttl2nor', '4dycr', '4daycrf', '4daycr', '4hourmcrf', '4hourmcr '],
+			'CSUDH-TCP': ['tcp_ipad', 'tcp_laptop'],
+			'CSUDH': ['archv/spco', 'spcol_strg', 'micro', 'periodical', 'per_strg', 'ref', 'ref_desk', 'borrowill', 'lendill', 'thesis']
+		},
+		'01CALS_UHL': {
+			'CSUEB-CCL': ['lapcc', 'cccre', 'cccrs', 'jffcc'],
+			'CSUEB-CIRC': ['adm', 'arc', 'cat', 'diy', 'jff', 'micre', 'mrlp', 'mrrec', 'mrvid', 'micf', 'mif', 'mic', 'mnew', 'nbs', 'pern', 'perf', 'per', 'refdk', 'ref', 'mrres', 'sc', 'scart', 'scbbr', 'scbbf', 'scbff', 'scbp', 'scbpf', 'scbay', 'scbaf', 'scbr', 'scbrf', 'scei', 'sceif', 'scf', 'scff', 'scfff', 'scmp', 'scmpf', 'scm', 'scp', 'scpf', 'ts'],
+			'CSUEB-LC': ['LC']
 		},
 		'01CALS_UFR': {
-			'CSUFRESNO1': ['nam']
+			'EMPTY': ['UNASSIGNED'],
+			'CSUFRESNO1': ['a', 'aae', 'aat', 'aga', 'arf', 'bg', 'bl', 'cb', 'cca', 'cmb', 'cnb', 'del', 'eq28d', 'eq3d', 'eq7d', 'eqsem', 'ex', 'f', 'frf', 'fth', 'grf', 'ill', 'm', 'mbg', 'meq1', 'meq3', 'meq4', 'mflp', 'mlt', 'mltm', 'mltsb', 'n', 'nam', 'nbr', 'nca', 'ncr', 'nnb', 'npe', 'p', 'pc', 'rb', 'rbd', 'rbt', 'rf', 'rfde', 'rfht', 'uau', 'ub', 'ueq1d', 'UFRBOR', 'UFRLEND', 'UFRSHORT', 'UNASSIGNED', 'urb', 'urf', 'urt', 'v', 'vr', 'wdn', 'x', 'xa', 'xc', 'xcv', 'xcvr', 'xe', 'xf', 'xja', 'xk', 'xl', 'xm', 'xms', 'xrf', 'xs', 'xt', 'xw', 'xwav', 'xwm', 'xwr']
+		},
+		'01CALS_FUL': {
+			'IRVINE': ['crctest', 'etc', 'IRVC Books', 'IRVC Disp', 'etcrf', 'etcp', 'IRVC Ref', 'IRVC Reser', 'IRVC Lap', 'IRVC Suppl', 'UNASSIGNED'],
+			'CSUF': ['circ', 'ciravHigh', 'crc', 'CirSupply', 'cirav', 'cirtc', 'clrc', 'ClrcNew'],
+			'SpeCol': ['fcp', 'fc', 'sc', 'sca', 'scpa', 'scam', 'SCRA', 'scbh', 'scph', 'sck', 'scpk', 'schc', 'scpc', 'scd', 'us', 'scp', 'scsh', 'scs', 'schb', 'scpb', 'scl', 'scpl', 'sclh', 'sclhp', 'scm', 'scpm', 'sco', 'scpy', 'scwfp', 'scr', 'scpr', 'scref', 'scsf', 'scpe', 'scwa', 'ua', 'UNASSIGNED']
+		},
+		'01CALS_HUL': {
+			'HSULIB': ['ArchStrg', 'CalDoc-luo', 'CAT', 'CIRC', 'CSULONG', 'CSUSHORT', 'GISLab', 'HumCo', 'HumCo-Rare', 'Microforms', 'Newspapers', 'Periodical', 'PermRes', 'PerStrg', 'Ref', 'Res', 'SpecCollEx', 'Staff', 'USDocs-abs', 'USDocs-luo']
+		},
+		'01CALS_ULB': {
+			'CSULB': ['2stacks-nc', '3stacks-nc', '4stacks-nc', 'archivcs', 'archives', 'borrowill', 'borrowlink', 'caldocs-nc', 'chin-ency', 'circ-equip', 'csulb', 'CSULONG', 'CSUSHORT', 'docfiche', 'dumond', 'feddocs-nc', 'graham', 'huntington', 'index-abst', 'jeffers', 'jrare', 'juv', 'lendill', 'lendlink', 'main', 'mapatlas', 'mapflat', 'mapov', 'mapvert', 'masback', 'medialink', 'microcard', 'microfiche', 'microfilm', 'newspapers', 'orcacsu', 'orca-nc', 'periodical', 'photo', 'rare', 'refatlas', 'refdesk', 'reference', 'refov', 'rescirc1d', 'rescirc1h', 'rescirc3d', 'rescirc3h', 'rescirc7d', 'resfac1d', 'resfac1h', 'resfac3d', 'resfac3h', 'resfac7d', 'resref1d', 'resref1h', 'resref3d', 'resref3h', 'resref7d', 'scdisplay', 'spec-coll', 'speccollof', 'speccollov', 'speccs', 'specref', 'storage-nc', 'suppress', 'thesoffice']
+		},
+		'01CALS_ULA': {
+			'CSULA': ['ref', 'ref1', 'refat', 'refr', 'resv', 'reserveDVD', 'equipment']
+		},
+		'01CALS_MAL': {
+			'Maritime': ['csumb', 'csumh', 'csumz', 'csume', 'csumk', 'csumm', 'csuml', 'csums', 'csumx', 'csumc', 'csumw']
+		},
+		'01CALS_UMB': {
+			'CSUMBLIB': ['AcqSerial', 'Archives', 'Atlas', 'BindMend', 'bkstklimit', 'Cataloging', 'CircDesk', 'Reserve', 'EBooks', 'GovtPubs', 'LibMedia', 'Map Case', 'Microforms', 'Oversize', 'PerStacks', 'ProtColl', 'recreading', 'Reference', 'RefDesk', 'RefDisplay', 'CSULONG', 'CSUSHORT', 'SELF', 'SpecColl', 'SpecRes1', 'SpecRes2', 'SpecRes3', 'StreamVid', 'UNASSIGNED', 'zzz']
+		},
+		'01CALS_MLM': {
+			'MLML': ['atlas', 'compjournl', 'comprare', 'DISPLAY-C', 'DISPLAY-NC', 'expedition', 'fishgame', 'flatmaps', 'itech', 'mainjournl', 'maps', 'Oversize', 'rare', 'ref', 'reserve', 'workroom']
+		},
+		'01CALS_UNO': {
+			'CMS': ['*'],
+			'LCT': ['*'],
+			'Map': ['*'],
+			'MM': ['mmc', 'mmd', 'mmi', 'mmr', 'musfr', 'musfn', 'musno'],
+			'Oviatt': ['asncn', 'asnco', 'asrsn', 'asrsp', 'asrsmun', 'asrsvid', 'cirgs', 'lcd', 'ncodn', 'per', 'ref', 'refdk', 'refoz', 'tccasrs', 'tsbnd', 'xstacks'],
+			'RPM': ['asmi', 'asrsp', 'micrc', 'micrd', 'micro', 'micrf', 'micrb', 'prr', 'rbrdk', 'rbrdf', 'rbr', 'rbrf', 'RPMprr'],
+			'SCA': ['*'],
+			'TCC': ['tccbb', 'tccjv', 'tcckt', 'tccmd', 'tccpc', 'tccno', 'tccpi', 'tccrv']
+		},
+		'01CALS_PUP': {
+			'MAIN': ['audio', 'broz3', 'cass', 'cd', 'cdr/d', 'cdrom', 'comic', 'CSULONG', 'CSUSHORT', 'dbr', 'digit', 'disp3', 'dispa', 'displ', 'doc3', 'doc4', 'doc6', 'dvd', 'dvd/d', 'eaudi', 'ebook', 'ediss', 'ejour', 'eproj', 'eres', 'ethes', 'evide', 'exhib', 'facul', 'graph', 'InactivePR', 'inter', 'lap', 'map', 'media', 'mficg', 'mfich', 'mfilg', 'mfilm', 'new', 'newcd', 'newdv', 'news', 'per', 'per24', 'per48', 'PermRes', 'Pomona_FU', 'r24h', 'rbr', 'rbr14', 'rbr28', 'rbr3', 'rbr48', 'rbr7', 'rbrn', 'rbrq', 'rbrs', 'ref', 'slide', 'UNASSIGNED', 'vid/d', 'video', 'zacq', 'zbib', 'zill', 'zlo', 'zord', 'zpro', 'ztoss'],
+			'SPEC': ['*']
+		},
+		'01CALS_USL': {
+			'irt': ['*'],
+			'sacstate': ['1nm', 'rbrlc', 'lapto', '2rd', 'bin', 'exh', 'spec', 'tsaks'],
+			'union': ['*']
+		},
+		'01CALS_USB': {
+			'LMMC': ['m_dvd2hr', 'm_vhs2hr', 'mcircd'],
+			'PDC': ['pdccircd', 'pdcref', 'pdcreserve', 'pdcssarch'],
+			'PFAU': ['bkclub', 'c_dvd2hr', 'circd', 'curfm', 'ebook', 'ejrnl_gov', 'er_gov', 'journl', 'journlfeat', 'main5ref', 'mapref', 'mfiche', 'mfiche_gov', 'mfilm_mono', 'mfilm_per', 'newspaper', 'obsolete', 'on_order', 'ref', 'refatlas', 'refdk', 'reserves24', 'reserves2h', 'reserves2n', 'reserves3n', 'reserves7d', 'restr', 'restr_ref', 'sp_archive', 'sp_calelec', 'sp_childli', 'sp_comic', 'sp_gen', 'sp_lln', 'sp_mideast', 'sp_natamer', 'sp_postcar', 'sp_pulpfic', 'sp_rare', 'sp_reghis', 'sp_vdc', 'sp_westam', 'sp_ww2', 'stor_per', 'stor_ref', 'thesis_ref', 'techservic', 'wri', 'wri_ref', 'wri_wrca']
+		},
+		'01CALS_SDL': {
+			'24/7': ['*'],
+			'CCC': ['*'],
+			'IVC': ['*'],
+			'PRIDE': ['*'],
+			'Main': ['1-day res', '28-day res', '1inactive', '2-hour res', '3-day res', '4-hour NO', '4-hour res', '7-day res', 'asp', 'cds', 'cdt3', 'cdt4', 'cdt5', 'chr', 'circ-equip', 'CIRCUIT', 'CSULONG', 'CSUSHORT', 'digim', 'digip', 'gcb', 'gcr', 'gmc', 'gmu', 'gut', 'gvr', 'map', 'mnc', 'mncc', 'mncd', 'mncf', 'mncp', 'mpi', 'mrf', 'nsp', 'pln', 'pru', 'ps5', 'rdc', 'ref', 'refnc', 'Repair', 'rfa', 'rfd', 'rfl', 'rfo', 'scg', 'UNASSIGNED', 'vfr', 'wsr'],
+			'COMPUTING': ['*'],
+			'SPEC COL': ['*']
+		},
+		'01CALS_SFR': {
+			'DMSMAKE': ['*'],
+			'MAIN': ['camoff', 'catboff', 'dictionary', 'distoff', 'dscoff', 'gpmic', 'ilsoff', 'maindist', 'microform', 'refatlas', 'lrsbound', 'lrsdebmn', 'lrsgov', 'lrslp', 'lrs', 'lrsmedia', 'lrsref', 'lrsth', 'lrsyp'],
+			'STORAGE': ['*'],
+			'RCOMMONS': ['*'],
+			'SPECIALCOL': ['*'],
+			'SCOMMONS': ['*']
+		},
+		'01CALS_SJO': {
+			'SJSU': ['4flr_ADM', 'a1b', 'a1c', 'a1i', 'a2', 'a2f', 'a2o', 'a2v', 'a4', 'a6l', 'a6v', 'a7', 'a70', 'a71', 'a8', 'acr', 'aex', 'agf', 'agr', 'aho', 'ai', 'al', 'amc', 'amf', 'amm', 'amr', 'ap', 'apb', 'ar', 'arc', 'ard', 'ardf', 'ardo', 'arf', 'ari', 'arm', 'aro', 'as', 'as2', 'as3', 'asf', 'aso', 'asp', 'asr', 'asrf', 'ass', 'ass2', 'assf', 'asso', 'assp', 'asst', 'asstf', 'assto', 'av', 'ave', 'avf', 'avp', 'aw', 'ax', 'CSUSHORT', 'DAMAGES', 'gradkey', 'ILLBOR', 'ILLLEND', 'MISSING', 'mtj_test', 'SJSUBOR', 'SJSULEND', 'TECHSRV_PR', 'UNASSIGNED', 'USPREF'],
+			'SCS': ['*']
+		},
+		'01CALS_PSU': {
+			'CPSLO_POCO': ['*'],
+			'CPSLO_MAIN': ['goodreads', 'newbooks', 'gradkeys', 'trcspanish', '1dayres', '1hourres', '24hrequip', '2dayres', '2hourres', '2hrovntres', '3dayequip', '3hrequip', '4hourres', 'Inactive', 'permres', 'califdoccd', 'currentper', 'curperdisp', 'diablo', 'feddoccd', 'fmaps', 'localdocs', 'localdoccd', 'maps', 'microform', 'newspapers', 'deskcopy', 'research', 'srproj', 'soilsurv'],
+			'CPSLO_SCA': ['*']
+		},
+		'01CALS_USM': {
+			'Archive': ['*'],
+			'Campus': ['*'],
+			'Library': ['ref', 'refrhd', 'CSULONG', 'CSUSHORT', 'gdusa_nc', 'bcwsuppres', 'circeq', 'circdsuppr', 'faccentsu', 'stacq_3', 'libsuppres', 'trc'],
+			'Media': ['medres', 'medeq', 'medsuppres']
+		},
+		'01CALS_SOL': {
+			'MAIN': ['circ_disp2', 'circ_disp3', 'circ_new', 'circ_oxf', 'circ_pop', 'med_new', 'cur_journ', 'cur_news', 'mcr_main', 'mcr_ref', 'ref_cit', 'ref_main', 'tech', 'rsv_media', 'rsv_fac', 'rsv_print', 'reg_atlas', 'reg_books', 'reg_maps', 'spec_book', 'spec_fin', 'spec_folio', 'spec_leb', 'spec_lyman', 'spec_mini', 'spec_over', 'spec_reg', 'spec_jones', 'ars_thesis']
+		},
+		'01CALS_UST': {
+			'CSUSTAN': ['i', 'ib', 'id', 'IMStorage', 'ip', 'ir', 'ixs', 's', 'sz', 'tc', 'tmc', 'tpn', 'tr', 'tv', 'tz', 'tzv', 'UNASSIGNED', 'xs', 'xssa', 'xu', 'xut', 'xuti']
 		}
 	}
 });
