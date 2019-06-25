@@ -396,3 +396,13 @@ h4.csu-holdings-header {
 	border: 1px solid #e1cd51 !important;
 	padding: 10px;
 }
+
+.uresolver-form-wrapper-inner {
+	flex-wrap: wrap;
+	width: 70%;
+	min-width: 70%;
+}
+
+.uresolver-form-wrapper-inputs {
+	margin-top: -4px;
+}
