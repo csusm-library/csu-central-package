@@ -125,7 +125,12 @@
 				</div>
 				<div layout="row">
 					<div layout="row" layout-align="center" layout-fill>
-						<md-button type="submit" class="button-with-icon button-large button-confirm" aria-label="Submit Report">
+						<md-button type="submit" class="button-with-icon button-large prm-warn" ng-click="$ctrl.closeRequestForm()" aria-label="Close">
+							<prm-icon icon-type="svg" svg-icon-set="primo-ui" icon-definition="close"></prm-icon>
+							<span>Close</span>
+						</md-button>
+
+						<md-button type="submit" class="button-with-icon button-large button-confirm" aria-label="Submit Request">
 							<prm-icon icon-type="svg" svg-icon-set="primo-ui" icon-definition="send"></prm-icon>
 							<span>Submit Request</span>
 						</md-button>
@@ -167,7 +172,7 @@
 										<th>Location</th>
 										<th>Call Number</th>
 										<th>Availability</th>
-										<th>Notes</th>
+										<th colspan="2">Notes</th>
 									</tr>
 								</thead>
 								<tbody ng-repeat="holding in holdings" ng-if="holding.mms_id">
@@ -175,7 +180,7 @@
 									<!-- items loaded and ready for display -->
 
 									<tr tabindex="0" ng-if="holding.mms_id && holding.items.length <= 0" class="animate-if">
-										<td colspan="4">
+										<td colspan="5">
 											<span class="items-unavailable" translate="item.noitems">
 										</td>
 									</tr>
@@ -193,8 +198,8 @@
 												{{ holding.available_items }} of {{ holding.total_items }} available
 											</span>
 										</td>
-										<td class="description" ng-if="holding.ava_note">{{ holding.ava_note }}</td>
-										<td class="description hideme" ng-if="!holding.ava_note"></td>
+										<td class="description" ng-if="holding.ava_note" colspan="2">{{ holding.ava_note }}</td>
+										<td class="description hideme" ng-if="!holding.ava_note" colspan="2"></td>
 									</tr>
 
 									<!-- individual item display -->
@@ -210,8 +215,31 @@
 												{{ item.status }}
 											</span>
 										</td>
-										<td class="description" ng-if="item.description">{{ item.description }}</td>
-										<td class="description hideme" ng-if="!item.description"></td>
+										<td class="description" ng-if="item.description && !requestOptions.local_diff" colspan="2">{{ item.description }}</td>
+										<td class="description hideme" ng-if="!item.description && !requestOptions.local_diff" colspan="2"></td>
+										<td class="description" ng-if="item.description && requestOptions.local_diff" colspan="1">{{ item.description }}</td>
+										<td class="description hideme" ng-if="!item.description && requestOptions.local_diff" colspan="1"></td>
+										<td class="request" ng-if="item.description && requestOptions.local_diff" colspan="1">
+											<md-button class="button-with-icon zero-margin" ng-if="userIsLoggedIn" ng-click="$ctrl.handleRequestForm('item', item)" ng-disabled="item.requestSent || item.requestSuccessful" aria-label="Request" class="button-with-icon zero-margin">
+												<prm-icon icon-type="svg" svg-icon-set="primo-ui" icon-definition="book-open"></prm-icon>
+												<span>Request</span>
+											</md-button>
+										</td>
+									</tr>
+
+									<!-- Success / Fail Message -->
+
+									<tr tabindex="0" class="holding-item" ng-repeat-end ng-if="(holding.showItems || showCompact == false) && item.requestDataReceived && !item.requestMessageCleared">
+										<td class="request-message" colspan="5" ng-if="item.requestSuccessful" ng-click="$ctrl.hideRequestMessage(item)" aria-label="">
+												<span class="items-available" aria-label="Request succesfully placed -- Click to dismiss">Request succesfully placed -- Click to dismiss</span>
+												<prm-icon icon-type="svg" svg-icon-set="primo-ui" icon-definition="close" class="items-available"></prm-icon>
+										</td>
+
+										<td class="request-message" colspan="5" ng-if="!item.requestSuccessful" ng-click="$ctrl.hideRequestMessage(item)" aria-label="">
+												<span ng-if="item.requestError" class="items-unavailable" aria-label="{{ item.requestError }} -- Click to dismiss">{{ item.requestError }} -- Click to dismiss</span>
+												<span ng-if="!item.requestError" class="items-unavailable" aria-label="Request was unable to be placed -- Click to dismiss">Request was unable to be placed -- Click to dismiss</span>
+												<prm-icon icon-type="svg" svg-icon-set="primo-ui" icon-definition="close" class="items-unavailable"></prm-icon>
+										</td>
 									</tr>
 
 									<!-- next two rows provide temporary display until the items fully load,
@@ -223,7 +251,7 @@
 										<td class="available">
 											<prm-spinner class="small default-loader dark-on-light" layout="row" layout-align="left center"></prm-spinner>
 										</td>
-										<td class="description">
+										<td class="description" colspan="2">
 											<prm-spinner class="small default-loader dark-on-light" layout="row" layout-align="left center"></prm-spinner>
 										</td>
 									</tr>
@@ -233,7 +261,7 @@
 										<td class="available">
 											<prm-spinner class="small default-loader dark-on-light" layout="row" layout-align="left center"></prm-spinner>
 										</td>
-										<td class="description">
+										<td class="description" colspan="2" colspan="2">
 											<prm-spinner class="small default-loader dark-on-light" layout="row" layout-align="left center"></prm-spinner>
 										</td>
 									</tr>
