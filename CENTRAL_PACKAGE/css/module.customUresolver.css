@@ -103,6 +103,14 @@ h4.csu-holdings-header {
 .csu-holdings table * {
 	position: relative;
 }
+.csu-holdings .md-ripple-container {
+	position: absolute;
+}
+.csu-holdings table tbody tr.holding-item td.request-message {
+	padding-left: 0 !important;
+	text-align: center;
+	vertical-align: middle;
+}
 .csu-holdings table td, .csu-holdings table th {
 	padding-left: 8px;
 }
