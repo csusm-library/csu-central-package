@@ -188,7 +188,7 @@
 									<!-- collapsed display -->
 
 									<tr tabindex="0" class="holding-header" (click)="$ctrl.toggleShowItems(holding)" (keydown)="$ctrl.toggleShowItems(holding, $event)" ng-if="showCompact == true">
-										<td class="locate" hide-gt-sm>
+										<td class="locate" hide-gt-sm ng-if="$ctrl.hasLocateURL()">
 											<md-button ng-click="$ctrl.openLocate(holding);$event.stopPropagation();" aria-label="Locate" class="button-with-icon zero-margin">
 												<prm-icon icon-type="svg" svg-icon-set="primo-ui" icon-definition="open-in-new"></prm-icon>
 												<span>Locate</span>
@@ -206,7 +206,7 @@
 										</td>
 										<td class="description" ng-if="holding.ava_note">{{ holding.ava_note }}</td>
 										<td class="description hide-xs hide-sm" ng-if="!holding.ava_note"></td>
-										<td class="locate" hide-xs hide-sm>
+										<td class="locate" hide-xs hide-sm ng-if="$ctrl.hasLocateURL()">
 											<md-button ng-click="$ctrl.openLocate(holding);$event.stopPropagation();" aria-label="Locate" class="button-with-icon zero-margin">
 												<prm-icon icon-type="svg" svg-icon-set="primo-ui" icon-definition="open-in-new"></prm-icon>
 												<span>Locate</span>
