@@ -188,6 +188,12 @@
 									<!-- collapsed display -->
 
 									<tr tabindex="0" class="holding-header" (click)="$ctrl.toggleShowItems(holding)" (keydown)="$ctrl.toggleShowItems(holding, $event)" ng-if="showCompact == true">
+										<td class="locate" hide-gt-sm>
+											<md-button ng-click="$ctrl.openLocate(holding);$event.stopPropagation();" aria-label="Locate" class="button-with-icon zero-margin">
+												<prm-icon icon-type="svg" svg-icon-set="primo-ui" icon-definition="open-in-new"></prm-icon>
+												<span>Locate</span>
+											</md-button>
+										</td>
 										<td class="location"><prm-icon ng-if="!holding.showItems" icon-type="svg" svg-icon-set="primo-ui" icon-definition="chevron-down"></prm-icon><prm-icon ng-if="holding.showItems" icon-type="svg" svg-icon-set="primo-ui" icon-definition="chevron-up"></prm-icon> {{ holding.location }}</td>
 										<td class="callNumber">{{ holding.call_number }}</td>
 										<td class="available">
@@ -198,8 +204,14 @@
 												{{ holding.available_items }} of {{ holding.total_items }} available
 											</span>
 										</td>
-										<td class="description" ng-if="holding.ava_note" colspan="2">{{ holding.ava_note }}</td>
-										<td class="description hideme" ng-if="!holding.ava_note" colspan="2"></td>
+										<td class="description" ng-if="holding.ava_note">{{ holding.ava_note }}</td>
+										<td class="description hideme" ng-if="!holding.ava_note"></td>
+										<td class="locate" hide-xs hide-sm>
+											<md-button ng-click="$ctrl.openLocate(holding);$event.stopPropagation();" aria-label="Locate" class="button-with-icon zero-margin">
+												<prm-icon icon-type="svg" svg-icon-set="primo-ui" icon-definition="open-in-new"></prm-icon>
+												<span>Locate</span>
+											</md-button>
+										</td>
 									</tr>
 
 									<!-- individual item display -->
@@ -261,7 +273,7 @@
 										<td class="available">
 											<prm-spinner class="small default-loader dark-on-light" layout="row" layout-align="left center"></prm-spinner>
 										</td>
-										<td class="description" colspan="2" colspan="2">
+										<td class="description" colspan="2">
 											<prm-spinner class="small default-loader dark-on-light" layout="row" layout-align="left center"></prm-spinner>
 										</td>
 									</tr>
