@@ -201,8 +201,27 @@ h4.csu-holdings-header {
 	text-align: right;
 	padding-right: 62px;
 }
+.csu-holdings table tbody tr.holding-header td.locate button {
+	border: 1px solid #000;
+	border-radius: 3px;
+	font-size: .8em;
+	padding: 1px 0.25em;
+	letter-spacing: 0.1em;
+	cursor: pointer;
+	text-transform: uppercase;
+	color: #000;
+	line-height: 18px;
+	min-height: 18px;
+	min-width: 75px;
+}
+.csu-holdings table tbody tr.holding-header td.locate button prm-icon md-icon {
+	height: 14px;
+	width: 14px;
+	min-height: 14px;
+	min-width: 14px;
+}
+@media screen and (min-width: 960px) {
 /*
-@media screen and (min-width: 993px) {
 	.csu-holdings table tbody tr td.location {
 		padding-right: 25px;
 	}
@@ -221,19 +240,23 @@ h4.csu-holdings-header {
 	.csu-holdings table tbody tr td.description {
 		width: 25%;
 	}
-}
 */
-@media screen and (max-width: 992px) {
+	.csu-holdings table tbody tr td.locate {
+		min-width: 90px;
+	}
+}
+@media screen and (max-width: 959px) { /* hide-gt-sm */
 	.csu-holdings table {
 		display: block;
 	}
-	.csu-holdings table > *, .csu-holdings table tr, .csu-holdings table tr.holding-item td, .csu-holdings table tr.holding-header td:last-child, .csu-holdings table th {
+	.csu-holdings table > *, .csu-holdings table tr, .csu-holdings table tr.holding-item td, .csu-holdings table th {
 		display: block;
 	}
 	.csu-holdings table tr.holding-header td {
 		display: inline-block;
 		line-height: 24px;
 		vertical-align: top;
+		margin-top: 21px; /* locate test */
 	}
 	.csu-holdings table thead {
 		display: none;
@@ -244,6 +267,7 @@ h4.csu-holdings-header {
 	}
 	.csu-holdings table tbody tr.holding-header:first-child {
 		padding-top: 21px;
+		padding-top: 0; /* locate test */
 	}
 	.csu-holdings table tbody tr.holding-item {
 		height: auto;
@@ -289,8 +313,10 @@ h4.csu-holdings-header {
 		width: 100%;
 		padding-top: 15px;
 	}
-	.csu-holdings table tbody tr.holding-header td.description.hideme {
-		display: none;
+	.csu-holdings table tbody tr.holding-header td.locate {
+		width: 100%;
+		margin-top: 5px;
+		text-align: right;
 	}
 	.csu-holdings table tbody tr.holding-item td.campus:before, .csu-holdings table tbody tr.holding-header td.campus:before {
 		content: "Campus";
