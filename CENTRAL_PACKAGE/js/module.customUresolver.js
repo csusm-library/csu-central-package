@@ -253,6 +253,18 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 		_this.openILL = function () {
 			window.open((customUresolver.hasOwnProperty("illURL") ? customUresolver.illURL : customUresolverDefault.illURL) + '?Action=10&Form=30' + _this.getOpenURLData(), '_newTab');
 		}
+		_this.getLocateURL = function(holding) {
+			var locateUrl = customUresolver.hasOwnProperty("locateURL") ? customUresolver.locateURL : customUresolverDefault.locateURL;
+			locateUrl = locateUrl.replace(new RegExp('{library_code}', 'g'), encodeURIComponent(holding.library_code));
+			locateUrl = locateUrl.replace(new RegExp('{location_code}', 'g'), encodeURIComponent(holding.location_code));
+			locateUrl = locateUrl.replace(new RegExp('{location_name}', 'g'), encodeURIComponent(holding.location));
+			locateUrl = locateUrl.replace(new RegExp('{call_number}', 'g'), encodeURIComponent(holding.call_number));
+			locateUrl = locateUrl.replace(new RegExp('{title}', 'g'), encodeURIComponent(_this.pnx.display.title[0]));
+			return locateUrl;
+		}
+		_this.openLocate = function (holding) {
+			window.open(_this.getLocateURL(holding), '_newTab');
+		}
 
 		// determine if links is to resource sharing or online
 
@@ -589,6 +601,7 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 	requestShowOptions: false,
 	bibURL: 'https://library.test.calstate.edu/primo-resolver/?',
 	illURL: 'https://proxy.library.cpp.edu/login?url=https://illiad.library.cpp.edu/illiad/illiad.dll',
+	locateURL: '', //ex: http://www.library.edu/maps/?library_code={library_code}&location_code={location_code}&location_name={location_name}&call_number={call_number}&title={title}'
 	rsForbiddenLocations: {
 		'01CALS_UBA': {
 			'CSUB': ['ACQ', 'ARCHIVES', 'ARCHIVEDOC', 'ARCHIVEAST', 'ATLAS', 'ATLASDOC', 'AVMAIN', 'AVREF', 'AVRESERVE', 'BIND', 'CATALOGING', 'CIRCDESK', 'CD REVIEW', 'CURRICULUM', 'DAMAGED', 'EQUIPMENT', 'GOVDOCREV', 'INDEX', 'INDEX2', 'INDEXDOC', 'INDEXDOC2', 'LAW', 'LAWDOC', 'MEND', 'MFLACHC', 'MIGRATERR', 'MUSIC', 'ODYSSEY', 'PERBD', 'PERBDDOC', 'PERCHECKIN', 'PERIODDOC', 'PERIODICAL', 'PERSW', 'PERSWDOC', 'PROCESSING', 'REFDESK', 'REFDESKDOC', 'REFDOC', 'REFERENCE', 'RESERVES', 'RESVDESK', 'REVIEW', 'RNRTXT', 'SPCOL4FLR', 'SPCOLDOC', 'SPC1AUTOGR', 'SPC2DODSON', 'SPC3WARREN', 'SPC4FACCOL', 'SPC5KCCOLL', 'SPC6RAREBK', 'SPC7THESES', 'SPC8CARARE', 'SPC9DONAHO', 'STUDYROOM3', 'STUDYROOM4', 'TECHSERV', 'WITHDRAWN']
