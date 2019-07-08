@@ -205,7 +205,7 @@
 											</span>
 										</td>
 										<td class="description" ng-if="holding.ava_note">{{ holding.ava_note }}</td>
-										<td class="description hideme" ng-if="!holding.ava_note"></td>
+										<td class="description hide-xs hide-sm" ng-if="!holding.ava_note"></td>
 										<td class="locate" hide-xs hide-sm>
 											<md-button ng-click="$ctrl.openLocate(holding);$event.stopPropagation();" aria-label="Locate" class="button-with-icon zero-margin">
 												<prm-icon icon-type="svg" svg-icon-set="primo-ui" icon-definition="open-in-new"></prm-icon>
@@ -216,7 +216,7 @@
 
 									<!-- individual item display -->
 
-									<tr tabindex="0" class="holding-item" ng-repeat="item in holding.items track by $index" ng-if="holding.showItems || showCompact == false">
+									<tr tabindex="0" class="holding-item" ng-repeat-start="item in holding.items track by $index" ng-if="holding.showItems || showCompact == false">
 										<td class="sublocation">{{ holding.location }}</td>
 										<td class="callNumber">{{ holding.call_number }}</td>
 										<td class="available">
@@ -257,7 +257,7 @@
 									<!-- next two rows provide temporary display until the items fully load,
 										 otherwise the table flickers on reload -->
 
-									<tr tabindex="0" class="holding-item" ng-if="holding.mms_id && holding.items.length <= 0 && holdingsCount > 0 && && (holding.showItems || showCompact == false)" class="animate-if">
+									<tr tabindex="0" class="holding-item" ng-if="holding.mms_id && holding.items.length <= 0 && holdingsCount > 0 && (holding.showItems || showCompact == false)" class="animate-if">
 										<td class="location">{{ holding.location }}</td>
 										<td class="callNumber">{{ holding.call_number }}</td>
 										<td class="available">
