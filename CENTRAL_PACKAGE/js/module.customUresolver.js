@@ -253,6 +253,9 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 		_this.openILL = function () {
 			window.open((customUresolver.hasOwnProperty("illURL") ? customUresolver.illURL : customUresolverDefault.illURL) + '?Action=10&Form=30' + _this.getOpenURLData(), '_newTab');
 		}
+		_this.hasLocateURL = function() {
+			return locateUrl = customUresolver.hasOwnProperty("locateURL") ? true : false;
+		}
 		_this.getLocateURL = function(holding) {
 			var locateUrl = customUresolver.hasOwnProperty("locateURL") ? customUresolver.locateURL : customUresolverDefault.locateURL;
 			locateUrl = locateUrl.replace(new RegExp('{library_code}', 'g'), encodeURIComponent(holding.library_code));
