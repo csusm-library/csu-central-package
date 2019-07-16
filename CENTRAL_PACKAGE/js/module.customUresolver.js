@@ -467,7 +467,7 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 			for (var j = 0; j < $scope.extLocations[i].locations.length; j++) {
 				if (customUresolverDefault.rsForbiddenLocations.hasOwnProperty($scope.extLocations[i].organization)) {
 					if (customUresolverDefault.rsForbiddenLocations[$scope.extLocations[i].organization].hasOwnProperty($scope.extLocations[i].locations[j].mainLocation)) {
-						if (customUresolverDefault.rsForbiddenLocations[$scope.extLocations[i].organization][$scope.extLocations[i].locations[j].mainLocation].indexOf($scope.extLocations[i].locations[j].subLocationCode) === -1 && customUresolverDefault.rsForbiddenLocations[$scope.extLocations[i].organization][$scope.extLocations[i].locations[j].mainLocation].indexOf('*') === -1 && !$scope.hasNonForbiddenLocations) {
+						if (customUresolverDefault.rsForbiddenLocations[$scope.extLocations[i].organization][$scope.extLocations[i].locations[j].mainLocation].indexOf($scope.extLocations[i].locations[j].subLocationCode) === -1 && customUresolverDefault.rsForbiddenLocations[$scope.extLocations[i].organization][$scope.extLocations[i].locations[j].mainLocation].indexOf('*') === -1) {
 							$scope.hasNonForbiddenLocations = true;
 						} else {
 							$scope.extLocations[i].locations[j].localOnly = true;
