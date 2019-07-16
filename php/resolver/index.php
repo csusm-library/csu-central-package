@@ -9,6 +9,8 @@
 // gets details for specific bib record
 // bibapi.php?get=bib&id=991005122479702915&vid=01CALS_PUP
 
+require_once 'config.php';
+
 header('Access-Control-Allow-Origin: *');
 
 // configuration options
@@ -32,7 +34,7 @@ function en_curl($url, $opts = array("timeout" => 120, "returnheader" => FALSE, 
         $opts['header'] = array();
     if (! isset($opts['post']))
         $opts['post'] = false;
-        
+
         // HEADERS AND OPTIONS APPEAR TO BE A FIREFOX BROWSER REFERRED BY GOOGLE
     if (! empty($opts['header']))
         $header = $opts['header'];
@@ -45,7 +47,7 @@ function en_curl($url, $opts = array("timeout" => 120, "returnheader" => FALSE, 
     $header[] = "Pragma: "; // BROWSERS USUALLY LEAVE BLANK
     if (! empty($opts['cookie']))
         $header[] = $opts['cookie'];
-        
+
         // SET THE CURL OPTIONS - SEE http://php.net/manual/en/function.curl-setopt.php
     $curl = curl_init();
     curl_setopt($curl, CURLOPT_URL, $url);
@@ -63,7 +65,7 @@ function en_curl($url, $opts = array("timeout" => 120, "returnheader" => FALSE, 
         curl_setopt($curl, CURLOPT_POSTFIELDS, '');
         // curl_setopt( $curl, CURLOPT_MAXREDIRS, 2);
     curl_setopt($curl, CURLOPT_TIMEOUT, $opts['timeout']);
-    
+
     // RUN THE CURL REQUEST AND GET THE RESULTS
     $output['html'] = curl_exec($curl);
     $output['url'] = $url;
@@ -83,7 +85,7 @@ function xml2json($xml)
     xml_parser_set_option($parser, XML_OPTION_SKIP_WHITE, 1);
     xml_parse_into_struct($parser, $xml, $tags);
     xml_parser_free($parser);
-    
+
     $current_parents = array();
     $stack = array();
     $final = array();
@@ -261,22 +263,26 @@ function recur_merge($array1, $array2, $tag, $current_parents, $target_parents =
 // returns an apikey depending on the vid being accessed
 function getAPIKey($vid)
 {
-    $map = require_once 'config.php';
-    
+    $map = getKeyArray();
+
     foreach ($map as $campus => $key) {
         if (substr($vid, 0, strlen($campus)) == $campus) {
             return $key;
         }
     }
-    
+
     return $map['default'];
 }
 
 // returns the data from the Alma API
 function getAPIData($vid, $api, $params = array())
 {
-    $apiurl = 'https://api-na.hosted.exlibrisgroup.com/almaws/v1/';
-    $html = en_curl($apiurl . urldecode($api . '?format=json&apikey=' . getAPIKey($vid) . '&' . urlencode(http_build_query($params))));
+    $key = getAPIKey($vid);
+
+    $apiurl = 'https://api-na.hosted.exlibrisgroup.com/almaws/v1/' .
+        urldecode($api . "?format=json&apikey=$key&" . urlencode(http_build_query($params)));
+    $html = en_curl($apiurl);
+
     return $html['html'];
 }
 
@@ -313,7 +319,7 @@ switch ($get) {
     case 'courses':
         $out = getPreloadData($vid);
         break;
-    
+
     case 'course':
         $api = 'courses/' . $id;
         $params = array(
@@ -321,7 +327,7 @@ switch ($get) {
         );
         $out = getAPIData($vid, $api, $params);
         break;
-    
+
     case 'bib':
         $api = 'bibs/' . $id;
         $params = array(
@@ -364,7 +370,7 @@ switch ($get) {
         }
         $out = json_encode($out);
         break;
-    
+
     case 'nzbib':
         $api = 'bibs';
         $params = array(
@@ -410,7 +416,7 @@ switch ($get) {
         }
         $out = json_encode($out->holdings);
         break;
-    
+
     case 'holdingnote':
         if (! empty($id2)) {
             $api = 'bibs/' . $id . '/holdings/' . $id2;
@@ -427,7 +433,7 @@ switch ($get) {
         } else
             $out = '';
         break;
-    
+
     case 'status':
         $api = 'bibs/' . $id . '/holdings/' . $id2 . '/items';
         $params = array(
@@ -464,7 +470,7 @@ switch ($get) {
         }
         $out = json_encode($items);
         break;
-    
+
     case 'checkavailable':
         $params = json_decode($id2);
         $params->requestType = 'ill';
@@ -476,7 +482,7 @@ switch ($get) {
         $data['params'] = $params;
         $out = json_encode($data);
         break;
-    
+
     case 'requestdata':
         $data = array(
             'request_options' => array(
@@ -531,7 +537,7 @@ switch ($get) {
         // $data['iframe_src_raw'] = $iframe_src;
         $out = json_encode($data);
         break;
-    
+
     case 'sendrequest':
         $params = json_decode($id2);
         $request = en_curl('https://' . $id . '.userservices.exlibrisgroup.com/view/action/uresolverRequest.do' . '?' . http_build_query($params), array(
