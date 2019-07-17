@@ -154,12 +154,6 @@ h4.csu-holdings-header {
 .consortia-holdings .csu-holdings tbody tr:nth-child(even) {
 	background-color: #f5f5f5 !important;
 }
-.consortia-holdings .csu-holdings tbody tr:nth-child(even):hover, .consortia-holdings .csu-holdings tbody tr:nth-child(even):focus {
-	background-color: #fff !important;
-}
-.consortia-holdings .csu-holdings tbody tr:nth-child(odd):hover, .consortia-holdings .csu-holdings tbody tr:nth-child(odd):focus {
-	background-color: #f5f5f5 !important;
-}
 .csu-holdings tbody:nth-child(odd) {
 	border-bottom: 1px solid #000;
 }
@@ -174,10 +168,6 @@ h4.csu-holdings-header {
 	color: #000;
 	line-height: 1.2;
 	font-weight: unset;
-}
-.csu-holdings tbody tr:hover, .csu-holdings tbody tr:focus {
-	background-color: #f5f5f5;
-	cursor: pointer;
 }
 .csu-holdings .column1 {
 	width: 260px;
