@@ -95,6 +95,7 @@ h4.csu-holdings-header {
 	overflow: hidden;
 	width: 100%;
 	margin: 0 auto;
+	margin-bottom: 20px;
 	position: relative;
 }
 .csu-holdings table td.available {
