@@ -98,7 +98,7 @@ h4.csu-holdings-header {
 	margin-bottom: 20px;
 	position: relative;
 }
-.csu-holdings table td.available {
+.csu-holdings table td.availability {
 	font-weight: bold;
 }
 .csu-holdings table * {
@@ -225,7 +225,7 @@ h4.csu-holdings-header {
 	.csu-holdings table tbody tr td.callNumber {
 		width: 15%;
 	}
-	.csu-holdings table tbody tr td.available {
+	.csu-holdings table tbody tr td.availability {
 		width: 20%;
 	}
 	.csu-holdings table tbody tr td.description {
@@ -297,7 +297,7 @@ h4.csu-holdings-header {
 	.csu-holdings table tbody tr.holding-header td.callNumber {
 		width: 90px;
 	}
-	.csu-holdings table tbody tr.holding-header td.available {
+	.csu-holdings table tbody tr.holding-header td.availability {
 		width: 110px;
 	}
 	.csu-holdings table tbody tr.holding-header td.description {
@@ -318,7 +318,7 @@ h4.csu-holdings-header {
 	.csu-holdings table tbody tr.holding-item td.callNumber:before, .csu-holdings table tbody tr.holding-header td.callNumber:before {
 		content: "Call Number";
 	}
-	.csu-holdings table tbody tr.holding-item td.available:before, .csu-holdings table tbody tr.holding-header td.available:before {
+	.csu-holdings table tbody tr.holding-item td.availability:before, .csu-holdings table tbody tr.holding-header td.availability:before {
 		content: "Available";
 	}
 	.csu-holdings table tbody tr.holding-item td.description:before, .csu-holdings table tbody tr.holding-header td.description:before {
@@ -353,26 +353,26 @@ h4.csu-holdings-header {
 	}
 }
 @media (max-width: 860px) {
-	.consortia-holdings .csu-holdings table tbody tr.holding-header td.campus, .consortia-holdings .csu-holdings table tbody tr.holding-header td.location, .consortia-holdings .csu-holdings table tbody tr.holding-header td.callNumber, .consortia-holdings .csu-holdings table tbody tr.holding-header td.available {
+	.consortia-holdings .csu-holdings table tbody tr.holding-header td.campus, .consortia-holdings .csu-holdings table tbody tr.holding-header td.location, .consortia-holdings .csu-holdings table tbody tr.holding-header td.callNumber, .consortia-holdings .csu-holdings table tbody tr.holding-header td.availability {
 		width: 45%;
 	}
-	.consortia-holdings .csu-holdings table tbody tr.holding-header td.callNumber, .consortia-holdings .csu-holdings table tbody tr.holding-header td.available {
+	.consortia-holdings .csu-holdings table tbody tr.holding-header td.callNumber, .consortia-holdings .csu-holdings table tbody tr.holding-header td.availability {
 		padding-top: 15px;
 	}
-	.consortia-holdings .csu-holdings table tbody tr.holding-header td.callNumber:before, .consortia-holdings .csu-holdings table tbody tr.holding-header td.available:before {
+	.consortia-holdings .csu-holdings table tbody tr.holding-header td.callNumber:before, .consortia-holdings .csu-holdings table tbody tr.holding-header td.availability:before {
 		padding-top: 12px;
 	}
 }
 @media (max-width: 675px) {
-	.consortia-holdings .csu-holdings table tbody tr.holding-header td.campus, .consortia-holdings .csu-holdings table tbody tr.holding-header td.location, .consortia-holdings .csu-holdings table tbody tr.holding-header td.callNumber, .consortia-holdings .csu-holdings table tbody tr.holding-header td.available {
+	.consortia-holdings .csu-holdings table tbody tr.holding-header td.campus, .consortia-holdings .csu-holdings table tbody tr.holding-header td.location, .consortia-holdings .csu-holdings table tbody tr.holding-header td.callNumber, .consortia-holdings .csu-holdings table tbody tr.holding-header td.availability {
 		width: 49%;
 	}
 }
 @media (max-width: 400px) {
-	.csu-holdings table tbody tr.holding-header td.campus, .csu-holdings table tbody tr.holding-header td.location, .csu-holdings table tbody tr.holding-header td.callNumber,  .csu-holdings table tbody tr.holding-header td.available,  .csu-holdings table tbody tr.holding-header td.description {
+	.csu-holdings table tbody tr.holding-header td.campus, .csu-holdings table tbody tr.holding-header td.location, .csu-holdings table tbody tr.holding-header td.callNumber,  .csu-holdings table tbody tr.holding-header td.availability,  .csu-holdings table tbody tr.holding-header td.description {
 		width: 100% !important;
 	}
-	.consortia-holdings .csu-holdings table tbody tr.holding-header td.callNumber, .consortia-holdings .csu-holdings table tbody tr.holding-header td.available, .consortia-holdings .csu-holdings table tbody tr.holding-header td.callNumber:before, .consortia-holdings .csu-holdings table tbody tr.holding-header td.available:before {
+	.consortia-holdings .csu-holdings table tbody tr.holding-header td.callNumber, .consortia-holdings .csu-holdings table tbody tr.holding-header td.availability, .consortia-holdings .csu-holdings table tbody tr.holding-header td.callNumber:before, .consortia-holdings .csu-holdings table tbody tr.holding-header td.availability:before {
 		padding-top: 0px;
 	}
 }

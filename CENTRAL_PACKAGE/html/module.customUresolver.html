@@ -196,7 +196,7 @@
 										</td>
 										<td class="location"><prm-icon ng-if="!holding.showItems" icon-type="svg" svg-icon-set="primo-ui" icon-definition="chevron-down"></prm-icon><prm-icon ng-if="holding.showItems" icon-type="svg" svg-icon-set="primo-ui" icon-definition="chevron-up"></prm-icon> {{ holding.location }}</td>
 										<td class="callNumber">{{ holding.call_number }}</td>
-										<td class="available">
+										<td class="availability">
 											<span class="items-available" ng-if="holding.availability == 'available'">
 												{{ holding.available_items }} of {{ holding.total_items }} available
 											</span>
@@ -219,7 +219,7 @@
 									<tr tabindex="0" class="holding-item" ng-repeat-start="item in holding.items track by $index" ng-if="holding.showItems || showCompact == false">
 										<td class="sublocation">{{ holding.location }}</td>
 										<td class="callNumber">{{ holding.call_number }}</td>
-										<td class="available">
+										<td class="availability">
 											<span class="items-available" ng-if="item.availability == 'available'">
 												{{ item.status }}
 											</span>
@@ -260,7 +260,7 @@
 									<tr tabindex="0" class="holding-item" ng-if="holding.mms_id && holding.items.length <= 0 && holdingsCount > 0 && (holding.showItems || showCompact == false)" class="animate-if">
 										<td class="location">{{ holding.location }}</td>
 										<td class="callNumber">{{ holding.call_number }}</td>
-										<td class="available">
+										<td class="availability">
 											<prm-spinner class="small default-loader dark-on-light" layout="row" layout-align="left center"></prm-spinner>
 										</td>
 										<td class="description" colspan="2">
@@ -270,7 +270,7 @@
 									<tr tabindex="0" class="holding-item" ng-if="holding.mms_id && !holding.items && (holding.showItems || showCompact == false)" class="animate-if">
 										<td class="location">{{ holding.location }}</td>
 										<td class="callNumber">{{ holding.call_number }}</td>
-										<td class="available">
+										<td class="availability">
 											<prm-spinner class="small default-loader dark-on-light" layout="row" layout-align="left center"></prm-spinner>
 										</td>
 										<td class="description" colspan="2">
@@ -305,7 +305,7 @@
 									<tr tabindex="0" class="holding-header">
 										<td class="location">{{ holding.subLocation }}</td>
 										<td class="callNumber">{{ holding.callNumber }}</td>
-										<td class="available">
+										<td class="availability">
 											<prm-spinner class="small default-loader dark-on-light" layout="row" layout-align="left center"></prm-spinner>
 										</td>
 										<td class="description hideme"></td>
@@ -346,19 +346,16 @@
 									<td class="campus">{{ location.campus }}</td>
 									<td class="location">{{ location.subLocation }}</td>
 									<td class="callNumber">{{ location.callNumber }}</td>
-									<td class="available">
-										<span class="items-available" ng-if="location.availabilityStatus == 'available'">
+									<td class="availability">
+										<div class="items-available" ng-if="location.availabilityStatus == 'available'">
 											{{ location.availabilityStatus }}
-										</span>
-										<span class="items-available" ng-if="location.availabilityStatus == 'available' && location.localOnly">
-											(on campus only)
-										</span>
-										<span class="items-unavailable" ng-if="location.availabilityStatus != 'available'">
+										</div>
+										<div class="items-unavailable" ng-if="location.availabilityStatus != 'available'">
 											{{ location.availabilityStatus }}
-										</span>
-										<span class="items-available" ng-if="location.availabilityStatus != 'available' && location.localOnly">
+										</div>
+										<div ng-if="location.localOnly">
 											(on campus only)
-										</span>
+										</div>
 									</td>
 								</tr>
 							</tbody>
