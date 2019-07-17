@@ -109,8 +109,15 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 				$scope.requestError = false;
 			}
 		}
+		_this.checkKeyCode = function (event) {
+			if(event != false) {
+				if(event.keyCode == 13 || event.keyCode == 32) return true;
+				else return false;
+			}
+			return null;
+		}
 		_this.toggleShowItems = function (holding, event = false) {
-			if (event != false && event.keyCode !== 13 && event.keyCode !== 32) return;
+			if (_this.checkKeyCode(event) === false) return;
 			holding.showItems = holding.showItems ? false : true;
 			if (event != false) event.preventDefault();
 			if (_this.logToConsole) console.log(holding);
@@ -265,7 +272,8 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 			locateUrl = locateUrl.replace(new RegExp('{title}', 'g'), encodeURIComponent(_this.pnx.display.title[0]));
 			return locateUrl;
 		}
-		_this.openLocate = function (holding) {
+		_this.openLocate = function (holding, event = false) {
+			if (_this.checkKeyCode(event) === false) return;
 			window.open(_this.getLocateURL(holding), '_newTab');
 		}
 
