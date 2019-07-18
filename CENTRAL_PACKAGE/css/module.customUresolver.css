@@ -98,9 +98,6 @@ h4.csu-holdings-header {
 	margin-bottom: 20px;
 	position: relative;
 }
-.csu-holdings table td.availability {
-	font-weight: bold;
-}
 .csu-holdings table * {
 	position: relative;
 }
@@ -164,7 +161,7 @@ h4.csu-holdings-header {
 	border-bottom: none;
 }
 .csu-holdings tbody tr {
-	font-size: 15px;
+	font-size: 14px;
 	color: #000;
 	line-height: 1.2;
 	font-weight: unset;
@@ -334,9 +331,6 @@ h4.csu-holdings-header {
 	.csu-holdings .column2,
 	.csu-holdings .column3 {
 		width: 100%;
-	}
-	.csu-holdings tbody tr {
-		font-size: 14px;
 	}
 	.consortia-holdings .csu-holdings table tbody tr.holding-header td:last-child {
 		display: inline-block;
