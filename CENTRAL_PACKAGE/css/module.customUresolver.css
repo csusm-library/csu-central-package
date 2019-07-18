@@ -410,10 +410,19 @@ h4.csu-holdings-header {
 	}
 }
 
+.csu-request-options {
+	text-align: center;
+}
+
+.csu-options-login {
+	padding: 8px;
+	border: 1px solid #ddd;
+}
+
 .csu-resource-sharing-request button, .csu-resource-sharing-request button:focus {
 	background-color: #f7eda3;
 	border: 1px solid #e1cd51 !important;
-	padding: 10px;
+	padding: 8px;
 }
 
 .uresolver-form-wrapper-inner {

@@ -1,8 +1,7 @@
 
 <!-- Request options -->
 
-<div ng-if="doShowButton()" class="csu-resource-sharing">
-	<h4 class="csu-holdings-header">Request options</h4>
+<div ng-if="doShowButton()" class="csu-request-options">
 
 	<!-- Success / Fail Message -->
 
@@ -22,10 +21,10 @@
 
 	<!-- Resource sharing -->
 
-	<div ng-if="showResourceSharing">
+	<div ng-if="showResourceSharing" class="csu-resource-sharing-request">
 
 		<!-- login/request -->
-		<div ng-if="userIsLoggedIn == false" class="csu-resource-sharing-request">
+		<div ng-if="userIsLoggedIn == false">
 			<md-button ng-click="$ctrl.loginService.handleLoginClick()" aria-label="Sign in to request from CSU+ (2-5 day delivery)" class="button-with-icon zero-margin">
 				<prm-icon icon-type="svg" svg-icon-set="primo-ui" icon-definition="sign-in"></prm-icon>
 				<span>Sign in to request from CSU+ (2-5 day delivery)</span>
@@ -49,10 +48,10 @@
 
 	<!-- Interlibrary Loan -->
 
-	<div ng-if="showILL" class="csu-resource-sharing">
+	<div ng-if="showILL" class="csu-resource-sharing-request">
 
 		<!-- login/request -->
-		<div ng-if="userIsLoggedIn == false" class="csu-resource-sharing-request">
+		<div ng-if="userIsLoggedIn == false">
 			<md-button ng-click="$ctrl.loginService.handleLoginClick();" aria-label="Sign in to request from Interlibrary Loan (7-10 day delivery)" class="button-with-icon zero-margin">
 				<prm-icon icon-type="svg" svg-icon-set="primo-ui" icon-definition="sign-in"></prm-icon>
 				<span>Sign in to request from Interlibrary Loan (7-10 day delivery)</span>
@@ -75,9 +74,9 @@
 
 		<!-- login/request -->
 		<div ng-if="userIsLoggedIn == false">
-			<md-button ng-click="$ctrl.loginService.handleLoginClick()" aria-label="Sign in to see request options" class="button-with-icon zero-margin">
+			<md-button ng-click="$ctrl.loginService.handleLoginClick()" aria-label="Sign in to see request options" class="md-raised md-button csu-options-login">
 				<prm-icon icon-type="svg" svg-icon-set="primo-ui" icon-definition="sign-in"></prm-icon>
-				<span>Sign in to see request options</span>
+				<span>Sign in to see additional options</span>
 			</md-button>
 		</div>
 
