@@ -81,7 +81,7 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 		for (var i = 0; i < _this.servicesArray.length; i++) {
 			if ($scope.showRequestInViewIt) $scope.hasGetIt = true;
 			if (_this.servicesArray[i].serviceName == 'activate') {
-				if (_this.servicesArray[i].linkElement.category == 'Alma-P') {
+				if (_this.servicesArray[i].linkElement.category == 'Alma-P' || _this.servicesArray[i].linkElement.category == 'Remote Search Resource') {
 					$scope.hasGetIt = true;
 				}
 			}
