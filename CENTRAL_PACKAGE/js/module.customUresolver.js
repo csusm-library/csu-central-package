@@ -346,7 +346,7 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 			}
 		)
 
-		customUresolverService.getNzBib(_this.vid, _this.mms_id).then(
+		customUresolverService.getNzBib(_this.vid, _this.mms_id, _this.link).then(
 			bib => {
 				$scope.holdings = [{}];
 				$scope.holdingsCount = _this.getHoldingsCountFromBib(bib, _this.vid);
@@ -555,11 +555,11 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 				cache: true
 			}).then(response => response.data)
 		},
-		getNzBib: function (vid, mms_id) {
+		getNzBib: function (vid, mms_id, link) {
 			return $http({
 				method: 'GET',
 				url: customUresolver.hasOwnProperty("bibURL") ? customUresolver.bibURL : customUresolverDefault.bibURL,
-				params: { 'get': 'nzbib', 'vid': vid, 'id': mms_id },
+				params: { 'get': 'nzbib', 'vid': vid, 'id': mms_id, 'id2': link },
 				cache: true
 			}).then(response => response.data)
 		},
