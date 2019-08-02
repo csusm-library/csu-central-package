@@ -282,7 +282,7 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 		if (_this.parentCtrl.linksArray[0].getItTabText == "alma_tab1_unavail" ||
 			_this.parentCtrl.linksArray[0].getItTabText == "alma_tab1_restrict") {
 				$scope.isLinkToResourceSharing = true;
-		} else if (_this.parentCtrl.linksArray[0].isLinktoOnline == true) {
+		} else if (_this.parentCtrl.linksArray[0].isLinktoOnline == true || _this.parentCtrl.linksArray[0].getItTabText = 'Almaviewtit' || _this.parentCtrl.linksArray[0].getItTabText = 'Almaviewit_remote') {
 			$scope.isLinktoOnline = true;
 		}
 
