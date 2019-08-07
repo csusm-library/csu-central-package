@@ -367,6 +367,7 @@ function getAVACode($subfields, $code)
 		$api = 'bibs';
 		$params = array('expand' => 'p_avail,e_avail', 'mms_id' => $mms_id);
 		$data = json_decode(getAPIData('', $api, $params));
+		if(empty($data)) $data = json_decode(getAPIData($vid, $api, $params));
 		$data = $data->bib[0];
 		if(property_exists($data, 'anies'))
 			$data->record = json_decode(xml2json(strstr($data->anies[0], '<record>')))->record;
