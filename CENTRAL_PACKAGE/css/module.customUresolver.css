@@ -113,6 +113,8 @@ h4.csu-holdings-header {
 }
 .csu-holdings table td, .csu-holdings table th {
 	padding-left: 8px;
+	text-align: left;
+	cursor: default;
 }
 .csu-holdings table thead tr {
 	height: 50px;
@@ -122,9 +124,6 @@ h4.csu-holdings-header {
 }
 .csu-holdings table tbody tr:last-child {
 	border: 0;
-}
-.csu-holdings table td, .csu-holdings table th {
-	text-align: left;
 }
 .csu-holdings table td.l, .csu-holdings table th.l {
 	text-align: right;
