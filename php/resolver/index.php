@@ -626,7 +626,7 @@ switch ($get) {
         break;
 
 		case 'bib':
-			$out = json_encode(getNzBib($vid, $id));
+			$out = json_encode(getIzBib($vid, $id));
 			break;
 
 		case 'nzbib':
