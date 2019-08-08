@@ -28,7 +28,6 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 
 		$scope.hasLocal = false;
 		$scope.preholdings = _this.item.delivery.holding.filter(function(holding, index) {return holding.organization == _this.vid.substring(0, 10)});
-		$scope.localLocations = [];
 		$scope.extLocations = [];
 		$scope.showCompact = customUresolver.hasOwnProperty("showCompact") ? customUresolver.showCompact : customUresolverDefault.showCompact;
 		$scope.showRequestInViewIt = customUresolver.hasOwnProperty("showRequestInViewIt") ? customUresolver.showRequestInViewIt : customUresolverDefault.showRequestInViewIt;
@@ -377,7 +376,7 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 									$scope.holdingsCount--;
 								}
 							)
-							if (holding.total_items != '') holding.numberItemsArray = new Array(parseInt(holding.total_items));
+							$scope.hasLocal = true;
 							$scope.holdings.push(holding)
 							if (holding.holding_id == '') {
 								holding.isTempHolding = true;
@@ -401,13 +400,6 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 				$scope.hasLocal = true;
 
 				if (_this.item.delivery.holding[i].availabilityStatus.replace(/^\(|\)$/g, '') == 'available') $scope.availableLocalHoldings = true;
-
-				$scope.localLocations.push({
-					subLocation: _this.item.delivery.holding[i].subLocation,
-					callNumber: _this.item.delivery.holding[i].callNumber.replace(/^\(|\)$/g, ''),
-					availabilityStatus: _this.item.delivery.holding[i].availabilityStatus.replace(/^\(|\)$/g, ''),
-					mms_id: mms_id
-				});
 			} else {
 				let mms_id = _this.pnx.display.lds03.find(function(item) {return item.search(_this.item.delivery.holding[i].organization) >= 0 ? true : false}, _this);
 
