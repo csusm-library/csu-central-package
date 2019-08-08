@@ -361,6 +361,7 @@ function getAVACode($subfields, $code)
 	function getNzBib($vid, $mms_id, $alma_iframe_url) {
 		if(empty($mms_id)) {
 			$request_data = getRequestData($alma_iframe_url);
+			$request_data = getIzBib($vid, $request_data['mms_id']);
 			foreach($request_data['linked_record_id'] as $linked_record_id) {
 				if($linked_record_id['type'] == 'NZ') $mms_id = $linked_record_id['value'];
 			}
