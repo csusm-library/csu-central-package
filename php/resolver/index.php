@@ -361,13 +361,14 @@ function getAVACode($subfields, $code)
 	function getNzBib($vid, $mms_id, $alma_iframe_url) {
 		if(empty($mms_id)) {
 			$request_data = getRequestData($alma_iframe_url);
-			$mms_id = $request_data['mms_id'];
+			foreach($request_data['linked_record_id'] as $linked_record_id) {
+				if($linked_record_id['type'] == 'NZ') $mms_id = $linked_record_id['value'];
+			}
 		}
 		
 		$api = 'bibs';
 		$params = array('expand' => 'p_avail,e_avail', 'mms_id' => $mms_id);
 		$data = json_decode(getAPIData('', $api, $params));
-		if(empty($data)) $data = json_decode(getAPIData($vid, $api, $params));
 		$data = $data->bib[0];
 		if(property_exists($data, 'anies'))
 			$data->record = json_decode(xml2json(strstr($data->anies[0], '<record>')))->record;
