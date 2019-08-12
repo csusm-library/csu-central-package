@@ -289,6 +289,18 @@ prm-full-view button[aria-label="Top"]:after {
     padding-bottom: 0;
 }
 
+.__sm .prm-full-view-dialog .full-view-inner-container .full-view-section#action_list, .__xs .prm-full-view-dialog .full-view-inner-container .full-view-section#action_list {
+    padding-top: 60px;
+}
+
+.__sm .prm-full-view-dialog .full-view-inner-container, .__xs .prm-full-view-dialog .full-view-inner-container {
+    padding-top: calc(5em + 60px);
+}
+
+.__sm .full-view-inner-container, .__xs .full-view-inner-container {
+    padding-top: calc(1em + 60px);
+}
+
 .section-body.Almagetit {
     margin-bottom: 25px;
 }
