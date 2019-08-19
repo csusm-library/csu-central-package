@@ -5,7 +5,7 @@
 
 	<!-- Success / Fail Message -->
 
-	<div ng-if="requestDataReceived && !requestMessageCleared" class="csu-resource-sharing">
+	<div ng-if="requestDataReceived && !requestMessageCleared">
 		<md-button ng-if="requestSuccessful" ng-click="$ctrl.hideRequestMessage()" aria-label="" class="button-with-icon zero-margin">
 			<span class="items-available">Request succesfully placed -- Click to dismiss</span>
 			<prm-icon icon-type="svg" svg-icon-set="primo-ui" icon-definition="close" class="items-available"></prm-icon>
@@ -48,11 +48,11 @@
 
 	<!-- Interlibrary Loan -->
 
-	<div ng-if="showILL" class="csu-resource-sharing-request">
+	<div ng-if="showILL">
 
 		<!-- login/request -->
 		<div ng-if="userIsLoggedIn == false">
-			<md-button ng-click="$ctrl.loginService.handleLoginClick();" aria-label="Sign in to request from Interlibrary Loan (7-10 day delivery)" class="button-with-icon zero-margin">
+			<md-button ng-click="$ctrl.loginService.handleLoginClick();" aria-label="Sign in to request from Interlibrary Loan (7-10 day delivery)" class="md-raised md-button csu-options-button">
 				<prm-icon icon-type="svg" svg-icon-set="primo-ui" icon-definition="sign-in"></prm-icon>
 				<span>Sign in to request from Interlibrary Loan (7-10 day delivery)</span>
 			</md-button>
@@ -60,7 +60,7 @@
 
 		<!-- inline get-it menu -->
 		<div ng-if="userIsLoggedIn">
-			<md-button ng-click="$ctrl.openILL()" ng-disabled="requestSent || requestSuccessful" aria-label="Request from Interlibrary Loan (7-10 day delivery)" class="button-with-icon zero-margin">
+			<md-button ng-click="$ctrl.openILL()" ng-disabled="requestSent || requestSuccessful" aria-label="Request from Interlibrary Loan (7-10 day delivery)" class="md-raised md-button csu-options-button">
 				<prm-icon icon-type="svg" svg-icon-set="primo-ui" icon-definition="book-open"></prm-icon>
 				<span>Request from Interlibrary Loan (7-10 day delivery)</span>
 			</md-button>
@@ -70,11 +70,11 @@
 
 	<!-- Local Request -->
 
-	<div ng-if="!showResourceSharing && !showILL" class="csu-resource-sharing">
+	<div ng-if="!showResourceSharing && !showILL">
 
 		<!-- login/request -->
 		<div ng-if="userIsLoggedIn == false">
-			<md-button ng-click="$ctrl.loginService.handleLoginClick()" aria-label="Sign in to see request options" class="md-raised md-button csu-options-login">
+			<md-button ng-click="$ctrl.loginService.handleLoginClick()" aria-label="Sign in to see request options" class="md-raised md-button csu-options-button">
 				<prm-icon icon-type="svg" svg-icon-set="primo-ui" icon-definition="sign-in"></prm-icon>
 				<span>Sign in to see additional options</span>
 			</md-button>
