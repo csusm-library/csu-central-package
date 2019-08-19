@@ -45,3 +45,16 @@ prm-logo .product-logo a:hover {
     text-transform:none;
     box-shadow: none;
 }
+
+/* Logo treatment */
+prm-logo div.product-logo { display: none; }
+prm-logo div.product-logo-local { display: flex; }
+prm-logo .product-logo a:hover {
+    background-color: transparent; 
+    text-transform: none; 
+    box-shadow: none;
+}
+prm-topbar { height: 100px; }
+prm-topbar prm-logo { max-width: 300px; }
+.fresno-logo { width: 300px; }
+.fresno-logo img { width: 100%; }

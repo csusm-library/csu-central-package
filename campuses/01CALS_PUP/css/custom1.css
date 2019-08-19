@@ -80,13 +80,13 @@ md-card#personalDetails md-card-header.transparent-toolbar.layout-fill {
 
 /* https://knowledge.exlibrisgroup.com/Primo/Knowledge_Articles/How_to_hide_Virtual_browse_functionality_in_Primo_Classic_and_New_UI */
 
-#virtualBrowse {
+/* #virtualBrowse {
     display:none;
 }
 
 button[aria-label="Virtual Browse"] {
     display:none;
-}
+} */
 
 /* Make the class .flex-50 boxes fill the screen on smaller devices */
 

@@ -1,32 +1,23 @@
 /*** Sonoma (01CALS_SOL) ***/
 
-/* navbar color change */
+/* top menu */
 
-.prm-primary-bg, prm-spinner.overlay-cover.light-on-dark:after, prm-search-bar, prm-journals-search-bar {
-    color: white;
-    background-color: #143b87;
-}
-.prm-primary-bg.prm-hue1, prm-spinner.prm-hue1.overlay-cover.light-on-dark:after, prm-topbar .top-nav-bar, prm-search-bar.prm-hue1, prm-journals-search-bar.prm-hue1 {
-    background-color: #143b87;
-}
-.prm-primary-bg.prm-hue2, prm-spinner.prm-hue2.overlay-cover.light-on-dark:after, prm-search-bar.prm-hue2, prm-journals-search-bar.prm-hue2, md-backdrop.md-opaque {
-    background-color: #143b87;
-}
-.prm-primary-bg.prm-hue3, prm-spinner.prm-hue3.overlay-cover.light-on-dark:after, prm-search-bar.prm-hue3, prm-journals-search-bar.prm-hue3 {
-    background-color: #143b87;
-}
-.prm-primary-bg.prm-hue3-important, prm-spinner.prm-hue3-important.overlay-cover.light-on-dark:after, prm-user-area md-fab-toolbar.md-is-open md-fab-trigger .md-fab-toolbar-background, prm-user-area md-fab-toolbar.md-is-open md-fab-trigger ._md-fab-toolbar-background, prm-search-bar.prm-hue3-important, prm-journals-search-bar.prm-hue3-important {
-    background-color: #143b87 !important;
-}
-.prm-primary-bg.prm-hue4, prm-spinner.prm-hue4.overlay-cover.light-on-dark:after, prm-search-bar.prm-hue4, prm-journals-search-bar.prm-hue4 {
-    background-color: #143b87;
+.prm-primary-bg.prm-hue1, prm-spinner.prm-hue1.overlay-cover.light-on-dark:after, prm-topbar .top-nav-bar, prim-search-bar.prm-hue1, prm-newspapers-search-bar {
+	background-color: #143B87;
 }
 
-/* search bar color change */
+/* alert bar */
+.bar.alert-bar {
+	background-color: #efefef;
+	border-color: #efefef;
+}
 
-.prm-primary-bg, prm-journals-search-bar, prm-search-bar, prm-spinner.overlay-cover.light-on-dark:after {
-    color: #333;
-    background-color: #fff;
+
+/* search term highlighting */
+
+mark {
+	font-weight: bold;
+	color: #6a6a6a;
 }
 
 /* make logo clickable */
@@ -43,29 +34,61 @@ prm-logo .product-logo a:hover {
     box-shadow: none;
 }
 
+/* Item Title Styling */
+prm-brief-result .item-title span {
+	margin: .25em 0;
+}
 
+.full-view-container prm-brief-result .item-title span {
+	color: #1A4C76;
+	margin: .25em 0 0 0;
+}
 
-    
- /* SSU edits------------------------------------------------*/
     
 /* Full Text Available not look like a link */
     :not(.button-content) > .availability-status > span {
   color: rgb(58, 58, 58);
 }
-    
-        
-    
-/* Move the Find in Library section above the Send to section */
 
-#action_list{order:1}
-#details {order:2}
-
- 
-.full-view-inner-container {
-    padding-bottom: 10em;
-    display: flex;
-    flex-direction: column;
+/* Report a Problem Form styling */
+oca-report-problem {
+    float: right;
+    margin: 0 20px 10px 10px;
 }
-[aria-label="Details"] {order:1 !important;   }
-[aria-label="Send to"] {order:2 !important;   }
 
+oca-report-problem .bar.filter-bar {
+    margin: 0;
+    padding: 0;
+    background: none;
+    height: auto;
+    min-height: 10px;
+    color: #fff;
+    border: none;
+}
+
+oca-report-problem .bar.filter-bar button {
+    background: #1A4C76;
+    color: #fff;
+    padding: 1px 10px;
+}
+
+prm-full-view .report-problem-form-wrapper {
+    position: absolute;
+    right: 0;
+    z-index: 1000;
+    width: 650px;
+    box-shadow: 0 2px 6px 0 #eee;
+    padding-top: 0;
+    margin-top: 5px;
+}
+    
+
+/* Send To styling */
+.full-view-section#action_list prm-action-list>md-nav-bar .md-nav-item .md-button {
+	color: #143B87;
+}
+
+/* To add spacing to the details section; from the sandbox central package */
+.full-view-section #item-details div .word-break {
+    margin: 0 0 12px 0;
+    }

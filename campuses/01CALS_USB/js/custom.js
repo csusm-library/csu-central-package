@@ -3,7 +3,7 @@
   'use strict';
 
 
-  var app = angular.module('viewCustom', ['angularLoad']);
+  var app = angular.module('viewCustom', [/*'sendSms',*/'reportProblem', 'angularLoad']);
 
   /****************************************************************************************************/
 
@@ -12,6 +12,30 @@
   /*var app = angular.module('centralCustom', ['angularLoad']);*/
 
   /****************************************************************************************************/
+/*
+app.constant('smsOptions', {
+  enabled: true
+});
+
+app.constant('smsCarriers', {
+  'ATT': 'txt.att.net',
+  'Cricket': 'mms.mycricket.com',
+  'Nextel': 'messaging.nextel.com',
+  'Project Fi': 'msg.fi.google.com',
+  'Qwest': 'qwestmp.com',
+  'Sprint': 'messaging.sprintpcs.com',
+  'T-Mobile': 'tmomail.net',
+  'Verizon': 'vtext.com',
+  'Virgin': 'vmobl.com'
+});
+*/
+app.constant('reportProblem', {
+  to: 'magedanz@csusb.edu',
+  enabled: true,
+  messageText: 'See something that doesn\'t look right?',  // text that appears before the link
+  buttonText: 'Report a Problem', // the portion of the text that is the link
+  subject: 'Pfau Library Problem Report', // email subject line
+});
 
   app.controller('prmLogoAfterController', [function() {
     var vm = this;
@@ -47,6 +71,8 @@ app.component('prmTabsAndScopesSelectorAfter',{
      });
 
 
+
+
   //update template to include new URL for institution
   app.component('prmLogoAfter', {
     bindings: {
@@ -56,4 +82,31 @@ app.component('prmTabsAndScopesSelectorAfter',{
     template: '<div class="product-logo product-logo-local" layout="row" layout-align="start center" layout-fill id="banner"><a href="http://library.csusb.edu"><img class="logo-image" alt="{{::(\'nui.header.LogoAlt\' | translate)}}" ng-src="{{$ctrl.getIconLink()}}"/></a></div>'
   });
 
+
+  //add libchat box
+  var d=document.createElement('div');
+  d.setAttribute("class", "libraryh3lp"); 
+  d.setAttribute("data-lh3-jid", "pfau_library@chat.libraryh3lp.com");  
+  var a = document.createElement('a');
+  a.href="#";
+  a.onclick = function(){window.open('http://library.csusb.edu/services/chatPRIMO.html', 'AskUs', 'resizable=1,width=400,height=600'); return false;};
+  a.setAttribute("class", "md-primoExplore-theme");
+  var i = document.createElement('img');
+  i.src = "https://s3.amazonaws.com/libraryh3lp.com/us/buttons/ask-a-librarian/dark-blue-ask-a-librarian.png";
+  i.alt= "Chat now";
+  a.appendChild(i);
+  d.appendChild(a);
+  document.body.appendChild(d);
+  //end libchat
+/*setTimeout(function(){
+  //Add Alert Option
+  var alert = document.createElement('p');
+  var text = document.createTextNode("Onesearch is down sorry for the inconvenince");
+  alert.appendChild(text);
+  alert.setAttribute("id", "alertMessage");
+  var searchBar = document.getElementsByClassName('header')[0];
+  searchBar.appendChild(alert);
+},300);*/
 })();
+
+

@@ -157,7 +157,7 @@
 		width: auto;
 		box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 		padding: 0 !important;
-		margin-top: -6px !important;
+		margin-top: -6px !important; 
 		border: 1px;
 		height: 0px;
 	}
@@ -173,7 +173,7 @@
 		position: absolute;
 		left: 100%;
 		top: 0;
-		margin-top: 0 !important;
+		margin-top: 0 !important; 
 	}
 	#nav ul li, #nav ul li:hover li, #nav ul li:hover li:hover li { /* change background-color for li elements, not a elements */
 		background-color: #860038;
@@ -201,12 +201,12 @@
 			position: relative;
 			top: -16px;
 		}
-		ul li span.has-child:after {
+		ul li span.has-child:after { 
 			content: '\25BC';
 		}
 	/* end dropdown arrow for top level navigation */
 	/* begin dropdown arrow for lower level navigation */
-		ul li ul li span.has-child {
+		ul li ul li span.has-child { 
 			cursor: default;
 			float: right;
 			margin-left: 20px;
@@ -228,7 +228,7 @@
 			display: none !important;
 		}
 	/* end hide 4th-tier menu, usually ends up off screen */
-	@media only screen and (max-width: 768px) {
+	@media only screen and (max-width: 768px) {  
 		/* give more space on small screens to press the dropdown arrow */
 		/* this should also not be needed anymore, except on the homepage, only because the homepage doesn't use the mobile menu */
 		ul li span.has-child { /* dropdown arrow for top level navigation */
@@ -247,7 +247,7 @@
 	#logo {
 		float: left;
 		width: 206px;
-		padding-left: 25px;
+		padding-left: 25px;	
 	}
 	#audiencenav {
 		float: right;
@@ -278,7 +278,7 @@
 	}
 	/* begin primo-override for regular dropdown */
 		prm-topbar {
-			height: inherit !important;
+			height: 114px !important;
 			z-index: 10000 !important;
 		}
 		prm-user-area md-fab-toolbar ._md-fab-toolbar-wrapper {
@@ -581,7 +581,7 @@
 		prm-main-menu[menu-type=full] .close-button, .md-scroll-mask, .md-dialog-container, md-backdrop._md-dialog-backdrop, md-tooltip {/* move login window in front of menu and chat widget */
 			z-index: 10003 !important;
 		}
-		._md-select-menu-container, md-backdrop._md-select-backdrop, #prm-simple-search { /* prevent various elements from falling behind customizations */
+		._md-select-menu-container, md-backdrop._md-select-backdrop, ._md-open-menu-container, md-backdrop._md-menu-backdrop, #prm-simple-search { /* prevent various elements from falling behind customizations */
 			z-index: 10004 !important;
 		}
 		/* these just make some minor visual changes, no repositioning is occuring */

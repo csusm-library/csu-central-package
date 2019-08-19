@@ -3,7 +3,7 @@
   'use strict';
 
 
-  var app = angular.module('viewCustom', ['angularLoad']);
+  var app = angular.module('viewCustom', ['sendSms','reportProblem','angularLoad']);
 
   /****************************************************************************************************/
 
@@ -12,6 +12,32 @@
   /*var app = angular.module('centralCustom', ['angularLoad']);*/
 
   /****************************************************************************************************/
+  
+  app.constant('smsOptions', {
+  enabled: true,
+  label: 'Text', // the label that appears under the icon
+  index: 9 // position within the send-to list, first position = 0
+  });
+  
+  app.constant('smsCarriers', {
+  'ATT': 'txt.att.net',
+  'Cricket': 'mms.mycricket.com',
+  'Nextel': 'messaging.nextel.com',
+  'Project Fi': 'msg.fi.google.com',
+  'Qwest': 'qwestmp.com',
+  'Sprint': 'messaging.sprintpcs.com',
+  'T-Mobile': 'tmomail.net',
+  'Verizon': 'vtext.com',
+  'Virgin': 'vmobl.com'
+  });
+  
+  app.constant('reportProblem', {
+  to: 'hcribbs@csub.edu',
+  enabled: true,
+  messageText: 'See something that doesn\'t look right?',  // text that appears before the link
+  buttonText: 'Report a Problem', // the portion of the text that is the link
+  subject: 'Problem report', // email subject line
+  });
 
   app.controller('prmLogoAfterController', [function() {
     var vm = this;

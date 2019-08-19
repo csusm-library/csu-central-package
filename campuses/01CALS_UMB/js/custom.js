@@ -3,7 +3,7 @@
   'use strict';
 
 
-  var app = angular.module('viewCustom', ['angularLoad']);
+  var app = angular.module('viewCustom', ['sendSms','reportProblem','multipleAnalytics','angularLoad']);
 
   /****************************************************************************************************/
 
@@ -12,6 +12,18 @@
   /*var app = angular.module('centralCustom', ['angularLoad']);*/
 
   /****************************************************************************************************/
+
+  app.constant('smsOptions', {
+    enabled: true
+  });
+
+  app.constant('analyticsOptions', {
+    enabled: true,
+    siteSource: 'ga',
+    siteId: 'UA-127216855-1',
+    siteUrl: 'https://www.google-analytics.com/analytics.js',
+    defaultTitle: 'OneSearch'
+  });
 
   app.controller('prmLogoAfterController', [function() {
     var vm = this;

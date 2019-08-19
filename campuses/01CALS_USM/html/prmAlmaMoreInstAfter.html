@@ -1,3 +1,10 @@
-<md-button class="md-raised" ng-click="toggleLibs()">
-    {{ showLibs ? 'Hide Libraries &laquo;' : 'Show Libraries &raquo;' }}
-</md-button>
+<div ng-if="$ctrl.visible()" style="margin-left: 8px">
+	<div ng-show="!$ctrl.isLoggedIn() && !$ctrl.isLoggedInIDP() && $ctrl.index == $ctrl.getIndexFullView()" class="getit-login">
+		<prm-authentication [is-logged-in]="$ctrl.jwtData.userName.length != null"></prm-authentication>
+	</div>
+</div>
+<div style="margin-top:8px;">
+	<md-button class="toggleCSU" ng-click="toggleLibs()">
+	    {{ showLibs ? 'Close &laquo;' : 'Show CSU Libraries Availability &raquo;' }}
+	</md-button>
+</div>

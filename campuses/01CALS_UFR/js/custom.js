@@ -4,43 +4,45 @@
 
 /* START: app.js */
 
-var app = angular.module('viewCustom', ['angularLoad']);
+var app = angular.module('viewCustom', ['sendSms', 'multipleAnalytics', 'angularLoad']);
 
 /* END: app.js */
 
-// Begin BrowZine - Primo Integration ...
-window.browzine = {
-  api: "https://api.thirdiron.com/public/v1/libraries/815",
-  apiKey: "f6ce703a-274c-43e8-932b-5bfa87700784",
-  primoJournalBrowZineWebLinkText: "View Journal",
-  primoArticleBrowZineWebLinkText: "View this issue"
-};
+/* START: central-pkg.js */
 
-browzine.script = document.createElement("script");
-browzine.script.src = "https://s3.amazonaws.com/browzine-adapters/primo/browzine-primo-adapter.js";
-document.head.appendChild(browzine.script);
-// End BrowZine - Primo Integration
-
-
-/* The central-pkg.js is purposely empty. */
-
-/**
- * Add Google Analytics tracking code snippet.
- */
-app.controller('prmExploreMainAfterController', ['$scope', function ($scope) {
-  /**
-   * On page load, init
-   */
-  this.$onInit = function () {
-    /* $scope.showLibs = false; */
-  };
-}]);
-
-app.component('prmExploreMainAfter', {
-  bindings: { parentCtrl: '<' },
-  controller: 'prmExploreMainAfterController',
-  templateUrl: 'custom/01CALS_UFR/html/prmExploreMainAfter.html'
+// Set 'sendSMS' properties
+app.constant('smsOptions', {
+  enabled: true,
+  label: 'SMS',
+  index: 5
 });
+
+// Set 'reportProblem' properties
+app.constant('reportProblem', {
+  to: 'EPROBLEMS@listserv.csufresno.edu',
+  enabled: false,
+  messageText: 'See something that doesn\'t look right?',
+  buttonText: 'Report a Problem',
+  subject: 'Primo Central-Package Problem Report'
+});
+
+// Set 'multipleAnalytics' properties
+app.constant('analyticsOptions', {
+  enabled: true,
+  siteSource: 'ga',
+  siteId: 'UA-5613790-29',
+  siteUrl: 'https://www.google-analytics.com/analytics.js',
+  defaultTitle: 'Primo'
+});
+
+// Set 'customUresolver' properties
+app.constant('customUresolver', {
+  enabled: false,
+  showCompact: false,
+  illURL: 'https://ill.lib.csufresno.edu/illiad.dll'
+});
+
+/* END: central-pkg.js */
 
 /* START: institutional-logo.js */
 
@@ -182,19 +184,21 @@ app.component('prmFullViewAfter', {
 window.browzine = {
   api: "https://public-api.thirdiron.com/public/v1/libraries/815",
   apiKey: "f6ce703a-274c-43e8-932b-5bfa87700784",
-  primoJournalBrowZineWebLinkText: "View Journal",
-  primoArticleBrowZineWebLinkText: ""
+  coverImageReplacementEnabled: true,
+  journalBrowZineWebLinkEnabled: true,
+  journalBrowZineWebLinkText: "Browse Journal Issues",
+  articleBrowZineWebLinkEnabled: false,
+  articleBrowZineWebLinkText: "See Article Thingys",
+  articlePDFDownloadLinkEnabled: true,
+  articlePDFDownloadLinkText: "Download PDF"
 };
 
 browzine.script = document.createElement("script");
+//browzine.script.src = "https://s3.amazonaws.com/browzine-adapters/primo/browzine-primo-adapter.js";
+//browzine.script.src = "https://dev-madden-library.pantheonsite.io/sites/all/assets/src/js/thirdiron/browzine-primo-adapter_dev.js";
 browzine.script.src = "https://library.fresnostate.edu/sites/all/assets/src/js/thirdiron/browzine-primo-adapter_modified.js";
 document.head.appendChild(browzine.script);
 
-// Add Journal Cover Image and Article In Context Link from BrowZine
-// Guide: If this Primo controller/component combo already exists from another 3rd-party 
-// integration, then do not create another combo. Simply update the existing controller with the
-// `window.browzine.primo.searchResult($scope);` line and validate the `$scope` object is injected 
-// into the controller `function($scope)` signature.
 app.controller('prmSearchResultAvailabilityLineAfterController', function ($scope) {
   window.browzine.primo.searchResult($scope);
 });
@@ -215,31 +219,30 @@ app.component('prmFacetAfter', {
     /* Construct query strings and parameters */
     var path = $location.absUrl().split('?')[0];
     var searchTerm = $location.search().query.split(',')[2];
-    var query = $location.search().query;
+    var query = encodeURI($location.search().query);
+    query = query.replace(/'/g, "%27");
     var tab = '&tab=default_tab';
     var scope = '&search_scope=01CALS';
     var sort = $location.search().sortby;
     var rest = '&vid=01CALS_UFR&lang=en_US&offset=0';
-
-    /* Populate variables and links */
     var csuLink = path + '?query=' + query + tab + scope + '&sortby=' + sort + rest;
-    var csuServiceName = 'CSU+ Resource Sharing';
-    var csuServiceNote = 'All CSU Campus Libraries';
-    var libLink = 'https://sjvls.ent.sirsi.net/client/en_US/fhq/search/results?qu=' + searchTerm + '&te=';
-    var libName = 'Fresno County Library';
-    var sectionTitle = 'Search Books & Media at other CSU libraries:';
 
     /* Create HTML output */
-    /*var rowOne = "<div class='layout-row margin-bottom-small bold-text'><a href='" + libLink + "' target='_blank' title='" + libName + "'>" + libName + "</a></div>";*/
-    var rowOne = "";
-    //var rowTwo = "<div class='layout-row margin-bottom-small bold-text'><a href='" + csuLink + "' target='_blank' title='" + csuServiceNote + "'>" + csuServiceName + "</a></div>";
-    var rowTwo = "<div class='layout-row margin-bottom-none'><a href='" + csuLink + "' target='_blank' title='" + csuServiceNote + "'><img src='https://library.fresnostate.edu/sites/all/assets/img/shared/csu-plus.png' alt='CSU+ Resource Sharing'></a></div>";
+    var sectionTitle = 'Show results for: ';
+    var csuPlusName = 'CSU+ Resource Sharing';
+    var csuPlusNote = 'All CSU Libraries (CSU+)';
+    var csuPlusImage = 'https://library.fresnostate.edu/sites/all/assets/img/shared/csu-plus-icon.png';
+
+    // This could contain many services, as different rows.
+    var rowContent = "<div class='layout-row margin-bottom-none bold-text'><a href='" + csuLink + "' target='_blank' title='" + csuPlusNote + "'><img src='" + csuPlusImage + "' alt='" + csuPlusName + "' style='vertical-align: middle;'>" + csuPlusNote + "</a></div>";
+
+    var sidebarContent = "<div tabindex='-1' ng-if='$ctrl.totalResults > 1 || $ctrl.isFiltered()' class='sidebar-section compensate-padding-left'><h2 class='sidebar-title' >" + sectionTitle + "</h2></div><div tabindex='-1' class='sidebar-section margin-top-small margin-bottom-medium compensate-padding-left'>" + rowContent + "</div>";
 
     /* Output the HTML */
     angular.element(document).ready(function () {
       var eNode = angular.element(document.querySelectorAll("prm-facet .sidebar-inner-wrapper"));
       if (eNode != null && eNode != undefined) {
-        eNode.prepend("<div tabindex='-1' ng-if='$ctrl.totalResults > 1 || $ctrl.isFiltered()' class='sidebar-section compensate-padding-left'><h2 class='sidebar-title' >" + sectionTitle + "</h2></div><div tabindex='-1' class='sidebar-section margin-top-small margin-bottom-medium compensate-padding-left'>" + rowOne + " " + rowTwo + "</div>");
+        eNode.prepend(sidebarContent);
       }
 
       var rNode = angular.element(document.querySelectorAll("div[ng-if='$ctrl.showPcAvailability']"));

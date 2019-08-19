@@ -10,23 +10,23 @@ div.custom-links-container md-card:nth-child(2) {
 
 /* navbar color change */
 
-.prm-primary-bg, prm-spinner.overlay-cover.light-on-dark:after, prm-search-bar, prm-journals-search-bar, prm-atoz-search-bar {
+.prm-primary-bg, prm-spinner.overlay-cover.light-on-dark:after, prm-search-bar, prm-journals-search-bar {
     color: white;
     background-color: #f4f2f1;
 }
-.prm-primary-bg.prm-hue1, prm-spinner.prm-hue1.overlay-cover.light-on-dark:after, prm-topbar .top-nav-bar, prm-search-bar.prm-hue1, prm-journals-search-bar.prm-hue1, prm-atoz-search-bar.prm-hue1 {
+.prm-primary-bg.prm-hue1, prm-spinner.prm-hue1.overlay-cover.light-on-dark:after, prm-topbar .top-nav-bar, prm-search-bar.prm-hue1, prm-journals-search-bar.prm-hue1 {
     background-color: #f4f2f1;
 }
-.prm-primary-bg.prm-hue2, prm-spinner.prm-hue2.overlay-cover.light-on-dark:after, prm-search-bar.prm-hue2, prm-journals-search-bar.prm-hue2, prm-atoz-search-bar.prm-hue2 md-backdrop.md-opaque {
+.prm-primary-bg.prm-hue2, prm-spinner.prm-hue2.overlay-cover.light-on-dark:after, prm-search-bar.prm-hue2, prm-journals-search-bar.prm-hue2, md-backdrop.md-opaque {
     background-color: #f4f2f1;
 }
-.prm-primary-bg.prm-hue3, prm-spinner.prm-hue3.overlay-cover.light-on-dark:after, prm-search-bar.prm-hue3, prm-journals-search-bar.prm-hue3, prm-atoz-search-bar.prm-hue3 {
+.prm-primary-bg.prm-hue3, prm-spinner.prm-hue3.overlay-cover.light-on-dark:after, prm-search-bar.prm-hue3, prm-journals-search-bar.prm-hue3 {
     background-color: #f4f2f1;
 }
-.prm-primary-bg.prm-hue3-important, prm-spinner.prm-hue3-important.overlay-cover.light-on-dark:after, prm-user-area md-fab-toolbar.md-is-open md-fab-trigger .md-fab-toolbar-background, prm-user-area md-fab-toolbar.md-is-open md-fab-trigger ._md-fab-toolbar-background, prm-search-bar.prm-hue3-important, prm-journals-search-bar.prm-hue3-important, prm-atoz-search-bar.prm-hue3-important {
+.prm-primary-bg.prm-hue3-important, prm-spinner.prm-hue3-important.overlay-cover.light-on-dark:after, prm-user-area md-fab-toolbar.md-is-open md-fab-trigger .md-fab-toolbar-background, prm-user-area md-fab-toolbar.md-is-open md-fab-trigger ._md-fab-toolbar-background, prm-search-bar.prm-hue3-important, prm-journals-search-bar.prm-hue3-important {
     background-color: #f4f2f1 !important;
 }
-.prm-primary-bg.prm-hue4, prm-spinner.prm-hue4.overlay-cover.light-on-dark:after, prm-search-bar.prm-hue4, prm-journals-search-bar.prm-hue4, prm-atoz-search-bar.prm-hue4 {
+.prm-primary-bg.prm-hue4, prm-spinner.prm-hue4.overlay-cover.light-on-dark:after, prm-search-bar.prm-hue4, prm-journals-search-bar.prm-hue4 {
     background-color: #f4f2f1;
 }
 
@@ -38,7 +38,7 @@ prm-change-lang {
 
 /* search bar color change */
 
-.prm-primary-bg, prm-browse-search-bar, prm-atoz-search-bar, prm-journals-search-bar, prm-search-bar, prm-tags-search-bar, prm-spinner.overlay-cover.light-on-dark:after {
+.prm-primary-bg, prm-browse-search-bar, prm-journals-search-bar, prm-search-bar, prm-tags-search-bar, prm-spinner.overlay-cover.light-on-dark:after {
     color: #444;
     background-color: #008453;
 }
@@ -55,21 +55,13 @@ prm-browse-search-bar .search-switch-buttons .md-button.switch-to-simple, prm-jo
     color: #dd971a;
 }
 
-.prm-primary-bg, prm-spinner.overlay-cover.light-on-dark:after, prm-search-bar, prm-journals-search-bar, prm-atoz-search-bar {
+.prm-primary-bg, prm-spinner.overlay-cover.light-on-dark:after, prm-search-bar, prm-journals-search-bar {
     background-color: #008453;
 }
 
-prm-browse-search-bar .advanced-search-backdrop.visible, prm-journals-search-bar .advanced-search-backdrop.visible, prm-atoz-search-bar .advanced-search-backdrop.visible, prm-search-bar .advanced-search-backdrop.visible, prm-tags-search-bar .advanced-search-backdrop.visible {
+prm-browse-search-bar .advanced-search-backdrop.visible, prm-journals-search-bar .advanced-search-backdrop.visible, prm-search-bar .advanced-search-backdrop.visible, prm-tags-search-bar .advanced-search-backdrop.visible {
 	background-color: #008453;
 }
-
-/* Hide Tags in Detailed Display */
-[aria-label="TAGS"]{display:none;}
-#tags{display:none;}
-
-/* Hide Tags in Menu Tab */
-a.md-button[aria-label="TAGS"] {display:none;}
-a.md-button[aria-label="nui.mainmenu.label.tags"] {display:none;}
 
 
 prm-citation-linker, header.layout-row {
@@ -130,53 +122,4 @@ prm-logo .product-logo a:hover {
 
 div.top-nav-bar * {
     color: #444 !important;
-}
-
-/* Journal A-Z Styles */
-prm-alphabet-toolbar .md-button {
-    color: #fff !important;
-}
-
-prm-alphabet-toolbar .md-button.active, prm-alphabet-toolbar .md-button.active.md-focused, prm-alphabet-toolbar .md-button.active:focus, prm-alphabet-toolbar .md-button.active:hover {
-	color: #000 !important;
-	background-color: #e4e878;
-}
-
-/* Favorites Styles */
-md-toolbar.default-toolbar, md-toolbar.default-toolbar:not(.md-menu-toolbar), md-toolbar.md-primoExplore-theme.default-toolbar {
-    background-color: #008453;
-    color: #fff;
-}
-
-prm-favorites-tool-bar .disabledFavTool {
-    color: #fff;
-}
-
-/* Reorder full record details */
-#getit_link1_0 { order: 0; }
-#getit_link2_0 { order: 1; }
-
-#action_list{ order: 2; }
-#details { order: 3; }
-#links { order: 4; }
-#virtualBrowse { order: 5; }
-.full-view-inner-container {
-    padding-bottom: 10em;
-    display: flex;
-    flex-direction: column;
-}
-[aria-label="Online Access"] { order: 0 !important; }
-[aria-label="In the library"] { order: 1 !important; }
-[aria-label="Send to"] { order: 2 !important; }
-[aria-label="Details"] { order: 3 !important; }
-[aria-label="Links"] { order: 4 !important; }
-[aria-label="Virtual Browse"] { order: 5 !important; }
-
-/* Hide Tags in Detailed Display */
-[aria-label="Tags"]{display:none;}
-#tags{display:none;}
-
-/* change Send To icon and link color */
-.saved-query-list>md-nav-bar .md-nav-item .md-button, prm-action-list>md-nav-bar .md-nav-item .md-button {
-    color: #5c92bd;
 }

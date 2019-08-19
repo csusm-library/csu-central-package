@@ -2,8 +2,7 @@
 "use strict";
 'use strict';
 
-var app = angular.module('viewCustom', ['angularLoad']);
-var app = angular.module('viewCustom', ['googleAnalytics']);
+var app = angular.module('viewCustom', ['sendSms', 'reportProblem', 'googleAnalytics', 'angularLoad']);
 
 /****************************************************************************************************/
 
@@ -30,7 +29,8 @@ app.component('prmLogoAfter', {
   template: '<div class="product-logo product-logo-local" layout="row" layout-align="start center" layout-fill id="banner"><a href="http://library.csuchico.edu/"><img class="logo-image" alt="{{::(\'nui.header.LogoAlt\' | translate)}}" ng-src="{{$ctrl.getIconLink()}}"/></a></div>'
 });
 
-/* submit search on scope change -- removed temporarily
+/* submit search on scope change */
+/* removed temporarily
   app.component('prmTabsAndScopesSelectorAfter', {
     bindings: { parentCtrl: '<' },
 
@@ -49,23 +49,61 @@ app.component('prmLogoAfter', {
     }
 
   });
-
  */
 
-//add libchat box
-// button color suggestion: #00906a
-/* commented out until approved
-  var s=document.createElement('script');
-  s.id ='localScript';
-  s.type = 'text/javascript';
-  s.src = '//libanswers.csuchico.edu/load_chat.php?hash=c891f58327f8afd229975bf28509577b&options=libchat_c891f58327f8afd229975bf28509577b';
-  document.getElementsByTagName('head')[0].appendChild(s);
+/* Add Libchat widget */
+var s = document.createElement('script');
+s.id = 'localScript';
+s.type = 'text/javascript';
+s.src = 'https://v2.libanswers.com/load_chat.php?hash=d6666fda18b34103aa2fb4ebb38f2045';
+document.getElementsByTagName('head')[0].appendChild(s);
 
-  var d=document.createElement('div');
-  d.id='libchat_c891f58327f8afd229975bf28509577b';
-  document.body.appendChild(d);
-*/
+var d = document.createElement('div');
+d.id = 'libchat_d6666fda18b34103aa2fb4ebb38f2045';
+document.body.appendChild(d);
+// color options: 900027 , 00906A , 
 
+
+/* Begin SMS module settings */
+app.constant('smsOptions', {
+  enabled: true,
+  label: 'Text', // the label that appears under the icon
+  index: 1 // position within the send-to list, first position = 0
+});
+app.constant('smsCarriers', {
+  'ATT': 'txt.att.net',
+  'Boost': 'sms.myboostmobile.com',
+  'Cricket': 'mms.mycricket.com',
+  'Nextel': 'messaging.nextel.com',
+  'Project Fi': 'msg.fi.google.com',
+  'Qwest': 'qwestmp.com',
+  'Sprint': 'messaging.sprintpcs.com',
+  'T-Mobile': 'tmomail.net',
+  'Verizon': 'vtext.com',
+  'Virgin': 'vmobl.com'
+});
+/* End SMS module settings */
+
+/* Begin Report a Problem settings */
+app.constant('reportProblem', {
+  to: 'mbello@csuchico.edu',
+  enabled: true,
+  requireName: false,
+  requireEmail: false,
+  requireDesc: false,
+  messageText: '', // text that appears before the link
+  buttonText: 'Report a Problem', // the portion of the text that is the link
+  subject: 'Primo problem report' // email subject line
+});
+/* End Report a Problem settings */
+
+/* Central package UResolver */
+app.constant('customUresolver', {
+  enabled: false,
+  showCompact: false,
+  illURL: 'https://csuchico.illiad.oclc.org/illiad/illiad.dll'
+});
+/* End UResolver */
 /* Begin Google Analytics code
  Credit: https://github.com/csudhlib/primo-explore-google-analytics
 */

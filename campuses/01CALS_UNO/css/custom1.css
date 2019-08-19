@@ -21,7 +21,7 @@
 }
 .main{
 	webkit-flex: 0 0 55%;
-	flex: 0 0 55%;
+	/*flex: 0 0 55%; changed after Dec 30 2019 update*/
 }
 #mainResults {
 	padding-left: 1em;
@@ -431,3 +431,225 @@ prm-static.md-padding.flex {
   flex: auto;
 }
 
+/*Browse bar background*/
+.prm-primary-bg, prm-atoz-search-bar, prm-browse-search-bar, prm-collection-gallery-header .collection-header-inner, prm-newspapers-search-bar, prm-search-bar, prm-spinner.overlay-cover.light-on-dark:after, prm-tags-search-bar {
+	background-color: #ffffff;
+}
+
+/*Browse Journal nav*/
+a.md-button md-primoExplore-theme md-ink-ripple:link,
+a.md-button md-primoExplore-theme md-ink-ripple:visited,
+a.md-button md-primoExplore-theme md-ink-ripple:hover,
+a.md-button md-primoExplore-theme md-ink-ripple:active {
+	color:#000;
+}
+
+prm-alphabet-toolbar .md-button.hovered:not([disabled]), 
+
+prm-alphabet-toolbar .md-button:focus:not([disabled]), 
+prm-alphabet-toolbar .md-button:hover:not([disabled]){
+	background-color: #ddd;
+}
+
+prm-alphabet-toolbar .md-button._md-focused:not([disabled]),
+prm-alphabet-toolbar .md-button.md-focused:not([disabled]),
+prm-alphabet-toolbar .md-button:focus:not([disabled]){
+	background-color: #ede49e;
+}
+
+/*Changes adapted from Central Package to Restore user menu after August 2018 update*/
+
+/* user area */
+
+prm-user-area {
+    display: flex;
+}
+
+/* display username under sign out button */
+
+prm-user-area .md-toolbar-tools {
+	font-size: 1em;
+}
+
+prm-user-area .md-button[aria-label="Sign out"] {
+	line-height: 1.3em;
+}
+prm-user-area .md-button[aria-label="Sign out"] prm-icon {
+	float: left;
+	padding-top: 9px;
+	padding-right: 4px;
+}
+prm-user-area .md-button[aria-label="Sign out"] .layout-column {
+	margin-bottom: 1px;
+	padding-bottom: 1px;
+	padding-right: 30px;
+}
+prm-user-area .md-button[aria-label="Sign out"] .layout-column span:nth-child(1) {
+	font-weight: 600;
+}
+prm-user-area .md-button[aria-label="Sign out"] .layout-column span:nth-child(2) {
+	text-transform: none;
+}
+prm-user-area-expandable {
+  display: none;
+}
+prm-user-area {
+  display: block !important;
+}
+
+/*End restore user menu changes*/
+
+/*Report a problem*/
+oca-report-problem .md-button.button-with-icon span {
+    display: inline-block;
+    margin-left: 3px;
+    padding-right: .5em;
+    white-space: normal;
+    text-align: left;
+	text-transform: none;
+}
+
+oca-report-problem .md-button {
+    display: inline-flex;
+    align-items: center;
+    line-height: unset;
+	color: #5c92bd;
+}
+
+
+/*Broadcast Dashboard messaging*/
+.alert {
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+.alert h4 {
+  margin-top: 0;
+  color: inherit;
+}
+.alert .alert-link {
+  font-weight: bold;
+}
+.alert > p,
+.alert > ul {
+  margin-bottom: 0;
+}
+.alert > p + p {
+  margin-top: 5px;
+}
+.alert-dismissable,
+.alert-dismissible {
+  padding-right: 35px;
+}
+.alert-dismissable .close,
+.alert-dismissible .close {
+  position: relative;
+  top: -2px;
+  right: -21px;
+  color: inherit;
+}
+.alert-success {
+  color: #3c763d;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+}
+.alert-success hr {
+  border-top-color: #c9e2b3;
+}
+.alert-success .alert-link {
+  color: #2b542c;
+}
+.alert-info {
+  color: #31708f;
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+}
+.alert-info hr {
+  border-top-color: #a6e1ec;
+}
+.alert-info .alert-link {
+  color: #245269;
+}
+.alert-warning {
+  color: #8a6d3b;
+  background-color: #fcf8e3;
+  border-color: #faebcc;
+}
+.alert-warning hr {
+  border-top-color: #f7e1b5;
+}
+.alert-warning .alert-link {
+  color: #66512c;
+}
+.alert-danger {
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;
+}
+.alert-danger hr {
+  border-top-color: #e4b9c0;
+}
+.alert-danger .alert-link {
+  color: #843534;
+}
+
+/* Bootstrap Jumbotron Classing */
+.jumbotron {
+  padding-top: 30px;
+  padding-bottom: 30px;
+  margin-bottom: 30px;
+  color: inherit;
+  /*background-color: #eee;*/
+}
+.jumbotron h1,
+.jumbotron .h1 {
+  color: inherit;
+}
+.jumbotron p {
+  margin-bottom: 15px;
+  font-size: 21px;
+  font-weight: 600;
+}
+.jumbotron > hr {
+  border-top-color: #d5d5d5;
+}
+.container .jumbotron,
+.container-fluid .jumbotron {
+  padding-right: 15px;
+  padding-left: 15px;
+  border-radius: 6px;
+}
+.jumbotron .container {
+  max-width: 100%;
+}
+@media screen and (min-width: 768px) {
+  .jumbotron {
+ /*   padding-top: 48px;
+    padding-bottom: 48px;*/
+  }
+  .container .jumbotron,
+  .container-fluid .jumbotron {
+    padding-right: 60px;
+    padding-left: 60px;
+  }
+  .jumbotron h1,
+  .jumbotron .h1 {
+    font-size: 63px;
+  }
+}
+
+.alert-success p{
+	 color: #3c763d;
+}
+.alert-warning p {
+	color: #66512c;
+}
+.alert-danger p {
+	color: #a94442; 
+}
+
+/* Custom classing */
+.bd_p p:last-child {
+    margin-bottom: 0px;
+}

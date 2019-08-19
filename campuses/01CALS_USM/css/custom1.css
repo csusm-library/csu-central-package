@@ -1,51 +1,123 @@
-/*
-prm-search > md-content.md-primoExplore-theme .main {
-    display: -webkit-flex; !* Safari *!
-    -webkit-flex-flow: row-reverse wrap; !* Safari 6.1+ *!
-    display: flex;
-    flex-flow: row-reverse wrap;
+@import url("https://use.fontawesome.com/92989db876.css");
+/** CSU DESIGN **/
 
-}
-.screen-gt-sm .sidebar{
-    webkit-flex: 0 0 15%;
-    flex: 0 0 15%;
+
+/* make facets 25% wide */
+
+.flex-gt-md-25.sidebar {
+    webkit-flex: 0 0 20%;
+    flex: 0 0 20%;
 }
 
-*/
-body {
-    font-size: 16px;
+@media (max-width: 1919px) and (min-width: 1280px) {
+    .flex-lg-20,
+    .layout-lg-row>.flex-lg-20,
+    .layout-row>.flex-lg-20 {
+        webkit-flex: 0 0 20%;
+        flex: 0 0 20%;
+        max-width: 20%;
+    }
 }
 
-/* page background */
-body, md-content, md-content.md-primoExplore-theme {
+.layout-row>.flex-gt-lg-10 {
+    webkit-flex: 0 0 21%;
+    flex: 0 0 21%;
+    max-width: none;
+}
+
+.main {
+    webkit-flex: 0 0 65%;
+    flex: 0 0 65%;
+}
+
+#mainResults {
+    padding-left: 1em;
+}
+
+
+/* un-bold facet values */
+
+.section-content .md-chips .md-chip strong {
+    font-weight: normal!important;
+}
+
+
+/* results & full record have white background, facets have grey */
+
+body,
+html {
     background-color: #fff;
 }
 
-.prm-primary-bg.prm-hue1, prm-spinner.prm-hue1.overlay-cover.light-on-dark:after, prm-topbar .top-nav-bar, prm-search-bar.prm-hue1 {
-    background-color: #17405C;
+.list-item-wrapper,
+.full-view-inner-container {
+    background-color: #fff;
 }
 
-/* top menu */
-.prm-primary-bg.prm-hue1, prm-spinner.prm-hue1.overlay-cover.light-on-dark:after, prm-topbar .top-nav-bar, prm-search-bar.prm-hue1 {
-    background-color: #17405C;
+.sidebar-inner-wrapper {
+    background-color: #efefef;
+    padding: 0 15px 20px;
+    max-width: 100%
 }
 
-prm-main-menu[menu-type="menu"] .md-button {
-    font-size: 16px;
-    color: #fff;
-    text-transform: capitalize;
+prm-journals-search-bar .search-switch-buttons .md-button.switch-to-advanced,
+prm-search-bar .search-switch-buttons .md-button.switch-to-advanced {
+    color: #333;
 }
 
-prm-main-menu[menu-type="menu"] .md-button:last-child {
-    min-width: 150px;
+
+/* google-style search term bold instead of highlighter */
+
+.text-highlight,
+mark {
+    box-shadow: none;
 }
+
+.searchword {
+    font-weight: bold;
+    color: #6a6a6a;
+}
+
+
+/* brief results link darker blue */
+
+prm-brief-result .item-title span {
+    color: #1a4c76;
+}
+
+
+/* create separate line for multiple scripts in titles */
+
+.item-title a span {
+    display: block;
+}
+
+
+/* overlay background darker */
+
+.prm-primary-bg.prm-hue2,
+prm-spinner.prm-hue2.overlay-cover.light-on-dark:after,
+prm-search-bar.prm-hue2,
+prm-journals-search-bar.prm-hue2,
+md-backdrop.md-opaque {
+    background-color: #000 !important;
+}
+
+
+/* make sure library logo is responsive and clickable */
 
 prm-topbar prm-logo {
-    max-width: 500px !important;
+    width: 100% !important;
+    max-width: none;
+    min-width: 200px;
+}
+
+prm-logo .logo-image,
+prm-logo img {
+    width: 100%;
     height: auto;
 }
 
-/* workaround to make logo clickable */
 prm-logo div.product-logo {
     display: none;
 }
@@ -54,22 +126,147 @@ prm-logo div.product-logo-local {
     display: flex;
 }
 
-prm-logo .logo-image, prm-logo img {
-    min-width: 360px;
+prm-logo .product-logo a:hover {
+    background-color: transparent;
+    text-transform: none;
+    box-shadow: none;
+}
+
+
+/* hide tag feature */
+
+.md-button.flex-button[aria-label="Tags"],
+.md-button.flex-button[aria-label="TAGS"],
+button[aria-label="TAGS"],
+button[aria-label="Tags"],
+#tags,
+.md-button[aria-label="nui.mainmenu.label.tags"],
+md-card.transparent-card:nth-child(2) {
+    display: none;
+}
+
+
+/* hide pseduo-full-text link in full record */
+
+prm-full-view-service-container prm-search-result-availability-line {
+    display: none;
+}
+
+
+/* temp fix for browse background color and text */
+
+.prm-primary-bg,
+prm-browse-search-bar,
+prm-journals-search-bar,
+prm-search-bar,
+prm-spinner.overlay-cover.light-on-dark:after,
+prm-tags-search-bar {
+    background-color: inherit;
+}
+
+prm-alphabet-toolbar .md-button {
+    color: #000 !important;
+}
+
+
+/* move browse pager to right */
+
+.__gt-md prm-page-nav-menu {
+    bottom: 1.5em;
+    right: 2em;
+    left: unset;
+}
+
+md-tooltip[md-direction=right] {
+    left: unset !important;
+    right: 70px;
+}
+
+
+
+/* page background */
+
+body,
+md-content,
+md-content.md-primoExplore-theme {
+    background-color: #fff;
+}
+
+.prm-primary-bg.prm-hue1,
+prm-spinner.prm-hue1.overlay-cover.light-on-dark:after,
+prm-topbar .top-nav-bar,
+prm-search-bar.prm-hue1 {
+    background-color: #17405C;
+}
+
+
+prm-topbar prm-logo {
+    width: auto !important;
+    max-width: none;
+    min-width: 200px;
+}
+
+/* top menu */
+
+.prm-primary-bg.prm-hue1,
+prm-spinner.prm-hue1.overlay-cover.light-on-dark:after,
+prm-topbar .top-nav-bar,
+prm-search-bar.prm-hue1 {
+    background-color: #17405C;
+}
+
+prm-main-menu[menu-type="menu"] .md-button {
+    font-size: 14px;
+    color: #fff;
+    text-transform: capitalize;
+}
+
+prm-main-menu[menu-type="menu"] .md-button:last-child {
+    min-width: 150px;
+}
+
+
+/* workaround to make logo clickable */
+
+prm-logo div.product-logo {
+    display: none;
+}
+
+prm-logo div.product-logo-local {
+    display: flex;
+}
+
+prm-logo .logo-image,
+prm-logo img {
+    max-width: 95px;
+}
+
+#inst-logo-link {
+    padding:5px 5px 0;
+    display: block;
+    color: #fff;
+    font-size: 18px;
+    line-height: 21px;
+    font-weight: bold;
 }
 
 .md-button[aria-label="Find Specific Article"] {
-    min-width: 125px;
+    min-width: 107px;
 }
 
+
 /* User Area in Top Nav */
+
 prm-topbar .md-button:not(.md-icon-button) {
     border-radius: 0;
     color: #fff;
-    margin: 0 10px !important;
+    margin: 0 0 !important;
+    font-size: 14px;
 }
 
+
 /* Search Bar */
+
 prm-search-bar {
     color: #3a3a3a;
     background: #f2f2f2;
@@ -92,21 +289,108 @@ prm-search-bar {
     display: inline-block;
 }
 
-._md-select-menu-container.md-primoExplore-theme md-select-menu, ._md-select-menu-container.md-primoExplore-theme md-select-menu md-content {
+._md-select-menu-container.md-primoExplore-theme md-select-menu,
+._md-select-menu-container.md-primoExplore-theme md-select-menu md-content {
     max-height: 420px;
 }
 
+/*
+  The reason these are such specific pixels is that they were chosen
+  to space correctly around the existing search bar
+  Of course if the size of the existing search bar is different of if ExL
+  changes it these base values will be meaningless
+*/
+
+prm-search-bar {
+    padding-bottom: 44.5px;
+}
+
+.__sm prm-search-bar {
+    padding-bottom: 39.5px;
+}
+
+.__xs prm-search-bar {
+    padding-bottom: 26px;
+}
+
+search-bar-sub-menu ul {
+    float: left;
+    margin: 0;
+}
+
+@media (min-width: 1280px) {
+    search-bar-sub-menu ul {
+        margin-left: 30%;
+    }
+}
+
+search-bar-sub-menu ul li {
+    display: inline;
+    list-style: none;
+    padding: 0;
+}
+
+search-bar-sub-menu div.search-bar-sub-menu {
+    background-color: #e4e4e4;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 36px;
+}
+
+search-bar-sub-menu .md-button.md-small {
+    font-size: 15px;
+    min-width: 42px;
+    text-transform: none;
+    color: #036;
+}
+
+search-bar-sub-menu .md-button.button-over-dark:hover:not([disabled]) {
+    background: #036;
+}
+
 /* home page */
-#homepage_panels_wrapper .layout-column.flex-60 > .md-primoExplore-theme {
+
+#homepage_panels_wrapper .layout-column.flex-60>.md-primoExplore-theme {
     margin-left: 35%;
 }
 
-md-card md-card-title md-card-title-text {
-}
+md-card md-card-title md-card-title-text {}
+
 
 /* Search results */
-#mainResults {
-    width: 97%;
+
+
+.main {
+    webkit-flex: 0 0 95%;
+    flex: 0 0 95%;
+}
+@media (min-width: 1920px) {
+    .main {
+        webkit-flex: 0 0 80%;
+        flex: 0 0 80%;
+    }
+    prm-search > div.layout-row > md-content > .flex-order-4.flex-xl-25 {
+        flex: 1 1 5%;
+        max-width: 5%;
+    }
+}
+
+
+
+/* google-style search term bold instead of highlighter */
+
+.text-highlight,
+mark,
+.searchword {
+    box-shadow: none;
+    font-weight: bold;
+    color: #6a6a6a;
+}
+
+prm-brief-result .item-title {
+    font-weight: normal;
 }
 
 .best-location-library-code locations-link {
@@ -121,10 +405,6 @@ prm-search-result-list .list-spacer {
     min-height: 10px;
 }
 
-prm-search-result-list prm-action-list-after {
-    margin-top: 9px;
-}
-
 .availability-status.not_restricted {
     color: #e08303;
 }
@@ -135,13 +415,47 @@ prm-search-result-list prm-action-list-after {
     border: 1px solid #dedede;
 }
 
+
 /* facets sidebar */
-#facets.sidebar {
-    padding-bottom: 20px;
-    margin-top: 30px;
-    max-width: 350px;
-    margin-right: 30px;
-    margin-left: 30px;
+
+#facets.sidebar .sidebar-title {
+    display: none;
+}
+
+#facets.sidebar .compensate-padding-left  {
+    padding-left: 0;
+}
+#facets.sidebar .filtered-facets-section h2::after {
+    content: " Click the lock to make filters sticky";
+    clear: both;
+    font-size: 14px;
+    display: block;
+    margin: 5px 0 10px;
+    color: #333;
+    font-weight: bold;
+}
+
+@media (min-width: 1280px) {
+    #facets.sidebar {
+        padding-bottom: 20px;
+        margin-right: 10px;
+        max-width: 365px;
+    }
+}
+
+#facets.sidebar #external-search a {
+    font-size: 16px;
+    text-decoration: none;
+    color: #226091;
+    box-shadow: none;
+}
+
+#facets.sidebar #external-search a img {
+    vertical-align: text-bottom;
+    width: 22px;
+    height: 22px;
+    margin-right: 2px;
+    display: inline-block;
 }
 
 #facets.sidebar input[type='number'] {
@@ -160,13 +474,57 @@ prm-search-result-list prm-action-list-after {
 #facets.sidebar .facet-title {
     color: #226091;
     font-size: 16px;
+    margin-left: 10px;
 }
 
-.section-content .md-chips .md-chip .md-chip-content, .section-content .md-chips .md-chip .facet-title {
+#facets.sidebar button.button-exclude {
+    display: none;
+}
+
+#facets.sidebar div[data-facet-value='rtype-reviews'] button.button-exclude {
+    display: inline-block;
+}
+
+prm-newspapers-facet {
+    margin: 0px 0 5px -5px;
+    display: block;
+}
+
+.section-content .md-chips .md-chip .md-chip-content,
+.section-content .md-chips .md-chip .facet-title {
     color: #222;
 }
 
+.sidebar .md-button {
+    margin-left: -6px;
+}
+
+.multiselect-facet-group.multiselect-inactive .md-chip md-checkbox,
+.section-content .md-chips .md-chip .md-chip-remove-container .md-button {
+    opacity: 1;
+    visibility: visible;
+    z-index: 100;
+    transform: scaleX(1);
+    transition: all 0s 0s;
+    margin-left: 10px;
+}
+
+prm-search-result-sort-by {
+    margin-bottom: 1px;
+    font-size: 17px;
+    border: 1px solid #ddd;
+    background: #fff;
+    padding-top: 0;
+}
+
+prm-search-result-sort-by > md-input-container, 
+prm-search-result-sort-by > md-input-container > md-select-value {
+    padding-top: 0;
+}
+
 /* make the lock always show on facets area */
+
+prm-breadcrumbs .md-chip.wrapping-chip .md-chip-content strong,
 prm-facet prm-breadcrumbs div.md-chip-content strong {
     padding-left: 22px;
 }
@@ -192,121 +550,338 @@ prm-breadcrumbs .md-chip.persistent-facet .md-chip-content .persistence-button {
     left: -1px;
 }
 
-/* services menu in item full display */
+prm-newspapers-home button[aria-label="Availability "],
+prm-newspapers-home button[aria-label="Availability "] + div + div {
+    display: none;
+}
+
+prm-facet-group md-checkbox[aria-label="Include Open Access for multiple selection"],
+prm-facet-group strong[title="Open Access"] {
+    display: none;
+}
+}
+
+/* hide original prm-no-search-result box */
+
+prm-no-search-result>md-card {
+    display: none;
+}
+
+prm-newspapers-spotlight {
+    display: block;
+    width: 75%;
+    margin: 10px auto 0;
+}
+
+prm-newspapers-spotlight .spotlight-image img {
+    width: 20px;
+}
+
+#mainResults .button-confirm.md-primoExplore-theme {
+    padding:10px 30px;
+    color: #333;
+    background: #e1f2f4;
+    font-weight: bold;
+    margin-top: -10px;
+}
+
+
+/* Haven't found... */
+
+#needHelp {
+    margin-left: 1em !important;
+    padding: 0 10px;
+    margin-top: 35px !important;
+}
+
+md-card.default-card,
+#noResultsAfter {
+    background: #fafafa;
+}
+
+#noResultsAfter md-card-title:not(#featuredResultTitle) {
+    padding: 0 16px;
+}
+
+/* resolve problems with full record overlay post-February release */
+
+body.md-dialog-is-showing {
+    overflow-x: visible!important;
+}
+
+.full-view-section-content:after {
+    left: .75em;
+}
+
+/* Journal search */
+
+prm-atoz-search-bar {
+    padding-bottom: 0;
+}
+
+prm-alphabet-toolbar .md-button {
+    color: #fff !important;
+    font-size: 16px;
+}
+
+
+
+
+/*re-order My Library Card and Sign in/out links */
+
+
+/* Full View */
+
+#full-view-container {
+    z-index: 90;
+    position: relative;
+}
+
+.full-view-container .services-index-under {
+    display: none;
+}
+
+.__gt-sm .full-view-inner-container #brief{
+    margin-top: 60px;
+    padding: 20px 10px 0 10px;
+    /* background: #f0f7ff; */
+    margin-bottom: 0;
+    margin-left: 35px;
+}
+
+.full-view-section-content,
+.__gt-xs .full-view-section-content {
+    padding-left: 2.5em;
+}
+
+prm-full-view prm-brief-result-container .list-item-primary-content {
+    padding-bottom: 0 !important;
+}
+
+prm-full-view prm-brief-result-container .search-result-availability-line-wrapper {
+    min-height: 0;
+}
+
+prm-alma-mashup {
+    margin-bottom: 0 !important;
+}
+
+prm-alma-mashup iframe {
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 0;
+}
+
+.full-view-section {
+    margin-top: 0;
+}
+
+.full-view-section#action_list,
+.full-view-section#virtualBrowse {
+    margin-top: 25px;
+}
+
 .viewIt {
     border: none;
-}
-
-prm-action-list .md-button .button-text {
-    white-space: normal;
-}
-
-prm-action-list>md-nav-bar nav {
-    justify-content: left;
-    margin-left: 120px;
 }
 
 prm-full-view {
     width: 100%;
 }
 
-prm-full-view .services-index-under .md-button {
-    max-width: 95%;
+prm-full-view .services-index-under button.md-button {
+    max-width: 85%;
     overflow: visible;
     white-space: normal;
     line-height: normal;
     font-size: 16px;
-    margin-bottom: 20px !important;
+    background: #f4f4f4;
+    border-radius: 5px 0 0 5px;
+    padding: 12px 0 15px 10px !important;
+    margin-top: 8px !important;
+    text-transform: capitalize !important;
+    width: 100%;
+    border: 1px solid #eee;
 }
 
-prm-action-list>md-nav-bar .md-nav-item .md-button {
-    font-size: 13px;
+prm-full-view button[aria-label="Top"].md-button {
+    background: none;
+    border: none;
+    margin: 20px 0 40px !important;
 }
 
-
-prm-action-list>md-nav-bar .md-nav-item .md-button .button-text {
-    min-height: 30px;
+prm-full-view button[aria-label="Top"]:after {
+    content: " \f062";
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
 }
 
-prm-action-list-after {
+.full-view-section#action_list {
+    margin-top: 0;
+    padding: 0;
     position: absolute;
-    margin-top: 48px;
-    margin-left: 36px;
-    top: 0;
+    top: 10px;
+    z-index: 1000;
+    left: 0;
+    display: block;
+    width: 100%;
 }
 
-.action-list-addon-text {
-    font-size: 13px;
-    line-height: 32px;
-    margin-top: -7px;
-    font-weight: 400;
-    letter-spacing: 0.05em;
-    color: rgba(0, 0, 0, 0.57);
-    text-align: center;
-    padding: 0 0 12px 0;
-    transition: background-color .35s cubic-bezier(.35,0,.25,1);
-    cursor: pointer;
-    white-space: nowrap;
-    text-decoration: none;
-    position: relative;
-    text-transform: uppercase;
-    float: left;
-    font-weight: 500;
-    box-sizing: border-box;
-    overflow: hidden;
+.full-view-section#action_list prm-action-list .md-button .button-text {
+    white-space: normal;
 }
 
-.iframeHeaderContent .requestOption:first-of-type,
+.full-view-section#action_list prm-action-list>md-nav-bar .md-nav-item .md-button {
+    font-size: 12px;
+    text-transform: capitalize;
+    padding-bottom: 10px;
+    color: #036;
+}
+
+.iframeHeaderContent .requestOption:first-of-type {
+    font-size: 15px;
+}
+
 .iframeHeader input[type="submit"] {
     font-size: 15px;
 }
 
+.full-view-section#action_list .full-view-section-content {
+    padding-left: 0;
+    background: #f6f6f6;
+    margin: -5px auto 0;
+}
 
-/* hide original prm-no-search-result box */
-prm-no-search-result > md-card {
+.full-view-section#action_list prm-action-list>md-nav-bar .md-nav-item {
+    max-width: 110px;
+    width: auto;
+}
+
+.full-view-section#action_list prm-action-list>md-nav-bar .md-nav-item:last-of-type {
+    margin-right: 0;
+}
+
+.full-view-section#action_list md-icon {
+    margin: auto;
+    background-repeat: no-repeat;
+    display: inline-block;
+    vertical-align: middle;
+    fill: currentColor;
+    height: 18px;
+    width: 18px;
+    min-height: 18px;
+    min-width: 18px;
+
+}
+
+.full-view-section#action_list .section-head {
     display: none;
 }
 
-/* Haven't found... */
-#needHelp {
-    width: 97%;
+.full-view-section#action_list .section-body {
+    padding-bottom: 0;
 }
 
-/* resolve problems with full record overlay post-February release */
-body.md-dialog-is-showing {
-    overflow-x: visible!important;
+.section-body.Almagetit {
+    margin-bottom: 25px;
+}
+
+body > ._md-select-menu-container._md-active._md-clickable {
+    margin-top:46px;
+    z-index: 2000;
+}
+
+.prm-full-view-dialog prm-full-view .services-index-under,
+prm-full-view-cont prm-full-view .services-index-under {
+    top: 320px;
+}
+
+.full-view-section#details {
+    margin-top: 25px;
+    margin-bottom: 35px;
+}
+
+.full-view-section prm-save-to-favorites-button {
+    margin-top: 30px;
+    margin-right: 30px;
+}
+
+#links prm-full-view-service-container > .section-body,
+#altmetrics prm-full-view-service-container > .section-body,
+#citationTrails prm-full-view-service-container > .section-body,
+#details prm-full-view-service-container > .section-body {
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    box-shadow: 0 2px 6px 0 #eee;
+    margin-bottom: 35px;
+}
+
+.full-view-container .result-item-actions {
+    top: 30px;
+    right: 30px;
+}
+
+.full-view-section prm-service-header md-divider {
+    border: none;
+}
+
+.full-view-section h4.section-title {
+    margin-left: 13px;
+}
+.full-view-section#getit_link1_0 h4.section-title,
+.full-view-section#getit_link1_1 h4.section-title {
+    display: none;
 }
 
 
-
-/*re-order My Library Card and Sign in/out links */
-
-prm-library-card-menu {
-    right: 118px;
-    position: absolute;
-    top: 12px;
+.full-view-section#getit_link1_0 prm-authentication .md-button {
+    background-color: #f7eda3;
+    border: 1px solid #e1cd51 !important;
+    padding: 9px 4px 5px 6px;
+    color: #000;
+    box-shadow: 2px 2px 5px #ddd;
 }
 
+span[translate="csuplus"] {
+    font-size: 16px;
+    font-weight: bold;
+    display: block;
+    margin: 0 0 10px 6px;
+    width: 100%;
+}
 
-/* Full View Sign-in */
+prm-view-online a.arrow-link{
+    margin-left: 10px;
+}
 
-.full-view-section prm-authentication {
-    right: 0;
-    position: absolute;
-    top: -22px;
+.illiad-request a, 
+.circuit-request a, 
+.google-search a,
+.research-help a,
+.item_toc a{
+    display: block;
+    margin-bottom: 8px;
+    float: left;
+    clear: both;
+    padding: 5px;
+    margin-left: 7px;
+}
+
+.full-view-container prm-brief-result .item-title {
+    font-weight: bold;
+    font-size: 22px;
+    margin: 20px 0 10px;
 }
 
 .full-view-section span[translate="eshelf.signin.title"]::after {
     content: " for more options";
 }
 
-prm-search-bookmark-filter {
-    right: 300px;
-    position: absolute;
-}
-
 .full-view-section .section-body .alert-bar {
-    float: right;
     background: transparent;
     min-height: 10px;
     padding: 0;
@@ -314,14 +889,121 @@ prm-search-bookmark-filter {
     border: none;
 }
 
+.alert-panel {
+    position: absolute;
+    width: 100%;
+    right: 0;
+}
+
+.alert-panel .alert-message {
+    padding: 20px;
+    background: #d0e3b9;
+    color: #222;
+    margin: 20px 0;
+    margin-right: 0px;
+    margin-left: 0px;
+    text-align: center;
+    margin-left: 8em;
+    box-shadow: 0 4px 8px 0 #ccc;
+    margin-right: 7px;
+    border: 1px solid #eee;
+}
+
+.alert-panel .alert-message button{
+    position: absolute;
+    right: 5px;
+    top: 20px;
+    float: right;
+}
+
+.full-view-section .section-body .alert-bar .bar prm-authentication .md-button {
+    z-index: 1000;
+}
+
+prm-alma-more-inst-after {
+    display: block;
+}
+
+prm-alma-more-inst .toggleCSU {
+    background: #f8f8f8;
+    margin-top: 0px;
+}
+
+prm-alma-more-inst .csuplus_request {
+    background: #e0f7fb;
+}
+
+prm-alma-more-inst .csuplus_request a,
+prm-alma-more-inst .csuplus_request a:hover {
+    font-weight: bold;
+    text-decoration: none;
+    box-shadow: none;
+    background: none;
+    display: block;
+    padding: 0 10px;
+}
+
+prm-alma-more-inst .medium-uppercase-bold {
+    font-size: 20px;
+    text-transform: capitalize;
+    font-weight: 300;
+    margin-top: 28px;
+}
+
+prm-alma-more-inst md-tabs {
+    max-height: 300px;
+    overflow-y: scroll;
+    border: 1px solid #eee;
+    box-shadow: 0 2px 6px 0 #eee;
+    border-radius: 6px;
+    clear: both;
+}
+
+::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 7px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(0,0,0,.5);
+    -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+}
+
+.full-view-section #item-details div .word-break {
+    margin: 0 0 12px 0;
+}
 
 .login-dialog .md-primoExplore-theme {
     background-color: transparent;
 }
 
+.md-dialog-container {
+    z-index: 1000;
+}
+
+.login-dialog.light-on-dark-dialog prm-login {
+    background-color: #000;
+}
+
+.login-dialog.light-on-dark-dialog md-list md-list-item .md-list-item-text h3,
+.login-dialog.light-on-dark-dialog md-list md-list-item prm-icon md-icon {
+    font-weight: bold;
+    color: #fff !important;
+}
+
+prm-recomendations {
+    margin-top: 200px;
+    display: block;
+    position: relative;
+    z-index: 1;
+}
+
+
 /* My Account */
 
-prm-personal-info.layout, prm-personal-info .layout-row {
+prm-personal-info.layout,
+prm-personal-info .layout-row {
     box-sizing: border-box;
     display: block;
 }
@@ -332,15 +1014,15 @@ prm-personal-info.layout, prm-personal-info .layout-row {
 
 md-card md-checkbox {
     padding-right: 2em;
-} 
-
+}
 
 
 /* Hide tags option in top nav menu */
 
 .md-button[aria-label="nui.mainmenu.label.tags"] {
-    display:none;
+    display: none;
 }
+
 
 
 /* Correct align of arrow in non-CSUSM login form */
@@ -354,6 +1036,26 @@ span[translate="getit.signin_link.sign_in"] {
 }
 
 
+/* Your Feedback Button */
+
+a.atlwdg-trigger {
+    padding: 10px;
+    font-size: 16px;
+    z-index: 1000;
+}
+
+a.atlwdg-trigger:hover {
+    background: #267fda !important;
+    color: white !important;
+    padding: 13px 10px;
+    border: 2px solid white;
+    border-top: none;
+    -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    border-radius: 0 0 5px 5px;
+}
+
+
 /* Alert panel */
 
 #primoUpgradeMessage {
@@ -361,28 +1063,45 @@ span[translate="getit.signin_link.sign_in"] {
     max-width: 65%;
 }
 
-prm-topbar prm-user-area,
-span[translate="nui.menu.librarycard"] {
-/*    display: none; */
-}
+
 
 .one-search img {
     width: auto !important;
-    max-width: 250px !important;
+    max-width: 170px !important;
 }
 
 
-#getit_link1_0 { order: 0; }
+#action_list {
+    order: 0;
+}
 
-#getit_link2_0 { order: 1; }
+#getit_link1 {
+    order: 1;
+}
 
-#action_list{ order: 2; }
+#getit_link2 {
+    order: 2;
+}
 
-#details { order: 3; }
+#details {
+    order: 3;
+}
 
-#links { order: 4; }
+#links {
+    order: 4;
+}
 
-#virtualBrowse { order: 5; }
+#citationTrails {
+    order: 5;
+}
+
+#altmetrics {
+    order: 6;
+}
+
+#virtualBrowse {
+    order: 7;
+}
 
 .full-view-inner-container {
     padding-bottom: 10em;
@@ -391,135 +1110,113 @@ span[translate="nui.menu.librarycard"] {
 }
 
 
-[aria-label="Online Access"] { order: 0 !important; }
+[aria-label="Send to"] {
+    order: 0 !important;
+}
 
-[aria-label="In the library"] { order: 1 !important; }
+[aria-label="View It"] {
+    order: 1 !important;
+}
 
-[aria-label="Send to"] { order: 2 !important; }
+[aria-label="Physical Holdings"] {
+    order: 2 !important;
+}
 
-[aria-label="Details"] { order: 3 !important; }
+[aria-label="Details"] {
+    order: 3 !important;
+}
 
-[aria-label="Links"] { order: 4 !important; }
+[aria-label="Links"] {
+    order: 4 !important;
+}
 
-[aria-label="Virtual Browse"] { order: 5 !important; }
+[aria-label="Citations"] {
+    order: 5 !important;
+}
+
+[aria-label="Altmetrics"] {
+    order: 7 !important;
+}
+
+[aria-label="Virtual Browse"] {
+    order: 7 !important;
+}
 
 #tags {
-    display:none;
-} 
-
-a.md-button[aria-label="Tags"]{display:none;} 
-a.md-button[aria-label="nui.mainmenu.label.tags"] {display:none;} 
-/** CSU DESIGN **/
-/* un-bold facet values */
-.section-content .md-chips .md-chip strong {
-    font-weight: normal!important;
+    display: none;
 }
 
-/* results & full record have white background, facets have grey */
-body, html {
-    background-color: #fff;
+.md-button[aria-label="Send to"], 
+.md-button[aria-label="Tags"] {
+    display: none;
 }
 
-.list-item-wrapper, .full-view-inner-container {
-    background-color: #fff;
+.md-button[aria-label="nui.mainmenu.label.send_to"],
+.md-button[aria-label="nui.mainmenu.label.tags"] {
+    display: none;
 }
 
-.sidebar-inner-wrapper {
-	background-color: #efefef;
-	padding-top: 20px;
-	padding-bottom: 40px;
-	margin-right: 0;
-	max-width: 100%
+/* Hide the open-access text and icon */
+
+.open-access-mark span {
+     display: none;
 }
 
-prm-journals-search-bar .search-switch-buttons .md-button.switch-to-advanced, prm-search-bar .search-switch-buttons .md-button.switch-to-advanced {
-    color: #333;
+.open-access-mark-icon md-icon {
+     display: none;
 }
 
-/* google-style search term bold instead of highlighter */
-.text-highlight, mark {
-    box-shadow: none;
+prm-login-alma-mashup {
+    float: right;
+    margin: -10px 0 25px 10px;
+}
+oca-report-problem {
+    float: right;
+    margin: -10px -20px 25px 10px;
 }
 
-.searchword {
-    font-weight: bold;
-    color: #6a6a6a;
-}
-
-/* brief results link darker blue */
-prm-brief-result .item-title span {
-    color: #1a4c76;
-}
-
-/* create separate line for multiple scripts in titles */
-
-.item-title a span {
-	display: block;
-}
-
-/* overlay background darker */
-.prm-primary-bg.prm-hue2, prm-spinner.prm-hue2.overlay-cover.light-on-dark:after, prm-search-bar.prm-hue2, prm-journals-search-bar.prm-hue2, md-backdrop.md-opaque {
-    background-color: #000 !important;
-}
-
-/* make sure library logo is responsive and clickable */
-prm-topbar prm-logo {
-	width: 100% !important;
-	max-width: none;
-	min-width: 200px;
-}
-
-prm-logo .logo-image, prm-logo img {
-    width: 100%;
+oca-report-problem .bar.filter-bar {
+    margin: 0;
+    padding: 0;
+    background: none;
     height: auto;
+    min-height: 10px;
+    color: #fff;
+    border: none;
 }
 
-prm-logo div.product-logo {
+oca-report-problem .bar.filter-bar button {
+    background: #515c77;
+    color: #fff;
+    padding: 1px 10px;
+    border: 1px solid #000;
+    box-shadow: 2px 2px 5px #ddd;
+}
+
+prm-full-view .report-problem-form-wrapper {
+    position: absolute;
+    right: 0;
+    z-index: 1000;
+    width: 650px;
+    box-shadow: 0 2px 6px 0 #eee;
+    padding-top: 0;
+    margin-top: 5px;
+}
+
+prm-alma-more-inst > h3 {
     display: none;
 }
 
-prm-logo div.product-logo-local {
-    display: flex;
-}
-
-prm-logo .product-logo a:hover {
-    background-color: transparent;
-    text-transform: none;
-    box-shadow: none;
-}
-
-
-/* hide tag feature */
-.md-button.flex-button[aria-label="Tags"], .md-button.flex-button[aria-label="TAGS"], button[aria-label="TAGS"], button[aria-label="Tags"], #tags, .md-button[aria-label="nui.mainmenu.label.tags"], md-card.transparent-card:nth-child(2) {
+.getit2Requests {
     display: none;
 }
 
-/* hide pseduo-full-text link in full record */
-prm-full-view-service-container prm-search-result-availability-line {
+#getit_link2 .getit2Requests {
+    display: block;
+}
+
+.logged-in {
     display: none;
-}
-
-/* temp fix for browse background color and text */
-
-.prm-primary-bg, prm-browse-search-bar, prm-journals-search-bar, prm-search-bar, prm-spinner.overlay-cover.light-on-dark:after, prm-tags-search-bar {
-	background-color: inherit;
-}
-
-prm-alphabet-toolbar .md-button {
-	color: #000 !important;
-}
-
-/* move browse pager to right */
-.__gt-md prm-page-nav-menu {
-    bottom: 1.5em;
-    right: 2em;
-    left: unset;
-}
-
-
-md-tooltip[md-direction=right] {
-    left: unset !important;
-    right: 70px;
 }
 /* ONE SEARCH LOGO */
 /* hide the logo on x-small screens */
@@ -615,14 +1312,59 @@ md-tooltip[md-direction=right] {
     }
 }
 
+/*Printing Configurations*/
+
+@media print {
+    /* hide the sidebar/facets */
+    .sidebar {display:none;}
+}
+	/* TOOLTIP CSS*/
+		/* Tooltip container */
+		.tooltip {
+		    position: relative;
+		    display: inline-block;
+		    border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+		}
+
+		/* Tooltip text */
+		.tooltip .tooltiptext {
+		    visibility: hidden;
+		    width: 150px;
+		    background-color: #58595B;
+		    color: #fff;
+		    text-align: left;
+		    padding: 15px;
+		    border-radius: 3px;
+		    font-size: 12px;
+		    font-weight: normal;
+ 		    position: absolute;
+		    z-index: 1000;
+			top: 100%;
+			left: 50%; 
+			white-space: normal;
+			line-height: normal;
+			margin-left: -75px; /* Use half of the width (120/2 = 60), to center the tooltip */
+		}
+
+		/* Show the tooltip text when you mouse over the tooltip container */
+		.tooltip:hover .tooltiptext {
+		    visibility: visible;
+		}
+
+		button[aria-label='Collection '] {
+			overflow: visible;
+		}
+	
+	
 /* user area */
 prm-user-area {
     display: flex;
 }
 
 /* display username under sign out button */
-prm-user-area .md-toolbar-tools {
-    font-size: 1em;
+prm-user-area .md-toolbar-tools,
+prm-user-area .md-button {
+    font-size: 14px !important;
 }
 
 prm-user-area .md-button[aria-label="Sign out"] {
@@ -636,7 +1378,7 @@ prm-user-area .md-button[aria-label="Sign out"] prm-icon {
 }
 
 prm-user-area .md-button[aria-label="Sign out"] span {
-    margin-top: 2px;
+    margin-top: 3px;
 }
 
 prm-user-area .md-button[aria-label="Sign out"] .layout-column {
@@ -651,4 +1393,46 @@ prm-user-area .md-button[aria-label="Sign out"] .layout-column span:nth-child(1)
 
 prm-user-area .md-button[aria-label="Sign out"] .layout-column span:nth-child(2) {
     text-transform: none;
+}
+
+/*
+  The reason these are such specific pixels is that they were chosen
+  to space correctly around the existing search bar
+  Of course if the size of the existing search bar is different of if ExL
+  changes it these base values will be meaningless
+*/
+prm-search-bar {
+  padding-bottom: 44.5px;
+}
+.__sm prm-search-bar {
+  padding-bottom: 39.5px;
+}
+.__xs prm-search-bar {
+  padding-bottom: 26px;
+}
+search-bar-sub-menu ul {
+  margin: 0 0 0 25%;
+  float: left;
+}
+search-bar-sub-menu ul li {
+  display: inline;
+  list-style: none;
+  padding: 0;
+}
+search-bar-sub-menu div.search-bar-sub-menu {
+  background-color: #e4e4e4;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 36px;
+}
+search-bar-sub-menu .md-button.md-small {
+  font-size: 15px;
+  min-width: 42px;
+  text-transform: none;
+  color: #036;
+}
+search-bar-sub-menu .md-button.button-over-dark:hover:not([disabled]) {
+  background: #036;
 }

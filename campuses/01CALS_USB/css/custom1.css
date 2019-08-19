@@ -10,6 +10,12 @@ prm-alphabet-toolbar .md-button:hover:not([disabled]) {
   color:#FFF;
 }
 
+.libraryh3lp {
+  position:fixed;
+  bottom:-35px;
+  right:8em;
+}
+
 /* navbar color change */
 
 .prm-primary-bg, prm-spinner.overlay-cover.light-on-dark:after, prm-search-bar, prm-journals-search-bar {
@@ -135,6 +141,26 @@ a.md-primoExplore-theme {
 .__xs prm-resource-recommender-card-content a
   {
     width:100%; 
+  }
+.flex-60, .layout-row>.flex-60, .flex-40, .layout-row>.flex-40 
+  {
+     min-width:100%; 
+  }
+  .libraryh3lp {
+    display:none;
+  }
+}
+
+@media only screen and (max-width:1090px) {
+  .flex-60, .layout-row>.flex-60, .flex-40, .layout-row>.flex-40 
+  {
+     min-width:100%; 
+  }
+  .libraryh3lp {
+    display:none;
+  }
+  md-content, md-content.md-primoExplore-theme {
+    display:block;
   }
 }
 
@@ -269,4 +295,44 @@ prm-breadcrumbs .md-chip.persistent-facet .md-chip-content .persistence-button {
 /*remove clip-path from animation*/
 .animate-popover {
   clip-path: unset;  
+}
+
+/*LibChat CSS*/
+.libraryh3lp a {
+  display:block;
+}
+
+.libraryh3lp a:focus {
+  border:1px dotted #000;
+}
+
+prm-user-area-expandable {
+
+  display: none;
+
+}
+
+
+prm-user-area {
+
+  display: block !important;
+
+}
+
+/*Alert Message CSS*/
+#alertMessage {
+  text-align:center;
+  color:#990000;
+  font-weight:600;
+  margin-top:10px;
+  font-size:18px;
+}
+
+/*Block Tags and Brose tab from Mor Options Button*/
+.custom-links-container.layout-wrap.layout-align-sm-start-start.layout-align-center-start.layout-row > div:nth-child(2), .custom-links-container.layout-wrap.layout-align-sm-start-start.layout-align-center-start.layout-row > div:nth-child(7){
+  display:none;
+}
+
+prm-breadcrumbs .md-chip.wrapping-chip .md-chip-content strong {
+  padding: 4px 0px 4px 18px;
 }

@@ -1,8 +1,5 @@
 /** Fullerton (01CALS_FUL) ***/
-
-
 /* navbar color change */
-
 .prm-primary-bg,
 prm-spinner.overlay-cover.light-on-dark:after,
 prm-search-bar,
@@ -50,9 +47,7 @@ prm-journals-search-bar.prm-hue4 {
     background-color: #0f3665;
 }
 
-
 /* search bar color change */
-
 .prm-primary-bg,
 prm-journals-search-bar,
 prm-search-bar,
@@ -61,9 +56,7 @@ prm-spinner.overlay-cover.light-on-dark:after {
     background-color: #fff;
 }
 
-
 /* make logo clickable */
-
 prm-logo div.product-logo {
     display: none;
 }
@@ -78,26 +71,16 @@ prm-logo .product-logo a:hover {
     box-shadow: none;
 }
 
-
 /*end of DW cleaned up*/
-
-
 /* fix login dialog transparency start*/
-
-
 /*md-dialog.light-on-dark-dialog {
 
     background-color: rgba(0,0,0,.6);
 
 }*/
-
-
 /* fix login dialog transparency end*/
-
-
 /* fix logo spacing start*/
-
-prm-topbar .top-nav-bar {
+prm-topbar {
     height: 100px;
 }
 
@@ -106,16 +89,9 @@ prm-topbar prm-logo {
     min-width: 150px;
 }
 
-
 /* fix logo spacing end*/
-
-
 /* prm-user-area */
-
-
 /* change account option order start*/
-
-
 /*prm-user-area md-toolbar > md-fab-actions > div:nth-child(1) {
   order: 3;
 }
@@ -125,65 +101,40 @@ prm-user-area md-toolbar > md-fab-actions > div:nth-child(2) {
 prm-user-area md-toolbar > md-fab-actions > div:nth-child(3) {
   order: 1;
 }*/
-
-
 /* change account option order end */
-
-
 /* remove facets space start */
-
-
 /*body > primo-explore > div > prm-explore-main > ui-view > prm-search > md-content > div.flex-xl-30.flex-md-10.flex-lg-25.flex-0
 {
    display:none;
 }*/
-
-
 /* remove facets space start end */
-
 body {
     background-color: white;
 }
 
-
-/*Move Expand results to bottom of page */
-
+/*Move Expand results to bottom of page 
 prm-facet div div div.sidebar-section.margin-top-small.margin-bottom-medium.compensate-padding-left:nth-child(2) {
-    order: 100;
+    order: 1;
 }
 
 prm-facet div div div.sidebar-section.margin-top-small.margin-bottom-medium.compensate-padding-left:nth-child(3) {
-    order: 100;
+    order: 1;
 }
-
-
+*/
 /*Move Expand results to bottom of page end */
-
-
 /*hide language options start */
-
-
 /* prm-user-area md-toolbar > md-fab-actions > div:nth-child(2) {
   display:none;
 } */
-
-
 /*hide language options end */
-
-
 /* remove language dropdown from . . . menu start */
-
 #dialogContent_17>prm-main-menu>div>md-content>div>div.settings-container.align-self-stretch.layout-gt-xs-row.layout-align-center-start>div>md-divider:nth-child(2),
 #dialogContent_17>prm-main-menu>div>md-content>div>div.settings-container.align-self-stretch.layout-gt-xs-row.layout-align-center-start>div>div {
     display: none;
 }
 
-
 /* remove language dropdown from . . . menu end */
-
-
 /* remove browse start */
-
 #dialogContent_17>prm-main-menu>div>md-content>div>div.custom-links-container.layout-wrap.layout-align-sm-start-start.layout-align-center-start.layout-row>md-card:nth-child(7) {
     display: none;
 }
@@ -192,9 +143,7 @@ prm-facet div div div.sidebar-section.margin-top-small.margin-bottom-medium.comp
     display: none;
 }
 
-
 /* Re-order the sections of the full record display */
-
 #action_list {
     order: 2
 }
@@ -236,6 +185,5 @@ prm-facet div div div.sidebar-section.margin-top-small.margin-bottom-medium.comp
 [aria-label="Virtual Browse"] {
     order: 8 !important;
 }
-
 
 /* Re-order the sections of the full record display end*/

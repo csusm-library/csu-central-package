@@ -105,10 +105,41 @@ div.top-nav-bar * {
 	color: black !important;
    }
 
-  .lcs_slide_out-r {
-        top: 150px !important;
-   }
+  .full-view-inner-container .services-index-under {
+       display: none;
+  }
 
+  @media only screen and (max-width: 500px) {
+	.flex-55, .layout-row>.flex-55, .flex-45, .layout-row>.flex-45 {
+          max-width: 100%;
+    	}
+  }
 
+  prm-breadcrumbs .md-chips .md-chip-content .persistence-button {
+	opacity: 1;
+    	transform: none;
+  }
 
+  prm-breadcrumbs .md-chip.wrapping-chip .md-chip-content
+  {
+    	padding-left: 15px;
+  }
 
+  .filtered-facets-section prm-breadcrumbs h2::after {
+     	content: " Click the lock to keep filters";
+     	display: block;
+    	margin: 5px 0 10px;
+    	font-size: 14px;
+    	font-weight: bold;
+  }
+
+  .text-highlight, mark { 
+	box-shadow: inset 0 -0.3em 0 0 #ffe564
+  }
+
+  .s-lch-widget-float.open {
+    top: initial !important;
+    height: calc(100% - 49px) !important;
+    max-height: 500px !important;
+  }
+  

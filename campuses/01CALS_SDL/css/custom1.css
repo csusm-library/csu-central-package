@@ -153,3 +153,10 @@ button.button-confirm.button-large.button-with-icon.md-button.md-primoExplore-th
 span.md-subhead {
     color: #000;
 }
+
+/* Added by Keven for staging notice 5/18/2018 */
+.messagenotice {
+    padding: 20px;
+    background-color: #47A8F5;
+    color: white;
+}

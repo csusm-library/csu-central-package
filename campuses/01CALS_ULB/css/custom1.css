@@ -17,13 +17,13 @@ prm-logo .product-logo a:hover {
 	text-transform: none;
 	box-shadow: none;
 }
-/*Hide Subhead*/
+/* Hide Subhead */
 prm-main-menu[menu-type=full] md-card-title md-card-title-text:only-child .md-subhead {
 	padding-top: .35em;
 	font-size: inherit;
 	display: none;
 }
-/* Change order of Item Record sections -- lower the "Send To" section */
+/* Control order of Item Record sections -- lower the "Send To" section */
 prm-service-header {
 	order: 0;
 }
@@ -39,6 +39,12 @@ prm-service-header {
 #virtualBrowse {
 	order: 5;
 }
+#citationTrails {
+	order: 6;
+}
+#altmetrics {
+	order: 7;
+}
 .full-view-inner-container {
 	padding-bottom: 10em;
 	display: flex;
@@ -51,7 +57,7 @@ prm-service-header {
 [aria-label="View It"] {
 	order: 1 !important;
 }
-[aria-label="Send to"] {
+[aria-label="Tools"] {
 	order: 2 !important;
 }
 [aria-label="Details"] {
@@ -63,6 +69,12 @@ prm-service-header {
 [aria-label="Virtual Browse"] {
 	order: 5 !important;
 }
+[aria-label="Citations"] {
+	order: 6 !important;
+}
+[aria-label="Altmetrics"] {
+	order: 7 !important;
+}
 [aria-label="Tags"] {
 	display: none !important;
 }
@@ -70,7 +82,11 @@ prm-service-header {
 .full-view-section {
 	margin-top: 1em;
 }
-/*force search term underlining - override Central Package*/
+/* hide the default No Results information - which was replaced by the HTML file prmNoSearchResultsAfter and activated via JavaScript */
+prm-no-search-result > md-card {
+        display: none;
+}
+/* force search term underlining - override Central Package */
 .text-highlight, mark {
 	box-shadow: inset 0 -0.3em 0 0 #ffe564;
 }
@@ -97,15 +113,28 @@ prm-service-header {
 	background-color: #111;
 }
 /* search bar color change */
-.prm-primary-bg, prm-search-bar, prm-atoz-search-bar, prm-browse-search-bar, prm-spinner.overlay-cover.light-on-dark:after {
+.prm-primary-bg, prm-search-bar, prm-atoz-search-bar, prm-browse-search-bar, prm-newspapers-search-bar, prm-spinner.overlay-cover.light-on-dark:after {
 	color: #333;
 	background-color: #ffc600;
 }
-/*Color of Menu in Mobile View */
+/* Color of Menu in Mobile View */
 prm-main-menu[menu-type="full"] md-card .md-headline {
 	color: #fff;
 }
-/*change color of text in top bar - increase contrast*/
+/* change color of text in top bar - increase contrast */
 prm-topbar .md-button, prm-topbar .md-button.button-over-dark, prm-user-area md-fab-toolbar .md-fab-action-item .md-button, prm-user-area .md-button.user-menu-button, prm-user-area md-fab-toolbar .md-fab-action-item md-input-container, prm-user-area md-fab-toolbar .md-fab-action-item md-input-container md-select {
 	color: #e6e6e6;
+}
+/** other changes **/
+
+/* styling of the pop-out chat widget */
+#libchat_f4fa8caa5d8610a0e598d45daf20f93f button {
+	font-weight: bold;
+	letter-spacing: 1px;
+}
+/* styling of altmetrics in full record */
+.full-view-section.loc-altmetrics {
+	background-color: #f3f3f3;
+	margin-top: 0px;
+	padding-left: 3em;
 }

@@ -2,7 +2,7 @@
 
 /* navbar color change */
 
-.prm-primary-bg, prm-spinner.overlay-cover.light-on-dark:after, prm-search-bar, prm-journals-search-bar {
+/*.prm-primary-bg, prm-spinner.overlay-cover.light-on-dark:after, prm-search-bar, prm-journals-search-bar {
     color: white;
     background-color: #f4f4ed;
 }
@@ -19,8 +19,29 @@
     background-color: #dcdcd8 !important;
 }
 .prm-primary-bg.prm-hue4, prm-spinner.prm-hue4.overlay-cover.light-on-dark:after, prm-search-bar.prm-hue4, prm-journals-search-bar.prm-hue4 {
-    background-color: #dcdcd8;
-}  
+    background-color: #dcdcd8; 002c5a ; 002750 ; e5e5e5 ; #325a83
+}  */
+
+.prm-primary-bg, prm-spinner.overlay-cover.light-on-dark:after, prm-search-bar, prm-journals-search-bar {
+    color: white;
+    background-color: #ff0000;
+}
+.prm-primary-bg.prm-hue1, prm-spinner.prm-hue1.overlay-cover.light-on-dark:after, prm-topbar .top-nav-bar, prm-search-bar.prm-hue1, prm-journals-search-bar.prm-hue1 {
+    background-color: #003165;
+}
+.prm-primary-bg.prm-hue2, prm-spinner.prm-hue2.overlay-cover.light-on-dark:after, prm-search-bar.prm-hue2, prm-journals-search-bar.prm-hue2, md-backdrop.md-opaque {
+    background-color: #ff0000;
+}
+.prm-primary-bg.prm-hue3, prm-spinner.prm-hue3.overlay-cover.light-on-dark:after, prm-search-bar.prm-hue3, prm-journals-search-bar.prm-hue3 {
+    background-color: #ff0000;
+}
+.prm-primary-bg.prm-hue3-important, prm-spinner.prm-hue3-important.overlay-cover.light-on-dark:after, prm-user-area md-fab-toolbar.md-is-open md-fab-trigger .md-fab-toolbar-background, prm-user-area md-fab-toolbar.md-is-open md-fab-trigger ._md-fab-toolbar-background, prm-search-bar.prm-hue3-important, prm-journals-search-bar.prm-hue3-important {
+    background-color: #ff0000 !important;
+}
+.prm-primary-bg.prm-hue4, prm-spinner.prm-hue4.overlay-cover.light-on-dark:after, prm-search-bar.prm-hue4, prm-journals-search-bar.prm-hue4 {
+    background-color: #ff0000;
+}
+
 
 /* Hide Language options */
 
@@ -31,12 +52,21 @@
     display: none;
 } */
 
-/* search bar color change */
+/* search bar color change #fff */
 
 .prm-primary-bg, prm-journals-search-bar, prm-search-bar, prm-spinner.overlay-cover.light-on-dark:after {
     color: #333;
-    background-color: #fff;
+    background-color: #ebebeb;
 }  
+
+body, html {
+   background-color: #ebebeb;
+}
+
+.prm-brief-result-container .list-item-primary-content {
+   background-color: #ebebeb;
+}
+
 
 /* make logo clickable */
 
@@ -54,8 +84,12 @@ prm-logo .product-logo a:hover {
 
 /* light top background */
 
-div.top-nav-bar * {
+/* div.top-nav-bar * {
     color: #003d75 !important;
+} */
+
+div.top-nav-bar * {
+    color: #fff !important;
 }
 
 /*re-order My Library Card and Sign in/out links */
@@ -84,4 +118,11 @@ flex-direction: column;
 prm-login-alma-mashup {order:1;} 
 
 prm-alma-mashup{order:0;} 
+
+/* Eliminate small columns */
+.main{
+	webkit-flex: 0 0 55%;
+}
+
+
 
