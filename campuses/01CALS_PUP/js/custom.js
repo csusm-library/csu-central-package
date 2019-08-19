@@ -3,7 +3,7 @@
     'use strict';
 
 
-    var app = angular.module('viewCustom', ['angularLoad']);
+    var app = angular.module('viewCustom', ['angularLoad', 'customUresolver']);
 
     /****************************************************************************************************/
 
@@ -21,6 +21,12 @@
             return vm.parentCtrl.iconLink;
         }
   }]);
+
+  app.constant('customUresolver', {
+      enabled: true,
+      showCompact: false,
+      illURL: 'https://illiad.example.edu/illiad/illiad.dll'
+    });
 
 
     //update template to include new URL for institution
