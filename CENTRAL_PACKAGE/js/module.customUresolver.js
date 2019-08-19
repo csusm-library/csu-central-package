@@ -194,7 +194,7 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 					_this.closeRequestForm();
 					break;
 			}
-			
+
 			if(showForm) $scope.showRequestForm = true;
 			else _this.sendRequest(item);
 		}
@@ -602,7 +602,7 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 	showCompact: false,
 	showRequestInViewIt: false,
 	requestShowOptions: false,
-	bibURL: 'https://library.test.calstate.edu/primo-resolver/?',
+	bibURL: 'https://library.calstate.edu/primo-resolver/?',
 	illURL: 'https://proxy.library.cpp.edu/login?url=https://illiad.library.cpp.edu/illiad/illiad.dll',
 	locateURL: '', //ex: http://www.library.edu/maps/?library_code={library_code}&location_code={location_code}&location_name={location_name}&call_number={call_number}&title={title}'
 	rsForbiddenLocations: {
