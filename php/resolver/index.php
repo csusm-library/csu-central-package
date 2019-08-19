@@ -318,24 +318,24 @@ function getAVACode($subfields, $code)
 		$api = 'bibs/' . $mms_id;
 		$params = array('expand' => 'p_avail,e_avail');
 		$data = array();
-		
+
 		$data = json_decode(getAPIData($vid, $api, $params));
 		$data->bibapiurl = $api . '?format=json&apikey=&' . urlencode(http_build_query($params)); //debug purposes only; apikey is not returned for security reasons
 		$data->record = json_decode(xml2json(strstr($data->anies[0], '<record>')))->record;
 		unset($data->anies);
-		
+
 		$api .= '/holdings';
 		$params = array('limit' => '100');
 		$api_data_holdings = json_decode(getAPIData($vid, $api, $params));
 		$data->holdingsapiurl = $api . '?format=json&apikey=&' . urlencode(http_build_query($params)); //debug purposes only; apikey is not returned for security reasons
 		$data->holdings = array();
-		
+
 		if(array_key_exists('holding', $api_data_holdings)) {
 			foreach($api_data_holdings->holding as $holding) {
 				$api .= '/' . $holding->holding_id . '/items';
 				$api_data_items = json_decode(getAPIData($vid, $api, $params));
 				$data->itemsapiurl = $api . '?format=json&apikey=&' . urlencode(http_build_query($params)); //debug purposes only; apikey is not returned for security reasons
-				
+
 				if(array_key_exists('item', $api_data_items)) {
 					foreach($api_data_items->item as $item) {
 						$location = $item->holding_data->temp_location->desc;
@@ -354,7 +354,7 @@ function getAVACode($subfields, $code)
 				}
 			}
 		}
-		
+
 		return $data;
 	}
 
@@ -362,9 +362,19 @@ function getAVACode($subfields, $code)
 		if(empty($mms_id)) {
 			$request_data = getRequestData($alma_iframe_url);
 			$request_data = getIzBib($vid, $request_data['mms_id']);
-			if($request_data->linked_record_id->type == 'NZ') $mms_id = $->linked_record_id->value;
+
+            //var_dump($request_data);
+
+			//foreach($request_data->linked_record_id as $linked_record_id) {
+
+                //var_dump($request_data->linked_record_id);
+
+				if($request_data->linked_record_id->type == 'NZ') $mms_id = $request_data->linked_record_id->value;
+			//}
+            //var_dump($mms_id);
 		}
-		
+
+        //var_dump($mms_id);
 		$api = 'bibs';
 		$params = array('expand' => 'p_avail,e_avail', 'mms_id' => $mms_id);
 		$data = json_decode(getAPIData('', $api, $params));
@@ -372,11 +382,11 @@ function getAVACode($subfields, $code)
 		if(property_exists($data, 'anies'))
 			$data->record = json_decode(xml2json(strstr($data->anies[0], '<record>')))->record;
 		unset($data->anies);
-		
+
 		if(property_exists($data, 'record')) {
 			$data->holdings = array();
 			$data->ava = getDatafield($data->record->datafield, 'AVA');
-			
+
 			foreach($data->ava as $ava) {
 				$holding_mms_id = getAVACode($ava, '0');
 				$holding_id = getAVACode($ava, '8');
@@ -410,25 +420,25 @@ function getAVACode($subfields, $code)
 				);
 			}
 		}
-		
+
 		return $data;
 	}
 
 	function getHoldingNote($vid, $mms_id, $holding_id) {
 		$data = '';
-		
+
 		if(!empty($id2)) {
 			$api = 'bibs/' . $mms_id . '/holdings/' . $holding_id;
 			$params = array('expand' => 'p_avail,e_avail');
 			$api_data = json_decode(getAPIData($vid, $api, $params));
-			
+
 			if(property_exists($api_data, 'anies')) {
 				$data = json_decode(xml2json(strstr($api_data->anies[0], '<record>')))->record;
 				$data = getDatafield($data->datafield, '866');
 				$data = (count($data) > 0) ? getAVACode($data, 'a') : '';
 			};
 		};
-		
+
 		return $data;
 	}
 
@@ -437,7 +447,7 @@ function getAVACode($subfields, $code)
 		$params = array('limit' => '100');
 		$api_data = json_decode(getAPIData($vid, $api, $params));
 		$data = [];
-		
+
 		if(!empty($api_data->item)) {
 			foreach($api_data->item as $item) {
 				$temp_item = array(
@@ -452,7 +462,7 @@ function getAVACode($subfields, $code)
 					'temp_location' => $item->holding_data->temp_location->value,
 					'ava_note' => ''
 				);
-				
+
 				if($item->item_data->process_type->value == 'MISSING') {
 					$temp_item['status'] = 'Missing';
 				} else if($item->item_data->process_type->value == 'LOAN') {
@@ -463,11 +473,11 @@ function getAVACode($subfields, $code)
 				} else {
 					$temp_item['availability'] = 'available';
 				}
-				
+
 				$data[] = $temp_item;
 			}
 		}
-		
+
 		return $data;
 	}
 
@@ -476,14 +486,14 @@ function getAVACode($subfields, $code)
 		$params->requestType = 'ill';
 		$params->specificEdition = true;
 		$params->allowOtherLibrary = true;
-		
+
 		$request = en_curl('https://' . $link_prefix . '.userservices.exlibrisgroup.com/almaws/internalRest/uresolver/institutionCode/' . $vid . '/isItemAvailableForRequest' . '?' . http_build_query($params));
-		
+
 		$data['is_requestable'] = ($request['html'] == "true" || $request['html'] === true) ? true : false;
 		$data['params'] = $params;
-		
+
 		//$data['is_requestable_raw'] = $request['html'];
-		
+
 		return $data;
 	}
 
@@ -591,14 +601,14 @@ function getAVACode($subfields, $code)
 
 			$data[$name] = $label;
 		}
-		
+
 		return $data;
 	}
 
 	function doSendRequest($link_prefix, $request_data) {
 		$params = json_decode($request_data);
 		$api_data = en_curl('https://' . $link_prefix . '.userservices.exlibrisgroup.com/view/action/uresolverRequest.do' . '?' . http_build_query($params), array('post' => true));
-		
+
 		$data['request_successful'] = (strpos(strtolower($api_data['html']), 'request placed') !== false) ? true : false;
 		if(strpos($api_data['html'], 'validationFeedback') !== false) {
 			$error_message = explode('class="validationFeedback">', $request['html']);
@@ -606,9 +616,9 @@ function getAVACode($subfields, $code)
 			$data['error_message'] = trim($error_message[0]);
 		}
 		if(!$data['request_successful'] && !isset($data['error_message'])) $data['error_message'] = '';
-		
+
 		//$data['request_raw_data'] = $api_data;
-		
+
 		return $data;
 	}
 
