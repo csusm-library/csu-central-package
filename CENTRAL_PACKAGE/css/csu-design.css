@@ -245,6 +245,14 @@ prm-full-view button[aria-label="Top"]:after {
     color: #036;
 }
 
+.full-view-section#action_list prm-action-list .accessible-close {
+    position: static !important;
+    width: auto !important;
+    height: auto !important;
+    left: inherit !important;
+    overflow: auto !important;
+}
+
 .iframeHeaderContent .requestOption:first-of-type {
     font-size: 15px;
 }
