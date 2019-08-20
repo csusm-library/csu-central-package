@@ -80,7 +80,7 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 		for (var i = 0; i < _this.servicesArray.length; i++) {
 			if ($scope.showRequestInViewIt) $scope.hasGetIt = true;
 			if (_this.servicesArray[i].serviceName == 'activate') {
-				if (_this.servicesArray[i].linkElement.category == 'Alma-P' || _this.servicesArray[i].linkElement.category == 'Remote Search Resource') {
+				if (_this.servicesArray[i].linkElement.category == 'Alma-P' || (_this.servicesArray[i].linkElement.category == 'Remote Search Resource' && _this.servicesArray[i].linkElement.title == 'nui.getit.alma_tab1_nofull')) {
 					$scope.hasGetIt = true;
 				}
 			}
