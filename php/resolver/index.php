@@ -427,7 +427,7 @@ function getAVACode($subfields, $code)
 	function getHoldingNote($vid, $mms_id, $holding_id) {
 		$data = '';
 
-		if(!empty($id2)) {
+		if(!empty($holding_id)) {
 			$api = 'bibs/' . $mms_id . '/holdings/' . $holding_id;
 			$params = array('expand' => 'p_avail,e_avail');
 			$api_data = json_decode(getAPIData($vid, $api, $params));
