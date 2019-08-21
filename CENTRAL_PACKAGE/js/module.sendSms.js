@@ -5,6 +5,7 @@ angular.module('customActions').component('customAction', {
   bindings: {
     name: '@',
     label: '@',
+    expandable: '@',
     icon: '@',
     iconSet: '@',
     link: '@',
@@ -21,6 +22,7 @@ angular.module('customActions').component('customAction', {
         name: _this.name,
         label: _this.label,
         index: _this.index,
+        expandable: _this.expandable,
         icon: {
           icon: _this.icon,
           iconSet: _this.iconSet,
@@ -52,6 +54,7 @@ angular.module('customActions').factory('customActions', function () {
         ctrl.actionListService.actionsToIndex[action.name] = action.index;
         ctrl.actionListService.onToggle[action.name] = action.onToggle;
         ctrl.actionListService.actionsToDisplay.unshift(action.name);
+        ctrl.expandableActions[action.expandable] = action.expandable;
       }
     },
     /**
@@ -64,6 +67,7 @@ angular.module('customActions').factory('customActions', function () {
         this.removeActionIcon(action, ctrl);
         delete ctrl.actionListService.actionsToIndex[action.name];
         delete ctrl.actionListService.onToggle[action.name];
+        delete ctrl.expandableActions[action.expandable];
         var i = ctrl.actionListService.actionsToDisplay.indexOf(action.name);
         ctrl.actionListService.actionsToDisplay.splice(i, 1);
         i = ctrl.actionListService.requiredActionsList.indexOf(action.name);
@@ -287,6 +291,7 @@ angular.module('sendSms').component('smsAction', {
 
     smsAction.name = smsOptions.name || smsActionDefault.name;
     smsAction.label = smsOptions.label || smsActionDefault.label;
+    smsAction.expandable = smsOptions.expandable || smsActionDefault.expandable;
     smsAction.index = smsOptions.index || smsActionDefault.index;
     smsAction.icon = smsOptions.icon || smsActionDefault.icon;
 
@@ -302,6 +307,7 @@ angular.module('sendSms').component('smsAction', {
 angular.module('sendSms').value('smsAction', {}).value('smsActionDefault', {
   name: 'send_sms',
   label: 'Text',
+  expandable: true,
   index: 9,
   icon: {
     icon: 'ic_smartphone_24px',
