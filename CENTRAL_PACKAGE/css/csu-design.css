@@ -265,6 +265,7 @@ prm-full-view button[aria-label="Top"]:after {
     padding-left: 0;
     background: #f3f3f3;
     margin: -5px auto 0;
+	border: 1px solid #ddd;
 }
 
 .full-view-section#action_list prm-action-list>md-nav-bar .md-nav-item {
