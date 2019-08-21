@@ -54,7 +54,7 @@ angular.module('customActions').factory('customActions', function () {
         ctrl.actionListService.actionsToIndex[action.name] = action.index;
         ctrl.actionListService.onToggle[action.name] = action.onToggle;
         ctrl.actionListService.actionsToDisplay.unshift(action.name);
-        ctrl.expandableActions[action.expandable] = action.expandable;
+        ctrl.expandableActions[action.name] = action.expandable;
       }
     },
     /**
