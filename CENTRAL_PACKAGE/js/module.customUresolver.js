@@ -40,7 +40,7 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 		$scope.hasNonForbiddenLocations = false;
 		$scope.availableLocalHoldings = false;
 		$scope.hasGetIt = false;
-		$scope.requestOptions = {item: false, ill: false, local: false, local_diff: false, purchase: false, resource_sharing: false};
+		$scope.requestOptions = {item: false, ill: false, local: false, local_diff: false, local_hold: false, purchase: false, resource_sharing: false};
 		$scope.requestedOption = false;
 		$scope.requestReady = false;
 		$scope.requestSent = false;
@@ -48,6 +48,7 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 		$scope.requestSuccessful = false;
 		$scope.requestMessageCleared = false;
 		$scope.requestError = false;
+		$scope.requestLocalItem = false;
 		$scope.showRequestForm = false;
 		$scope.requestShowOptions = customUresolver.hasOwnProperty("requestShowOptions") ? customUresolver.requestShowOptions : customUresolverDefault.requestShowOptions;
 		$scope.requestFormOptions = {
@@ -335,6 +336,7 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 				_this.requestData.itemId = data.item_id;
 				$scope.requestReady = true;
 				$scope.requestOptions = data.request_options;
+				if($scope.requestOptions.local_diff || $scope.requestOptions.local_hold) $scope.requestLocalItem = true;
 				customUresolverService.getRequestable(_this.vid, _this.linkPrefix, _this.requestData).then(
 					available => {
 						$scope.resourceSharingAvailable = available.is_requestable;
