@@ -502,6 +502,7 @@ function getAVACode($subfields, $code)
 			'request_options' => array(
 				'local' => false,
 				'local_diff' => false,
+				'local_hold' => false,
 				'resource_sharing' => false,
 				'purchase' => false,
 				'ill' => false
@@ -515,6 +516,7 @@ function getAVACode($subfields, $code)
 
 		$data['request_options']['local'] = (strpos($iframe_src, 'id="openRequest"') !== false) ? true : false;
 		$data['request_options']['local_diff'] = (strpos($iframe_src, 'id="openRequestDiffIssue"') !== false) ? true : false;
+		$data['request_options']['local_hold'] = (strpos($iframe_src, 'hasHoldRequestServices=true') !== false) ? true : false;
 		$data['request_options']['resource_sharing'] = (strpos($iframe_src, 'id="openRSAlmaRequest"') !== false) ? true : false;
 		$data['request_options']['purchase'] = (strpos($iframe_src, 'id="openPurchaseRequest"') !== false) ? true : false;
 		$data['request_options']['ill'] = (strpos($iframe_src, 'id="openRSRequest1"') !== false) ? true : false;
