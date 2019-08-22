@@ -226,10 +226,10 @@
 												{{ item.status }}
 											</span>
 										</td>
-										<td class="description" ng-if="item.description && !requestOptions.local_diff" colspan="2">{{ item.description }}</td>
-										<td class="description hideme" ng-if="!item.description && !requestOptions.local_diff" colspan="2"></td>
-										<td class="description" ng-if="item.description && requestOptions.local_diff" colspan="1">{{ item.description }}</td>
-										<td class="description hideme" ng-if="!item.description && requestOptions.local_diff" colspan="1"></td>
+										<td class="description" ng-if="item.description && !requestLocalItem" colspan="2">{{ item.description }}</td>
+										<td class="description hideme" ng-if="!item.description && !requestLocalItem" colspan="2"></td>
+										<td class="description" ng-if="item.description && requestLocalItem" colspan="1">{{ item.description }}</td>
+										<td class="description hideme" ng-if="!item.description && requestLocalItem" colspan="1"></td>
 										<td class="request" ng-if="item.description && requestOptions.local_diff" colspan="1">
 											<md-button class="button-with-icon zero-margin" ng-if="userIsLoggedIn" ng-click="$ctrl.handleRequestForm('item', item)" ng-disabled="item.requestSent || item.requestSuccessful" aria-label="Request" class="button-with-icon zero-margin">
 												<prm-icon icon-type="svg" svg-icon-set="primo-ui" icon-definition="book-open"></prm-icon>
