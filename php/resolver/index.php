@@ -362,20 +362,10 @@ function getAVACode($subfields, $code)
 		if(empty($mms_id)) {
 			$request_data = getRequestData($alma_iframe_url);
 			$request_data = getIzBib($vid, $request_data['mms_id']);
-
-            //var_dump($request_data);
-
-			//foreach($request_data->linked_record_id as $linked_record_id) {
-
-                //var_dump($request_data->linked_record_id);
-
-				if($request_data->linked_record_id->type == 'NZ') $mms_id = $request_data->linked_record_id->value;
-			//}
-            //var_dump($mms_id);
+			if($request_data->linked_record_id->type == 'NZ') $mms_id = $request_data->linked_record_id->value;
 		}
 
-        //var_dump($mms_id);
-		$api = 'bibs';
+ 		$api = 'bibs';
 		$params = array('expand' => 'p_avail,e_avail', 'mms_id' => $mms_id);
 		$data = json_decode(getAPIData('', $api, $params));
 		$data = $data->bib[0];
@@ -497,7 +487,7 @@ function getAVACode($subfields, $code)
 		return $data;
 	}
 
-	function getRequestData($alma_iframe_url) {
+	function getRequestData($vid, $alma_iframe_url) {
 		$data = array(
 			'request_options' => array(
 				'local' => false,
@@ -507,9 +497,14 @@ function getAVACode($subfields, $code)
 				'purchase' => false,
 				'ill' => false
 			),
-			'mms_id' => '',
-			'user_id' => '',
-			'physical_services_result_id' => ''
+			'mmsId' => '',
+			'userId' => '',
+			'physicalServicesResultId' => '',
+			'holdingKey' => '',
+			'itemId' => '',
+			'requestType' => '',
+			'differentIssue' => '',
+			'institutionCode' => substr($vid, 0, 10)
 		);
 
 		$iframe_src = en_curl($alma_iframe_url)['html'];
@@ -533,6 +528,14 @@ function getAVACode($subfields, $code)
 			$physical_services_result_id = explode('physicalServicesResultId=', $iframe_src);
 			$physical_services_result_id = explode('&', $physical_services_result_id[1]);
 			$data['physical_services_result_id'] = $physical_services_result_id[0];
+
+			$requestType = explode('requestType=', $iframe_src);
+			$requestType = explode('&', $requestType[1]);
+			$data['requestType'] = $requestType[0];
+
+			$differentIssue = explode('differentIssue=', $iframe_src);
+			$differentIssue = explode('\'', $differentIssue[1]);
+			$data['differentIssue'] = $differentIssue[0];
 		} else {
 			$mms_id = explode('id="mmsId"', $iframe_src);
 			$mms_id = explode('value="', $mms_id[1]);
@@ -558,6 +561,21 @@ function getAVACode($subfields, $code)
 			$item_id = explode('value="', $item_id[1]);
 			$item_id = explode('"', $item_id[1]);
 			$data['item_id'] = $item_id[0];
+
+			$requestType = explode('id="requestType"', $iframe_src);
+			$requestType = explode('value="', $requestType[1]);
+			$requestType = explode('"', $requestType[1]);
+			$data['requestType'] = $requestType[0];
+
+			$differentIssue = explode('id="differentIssue"', $iframe_src);
+			$differentIssue = explode('value="', $differentIssue[1]);
+			$differentIssue = explode('"', $differentIssue[1]);
+			$data['differentIssue'] = $differentIssue[0];
+
+			$request_elements = $data;
+			unset($request_elements['request_options']);
+			$data['request_elements'] = getRequestElements('https://csu-cpp.userservices.exlibrisgroup.com/view/uresolver/01CALS_PUP/openRequest?' . http_build_query($request_elements));
+			unset($request_elements);
 		}
 
 		//$data['iframe_src_raw'] = $iframe_src;
@@ -565,43 +583,86 @@ function getAVACode($subfields, $code)
 		return $data;
 	}
 
-	function getRequestOptions() {
-		$html = en_curl('https://libapps-dev.cpp.edu/primoreserves/csuplus.html');
+	function getRequestElements($alma_iframe_url) {
+		$html = en_curl($alma_iframe_url);
 		$elements = explode('width24', $html['html']);
+		$hidden_elements = array('owner', 'notNeededAfter', 'startDate', 'endDate', 'loanPeriod', 'materialType');
 		$data = [];
 
 		foreach($elements as $element) {
+			$subelements = [];
 			$isolated_element = explode('>il/<', strrev($element), 2);
 			if(isset($isolated_element[1]))
 				$isolated_element = strrev($isolated_element[1]);
 			else
 				continue;
 
-			$isolated_element_trim = str_replace('mandatory"style="display:none', '', preg_replace('/\s+/', '', $isolated_element));
-			if(strpos($isolated_element_trim, 'display:none') !== false)
-				continue;
-			if(strpos($isolated_element, '<select') !== false)
-				continue;
-			if(strpos($isolated_element, 'formActionsContainer') !== false)
-				continue;
-
-			$label = explode('<label', $isolated_element);
-			if(isset($label[1])) {
-				$label = explode('>', $label[1]);
-				if(isset($label[1]))
-					$label = explode('<', $label[1])[0];
-				else
-					continue;
-			} else
-				continue;
-
-			$name = explode('name="', $isolated_element);
-			if(isset($name[1]))
-				$name = explode('"', $name[1])[0];
+			if(substr_count($isolated_element, 'width72') > 1)
+				$subelements = explode('width72', preg_replace('/width72/', 'width-72', $isolated_element, 1));
 			else
-				continue;
+				$subelements[] = $isolated_element;
 
-			$data[$name] = $label;
+			foreach($subelements as $subelement) {
+				$temp = array('name' => '', 'label' => '', 'options' => array(), 'mandatory' => '', 'value' => '');
+				if(strpos(str_replace('mandatory"style="display:none', '', preg_replace('/\s+/', '', $subelement)), 'display:none') !== false)
+					continue;
+				if(strpos($subelement, 'formActionsContainer') !== false)
+					continue;
+
+				$label = explode('<label', $isolated_element);
+				if(isset($label[1])) {
+					$label = explode('>', $label[1]);
+					if(isset($label[1]))
+						$temp['label'] = explode('<', $label[1])[0];
+					else
+						continue;
+				} else
+					continue;
+
+				$name = explode('name="', $isolated_element);
+				if(isset($name[1])) {
+					$temp['name'] = explode('"', $name[1])[0];
+					$temp['name'] = explode('.', $temp['name'])[0];
+					if(in_array($temp['name'], $hidden_elements))
+						continue;
+				} else
+					continue;
+
+				$temp['mandatory'] = strpos($isolated_element, '<span class="mandatory">*</span>') ? 'true' : 'false';
+
+				if(strpos($isolated_element, 'pickupLibrary') !== false) {
+					$count = substr_count($isolated_element, '<option');
+					if($count <= 2)
+						continue;
+					$options_split = explode('<option', $isolated_element);
+					array_shift($options_split);
+					foreach($options_split as $option) {
+						$option_temp = array('value' => '', 'label' => '');
+
+						$value = explode('value="', $option);
+						if(isset($value[1]))
+							$value = explode('"', $value[1])[0];
+						else
+							continue;
+						if(empty($value))
+							continue;
+						$option_temp['value'] = $value;
+
+						$label = explode('>', $option);
+						if(isset($label[1]))
+							$label = explode('<', $label[1])[0];
+						else
+							continue;
+						if(empty($label))
+							continue;
+						$option_temp['label'] = $label;
+						
+						$temp['options'][] = $option_temp;
+					}
+				}
+
+				$data[] = $temp;
+			}
 		}
 
 		return $data;
@@ -613,7 +674,7 @@ function getAVACode($subfields, $code)
 
 		$data['request_successful'] = (strpos(strtolower($api_data['html']), 'request placed') !== false) ? true : false;
 		if(strpos($api_data['html'], 'validationFeedback') !== false) {
-			$error_message = explode('class="validationFeedback">', $request['html']);
+			$error_message = explode('class="validationFeedback">', $api_data['html']);
 			$error_message = explode('</div>', $error_message[1]);
 			$data['error_message'] = trim($error_message[0]);
 		}
@@ -624,19 +685,19 @@ function getAVACode($subfields, $code)
 		return $data;
 	}
 
-// main function to get and display the correct data depending on the api requested
-switch ($get) {
-    case 'courses':
-        $out = getPreloadData($vid);
-        break;
+	// main function to get and display the correct data depending on the api requested
+	switch ($get) {
+		case 'courses':
+			$out = getPreloadData($vid);
+			break;
 
-    case 'course':
-        $api = 'courses/' . $id;
-        $params = array(
-            'view' => 'full'
-        );
-        $out = getAPIData($vid, $api, $params);
-        break;
+		case 'course':
+			$api = 'courses/' . $id;
+			$params = array(
+				'view' => 'full'
+			);
+			$out = getAPIData($vid, $api, $params);
+			break;
 
 		case 'bib':
 			$out = json_encode(getIzBib($vid, $id));
@@ -659,12 +720,16 @@ switch ($get) {
 			break;
 
 		case 'requestdata':
-			$out = json_encode(getRequestData($id));
+			$out = json_encode(getRequestData($vid, $id));
+			break;
+
+		case 'requestelements':
+			$out = json_encode(getRequestElements($id));
 			break;
 
 		case 'sendrequest':
 			$out = json_encode(doSendRequest($id, $id2));
 			break;
-}
+	}
 
 echo $out;
