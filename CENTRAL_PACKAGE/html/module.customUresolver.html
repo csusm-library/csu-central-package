@@ -106,17 +106,26 @@
 					<div class="form-focus service-form" layout-padding flex>
 						<div layout-margin>
 							<div class="uresolver-form-wrapper-inputs" layout="column">
-								<md-input-container class="underlined-input" ng-if="requestFormOptions.volume.show">
-									<label>Volume:</label>
-									<input ng-model="requestFormOptions.volume.value" name="volume" type="text">
+								<md-input-container class="underlined-input md-required" ng-repeat="requestElement in requestElements" ng-if="requestElement.options.length === 0 && requestElement.mandatory === 'true'">
+									<label>{{requestElement.label}}</label>
+									<input ng-model="requestElement.value" name="requestElement.name" type="text" required>
 								</md-input-container>
-								<md-input-container class="underlined-input" ng-if="requestFormOptions.description.show && !requestFormOptions.description.required">
-									<label>Description:</label>
-									<textarea ng-model="requestFormOptions.description.value" name="description"></textarea>
+								<md-input-container class="underlined-input" ng-repeat="requestElement in requestElements" ng-if="requestElement.options.length === 0 && requestElement.mandatory !== 'true' && showOptionalRequestElements">
+									<label>{{requestElement.label}}</label>
+									<input ng-model="requestElement.value" name="requestElement.name" type="text">
 								</md-input-container>
-								<md-input-container class="underlined-input md-required" ng-if="requestFormOptions.description.show && requestFormOptions.description.required">
-									<label>Description:</label>
-									<textarea ng-model="requestFormOptions.description.value" name="description" required></textarea>
+								
+								<md-input-container class="underlined-input md-required" ng-repeat="requestElement in requestElements" ng-if="requestElement.options.length > 0 && requestElement.mandatory === 'true'">
+									<label>{{requestElement.label}}</label>
+									<md-select ng-model="requestElement.value" name="requestElement.name" required>
+										<md-option ng-repeat="option in requestElement.options" ng-value="option.value" ng-selected="requestElement.value == option.value">{{option.label}}</md-option>
+									</md-select>
+								</md-input-container>
+								<md-input-container class="underlined-input" ng-repeat="requestElement in requestElements" ng-if="requestElement.options.length > 0 && requestElement.mandatory !== 'true' && showOptionalRequestElements">
+									<label>{{requestElement.label}}</label>
+									<md-select ng-model="requestElement.value" name="requestElement.name">
+										<md-option ng-repeat="option in requestElement.options" ng-value="option.value" ng-selected="requestElement.value == option.value">{{option.label}}</md-option>
+									</md-select>
 								</md-input-container>
 							</div>
 						</div>
