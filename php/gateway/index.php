@@ -38,6 +38,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') exit;
 
 require 'vendor/autoload.php';
 
+use PHPMailer\PHPMailer\PHPMailer;
+
 $params = json_decode(file_get_contents('php://input'), true);
 $action = $params['action'];
 
@@ -169,23 +171,27 @@ function send_email($to, $name, $from, $subject, $body, $is_html = false)
 {
     global $smtp_server, $debug;
     
-    // set up smtp connection
+    $mail = new PHPMailer(true);
+    $mail->isSMTP();
+    $mail->Host = $smtp_server;
+    $mail->SMTPAuth = false;
+    $mail->SMTPAutoTLS = false;
     
-    $transport = \Swift_SmtpTransport::newInstance($smtp_server, 25);
-    $mailer = \Swift_Mailer::newInstance($transport);
-    
-    // create message
-    
-    $message = \Swift_Message::newInstance($subject)
-        ->setFrom($from)
-        ->setTo($to)
-        ->setBody($body);
+    if ($debug == true) {
+        $mail->SMTPDebug = 2;
+    }
+
+    $mail->setFrom($from, $name);
+    $mail->addAddress($to);
+    $mail->Subject = $subject;
+    $mail->isHTML($is_html);
+    $mail->Body = $body;
     
     if ($debug == true) {
         file_put_contents('log.txt', $body);
     }
     
-    return $mailer->send($message);
+    return $mail->send();
 }
 
 /**
