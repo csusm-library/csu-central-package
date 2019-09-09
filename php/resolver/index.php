@@ -296,20 +296,22 @@ function getPreloadData($vid)
 // gets the availability from the bib API data
 function getDatafield($datafields, $tag)
 {
-    $AVA = [];
-    foreach ($datafields as $datafield) {
-        if ($datafield->tag == $tag)
-            $AVA[] = $datafield->subfield;
-    }
-    return $AVA;
+    $subfields = [];
+    if(is_array($datafields)) {
+        foreach ($datafields as $datafield) {
+            if ($datafield->tag == $tag)
+                $subfields[] = $datafield->subfield;
+    } else if($datafields->tag == $tag) $subfields[] = $datafields->subfield;
+    return $subfields;
 }
 
 // gets the requested subfield code from the AVA subfield data
-function getAVACode($subfields, $code)
+function getAVACode($subfields, $code, $returnSubfield = false)
 {
     foreach ($subfields as $subfield) {
         if ($subfield->code === $code)
-            return $subfield->value;
+            if($returnSubfield) return $subfield;
+	    return $subfield->value;
     }
     return '';
 }
@@ -329,6 +331,8 @@ function getAVACode($subfields, $code)
 		$api_data_holdings = json_decode(getAPIData($vid, $api, $params));
 		$data->holdingsapiurl = $api . '?format=json&apikey=&' . urlencode(http_build_query($params)); //debug purposes only; apikey is not returned for security reasons
 		$data->holdings = array();
+		$AVAs = getDatafield($data->record->datafield, 'AVA');
+		if(is_array($AVAs)) $AVAs = $AVAs[0];
 
 		if(array_key_exists('holding', $api_data_holdings)) {
 			foreach($api_data_holdings->holding as $holding) {
@@ -340,15 +344,33 @@ function getAVACode($subfields, $code)
 					foreach($api_data_items->item as $item) {
 						$location = $item->holding_data->temp_location->desc;
 						if($location == '') $location = $item->item_data->location->desc;
+						if(!empty($item->item_data->alternative_call_number)) {
+							$call_number = $item->holding_data->call_number;
+							$call_number_type = $item->holding_data->call_number_type->value;
+						} else {
+							$call_number = $item->item_data->alternative_call_number;
+							$call_number_type = $item->item_data->alternative_call_number_type->value;
+						}
 						$data->holdings[] = array(
 							'mms_id' => $mms_id,
 							'location' => $location,
-							'call_number' => $item->holding_data->call_number,
+							'call_number' => $call_number,
+							'call_number_type' => $call_number_type,
 							'availability' => $item->item_data->base_status->desc,
 							'available' => $item->item_data->base_status->value,
 							'material_type' => strtolower($item->item_data->physical_material_type->value),
 							'barcode' => $item->item_data->barcode,
-							'policy' => $item->item_data->policy->value
+							'policy' => $item->item_data->policy->value,
+							'holding_id' => $holding->holding_id,
+							'institution_code' => getAVACode($AVAs, 'a'),
+							'library_code' => $item->item_data->library->value,
+							'total_items' => getAVACode($AVAs, 'f'),
+							'unavailable_items' => getAVACode($AVAs, 'g'),
+							'available_items' => getAVACode($AVAs, 'f') - getAVACode($AVAs, 'g'),
+							'location_code' => $item->item_data->location->value,
+							'priority' => getAVACode($AVAs, 'p'),
+							'library_name' => $item->item_data->library->desc,
+							'ava_note' => ''
 						);
 					}
 				}
@@ -360,6 +382,7 @@ function getAVACode($subfields, $code)
 
 	function getNzBib($vid, $mms_id, $alma_iframe_url) {
 		if(empty($mms_id)) {
+			//this shouldn't be necessary anymore with the logic changes in the js
 			$request_data = getRequestData($alma_iframe_url);
 			$request_data = getIzBib($vid, $request_data['mms_id']);
 			if($request_data->linked_record_id->type == 'NZ') $mms_id = $request_data->linked_record_id->value;
@@ -367,47 +390,50 @@ function getAVACode($subfields, $code)
 
  		$api = 'bibs';
 		$params = array('expand' => 'p_avail,e_avail', 'mms_id' => $mms_id);
-		$data = json_decode(getAPIData('', $api, $params));
-		$data = $data->bib[0];
-		if(property_exists($data, 'anies'))
-			$data->record = json_decode(xml2json(strstr($data->anies[0], '<record>')))->record;
-		unset($data->anies);
+		$data->holdings = array();
+		$api_data = json_decode(getAPIData('', $api, $params));
+		$bibs = $api_data->bib[0];
 
-		if(property_exists($data, 'record')) {
-			$data->holdings = array();
-			$data->ava = getDatafield($data->record->datafield, 'AVA');
+		foreach($bibs as $bib) {
+			if(property_exists($bib, 'anies'))
+				$bib->record = json_decode(xml2json(strstr($bib->anies[0], '<record>')))->record;
+			unset($bib->anies);
 
-			foreach($data->ava as $ava) {
-				$holding_mms_id = getAVACode($ava, '0');
-				$holding_id = getAVACode($ava, '8');
+			if(property_exists($bib, 'record')) {
+				$AVAs = getDatafield($bib->record->datafield, 'AVA');
 
-				if(empty($holding_id)) {
-					$temp_holding_id = json_decode(getAPIData($vid, 'bibs/' . $holding_mms_id . '/holdings/'));
-					if(property_exists($temp_holding_id, 'holding'))
-						if(isset($temp_holding_id->holding[0]))
-							if(property_exists($temp_holding_id->holding[0], 'holding_id'))
-								$holding_id = $temp_holding_id->holding[0]->holding_id;
-					unset($temp_holding_id);
+				foreach($AVAs as $ava) {
+					$holding_mms_id = getAVACode($ava, '0');
+					$holding_id = getAVACode($ava, '8');
+
+					if(empty($holding_id)) {
+						$temp_holding_id = json_decode(getAPIData($vid, 'bibs/' . $holding_mms_id . '/holdings/'));
+						if(property_exists($temp_holding_id, 'holding'))
+							if(isset($temp_holding_id->holding[0]))
+								if(property_exists($temp_holding_id->holding[0], 'holding_id'))
+									$holding_id = $temp_holding_id->holding[0]->holding_id;
+						unset($temp_holding_id);
+					}
+
+					$data->holdings[] = array(
+						'mms_id' => $holding_mms_id,
+						'holding_id' => $holding_id,
+						'institution_code' => getAVACode($ava, 'a'),
+						'library_code' => getAVACode($ava, 'b'),
+						'location' => getAVACode($ava, 'c'),
+						'call_number' => getAVACode($ava, 'd'),
+						'availability' => getAVACode($ava, 'e'),
+						'total_items' => getAVACode($ava, 'f'),
+						'unavailable_items' => getAVACode($ava, 'g'),
+						'available_items' => getAVACode($ava, 'f') - getAVACode($ava, 'g'),
+						'location_code' => getAVACode($ava, 'j'),
+						'call_number_type' => getAVACode($ava, 'k'),
+						'priority' => getAVACode($ava, 'p'),
+						'library_name' => getAVACode($ava, 'q'),
+						//'ava_raw' => $ava,
+						'ava_note' => ''
+					);
 				}
-
-				$data->holdings[] = array(
-					'mms_id' => $holding_mms_id,
-					'holding_id' => $holding_id,
-					'institution_code' => getAVACode($ava, 'a'),
-					'library_code' => getAVACode($ava, 'b'),
-					'location' => getAVACode($ava, 'c'),
-					'call_number' => getAVACode($ava, 'd'),
-					'availability' => getAVACode($ava, 'e'),
-					'total_items' => getAVACode($ava, 'f'),
-					'unavailable_items' => getAVACode($ava, 'g'),
-					'available_items' => getAVACode($ava, 'f') - getAVACode($ava, 'g'),
-					'location_code' => getAVACode($ava, 'j'),
-					'call_number_type' => getAVACode($ava, 'k'),
-					'priority' => getAVACode($ava, 'p'),
-					'library_name' => getAVACode($ava, 'q'),
-					//'ava_raw' => $ava,
-					'ava_note' => ''
-				);
 			}
 		}
 
@@ -415,7 +441,7 @@ function getAVACode($subfields, $code)
 	}
 
 	function getHoldingNote($vid, $mms_id, $holding_id) {
-		$data = '';
+		$data = array();
 
 		if(!empty($holding_id)) {
 			$api = 'bibs/' . $mms_id . '/holdings/' . $holding_id;
@@ -423,9 +449,13 @@ function getAVACode($subfields, $code)
 			$api_data = json_decode(getAPIData($vid, $api, $params));
 
 			if(property_exists($api_data, 'anies')) {
-				$data = json_decode(xml2json(strstr($api_data->anies[0], '<record>')))->record;
-				$data = getDatafield($data->datafield, '866');
-				$data = (count($data) > 0) ? getAVACode($data, 'a') : '';
+				$record = json_decode(xml2json(strstr($api_data->anies[0], '<record>')))->record;
+				$record = getDatafield($record->datafield, '866');
+				$data = (count($data) > 0) ? getAVACode($record, 'a') : '';
+				if(empty($data)) {
+					$data->code = '';
+					$data->value = '';
+				}
 			};
 		};
 
@@ -440,9 +470,19 @@ function getAVACode($subfields, $code)
 
 		if(!empty($api_data->item)) {
 			foreach($api_data->item as $item) {
+				if(!empty($item->item_data->alternative_call_number)) {
+					$call_number = $item->item_data->alternative_call_number;
+					$call_number_type = $item->item_data->alternative_call_number_type->value;
+				} else {
+					$call_number = $item->holding_data->call_number;
+					$call_number_type = $item->holding_data->call_number_type->value;
+				}
+
 				$temp_item = array(
 					'item_id' => $item->item_data->pid,
 					'barcode' => $item->item_data->barcode,
+					'call_number' => $call_number,
+					'call_number_type' => $call_number_type,
 					'description' => $item->item_data->description,
 					'policy' => $item->item_data->policy->value,
 					'status' => $item->item_data->base_status->desc,
@@ -557,10 +597,9 @@ function getAVACode($subfields, $code)
 			$holding_key = explode('"', $holding_key[1]);
 			$data['holding_key'] = $holding_key[0];
 
-			$item_id = explode('id="itemId"', $iframe_src);
-			$item_id = explode('value="', $item_id[1]);
-			$item_id = explode('"', $item_id[1]);
-			$data['item_id'] = $item_id[0];
+			$itemId = explode('itemId=', $iframe_src);
+			$itemId = explode('&', $itemId[1]);
+			$data['itemId'] = $itemId[0];
 
 			$requestType = explode('id="requestType"', $iframe_src);
 			$requestType = explode('value="', $requestType[1]);
