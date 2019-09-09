@@ -54,7 +54,7 @@ div.localHoldings, div.extHoldings {
 /** csu holdings table **/
 
 h4.csu-holdings-header {
-    margin: 0;
+	margin: 0;
 	margin-bottom: 20px;
 	margin-top: 20px;
 	line-height: 1.2em;
@@ -97,9 +97,11 @@ h4.csu-holdings-header {
 	border-radius: 10px;
 	overflow: hidden;
 	width: 100%;
-	margin: 0 auto;
-	margin-bottom: 20px;
+	margin: 0 auto 20px;
 	position: relative;
+}
+.csu-holdings table td.availability {
+	font-weight: bold;
 }
 .csu-holdings table * {
 	position: relative;
@@ -144,14 +146,11 @@ h4.csu-holdings-header {
 .csu-holdings tbody tr:nth-child(even), .csu-holdings tbody:nth-child(even) tr.holding-header {
 	background-color: #f5f5f5;
 }
-.csu-holdings tbody tr:nth-child(even):hover, .csu-holdings tbody tr:nth-child(even):focus, .csu-holdings tbody:nth-child(even) tr.holding-header:hover, .csu-holdings tbody:nth-child(even) tr.holding-header:focus {
-	background-color: #fff;
+.csu-holdings tbody tr:nth-child(odd), .csu-holdings tbody:nth-child(odd) tr.holding-header {
+	background-color: #f5f5f5;
 }
-.consortia-holdings .csu-holdings tbody:nth-child(even) tr.holding-header {
-	background-color: initial;
-}
-.consortia-holdings .csu-holdings tbody tr:nth-child(even) {
-	background-color: #f5f5f5 !important;
+.csu-holdings tbody tr:hover, .csu-holdings tbody tr:focus, .csu-holdings tbody tr.holding-header:hover, .csu-holdings tbody tr.holding-header:focus {
+	background-color: #ddd !important;
 }
 .csu-holdings tbody:nth-child(odd) {
 	border-bottom: 1px solid #000;
@@ -209,6 +208,9 @@ h4.csu-holdings-header {
 	width: 14px;
 	min-height: 14px;
 	min-width: 14px;
+}
+.full-view-section-content:after { /* this needs to be hidden to prevent some weird hover behavior */
+	display: none;
 }
 @media screen and (min-width: 960px) {
 /*
@@ -425,6 +427,10 @@ h4.csu-holdings-header {
 	background-color: #f7eda3;
 	border: 1px solid #e1cd51 !important;
 	padding: 8px;
+}
+
+md-input-container.underlined-input.md-input-invalid textarea {
+	border-bottom-color: tomato;
 }
 
 .uresolver-form-wrapper-inner {
