@@ -1,7 +1,7 @@
 .settings
 .buildpath
+**/.DS_Store
+.project
 zips/
 zip.sh
 php/resolver/config.php
-
-01CALS_USM/js/custom\.js
