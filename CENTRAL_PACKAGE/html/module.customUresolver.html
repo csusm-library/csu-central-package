@@ -101,22 +101,31 @@
 
 	<div ng-if="showRequestForm" class="uresolver-form-wrapper-outer" layout="row">
 		<md-content layout-wrap layout-padding layout-fill>
-			<form name="asdf" novalidate layout="column" layout-align="center center" (submit)="$ctrl.sendRequest();">
+			<form name="asdf" novalidate layout="column" layout-align="center center" ng-submit="$ctrl.sendRequest();">
 				<div layout="row" class="uresolver-form-wrapper-inner" layout-align="center center">
 					<div class="form-focus service-form" layout-padding flex>
 						<div layout-margin>
 							<div class="uresolver-form-wrapper-inputs" layout="column">
-								<md-input-container class="underlined-input" ng-if="requestFormOptions.volume.show">
-									<label>Volume:</label>
-									<input ng-model="requestFormOptions.volume.value" name="volume" type="text">
+								<md-input-container class="underlined-input md-required" ng-repeat="requestElement in requestElements" ng-if="requestElement.options.length === 0 && requestElement.mandatory === 'true'">
+									<label>{{requestElement.label}}</label>
+									<input ng-model="requestElement.value" name="requestElement.name" type="text" required>
 								</md-input-container>
-								<md-input-container class="underlined-input" ng-if="requestFormOptions.description.show && !requestFormOptions.description.required">
-									<label>Description:</label>
-									<textarea ng-model="requestFormOptions.description.value" name="description"></textarea>
+								<md-input-container class="underlined-input" ng-repeat="requestElement in requestElements" ng-if="requestElement.options.length === 0 && requestElement.mandatory !== 'true' && showOptionalRequestElements">
+									<label>{{requestElement.label}}</label>
+									<input ng-model="requestElement.value" name="requestElement.name" type="text">
 								</md-input-container>
-								<md-input-container class="underlined-input md-required" ng-if="requestFormOptions.description.show && requestFormOptions.description.required">
-									<label>Description:</label>
-									<textarea ng-model="requestFormOptions.description.value" name="description" required></textarea>
+								
+								<md-input-container class="underlined-input md-required" ng-repeat="requestElement in requestElements" ng-if="requestElement.options.length > 0 && requestElement.mandatory === 'true'">
+									<label>{{requestElement.label}}</label>
+									<md-select ng-model="requestElement.value" name="requestElement.name" required>
+										<md-option ng-repeat="option in requestElement.options" ng-value="option.value" ng-selected="requestElement.value == option.value">{{option.label}}</md-option>
+									</md-select>
+								</md-input-container>
+								<md-input-container class="underlined-input" ng-repeat="requestElement in requestElements" ng-if="requestElement.options.length > 0 && requestElement.mandatory !== 'true' && showOptionalRequestElements">
+									<label>{{requestElement.label}}</label>
+									<md-select ng-model="requestElement.value" name="requestElement.name">
+										<md-option ng-repeat="option in requestElement.options" ng-value="option.value" ng-selected="requestElement.value == option.value">{{option.label}}</md-option>
+									</md-select>
 								</md-input-container>
 							</div>
 						</div>
@@ -155,7 +164,7 @@
 
 	<!-- Local holdings -->
 
-	<div class="local-holdings" ng-if="hasLocal">
+	<div class="local-holdings" ng-if="localLocations.length > 0">
 		<h4 class="csu-holdings-header">Available at the Library</h4>
 
 		<!-- holdings have already loaded -->
@@ -186,8 +195,8 @@
 
 									<!-- collapsed display -->
 
-									<tr tabindex="0" class="holding-header" (click)="$ctrl.toggleShowItems(holding)" (keydown)="$ctrl.toggleShowItems(holding, $event)" ng-if="showCompact == true">
-										<td class="locate" hide-gt-sm ng-if="$ctrl.hasLocateURL()">
+									<tr tabindex="0" class="holding-header" ng-click="$ctrl.toggleShowItems(holding)" ng-keydown="$ctrl.toggleShowItems(holding, $event)" ng-if="showCompact == true">
+										<td class="locate" hide-gt-sm ng-if="showLocateButton">
 											<md-button ng-click="$ctrl.openLocate(holding);$event.stopPropagation();" ng-keydown="$ctrl.openLocate(holding, $event);$event.stopPropagation();" aria-label="Locate" class="button-with-icon zero-margin">
 												<prm-icon icon-type="svg" svg-icon-set="primo-ui" icon-definition="open-in-new"></prm-icon>
 												<span>Locate</span>
@@ -205,7 +214,7 @@
 										</td>
 										<td class="description" ng-if="holding.ava_note">{{ holding.ava_note }}</td>
 										<td class="description hide-xs hide-sm" ng-if="!holding.ava_note"></td>
-										<td class="locate" hide-xs hide-sm ng-if="$ctrl.hasLocateURL()">
+										<td class="locate" hide-xs hide-sm ng-if="showLocateButton">
 											<md-button ng-click="$ctrl.openLocate(holding);$event.stopPropagation();" ng-keydown="$ctrl.openLocate(holding, $event);$event.stopPropagation();" aria-label="Locate" class="button-with-icon zero-margin">
 												<prm-icon icon-type="svg" svg-icon-set="primo-ui" icon-definition="open-in-new"></prm-icon>
 												<span>Locate</span>
@@ -217,7 +226,7 @@
 
 									<tr tabindex="0" class="holding-item" ng-repeat-start="item in holding.items track by $index" ng-if="holding.showItems || showCompact == false">
 										<td class="sublocation">{{ holding.location }}</td>
-										<td class="callNumber">{{ holding.call_number }}</td>
+										<td class="callNumber">{{ item.call_number }}</td>
 										<td class="availability">
 											<span class="items-available" ng-if="item.availability == 'available'">
 												{{ item.status }}
@@ -230,10 +239,14 @@
 										<td class="description hideme" ng-if="!item.description && !requestLocalItem" colspan="2"></td>
 										<td class="description" ng-if="item.description && requestLocalItem" colspan="1">{{ item.description }}</td>
 										<td class="description hideme" ng-if="!item.description && requestLocalItem" colspan="1"></td>
-										<td class="request" ng-if="item.description && requestOptions.local_diff" colspan="1">
-											<md-button class="button-with-icon zero-margin" ng-if="userIsLoggedIn" ng-click="$ctrl.handleRequestForm('item', item)" ng-disabled="item.requestSent || item.requestSuccessful" aria-label="Request" class="button-with-icon zero-margin">
+										<td class="request" ng-if="(item.description && requestLocalItem) || showLocateButton" colspan="1">
+											<md-button ng-click="$ctrl.handleRequestForm('item', item)" ng-disabled="item.requestSent || item.requestSuccessful" aria-label="Request" class="button-with-icon zero-margin">
 												<prm-icon icon-type="svg" svg-icon-set="primo-ui" icon-definition="book-open"></prm-icon>
 												<span>Request</span>
+											</md-button>
+											<md-button ng-if="showLocateButton" ng-click="$ctrl.openLocate(holding);$event.stopPropagation();" ng-keydown="$ctrl.openLocate(holding, $event);$event.stopPropagation();" aria-label="Locate" class="button-with-icon zero-margin">
+												<prm-icon icon-type="svg" svg-icon-set="primo-ui" icon-definition="open-in-new"></prm-icon>
+												<span>Locate</span>
 											</md-button>
 										</td>
 									</tr>
@@ -352,7 +365,7 @@
 										<div class="items-unavailable" ng-if="location.availabilityStatus != 'available'">
 											{{ location.availabilityStatus }}
 										</div>
-										<div ng-if="location.localOnly">
+										<div class="items-unavailable" ng-if="location.localOnly">
 											on campus only
 										</div>
 									</td>

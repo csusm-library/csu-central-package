@@ -17,8 +17,22 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 		_this.loginService = $rootScope.$$childHead.$$childHead.$$nextSibling.$ctrl.loginIframeService.loginService;
 		$scope.isLinktoOnline = false;
 		$scope.isLinkToResourceSharing = false;
+		$scope.isNzBib = false;
+		_this.pnx.control.almaid.forEach(function(almaid){
+			if(almaid.includes('NETWORK')) $scope.isNzBib = true;
+		});
 		_this.tempExt = [];
-		_this.mms_id = _this.pnx.display.hasOwnProperty('lds04') ? _this.pnx.display.lds04[0] : null;
+		_this.mms_id = '';
+		if($scope.isNzBib) {
+			if(_this.pnx.display.hasOwnProperty('lds04')) {
+				for(var i in _this.pnx.display.lds04) {
+					if(_this.mms_id != '') _this.mms_id += ',';
+					_this.mms_id += _this.pnx.display.lds04[i];
+				}
+			}
+		} else {
+			if(_this.pnx.control.hasOwnProperty('sourcerecordid')) _this.mms_id = _this.pnx.control.sourcerecordid[0];
+		}
 		_this.logToConsole = false;
 		_this.userSessionManagerService = _this.itemCtrl.userSessionManagerService;
 		$scope.userIsLoggedIn = _this.userSessionManagerService.jwtUtilService.getDecodedToken().userName ? true: false;
@@ -40,6 +54,7 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 		$scope.hasNonForbiddenLocations = false;
 		$scope.availableLocalHoldings = false;
 		$scope.hasGetIt = false;
+		$scope.showLocateButton = customUresolver.hasOwnProperty("locateURL") ? true : false;
 		$scope.requestOptions = {item: false, ill: false, local: false, local_diff: false, local_hold: false, purchase: false, resource_sharing: false};
 		$scope.requestedOption = false;
 		$scope.requestReady = false;
@@ -50,33 +65,8 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 		$scope.requestError = false;
 		$scope.requestLocalItem = false;
 		$scope.showRequestForm = false;
-		$scope.requestShowOptions = customUresolver.hasOwnProperty("requestShowOptions") ? customUresolver.requestShowOptions : customUresolverDefault.requestShowOptions;
-		$scope.requestFormOptions = {
-			description: {
-				name: 'description',
-				show: false,
-				required: false,
-				value: ''
-			},
-			volume: {
-				name: 'volume',
-				show: false,
-				required: false,
-				value: ''
-			},
-			notNeededAfter: {
-				name: 'notNeededAfter.fullDateStr',
-				show: false,
-				required: false,
-				value: ''
-			},
-			comment: {
-				name: 'comment',
-				show: false,
-				required: false,
-				value: ''
-			}
-		};
+		$scope.showRequestElements = false;
+		$scope.showOptionalRequestElements = customUresolver.hasOwnProperty("showOptionalRequestElements") ? customUresolver.showOptionalRequestElements : customUresolverDefault.showOptionalRequestElements;
 
 		for (var i = 0; i < _this.servicesArray.length; i++) {
 			if ($scope.showRequestInViewIt) $scope.hasGetIt = true;
@@ -145,10 +135,8 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 			return count;
 		}
 		_this.resetRequestOptions = function () {
-			for(var i in $scope.requestFormOptions) {
-				$scope.requestFormOptions[i].show = false;
-				$scope.requestFormOptions[i].required = false;
-				$scope.requestFormOptions[i].value = '';
+			for(var i in $scope.requestElements) {
+				$scope.requestElements[i].value = '';
 			}
 		}
 		_this.closeRequestForm = function () {
@@ -157,35 +145,20 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 		}
 		_this.handleRequestForm = function (which, item = false) {
 			_this.resetRequestOptions();
-			var showForm = false;
 			$scope.requestedOption = which;
+			if($scope.showRequestElements) $scope.showRequestForm = true;
 			switch(which) {
 				case 'local_diff':
-					$scope.requestFormOptions.description.show = true;
-					$scope.requestFormOptions.description.required = true;
 					for (var i in $scope.holdings) {
 						if ($scope.holdings[i].hasOwnProperty('items') && $scope.holdings[i].items.length > 0) {
 							_this.requestData.itemId = $scope.holdings[i].items[0].item_id;
 							continue;
 						}
 					}
-					showForm = true;
 					break;
 				case 'local':
-					if($scope.requestShowOptions) {
-						if(_this.getItemsCountFromHoldings() > 1) {
-							$scope.requestFormOptions.volume.show = true;
-							showForm = true;
-						}
-					}
-					break;
 				case 'ill':
-					if($scope.requestShowOptions) {
-						if($scope.consortiaHoldings.length > 0) {
-							$scope.requestFormOptions.volume.show = true;
-							showForm = true;
-						}
-					}
+					//do nothing
 					break;
 				case 'item':
 					_this.requestData.itemId = item.item_id;
@@ -195,15 +168,14 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 					_this.closeRequestForm();
 					break;
 			}
-
-			if(showForm) $scope.showRequestForm = true;
-			else _this.sendRequest(item);
+			
+			if(!$scope.showRequestForm) _this.sendRequest(item);
 		}
 		_this.validate = function() {
 			if($scope.showRequestForm) {
-				for(var i in $scope.requestFormOptions) {
-					if($scope.requestFormOptions[i].required)
-						if($scope.requestFormOptions[i].value == '')
+				for(var i in $scope.requestElements) {
+					if($scope.requestElements[i].mandatory === "true")
+						if($scope.requestElements[i].value == '')
 							return false;
 				}
 			}
@@ -215,8 +187,8 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 					if(!item) $scope.requestSent = true;
 					else item.requestSent = true;
 					if($scope.showRequestForm) {
-						for(var i in $scope.requestFormOptions) {
-							if($scope.requestFormOptions[i].show) _this.requestData[$scope.requestFormOptions[i].name] = $scope.requestFormOptions[i].value;
+						for(var i in $scope.requestElements) {
+							if($scope.requestElements[i].value != '') _this.requestData[$scope.requestElements[i].name] = $scope.requestElements[i].value;
 						}
 					}
 					if(!item) $scope.requestMessageCleared = false;
@@ -329,13 +301,17 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 		 */
 		customUresolverService.getRequestData(_this.link).then(
 			data => {
-				_this.requestData.mmsId = data.mms_id;
-				_this.requestData.userId = data.user_id;
-				_this.requestData.physicalServicesResultId = data.physical_services_result_id;
-				_this.requestData.holdingKey = data.holding_key;
-				_this.requestData.itemId = data.item_id;
+				_this.requestData.mmsId = data.mmsId;
+				_this.requestData.userId = data.userId;
+				_this.requestData.physicalServicesResultId = data.physicalServicesResultId;
+				_this.requestData.holdingKey = data.holdingKey;
+				_this.requestData.itemId = data.itemId;
 				$scope.requestReady = true;
 				$scope.requestOptions = data.request_options;
+				$scope.requestElements = data.request_elements;
+				for (var i in $scope.requestElements){
+					if($scope.requestElements[i].mandatory === "true" || ($scope.requestElements[i].mandatory !== "true" && $scope.showOptionalRequestElements === true)) $scope.showRequestElements = true;
+				}
 				if($scope.requestOptions.local_diff || $scope.requestOptions.local_hold) $scope.requestLocalItem = true;
 				customUresolverService.getRequestable(_this.vid, _this.linkPrefix, _this.requestData).then(
 					available => {
@@ -347,50 +323,62 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 			}
 		)
 
-		customUresolverService.getNzBib(_this.vid, _this.mms_id, _this.link).then(
-			bib => {
-				$scope.holdings = [{}];
-				$scope.holdingsCount = _this.getHoldingsCountFromBib(bib, _this.vid);
-				bib.map(
-					holding => {
-						if (_this.vid.substring(0, 10) == holding.institution_code) {
-							customUresolverService.getHoldingNote(_this.vid, holding.mms_id, holding.holding_id).then(
-								holdingnote => {
-									if (holdingnote.trim() != '') holding.ava_note = holdingnote
-									if (_this.logToConsole) console.log(holdingnote)
-								}
-							)
-							customUresolverService.getStatus(_this.vid, holding.mms_id, holding.holding_id).then(
-								items => {
-									if (_this.logToConsole) console.log(items)
-									holding.items = items
-									if (!holding.hasOwnProperty('showItems')) holding.showItems = false
-									if ($scope.holdings.length > 0) {
-										for (var i = 0; i < $scope.holdings.length; i++) {
-											if (typeof $scope.holdings[i]['isTempHolding'] !== 'undefined') {
-												if ($scope.holdings[i].mms_id == holding.mms_id) {
-													let foundHolding = items.filter(function(item) {return (_this.location_code == item.temp_location) && item.in_temp_location}, $scope.holdings[i]);
-													if (foundHolding.length > 0) $scope.holdings[i].items = foundHolding;
-												}
+		_this.processBib = function(bib) {
+			$scope.holdings = [];
+			$scope.holdingsCount = _this.getHoldingsCountFromBib(bib, _this.vid);
+			bib.holdings.map(
+				holding => {
+					if (_this.vid.substring(0, 10) == holding.institution_code) {
+						customUresolverService.getHoldingNote(_this.vid, holding.mms_id, holding.holding_id).then(
+							holdingnote => {
+								if (holdingnote.value != '') holding.ava_note = holdingnote.value
+								if (_this.logToConsole) console.log(holdingnote)
+							}
+						)
+						customUresolverService.getStatus(_this.vid, holding.mms_id, holding.holding_id).then(
+							items => {
+								if (_this.logToConsole) console.log(items)
+								holding.items = items
+								if (!holding.hasOwnProperty('showItems')) holding.showItems = false
+								if ($scope.holdings.length > 0) {
+									for (var i = 0; i < $scope.holdings.length; i++) {
+										if (typeof $scope.holdings[i]['isTempHolding'] !== 'undefined') {
+											if ($scope.holdings[i].mms_id == holding.mms_id) {
+												let foundHolding = items.filter(function(item) {return (_this.location_code == item.temp_location) && item.in_temp_location}, $scope.holdings[i]);
+												if (foundHolding.length > 0) $scope.holdings[i].items = foundHolding;
 											}
 										}
 									}
-									$scope.holdingsCount--;
 								}
-							)
-							$scope.hasLocal = true;
-							$scope.holdings.push(holding)
-							if (holding.holding_id == '') {
-								holding.isTempHolding = true;
+								$scope.holdingsCount--;
 							}
-							holding.call_number = holding.call_number.replace(/^\(|\)$/g, '');
-							if (_this.logToConsole) console.log(holding)
+						)
+						if (holding.total_items != '') holding.numberItemsArray = new Array(parseInt(holding.total_items));
+						$scope.holdings.push(holding)
+						if (holding.holding_id == '') {
+							holding.isTempHolding = true;
 						}
+						holding.call_number = holding.call_number.replace(/^\(|\)$/g, '');
+						if (_this.logToConsole) console.log(holding)
 					}
-				)
-				if (_this.logToConsole) console.log(bib)
-			}
-		)
+				}
+			)
+			if (_this.logToConsole) console.log(bib)
+		}
+
+		if($scope.isNzBib) {
+			customUresolverService.getNzBib(_this.vid, _this.mms_id, _this.link).then(
+				bib => {
+					_this.processBib(bib);
+				}
+			)
+		} else {
+			customUresolverService.getIzBib(_this.vid, _this.mms_id).then(
+				bib => {
+					_this.processBib(bib);
+				}
+			)
+		}
 
 		/**
 		 * Get basic holdings information from the pnx
@@ -537,7 +525,7 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 			return $http({
 				method: 'GET',
 				url: customUresolver.hasOwnProperty("bibURL") ? customUresolver.bibURL : customUresolverDefault.bibURL,
-				params: { 'get': 'requestdata', 'id': link },
+				params: { 'get': 'requestdata', 'vid': vid, 'id': link },
 				cache: true
 			}).then(response => response.data)
 		},
@@ -557,7 +545,7 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 				cache: true
 			}).then(response => response.data)
 		},
-		getBib: function (vid, mms_id) {
+		getIzBib: function (vid, mms_id) {
 			return $http({
 				method: 'GET',
 				url: customUresolver.hasOwnProperty("bibURL") ? customUresolver.bibURL : customUresolverDefault.bibURL,
@@ -603,7 +591,7 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 	enabled: false,
 	showCompact: false,
 	showRequestInViewIt: false,
-	requestShowOptions: false,
+	showOptionalRequestElements: false,
 	bibURL: 'https://library.calstate.edu/primo-resolver/?',
 	illURL: 'https://proxy.library.cpp.edu/login?url=https://illiad.library.cpp.edu/illiad/illiad.dll',
 	locateURL: '', //ex: http://www.library.edu/maps/?library_code={library_code}&location_code={location_code}&location_name={location_name}&call_number={call_number}&title={title}'
