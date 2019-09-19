@@ -240,7 +240,7 @@
 										<td class="description" ng-if="item.description && requestLocalItem" colspan="1">{{ item.description }}</td>
 										<td class="description hideme" ng-if="!item.description && requestLocalItem" colspan="1"></td>
 										<td class="request" ng-if="(item.description && requestLocalItem) || showLocateButton" colspan="1">
-											<md-button ng-click="$ctrl.handleRequestForm('item', item)" ng-disabled="item.requestSent || item.requestSuccessful" aria-label="Request" class="button-with-icon zero-margin">
+											<md-button ng-if="item.description && requestLocalItem" ng-click="$ctrl.handleRequestForm('item', item)" ng-disabled="item.requestSent || item.requestSuccessful" aria-label="Request" class="button-with-icon zero-margin">
 												<prm-icon icon-type="svg" svg-icon-set="primo-ui" icon-definition="book-open"></prm-icon>
 												<span>Request</span>
 											</md-button>
