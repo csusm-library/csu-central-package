@@ -307,7 +307,7 @@ function getDatafield($datafields, $tag)
     } elseif ($datafields->tag == $tag) {
        $subfields[] = $datafields->subfield;
     }
-    
+
     return $subfields;
 }
 
@@ -315,8 +315,11 @@ function getDatafield($datafields, $tag)
 function getAVACode($subfields, $code, $returnSubfield = false)
 {
     foreach ($subfields as $subfield) {
-        if ($subfield->code === $code)
-            if($returnSubfield) return $subfield;
+        if ($subfield->code === $code) {
+            if ($returnSubfield) {
+              return $subfield;
+            }
+        }
 	    return $subfield->value;
     }
     return '';
@@ -398,17 +401,19 @@ function getAVACode($subfields, $code, $returnSubfield = false)
 		$params = array('expand' => 'p_avail,e_avail', 'mms_id' => $mms_id);
 		$data->holdings = array();
 		$api_data = json_decode(getAPIData('', $api, $params));
-		$bibs = $api_data->bib[0];
+		$bibs = $api_data->bib;
 
 		foreach($bibs as $bib) {
 			if(property_exists($bib, 'anies'))
 				$bib->record = json_decode(xml2json(strstr($bib->anies[0], '<record>')))->record;
 			unset($bib->anies);
 
-			if(property_exists($bib, 'record')) {
+			if (property_exists($bib, 'record')) {
+
 				$AVAs = getDatafield($bib->record->datafield, 'AVA');
 
 				foreach($AVAs as $ava) {
+
 					$holding_mms_id = getAVACode($ava, '0');
 					$holding_id = getAVACode($ava, '8');
 
