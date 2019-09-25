@@ -9,3 +9,11 @@ app.controller('prmBriefResultContainerAfterController', [function () {
         get: function () { return vm.item.pnx.display.crsinfo[0].includes(vm.institutionCode); }
     });
 }]);
+
+app.component('prmBriefResultContainerAfter', {
+    bindings: {
+        parentCtrl: '<'
+    },
+    controller: 'prmBriefResultContainerAfterController',
+    template: ''
+});
