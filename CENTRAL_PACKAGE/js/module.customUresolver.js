@@ -299,7 +299,7 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 		 * Get detailed holdings information from the API
 		 * Includes detailed info for local holdings only
 		 */
-		customUresolverService.getRequestData(_this.link).then(
+		customUresolverService.getRequestData(_this.vid, _this.link).then(
 			data => {
 				_this.requestData.mmsId = data.mmsId;
 				_this.requestData.userId = data.userId;
@@ -521,7 +521,7 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 				cache: true
 			}).then(response => response.data)
 		},
-		getRequestData: function (link) {
+		getRequestData: function (vid, link) {
 			return $http({
 				method: 'GET',
 				url: customUresolver.hasOwnProperty("bibURL") ? customUresolver.bibURL : customUresolverDefault.bibURL,
