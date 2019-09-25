@@ -743,7 +743,7 @@ function getAVACode($subfields, $code, $returnSubfield = false)
 			break;
 
 		case 'nzbib':
-			$out = json_encode(getNzBib($vid, $id, $id2)->holdings);
+			$out = json_encode(getNzBib($vid, $id, $id2));
 			break;
 
 		case 'holdingnote':
