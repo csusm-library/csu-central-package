@@ -297,11 +297,17 @@ function getPreloadData($vid)
 function getDatafield($datafields, $tag)
 {
     $subfields = [];
-    if(is_array($datafields)) {
+
+    if (is_array($datafields)) {
         foreach ($datafields as $datafield) {
-            if ($datafield->tag == $tag)
+            if ($datafield->tag == $tag) {
                 $subfields[] = $datafield->subfield;
-    } else if($datafields->tag == $tag) $subfields[] = $datafields->subfield;
+            }
+        }
+    } elseif ($datafields->tag == $tag) {
+       $subfields[] = $datafields->subfield;
+    }
+    
     return $subfields;
 }
 
@@ -695,7 +701,7 @@ function getAVACode($subfields, $code, $returnSubfield = false)
 						if(empty($label))
 							continue;
 						$option_temp['label'] = $label;
-						
+
 						$temp['options'][] = $option_temp;
 					}
 				}
