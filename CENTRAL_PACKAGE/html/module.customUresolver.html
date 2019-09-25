@@ -235,8 +235,10 @@
 												{{ item.status }}
 											</span>
 										</td>
-										<td class="description" ng-if="item.description && !requestLocalItem" colspan="2">{{ item.description }}</td>
-										<td class="description hideme" ng-if="!item.description && !requestLocalItem" colspan="2"></td>
+										<td class="description" ng-if="item.description && !requestLocalItem && !showLocateButton" colspan="2">{{ item.description }}</td>
+										<td class="description" ng-if="item.description && !requestLocalItem && showLocateButton" colspan="1">{{ item.description }}</td>
+										<td class="description hideme" ng-if="!item.description && !requestLocalItem && !showLocateButton" colspan="2"></td>
+										<td class="description hideme" ng-if="!item.description && !requestLocalItem && showLocateButton" colspan="2"></td>
 										<td class="description" ng-if="item.description && requestLocalItem" colspan="1">{{ item.description }}</td>
 										<td class="description hideme" ng-if="!item.description && requestLocalItem" colspan="1"></td>
 										<td class="request" ng-if="(item.description && requestLocalItem) || showLocateButton" colspan="1">
