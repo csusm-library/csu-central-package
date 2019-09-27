@@ -463,7 +463,7 @@ function getAVACode($subfields, $code, $returnSubfield = false)
 			if(property_exists($api_data, 'anies')) {
 				$record = json_decode(xml2json(strstr($api_data->anies[0], '<record>')))->record;
 				$record = getDatafield($record->datafield, '866');
-				$data = (count($data) > 0) ? getAVACode($record, 'a') : '';
+				$data = (count($record) > 0) ? getAVACode($record, 'a') : '';
 				if(empty($data)) {
 					$data->code = '';
 					$data->value = '';
