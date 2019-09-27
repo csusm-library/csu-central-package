@@ -18,9 +18,11 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 		$scope.isLinktoOnline = false;
 		$scope.isLinkToResourceSharing = false;
 		$scope.isNzBib = false;
-		_this.pnx.control.almaid.forEach(function(almaid){
-			if(almaid.includes('NETWORK')) $scope.isNzBib = true;
-		});
+		if (_this.pnx.control.hasOwnProperty('almaid')) {
+			_this.pnx.control.almaid.forEach(function (almaid) {
+				if (almaid.includes('NETWORK')) $scope.isNzBib = true;
+			});
+		}
 		_this.tempExt = [];
 		_this.mms_id = '';
 		if($scope.isNzBib) {
@@ -254,7 +256,7 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 		if (_this.parentCtrl.linksArray[0].getItTabText == "alma_tab1_unavail" ||
 			_this.parentCtrl.linksArray[0].getItTabText == "alma_tab1_restrict") {
 				$scope.isLinkToResourceSharing = true;
-		} else if (_this.parentCtrl.linksArray[0].isLinktoOnline == true || _this.parentCtrl.linksArray[0].getItTabText == 'Almaviewit' || _this.parentCtrl.linksArray[0].getItTabText == 'Almaviewit_remote') {
+		} else if (_this.parentCtrl.linksArray[0].isLinktoOnline == true || _this.parentCtrl.linksArray[0].getItTabText == 'Almaviewit' || _this.parentCtrl.linksArray[0].displayText == 'Almaviewit_remote') {
 			$scope.isLinktoOnline = true;
 		}
 
@@ -366,18 +368,20 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 			if (_this.logToConsole) console.log(bib)
 		}
 
-		if($scope.isNzBib) {
-			customUresolverService.getNzBib(_this.vid, _this.mms_id, _this.link).then(
-				bib => {
-					_this.processBib(bib);
-				}
-			)
-		} else {
-			customUresolverService.getIzBib(_this.vid, _this.mms_id).then(
-				bib => {
-					_this.processBib(bib);
-				}
-			)
+		if(!$scope.isLinktoOnline) {
+			if($scope.isNzBib) {
+				customUresolverService.getNzBib(_this.vid, _this.mms_id, _this.link).then(
+					bib => {
+						_this.processBib(bib);
+					}
+				)
+			} else {
+				customUresolverService.getIzBib(_this.vid, _this.mms_id).then(
+					bib => {
+						_this.processBib(bib);
+					}
+				)
+			}
 		}
 
 		/**
