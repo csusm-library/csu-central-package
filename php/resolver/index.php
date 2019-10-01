@@ -349,6 +349,15 @@ function getAVACode($subfields, $code, $returnSubfield = false)
 		
 		if(array_key_exists('holding', $api_data_holdings)) {
 			foreach($api_data_holdings->holding as $holding) {
+				$api_data_items = json_decode(getAPIData($vid, $api . '/' . $holding->holding_id . '/items', $params));
+				$total_items = 0;
+				$unavailable_items = 0;
+				if(array_key_exists('item', $api_data_items)) {
+					foreach($api_data_items->item as $item) {
+						if($item->item_data->process_type->value != "") $unavailable_items++;
+						$total_items++;
+					}
+				}
 				$data->holdings[] = array(
 					'mms_id' => $mms_id,
 					'location' => getAVACode($AVAs, 'c'),
@@ -358,9 +367,9 @@ function getAVACode($subfields, $code, $returnSubfield = false)
 					'holding_id' => $holding->holding_id,
 					'institution_code' => getAVACode($AVAs, 'a'),
 					'library_code' => getAVACode($AVAs, 'b'),
-					'total_items' => getAVACode($AVAs, 'f'),
-					'unavailable_items' => getAVACode($AVAs, 'g'),
-					'available_items' => getAVACode($AVAs, 'f') - getAVACode($AVAs, 'g'),
+					'total_items' => $total_items,
+					'unavailable_items' => $unavailable_items,
+					'available_items' => $total_items - $unavailable_items,
 					'location_code' => getAVACode($AVAs, 'j'),
 					'priority' => getAVACode($AVAs, 'p'),
 					'library_name' => getAVACode($AVAs, 'q'),
