@@ -478,3 +478,8 @@ span[translate="csuplus"] {
 .full-view-section #item-details div .word-break {
     margin: 0 0 12px 0;
 }
+
+prm-search-bar .simple-search-wrapper md-autocomplete-wrap input {
+    margin-left: 1em;
+    padding-left: 0 !important;
+}
