@@ -6,74 +6,66 @@
 	<!-- Success / Fail Message -->
 
 	<div ng-if="requestDataReceived && !requestMessageCleared">
-		<md-button ng-if="requestSuccessful" ng-click="$ctrl.hideRequestMessage()" aria-label="" class="button-with-icon zero-margin">
+		<md-button ng-if="requestSuccessful" ng-click="$ctrl.hideRequestMessage()" aria-label="Request succesfully placed -- Click to dismiss" class="button-with-icon zero-margin">
 			<span class="items-available">Request succesfully placed -- Click to dismiss</span>
 			<prm-icon icon-type="svg" svg-icon-set="primo-ui" icon-definition="close" class="items-available"></prm-icon>
 		</md-button>
 
-		<md-button ng-if="!requestSuccessful" ng-click="$ctrl.hideRequestMessage()" aria-label="" class="button-with-icon zero-margin">
+		<md-button ng-if="!requestSuccessful" ng-click="$ctrl.hideRequestMessage()" aria-label="Request was unable to be placed -- Click to dismiss" class="button-with-icon zero-margin">
 			<span ng-if="requestError" class="items-unavailable">{{ requestError }} -- Click to dismiss</span>
 			<span ng-if="!requestError" class="items-unavailable">Request was unable to be placed -- Click to dismiss</span>
 			<prm-icon icon-type="svg" svg-icon-set="primo-ui" icon-definition="close" class="items-unavailable"></prm-icon>
 		</md-button>
-
 	</div>
 
 	<!-- Resource sharing -->
 
-	<div ng-if="showResourceSharing" class="csu-resource-sharing-request">
+	<div ng-if="hasResourceSharing() && !hasILL()" class="csu-resource-sharing-request">
 
 		<!-- login/request -->
-		<div ng-if="userIsLoggedIn == false">
+		<div ng-if="!userIsLoggedIn">
 			<md-button ng-click="$ctrl.loginService.handleLoginClick()" aria-label="Sign in to request from CSU+ (2-5 day delivery)" class="button-with-icon zero-margin">
 				<prm-icon icon-type="svg" svg-icon-set="primo-ui" icon-definition="sign-in"></prm-icon>
 				<span>Sign in to request from CSU+ (2-5 day delivery)</span>
 			</md-button>
 		</div>
 
-		<!-- inline get-it menu
-		<div ng-if="isLinkToResourceSharing && userIsLoggedIn">
-			<h4 class="csu-holdings-header">Request options</h4>
-			<iframe iframe-onload="{{::$ctrl.parentCtrl.iframeResize()}}" class="mashup-iframe" ng-src="{{$ctrl.parentCtrl.getLink()}}" style="width:100%;border:none;" ng-if="::$ctrl.parentCtrl.isLinkAvailable()"></iframe>
-		</div> -->
-
+		<!-- csu+ option -->
 		<div ng-if="userIsLoggedIn">
 			<md-button ng-click="$ctrl.handleRequestForm('ill')" ng-disabled="requestSent || requestSuccessful" aria-label="Request from CSU+ (2-5 day delivery)" class="button-with-icon zero-margin">
 				<prm-icon icon-type="svg" svg-icon-set="primo-ui" icon-definition="book-open"></prm-icon>
 				<span>Request from CSU+ (2-5 day delivery)</span>
 			</md-button>
 		</div>
-
 	</div>
 
 	<!-- Interlibrary Loan -->
 
-	<div ng-if="showILL">
+	<div ng-if="hasILL() && !hasResourceSharing()">
 
 		<!-- login/request -->
-		<div ng-if="userIsLoggedIn == false">
+		<div ng-if="!userIsLoggedIn">
 			<md-button ng-click="$ctrl.loginService.handleLoginClick();" aria-label="Sign in to request from Interlibrary Loan (7-10 day delivery)" class="md-raised md-button csu-options-button">
 				<prm-icon icon-type="svg" svg-icon-set="primo-ui" icon-definition="sign-in"></prm-icon>
 				<span>Sign in to request from Interlibrary Loan (7-10 day delivery)</span>
 			</md-button>
 		</div>
 
-		<!-- inline get-it menu -->
+		<!-- ill option -->
 		<div ng-if="userIsLoggedIn">
 			<md-button ng-click="$ctrl.openILL()" ng-disabled="requestSent || requestSuccessful" aria-label="Request from Interlibrary Loan (7-10 day delivery)" class="md-raised md-button csu-options-button">
 				<prm-icon icon-type="svg" svg-icon-set="primo-ui" icon-definition="book-open"></prm-icon>
 				<span>Request from Interlibrary Loan (7-10 day delivery)</span>
 			</md-button>
 		</div>
-
 	</div>
 
 	<!-- Local Request -->
 
-	<div ng-if="!showResourceSharing && !showILL">
+	<div ng-if="hasLocal()">
 
 		<!-- login/request -->
-		<div ng-if="userIsLoggedIn == false">
+		<div ng-if="!userIsLoggedIn">
 			<md-button ng-click="$ctrl.loginService.handleLoginClick()" aria-label="Sign in to see request options" class="md-raised md-button csu-options-button">
 				<prm-icon icon-type="svg" svg-icon-set="primo-ui" icon-definition="sign-in"></prm-icon>
 				<span>Sign in to see additional options</span>
@@ -94,7 +86,27 @@
 				<span>Request a different issue</span>
 			</md-button>
 		</div>
+	</div>
 
+	<!-- ViewIt Only -->
+
+	<div ng-if="isViewItOnly()">
+
+		<!-- login/request -->
+		<div ng-if="!userIsLoggedIn">
+			<md-button ng-click="$ctrl.loginService.handleLoginClick();" aria-label="Sign in to see additional options" class="md-raised md-button csu-options-button">
+				<prm-icon icon-type="svg" svg-icon-set="primo-ui" icon-definition="sign-in"></prm-icon>
+				<span>Sign in to see additional options</span>
+			</md-button>
+		</div>
+
+		<!-- ill option -->
+		<div ng-if="userIsLoggedIn && showRequestInViewIt">
+			<md-button ng-click="$ctrl.openILL()" ng-disabled="requestSent || requestSuccessful" aria-label="Request from Interlibrary Loan (7-10 day delivery)" class="md-raised md-button csu-options-button">
+				<prm-icon icon-type="svg" svg-icon-set="primo-ui" icon-definition="book-open"></prm-icon>
+				<span>Request from Interlibrary Loan (7-10 day delivery)</span>
+			</md-button>
+		</div>
 	</div>
 
 	<!-- Request Form -->
@@ -151,6 +163,12 @@
 
 <!-- Availability Sections -->
 
+<!-- No availability -->
+
+<div ng-if="hasNoHoldings()" class="online-holdings">
+	<iframe iframe-onload="{{::$ctrl.parentCtrl.iframeResize()}}" class="mashup-iframe" ng-src="{{$ctrl.parentCtrl.getLink()}}" style="width:100%;border:none;" ng-if="::$ctrl.parentCtrl.isLinkAvailable()"></iframe>
+</div>
+
 <!-- Online availability -->
 
 <div ng-if="isLinktoOnline" class="online-holdings">
@@ -164,7 +182,7 @@
 
 	<!-- Local holdings -->
 
-	<div class="local-holdings" ng-if="hasLocal">
+	<div class="local-holdings" ng-if="hasLocal()">
 		<h4 class="csu-holdings-header">Available at the Library</h4>
 
 		<!-- holdings have already loaded -->
@@ -224,7 +242,7 @@
 
 									<!-- individual item display -->
 
-									<tr tabindex="0" class="holding-item" ng-repeat-start="item in holding.items track by $index" ng-if="holding.showItems || showCompact == false">
+									<tr tabindex="0" class="holding-item" ng-repeat-start="item in holding.items track by $index" ng-if="holding.showItems || !showCompact">
 										<td class="sublocation">{{ holding.location }}</td>
 										<td class="callNumber">{{ item.call_number }}</td>
 										<td class="availability">
@@ -235,7 +253,6 @@
 												{{ item.status }}
 											</span>
 										</td>
-										<!-- the "description" cell needs to be consolidated and cleaned up; the logic should be moved to the javascript -->
 										<td class="description" ng-if="item.description && !requestLocalItem && !showLocateButton" colspan="2">{{ item.description }}</td>
 										<td class="description" ng-if="item.description && !requestLocalItem && showLocateButton" colspan="1">{{ item.description }}</td>
 										<td class="description hideme" ng-if="!item.description && !requestLocalItem && !showLocateButton" colspan="2"></td>
@@ -256,7 +273,7 @@
 
 									<!-- Success / Fail Message -->
 
-									<tr tabindex="0" class="holding-item" ng-repeat-end ng-if="(holding.showItems || showCompact == false) && item.requestDataReceived && !item.requestMessageCleared">
+									<tr tabindex="0" class="holding-item" ng-repeat-end ng-if="(holding.showItems || !showCompact) && item.requestDataReceived && !item.requestMessageCleared">
 										<td class="request-message" colspan="5" ng-if="item.requestSuccessful" ng-click="$ctrl.hideRequestMessage(item)" aria-label="">
 												<span class="items-available" aria-label="Request succesfully placed -- Click to dismiss">Request succesfully placed -- Click to dismiss</span>
 												<prm-icon icon-type="svg" svg-icon-set="primo-ui" icon-definition="close" class="items-available"></prm-icon>
@@ -272,7 +289,7 @@
 									<!-- next two rows provide temporary display until the items fully load,
 										 otherwise the table flickers on reload -->
 
-									<tr tabindex="0" class="holding-item" ng-if="holding.mms_id && holding.items.length <= 0 && holdingsCount > 0 && (holding.showItems || showCompact == false)" class="animate-if">
+									<tr tabindex="0" class="holding-item" ng-if="holding.mms_id && holding.items.length <= 0 && holdingsCount > 0 && (holding.showItems || !showCompact)" class="animate-if">
 										<td class="location">{{ holding.location }}</td>
 										<td class="callNumber">{{ holding.call_number }}</td>
 										<td class="availability">
@@ -282,7 +299,7 @@
 											<prm-spinner class="small default-loader dark-on-light" layout="row" layout-align="left center"></prm-spinner>
 										</td>
 									</tr>
-									<tr tabindex="0" class="holding-item" ng-if="holding.mms_id && !holding.items && (holding.showItems || showCompact == false)" class="animate-if">
+									<tr tabindex="0" class="holding-item" ng-if="holding.mms_id && !holding.items && (holding.showItems || !showCompact)" class="animate-if">
 										<td class="location">{{ holding.location }}</td>
 										<td class="callNumber">{{ holding.call_number }}</td>
 										<td class="availability">
