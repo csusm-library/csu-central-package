@@ -25,15 +25,15 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 		}
 		_this.tempExt = [];
 		_this.mms_id = '';
-		if($scope.isNzBib) {
-			if(_this.pnx.display.hasOwnProperty('lds04')) {
-				for(var i in _this.pnx.display.lds04) {
-					if(_this.mms_id != '') _this.mms_id += ',';
+		if ($scope.isNzBib) {
+			if (_this.pnx.display.hasOwnProperty('lds04')) {
+				for (var i in _this.pnx.display.lds04) {
+					if (_this.mms_id != '') _this.mms_id += ',';
 					_this.mms_id += _this.pnx.display.lds04[i];
 				}
 			}
 		} else {
-			if(_this.pnx.control.hasOwnProperty('sourcerecordid')) _this.mms_id = _this.pnx.control.sourcerecordid[0];
+			if (_this.pnx.control.hasOwnProperty('sourcerecordid')) _this.mms_id = _this.pnx.control.sourcerecordid[0];
 		}
 		_this.logToConsole = false;
 		_this.userSessionManagerService = _this.itemCtrl.userSessionManagerService;
@@ -42,22 +42,21 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 
 		_this.servicesArray = _this.parentCtrl.fullViewService.servicesArray;
 
-		$scope.hasLocal = false;
+		$scope.hasLocalHoldings = false;
 		$scope.preholdings = _this.item.delivery.holding.filter(function(holding, index) {return holding.organization == _this.vid.substring(0, 10)});
 		$scope.extLocations = [];
 		$scope.showCompact = customUresolver.hasOwnProperty("showCompact") ? customUresolver.showCompact : customUresolverDefault.showCompact;
 		$scope.showRequestInViewIt = customUresolver.hasOwnProperty("showRequestInViewIt") ? customUresolver.showRequestInViewIt : customUresolverDefault.showRequestInViewIt;
 		$scope.showExtHoldings = false;
-		$scope.showResourceSharing = false;
-		$scope.showILL = false;
 		$scope.resourceSharingAvailable = false;
 		$scope.consortiaHoldings = [];
 		$scope.availableConsortiaHoldings = false;
 		$scope.hasNonForbiddenLocations = false;
 		$scope.availableLocalHoldings = false;
 		$scope.hasGetIt = false;
+		$scope.pnxAvailability = {physical: false, electronic: false};
 		$scope.showLocateButton = customUresolver.hasOwnProperty("locateURL") ? true : false;
-		$scope.requestOptions = {item: false, ill: false, local: false, local_diff: false, local_hold: false, purchase: false, resource_sharing: false};
+		$scope.requestOptions = {ill: false, local: false, local_diff: false, local_hold: false, purchase: false, resource_sharing: false};
 		$scope.requestedOption = false;
 		$scope.requestReady = false;
 		$scope.requestSent = false;
@@ -71,25 +70,86 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 		$scope.showOptionalRequestElements = customUresolver.hasOwnProperty("showOptionalRequestElements") ? customUresolver.showOptionalRequestElements : customUresolverDefault.showOptionalRequestElements;
 
 		for (var i = 0; i < _this.servicesArray.length; i++) {
-			if ($scope.showRequestInViewIt) $scope.hasGetIt = true;
 			if (_this.servicesArray[i].serviceName == 'activate') {
-				if (_this.servicesArray[i].linkElement.category == 'Alma-P' || (_this.servicesArray[i].linkElement.category == 'Remote Search Resource' && _this.servicesArray[i].linkElement.title == 'nui.getit.alma_tab1_nofull')) {
+				if (_this.servicesArray[i].linkElement.category == 'Alma-P' || (_this.servicesArray[i].linkElement.category == 'Remote Search Resource' && _this.servicesArray[i].title == 'nui.getit.alma_tab1_nofull')) {
 					$scope.hasGetIt = true;
 				}
 			}
 		}
 
+		for (var i = 0; i < _this.pnx.delivery.delcategory.length; i++) {
+			if (_this.pnx.delivery.delcategory[i].includes(_this.vid.substring(0, 10)) || _this.pnx.delivery.delcategory[i].includes('$I$$O01CALS_ALMA')) {
+				if (_this.pnx.delivery.delcategory[i].includes('Alma-P')) {
+					$scope.pnxAvailability.physical = true
+				}
+				if (_this.pnx.delivery.delcategory[i].includes('Alma-E')) {
+					$scope.pnxAvailability.electronic = true
+				}
+			}
+		}
+
+		if (_this.parentCtrl.linksArray[0].getItTabText == "alma_tab1_unavail" || _this.parentCtrl.linksArray[0].getItTabText == "alma_tab1_restrict") {
+			$scope.isLinkToResourceSharing = true;
+		}
+		
+		if (_this.parentCtrl.linksArray[0].isLinktoOnline == true || _this.parentCtrl.linksArray[0].getItTabText == 'Almaviewit' || _this.parentCtrl.linksArray[0].displayText == 'Almaviewit_remote') {
+			$scope.isLinktoOnline = true;
+		}
+
 		$scope.doShowButton = function () {
 			if (_this.itemCtrl.index === 1) {
-				if ((!$scope.showResourceSharing && !$scope.showILL && ($scope.requestOptions.local || $scope.requestOptions.local_diff)) || $scope.showResourceSharing || $scope.showILL || !$scope.userIsLoggedIn) {
-					if ($scope.userIsLoggedIn) return true;
-					return $scope.hasGetIt;
+				if ($scope.hasILL() || 
+					$scope.hasResourceSharing() || 
+					$scope.hasLocal() || 
+					!$scope.userIsLoggedIn || 
+					$scope.isViewItOnly() || // isViewItOnly can be true regardless of showRequestInViewIt
+					($scope.isViewItOnly() && $scope.showRequestInViewIt) // showRequestInViewIt can only be passed if isViewItOnly is true
+					) {
+					
+					return true;
 				}
 			}
 			return false;
 		}
+		$scope.isViewItOnly = function () {
+			if (!$scope.pnxAvailability.physical && $scope.pnxAvailability.electronic) {
+				return true;
+			}
+			return false;
+		}
+		$scope.hasLocal = function () {
+			if ($scope.requestOptions.local || $scope.requestOptions.local_diff || $scope.hasLocalHoldings) {
+				return true;
+			}
+			return false;
+		}
+		$scope.hasILL = function () {
+			if ($scope.hasGetIt && !$scope.availableLocalHoldings && $scope.hasNoHoldings()) {
+				return true;
+			}
+			return false;
+		}
+		$scope.hasNoHoldings = function () {
+			if (!$scope.hasLocalHoldings && !$scope.isLinktoOnline && _this.pnx.delivery.hasOwnProperty('fulltext') && _this.pnx.delivery.fulltext == 'no_fulltext') {
+				return true;
+			}
+			return false;
+		}
+		$scope.hasResourceSharing = function () {
+			if ($scope.consortiaHoldings.length > 0 &&
+			   $scope.availableConsortiaHoldings &&
+			   $scope.hasNonForbiddenLocations &&
+			   _this.item.delivery.availability[0] != "available_in_my_institution" &&
+			   _this.item.delivery.availability[0] != "available_in_maininstitution" &&
+			   _this.item.delivery.availability[0] != "available_in_institution" &&
+			   _this.item.delivery.availability[0] != "not_restricted"
+			  ) {
+				return true;
+			}
+			return false;
+		}
 		_this.hideRequestMessage = function (item = false) {
-			if(item) {
+			if (item) {
 				item.requestDataReceived = false;
 				item.requestMessageCleared = true;
 				item.requestSent = false;
@@ -102,8 +162,8 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 			}
 		}
 		_this.checkKeyCode = function (event) {
-			if(event != false) {
-				if(event.keyCode == 13 || event.keyCode == 32) return true;
+			if (event != false) {
+				if (event.keyCode == 13 || event.keyCode == 32) return true;
 				else return false;
 			}
 			return null;
@@ -131,13 +191,13 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 		}
 		_this.getItemsCountFromHoldings = function () {
 			let count = 0;
-			for(var i in $scope.holdings) {
+			for (var i in $scope.holdings) {
 				count += $scope.holdings[i].total_items;
 			}
 			return count;
 		}
 		_this.resetRequestOptions = function () {
-			for(var i in $scope.requestElements) {
+			for (var i in $scope.requestElements) {
 				$scope.requestElements[i].value = '';
 			}
 		}
@@ -148,7 +208,7 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 		_this.handleRequestForm = function (which, item = false) {
 			_this.resetRequestOptions();
 			$scope.requestedOption = which;
-			if($scope.showRequestElements) $scope.showRequestForm = true;
+			if ($scope.showRequestElements) $scope.showRequestForm = true;
 			switch(which) {
 				case 'local_diff':
 					for (var i in $scope.holdings) {
@@ -171,13 +231,13 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 					break;
 			}
 			
-			if(!$scope.showRequestForm) _this.sendRequest(item);
+			if (!$scope.showRequestForm) _this.sendRequest(item);
 		}
 		_this.validate = function() {
-			if($scope.showRequestForm) {
-				for(var i in $scope.requestElements) {
-					if($scope.requestElements[i].mandatory === "true")
-						if($scope.requestElements[i].value == '')
+			if ($scope.showRequestForm) {
+				for (var i in $scope.requestElements) {
+					if ($scope.requestElements[i].mandatory === "true")
+						if ($scope.requestElements[i].value == '')
 							return false;
 				}
 			}
@@ -186,31 +246,31 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 		_this.sendRequest = function (item = false) {
 			if (_this.validate()) {
 				if ($scope.requestReady) {
-					if(!item) $scope.requestSent = true;
+					if (!item) $scope.requestSent = true;
 					else item.requestSent = true;
-					if($scope.showRequestForm) {
-						for(var i in $scope.requestElements) {
-							if($scope.requestElements[i].value != '') _this.requestData[$scope.requestElements[i].name] = $scope.requestElements[i].value;
+					if ($scope.showRequestForm) {
+						for (var i in $scope.requestElements) {
+							if ($scope.requestElements[i].value != '') _this.requestData[$scope.requestElements[i].name] = $scope.requestElements[i].value;
 						}
 					}
-					if(!item) $scope.requestMessageCleared = false;
+					if (!item) $scope.requestMessageCleared = false;
 					else item.requestMessageCleared = false;
 					if ($scope.requestedOption == 'ill') _this.requestData.requestType = 'ill';
 					else _this.requestData.requestType = 'available';
 					_this.closeRequestForm();
 					customUresolverService.getRequest(_this.linkPrefix, JSON.stringify(_this.requestData)).then(
 						data => {
-							if(!item) $scope.requestDataReceived = true;
+							if (!item) $scope.requestDataReceived = true;
 							else item.requestDataReceived = true;
 							if (data.request_successful === true) {
-								if(!item) $scope.requestSuccessful = true;
+								if (!item) $scope.requestSuccessful = true;
 								else item.requestSuccessful = true;
 								if (_this.logToConsole) console.log('This should really be displayed to the patron and then hide the request button');
 							} else {
-								if(!item) $scope.requestSuccessful = false;
+								if (!item) $scope.requestSuccessful = false;
 								else item.requestSuccessful = false;
-								if(typeof data.error_message !== 'undefined' && data.error_message != '') {
-									if(!item) $scope.requestError = data.error_message;
+								if (typeof data.error_message !== 'undefined' && data.error_message != '') {
+									if (!item) $scope.requestError = data.error_message;
 									else item.requestError = data.error_message;
 								}
 								if (_this.logToConsole) console.log('Same as before, display a message to the user and then hide the request button or something');
@@ -250,15 +310,14 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 			if (_this.checkKeyCode(event) === false) return;
 			window.open(_this.getLocateURL(holding), '_newTab');
 		}
+		
+		// try to compress the alma iframe link to prevent overflow in the url query string
+		_this.compressLink = function (link) {
+			link = link.replace(new RegExp('ie=01CALS_', 'g'), '01CA');
+			return link;
+		}
 
 		// determine if links is to resource sharing or online
-
-		if (_this.parentCtrl.linksArray[0].getItTabText == "alma_tab1_unavail" ||
-			_this.parentCtrl.linksArray[0].getItTabText == "alma_tab1_restrict") {
-				$scope.isLinkToResourceSharing = true;
-		} else if (_this.parentCtrl.linksArray[0].isLinktoOnline == true || _this.parentCtrl.linksArray[0].getItTabText == 'Almaviewit' || _this.parentCtrl.linksArray[0].displayText == 'Almaviewit_remote') {
-			$scope.isLinktoOnline = true;
-		}
 
 		_this.requestData = {};
 
@@ -296,34 +355,6 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 		}
 		_this.requestData.institutionCode = _this.vid.substring(0, 10);
 		_this.requestData.pickupInstitutionCode = _this.vid.substring(0, 10);
-
-		/**
-		 * Get detailed holdings information from the API
-		 * Includes detailed info for local holdings only
-		 */
-		customUresolverService.getRequestData(_this.vid, _this.link).then(
-			data => {
-				_this.requestData.mmsId = data.mmsId;
-				_this.requestData.userId = data.userId;
-				_this.requestData.physicalServicesResultId = data.physicalServicesResultId;
-				_this.requestData.holdingKey = data.holdingKey;
-				_this.requestData.itemId = data.itemId;
-				$scope.requestReady = true;
-				$scope.requestOptions = data.request_options;
-				$scope.requestElements = data.request_elements;
-				for (var i in $scope.requestElements){
-					if($scope.requestElements[i].mandatory === "true" || ($scope.requestElements[i].mandatory !== "true" && $scope.showOptionalRequestElements === true)) $scope.showRequestElements = true;
-				}
-				if($scope.requestOptions.local_diff || $scope.requestOptions.local_hold) $scope.requestLocalItem = true;
-				customUresolverService.getRequestable(_this.vid, _this.linkPrefix, _this.requestData).then(
-					available => {
-						$scope.resourceSharingAvailable = available.is_requestable;
-						if (_this.logToConsole) console.log(available);
-					}
-				)
-				if (_this.logToConsole) console.log(_this.requestData);
-			}
-		)
 
 		_this.processBib = function(bib) {
 			$scope.holdings = [];
@@ -368,9 +399,37 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 			if (_this.logToConsole) console.log(bib)
 		}
 
-		if(!$scope.isLinktoOnline) {
-			if($scope.isNzBib) {
-				customUresolverService.getNzBib(_this.vid, _this.mms_id, _this.link).then(
+		customUresolverService.getRequestData(_this.vid, _this.compressLink(_this.link)).then(
+			data => {
+				_this.requestData.mmsId = data.mmsId;
+				_this.requestData.userId = data.userId;
+				_this.requestData.physicalServicesResultId = data.physicalServicesResultId;
+				_this.requestData.holdingKey = data.holdingKey;
+				_this.requestData.itemId = data.itemId;
+				$scope.requestReady = true;
+				$scope.requestOptions = data.request_options;
+				$scope.requestElements = data.request_elements;
+				for (var i in $scope.requestElements){
+					if ($scope.requestElements[i].mandatory === "true" || ($scope.requestElements[i].mandatory !== "true" && $scope.showOptionalRequestElements === true)) $scope.showRequestElements = true;
+				}
+				if ($scope.requestOptions.local_diff || $scope.requestOptions.local_hold) $scope.requestLocalItem = true;
+				customUresolverService.getRequestable(_this.vid, _this.linkPrefix, _this.requestData).then(
+					available => {
+						$scope.resourceSharingAvailable = available.is_requestable;
+						if (_this.logToConsole) console.log(available);
+					}
+				)
+				if (_this.logToConsole) console.log(_this.requestData);
+			}
+		)
+
+		/**
+		 * Get detailed holdings information from the API
+		 * Includes detailed info for local holdings only
+		 */
+		if (!$scope.isLinktoOnline) {
+			if ($scope.isNzBib) {
+				customUresolverService.getNzBib(_this.vid, _this.mms_id).then(
 					bib => {
 						_this.processBib(bib);
 					}
@@ -391,7 +450,7 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 		for (var i = 0; i < _this.item.delivery.holding.length; i++) {
 			if (_this.item.delivery.holding[i].organization == _this.vid.substring(0, 10)) {
 				let mms_id = _this.pnx.display.lds04;
-				$scope.hasLocal = true;
+				$scope.hasLocalHoldings = true;
 
 				if (_this.item.delivery.holding[i].availabilityStatus.replace(/^\(|\)$/g, '') == 'available') $scope.availableLocalHoldings = true;
 			} else {
@@ -486,18 +545,6 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 		_this.tempExt = null;
 
 
-		// resource sharing
-		// there are other holdings and not locally available
-
-		if ($scope.consortiaHoldings.length > 0 && $scope.availableConsortiaHoldings && $scope.hasNonForbiddenLocations && (
-			_this.item.delivery.availability[0] != "available_in_my_institution" &&
-			_this.item.delivery.availability[0] != "available_in_maininstitution" &&
-			_this.item.delivery.availability[0] != "available_in_institution" &&
-			_this.item.delivery.availability[0] != "not_restricted")) {
-			$scope.showResourceSharing = true;
-		} else {
-			if (!$scope.availableLocalHoldings && $scope.hasGetIt) $scope.showILL = true;
-		}
 
 		// logged into primo, but uresolver is logged out
 		// need to log out and log back in
@@ -512,7 +559,6 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 		if (_this.logToConsole) console.log('isLinkToOnline: ' + $scope.isLinktoOnline);
 		if (_this.logToConsole) console.log('isLinkToResourceSharing: ' + $scope.isLinkToResourceSharing);
 		if (_this.logToConsole) console.log('availability: ' + _this.item.delivery.availability[0]);
-		if (_this.logToConsole) console.log('showResourceSharing: ' + $scope.showResourceSharing);
 	}]
 })
 .factory('customUresolverService', ['$http', 'customUresolver', 'customUresolverDefault', function ($http, customUresolver, customUresolverDefault) {
