@@ -308,6 +308,7 @@ h4.csu-holdings-header {
 	.csu-holdings table tbody tr.holding-header td.description {
 		width: 100%;
 		padding-top: 15px;
+		white-space: pre-line;
 	}
 	.csu-holdings table tbody tr.holding-header td.locate {
 		width: 100%;
