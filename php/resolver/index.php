@@ -293,38 +293,58 @@ function getPreloadData($vid)
     return $html['html'];
 }
 
-// gets the availability from the bib API data
-function getDatafield($datafields, $tag)
-{
-    $subfields = [];
+	// gets the availability from the bib API data
+	function getDatafield($datafields, $tag, $returnSubfield = true) {
+		$subfields = [];
+		if (is_array($datafields)) {
+			foreach ($datafields as $datafield) {
+				if ($datafield->tag == $tag) {
+					if (is_array($datafield->subfield)) {
+						if($returnSubfield) {
+							$subfields[] = $datafield->subfield;
+						} else {
+							foreach ($datafield->subfield as $subfield) {
+								$subfields[] = $subfield;
+							}
+						}
+					} else {
+					   $subfields[] = $datafield->subfield;
+					}
+				}
+			}
+		} elseif ($datafields->tag == $tag) {
+			if (is_array($datafields->subfield)) {
+				if($returnSubfield) {
+					$subfields[] = $datafields->subfield;
+				} else {
+					foreach ($datafields->subfield as $subfield) {
+						$subfields[] = $subfield;
+					}
+				}
+			} else {
+			   $subfields[] = $datafields->subfield;
+			}
+		}
+		return $subfields;
+	}
 
-    if (is_array($datafields)) {
-        foreach ($datafields as $datafield) {
-            if ($datafield->tag == $tag) {
-                $subfields[] = $datafield->subfield;
-            }
-        }
-    } elseif ($datafields->tag == $tag) {
-       $subfields[] = $datafields->subfield;
-    }
-
-    return $subfields;
-}
-
-// gets the requested subfield code from the AVA subfield data
-function getAVACode($subfields, $code, $returnSubfield = false)
-{
-    foreach ($subfields as $subfield) {
-        if ($subfield->code === $code) {
-            if ($returnSubfield) {
-              return $subfield;
-            } else {
-              return $subfield->value;
-            }
-        }
-    }
-    return '';
-}
+	//gets the requested subfield code from the AVA subfield data
+	function getAVACode($subfields, $code, $returnSubfield = false) {
+		$values = [];
+		$value = '';
+		foreach($subfields as $subfield) {
+			if($subfield->code === $code) {
+				if($returnSubfield) {
+					$values[] = $subfield;
+				} else {
+					if($value != '') $value .= '|,|';
+					$value .= $subfield->value;
+				}
+			}
+		}
+		if($returnSubfield) return $values;
+		return $value;
+	}
 
 	function getIzBib($vid, $mms_id) {
 		$api = 'bibs/' . $mms_id;
@@ -445,7 +465,7 @@ function getAVACode($subfields, $code, $returnSubfield = false)
 	}
 
 	function getHoldingNote($vid, $mms_id, $holding_id) {
-		$data = array();
+		$data = (object) array('code' => '', 'value' => '');
 
 		if(!empty($holding_id)) {
 			$api = 'bibs/' . $mms_id . '/holdings/' . $holding_id;
@@ -454,11 +474,16 @@ function getAVACode($subfields, $code, $returnSubfield = false)
 
 			if(property_exists($api_data, 'anies')) {
 				$record = json_decode(xml2json(strstr($api_data->anies[0], '<record>')))->record;
-				$record = getDatafield($record->datafield, '866');
+				$record = getDatafield($record->datafield, '866', false);
 				$data = (count($record) > 0) ? getAVACode($record, 'a', true) : '';
-				if(empty($data)) {
-					$data->code = '';
-					$data->value = '';
+				if(count($record) > 1) {
+					foreach($record as $rec) {
+						$data->code = 'a';
+						if(!empty($data->value)) $data->value .= "\r\n";
+						$data->value .= $rec->value;
+					}
+				} else {
+					$data = $record[0];
 				}
 			};
 		};
