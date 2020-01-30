@@ -43,22 +43,12 @@
 
 	<div ng-if="hasILL() && !hasResourceSharing()">
 
-		<!-- login/request -->
-		<div ng-if="!userIsLoggedIn">
-			<md-button ng-click="$ctrl.loginService.handleLoginClick();" aria-label="Sign in to request from Interlibrary Loan (7-10 day delivery)" class="md-raised md-button csu-options-button">
-				<prm-icon icon-type="svg" svg-icon-set="primo-ui" icon-definition="sign-in"></prm-icon>
-				<span>Sign in to request from Interlibrary Loan (7-10 day delivery)</span>
-			</md-button>
-		</div>
-
 		<!-- ill option -->
-		<div ng-if="userIsLoggedIn">
 			<md-button ng-click="$ctrl.openILL()" ng-disabled="requestSent || requestSuccessful" aria-label="Request from Interlibrary Loan (7-10 day delivery)" class="md-raised md-button csu-options-button">
 				<prm-icon icon-type="svg" svg-icon-set="primo-ui" icon-definition="book-open"></prm-icon>
 				<span>Request from Interlibrary Loan (7-10 day delivery)</span>
 			</md-button>
 		</div>
-	</div>
 
 	<!-- Local Request -->
 
@@ -126,7 +116,7 @@
 									<label>{{requestElement.label}}</label>
 									<input ng-model="requestElement.value" name="requestElement.name" type="text">
 								</md-input-container>
-								
+
 								<md-input-container class="underlined-input md-required" ng-repeat="requestElement in requestElements" ng-if="requestElement.options.length > 0 && requestElement.mandatory === 'true'">
 									<label>{{requestElement.label}}</label>
 									<md-select ng-model="requestElement.value" name="requestElement.name" required>
