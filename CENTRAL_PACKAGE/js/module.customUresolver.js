@@ -91,21 +91,21 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 		if (_this.parentCtrl.linksArray[0].getItTabText == "alma_tab1_unavail" || _this.parentCtrl.linksArray[0].getItTabText == "alma_tab1_restrict") {
 			$scope.isLinkToResourceSharing = true;
 		}
-		
+
 		if (_this.parentCtrl.linksArray[0].isLinktoOnline == true || _this.parentCtrl.linksArray[0].getItTabText == 'Almaviewit' || _this.parentCtrl.linksArray[0].displayText == 'Almaviewit_remote') {
 			$scope.isLinktoOnline = true;
 		}
 
 		$scope.doShowButton = function () {
 			if (_this.itemCtrl.index === 1) {
-				if ($scope.hasILL() || 
-					$scope.hasResourceSharing() || 
-					$scope.hasLocal() || 
-					!$scope.userIsLoggedIn || 
+				if ($scope.hasILL() ||
+					$scope.hasResourceSharing() ||
+					$scope.hasLocal() ||
+					!$scope.userIsLoggedIn ||
 					$scope.isViewItOnly() || // isViewItOnly can be true regardless of showRequestInViewIt
 					($scope.isViewItOnly() && $scope.showRequestInViewIt) // showRequestInViewIt can only be passed if isViewItOnly is true
 					) {
-					
+
 					return true;
 				}
 			}
@@ -230,7 +230,7 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 					_this.closeRequestForm();
 					break;
 			}
-			
+
 			if (!$scope.showRequestForm) _this.sendRequest(item);
 		}
 		_this.validate = function() {
@@ -310,7 +310,7 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 			if (_this.checkKeyCode(event) === false) return;
 			window.open(_this.getLocateURL(holding), '_newTab');
 		}
-		
+
 		// try to compress the alma iframe link to prevent overflow in the url query string
 		_this.compressLink = function (link) {
 			link = link.replace(new RegExp('ie=01CALS_', 'g'), '01CA');
@@ -643,7 +643,7 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 	showRequestInViewIt: false,
 	showOptionalRequestElements: false,
 	bibURL: 'https://library.calstate.edu/primo-resolver/?',
-	illURL: 'https://proxy.library.cpp.edu/login?url=https://illiad.library.cpp.edu/illiad/illiad.dll',
+	illURL: 'https://illiad.example.edu/illiad/illiad.dll',
 	locateURL: '', //ex: http://www.library.edu/maps/?library_code={library_code}&location_code={location_code}&location_name={location_name}&call_number={call_number}&title={title}'
 	rsForbiddenLocations: {
 		'01CALS_UBA': {
