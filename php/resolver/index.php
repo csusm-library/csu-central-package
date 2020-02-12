@@ -588,15 +588,15 @@ function getPreloadData($vid)
 		if(strpos($iframe_src, 'getitNoHoldings') !== false) {
 			$mms_id = explode('mmsId=', $iframe_src);
 			$mms_id = explode('&', $mms_id[1]);
-			$data['mms_id'] = $mms_id[0];
+			$data['mmsId'] = $mms_id[0];
 
 			$user_id = explode('userId=', $iframe_src);
 			$user_id = explode('&', $user_id[1]);
-			$data['user_id'] = $user_id[0];
+			$data['userId'] = $user_id[0];
 
 			$physical_services_result_id = explode('physicalServicesResultId=', $iframe_src);
 			$physical_services_result_id = explode('&', $physical_services_result_id[1]);
-			$data['physical_services_result_id'] = $physical_services_result_id[0];
+			$data['physicalServicesResultId'] = $physical_services_result_id[0];
 
 			$requestType = explode('requestType=', $iframe_src);
 			$requestType = explode('&', $requestType[1]);
@@ -609,22 +609,22 @@ function getPreloadData($vid)
 			$mms_id = explode('id="mmsId"', $iframe_src);
 			$mms_id = explode('value="', $mms_id[1]);
 			$mms_id = explode('"', $mms_id[1]);
-			$data['mms_id'] = $mms_id[0];
+			$data['mmsId'] = $mms_id[0];
 
 			$user_id = explode('id="userId"', $iframe_src);
 			$user_id = explode('value="', $user_id[1]);
 			$user_id = explode('"', $user_id[1]);
-			$data['user_id'] = $user_id[0];
+			$data['userId'] = $user_id[0];
 
 			$physical_services_result_id = explode('id="physicalServicesResultId"', $iframe_src);
 			$physical_services_result_id = explode('value="', $physical_services_result_id[1]);
 			$physical_services_result_id = explode('"', $physical_services_result_id[1]);
-			$data['physical_services_result_id'] = $physical_services_result_id[0];
+			$data['physicalServicesResultId'] = $physical_services_result_id[0];
 
 			$holding_key = explode('id="holdingKey"', $iframe_src);
 			$holding_key = explode('value="', $holding_key[1]);
 			$holding_key = explode('"', $holding_key[1]);
-			$data['holding_key'] = $holding_key[0];
+			$data['holdingKey'] = $holding_key[0];
 
 			$itemId = explode('itemId=', $iframe_src);
 			$itemId = explode('&', $itemId[1]);
