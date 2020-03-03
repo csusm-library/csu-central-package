@@ -527,8 +527,13 @@ function getPreloadData($vid)
 				} else if($item->item_data->process_type->value == 'LOAN') {
 					$temp_api = $api . '/' . $item->item_data->pid . '/loans';
 					$temp_out = json_decode(getAPIData($vid, $temp_api));
-					$date = new DateTime((string) $temp_out->item_loan[0]->due_date);
-					$temp_item['status'] = 'Due ' . date_format($date, 'm/d/Y');
+					$date = date_create((string) $temp_out->item_loan[0]->due_date)->format('m/d/Y');
+					$temp_item['status'] = 'Due ' . $date;
+				} else if($item->item_data->process_type->value == 'HOLDSHELF') {
+					$temp_api = $api . '/' . $item->item_data->pid . '/requests';
+					$temp_out = json_decode(getAPIData($vid, $temp_api));
+					$date = date_create((string) $temp_out->user_request[0]->expiry_date)->modify('-1 day')->format('m/d/Y');
+					$temp_item['status'] = 'On hold shelf until ' . $date;
 				} else {
 					$temp_item['availability'] = 'available';
 				}
