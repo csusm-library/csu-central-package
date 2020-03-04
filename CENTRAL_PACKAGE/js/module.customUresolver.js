@@ -8,7 +8,7 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 	controller: ['$scope', '$rootScope', '$sce', 'customUresolverService', 'customUresolver', 'customUresolverDefault', function ($scope, $rootScope, $sce, customUresolverService, customUresolver, customUresolverDefault) {
 		var _this = this;
 
-		_this.vid = $scope.$root.$$childHead.$ctrl.userSessionManagerService.inst;
+		_this.vid = $rootScope.$$childHead.$ctrl.userSessionManagerService.inst;
 		_this.itemCtrl = $scope.$parent.$parent.$parent.$parent.$ctrl;
 		_this.item = _this.itemCtrl.item;
 		_this.pnx = _this.item.pnx;
