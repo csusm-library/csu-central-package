@@ -92,7 +92,7 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 			$scope.isLinkToResourceSharing = true;
 		}
 		
-		if (_this.parentCtrl.linksArray[0].isLinktoOnline == true || _this.parentCtrl.linksArray[0].getItTabText == 'Almaviewit' || _this.parentCtrl.linksArray[0].displayText == 'Almaviewit_remote') {
+		if (_this.parentCtrl.linksArray[0].isLinktoOnline == true || _this.parentCtrl.linksArray[0].displayText == 'Almaviewit' || _this.parentCtrl.linksArray[0].displayText == 'Almaviewit_remote') {
 			$scope.isLinktoOnline = true;
 		}
 
