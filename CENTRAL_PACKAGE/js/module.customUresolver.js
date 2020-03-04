@@ -130,7 +130,7 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 			return false;
 		}
 		$scope.hasNoHoldings = function () {
-			if (!$scope.hasLocalHoldings && !$scope.isLinktoOnline && _this.pnx.delivery.hasOwnProperty('fulltext') && _this.pnx.delivery.fulltext == 'no_fulltext') {
+			if (!$scope.hasLocalHoldings && !$scope.isLinktoOnline && ((_this.pnx.delivery.hasOwnProperty('fulltext') && _this.pnx.delivery.fulltext == 'no_fulltext') || !_this.pnx.delivery.hasOwnProperty('fulltext'))) {
 				return true;
 			}
 			return false;
