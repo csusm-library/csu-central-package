@@ -535,7 +535,9 @@ function getPreloadData($vid)
 					$date = date_create((string) $temp_out->user_request[0]->expiry_date)->modify('-1 day')->format('m/d/Y');
 					$temp_item['status'] = 'On hold shelf until ' . $date;
 				} else {
-					$temp_item['availability'] = 'available';
+					if(strtolower($temp_item['status']) != 'item not in place') {
+						$temp_item['availability'] = 'available';
+					}
 				}
 
 				$data[] = $temp_item;
