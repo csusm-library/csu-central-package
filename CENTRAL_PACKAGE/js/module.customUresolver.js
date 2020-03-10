@@ -8,7 +8,7 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 	controller: ['$scope', '$rootScope', '$sce', 'customUresolverService', 'customUresolver', 'customUresolverDefault', function ($scope, $rootScope, $sce, customUresolverService, customUresolver, customUresolverDefault) {
 		var _this = this;
 
-		_this.vid = _this.parentCtrl.configurationUtil.vid;
+		_this.vid = $rootScope.$$childHead.$ctrl.userSessionManagerService.inst;
 		_this.itemCtrl = $scope.$parent.$parent.$parent.$parent.$ctrl;
 		_this.item = _this.itemCtrl.item;
 		_this.pnx = _this.item.pnx;
@@ -91,8 +91,8 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 		if (_this.parentCtrl.linksArray[0].getItTabText == "alma_tab1_unavail" || _this.parentCtrl.linksArray[0].getItTabText == "alma_tab1_restrict") {
 			$scope.isLinkToResourceSharing = true;
 		}
-
-		if (_this.parentCtrl.linksArray[0].isLinktoOnline == true || _this.parentCtrl.linksArray[0].getItTabText == 'Almaviewit' || _this.parentCtrl.linksArray[0].displayText == 'Almaviewit_remote') {
+		
+		if (_this.parentCtrl.linksArray[0].isLinktoOnline == true || _this.parentCtrl.linksArray[0].displayText == 'Almaviewit' || _this.parentCtrl.linksArray[0].displayText == 'Almaviewit_remote') {
 			$scope.isLinktoOnline = true;
 		}
 
@@ -130,7 +130,7 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 			return false;
 		}
 		$scope.hasNoHoldings = function () {
-			if (!$scope.hasLocalHoldings && !$scope.isLinktoOnline && _this.pnx.delivery.hasOwnProperty('fulltext') && _this.pnx.delivery.fulltext == 'no_fulltext') {
+			if (!$scope.hasLocalHoldings && !$scope.isLinktoOnline && ((_this.pnx.delivery.hasOwnProperty('fulltext') && _this.pnx.delivery.fulltext == 'no_fulltext') || !_this.pnx.delivery.hasOwnProperty('fulltext'))) {
 				return true;
 			}
 			return false;
