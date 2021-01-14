@@ -583,7 +583,14 @@ function getPreloadData($vid)
 			'institutionCode' => substr($vid, 0, 10)
 		);
 
-		$iframe_src = en_curl($alma_iframe_url)['html'];
+		$alma_iframe_url_one = explode('&rft_dat=', $alma_iframe_url);
+		$alma_iframe_url_two_three = explode('&', $alma_iframe_url_one[1]);
+		$alma_iframe_url_two_three[0] = str_replace('01CA', 'ie=01CALS_', $alma_iframe_url_two_three[0]);
+		$alma_iframe_url = $alma_iframe_url_one[0] . '&rft_dat=' . $alma_iframe_url_two_three[0] . '&' .  $alma_iframe_url_two_three[1];
+		$iframe_src_raw = en_curl($alma_iframe_url);
+		$iframe_src = $iframe_src_raw['html'];
+		$data['alma_iframe_url'] = $alma_iframe_url;
+		$data['iframe_src_raw'] = $iframe_src_raw;
 
 		$data['request_options']['local'] = (strpos($iframe_src, 'id="openRequest"') !== false) ? true : false;
 		$data['request_options']['local_diff'] = (strpos($iframe_src, 'id="openRequestDiffIssue"') !== false) ? true : false;
@@ -646,12 +653,14 @@ function getPreloadData($vid)
 			$differentIssue = explode('value="', $differentIssue[1]);
 			$differentIssue = explode('"', $differentIssue[1]);
 			$data['differentIssue'] = $differentIssue[0];
-
-			$request_elements = $data;
-			unset($request_elements['request_options']);
-			$data['request_elements'] = getRequestElements('https://csu-cpp.userservices.exlibrisgroup.com/view/uresolver/01CALS_PUP/openRequest?' . http_build_query($request_elements));
-			unset($request_elements);
 		}
+
+		$request_elements = $data;
+		unset($request_elements['request_options'], $request_elements['alma_iframe_url'], $request_elements['iframe_src_raw']);
+		$data['request_elements'] = getRequestElements("https://csu-cpp.userservices.exlibrisgroup.com/view/uresolver/$vid/openRequest?" . http_build_query($request_elements));
+		$data['request_elements_url'] = "https://csu-cpp.userservices.exlibrisgroup.com/view/uresolver/$vid/openRequest?" . http_build_query($request_elements);
+		unset($request_elements);
+		
 
 		//$data['iframe_src_raw'] = $iframe_src;
 
@@ -703,7 +712,7 @@ function getPreloadData($vid)
 				} else
 					continue;
 
-				$temp['mandatory'] = strpos($isolated_element, '<span class="mandatory">*</span>') ? 'true' : 'false';
+				$temp['mandatory'] = strpos($isolated_element, 'class="mandatory">*</span>') ? 'true' : 'false';
 
 				if(strpos($isolated_element, 'pickupLibrary') !== false) {
 					$count = substr_count($isolated_element, '<option');
