@@ -28,9 +28,6 @@ prm-user-area .md-button[aria-label="Sign out"] .layout-column span:nth-child(1)
 prm-user-area .md-button[aria-label="Sign out"] .layout-column span:nth-child(2) {
 	text-transform: none;
 }
-prm-user-area-expandable {
-  display: none;
-}
 prm-user-area {
   display: block !important;
 }
