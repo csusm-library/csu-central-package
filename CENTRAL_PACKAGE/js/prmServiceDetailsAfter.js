@@ -37,5 +37,5 @@ app.controller('prmServiceDetailsAfterController', ['$location', function($locat
 app.component('prmServiceDetailsAfter', {
     bindings: { parentCtrl: '<' },
     controller: 'prmServiceDetailsAfterController',
-    templateUrl: 'custom/CENTRAL_PACKAGE/html/prmServiceDetailsAfter.html'
+    templateUrl: 'custom/01CALS_NETWORK-CENTRAL_PACKAGE/html/prmServiceDetailsAfter.html'
 });
