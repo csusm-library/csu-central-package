@@ -56,12 +56,12 @@ app.controller('prmSearchBarAfterController', ['$location', '$window', function(
         campus['01CALS_SOL'] = 'sonoma';
         campus['01CALS_UST'] = 'stanislaus';
 
-        return 'custom/CENTRAL_PACKAGE/img/one-search/' + campus[vid] + '.png';
+        return 'custom/01CALS_NETWORK-CENTRAL_PACKAGE/img/one-search/' + campus[vid] + '.png';
     };
 }]);
 
  app.component('prmSearchBarAfter', {
      bindings: { parentCtrl: '<' },
      controller: 'prmSearchBarAfterController',
-     templateUrl: 'custom/CENTRAL_PACKAGE/html/prmSearchBarAfter.html'
+     templateUrl: 'custom/01CALS_NETWORK-CENTRAL_PACKAGE/html/prmSearchBarAfter.html'
  });
