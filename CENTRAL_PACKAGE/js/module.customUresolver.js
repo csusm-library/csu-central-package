@@ -4,7 +4,7 @@ angular.module('customUresolver').component('csuCustomUresolver', {
 	bindings: {
 		parentCtrl: '<'
 	},
-	templateUrl: 'custom/CENTRAL_PACKAGE/html/module.customUresolver.html',
+	templateUrl: 'custom/01CALS_NETWORK-CENTRAL_PACKAGE/html/module.customUresolver.html',
 	controller: ['$scope', '$rootScope', '$sce', 'customUresolverService', 'customUresolver', 'customUresolverDefault', function ($scope, $rootScope, $sce, customUresolverService, customUresolver, customUresolverDefault) {
 		var _this = this;
 
