@@ -28,5 +28,5 @@ app.controller('institutionToggleController', ['$scope', function($scope) {
 app.component('prmAlmaMoreInstAfter', {
     bindings: { parentCtrl: '<' },
     controller: 'institutionToggleController',
-    templateUrl: 'custom/CENTRAL_PACKAGE/html/prmAlmaMoreInstAfter.html'
+    templateUrl: 'custom/01CALS_NETWORK-CENTRAL_PACKAGE/html/prmAlmaMoreInstAfter.html'
 });
