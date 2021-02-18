@@ -31,3 +31,6 @@ prm-user-area .md-button[aria-label="Sign out"] .layout-column span:nth-child(2)
 prm-user-area {
   display: block !important;
 }
+.hide-gt-xs {
+  display: none !important;
+}
