@@ -21,4 +21,6 @@ app.component('prmUserAreaAfter', {
         <md-button style="display: none !important;"></md-button>`);
         $compile($element.parent())($scope);
     }
-});
+}).run(['$templateCache', function ($templateCache) {
+    $templateCache.put('components/search/topbar/topbar.html', $templateCache.get('components/search/topbar/topbar.html').replace('<prm-user-area hide-gt-xs ng-if="$ctrl.mediaQueries.xs"></prm-user-area>', '<prm-user-area hide-gt-xs></prm-user-area>'));
+}]);
