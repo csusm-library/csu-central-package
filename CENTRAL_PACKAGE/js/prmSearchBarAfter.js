@@ -11,7 +11,7 @@ app.controller('prmSearchBarAfterController', ['$location', '$window', function(
         var params = $location.search();
         var vid = params.vid;
         var lang = params.lang || "en_US";
-        var split = $location.absUrl().split('/primo-explore/');
+        var split = $location.absUrl().split('/discovery/');
 
         if (split.length === 1) {
             console.log(split[0] + ' : Could not detect the view name!');
@@ -19,7 +19,7 @@ app.controller('prmSearchBarAfterController', ['$location', '$window', function(
         }
 
         var baseUrl = split[0];
-        $window.location.href = baseUrl + '/primo-explore/search?vid=' + vid + '&lang=' + lang;
+        $window.location.href = baseUrl + '/discovery/search?vid=' + vid + '&lang=' + lang;
         return true;
     };
 
