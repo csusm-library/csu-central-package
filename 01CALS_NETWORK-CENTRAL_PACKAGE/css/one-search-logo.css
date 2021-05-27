@@ -3,35 +3,35 @@
 /* hide the logo on x-small screens */
 
 @media (max-width: 970px) {
-    .one-search {
-        display: none;
-    }
+	.one-search {
+		display: none;
+	}
 }
 @media (min-width: 970px) {
-    .search-wrapper {
-        margin-left: 25%;
-    }
-    .search-wrapper .flex-lg-10 {
-        display: none;
-    }
-    .search-wrapper .flex-lg-65 {
-        max-width: 80%;
-    }
-    .one-search {
-        display: block;
-        width: 25%;
-        text-align: center;
-        top: 23px;
-        position: absolute;
-    }
-    .one-search img {
-        width: 90%;
-        max-width: 226px;
-    }
+	.search-wrapper {
+		margin-left: 25%;
+	}
+	.search-wrapper .flex-lg-10 {
+		display: none;
+	}
+	.search-wrapper .flex-lg-65 {
+		max-width: 80%;
+	}
+	.one-search {
+		display: block;
+		width: 25%;
+		text-align: center;
+		top: 23px;
+		position: absolute;
+	}
+	.one-search img {
+		width: 90%;
+		max-width: 226px;
+	}
 }
 
 /* no hover effect */
 
 .one-search button {
-    background: transparent!important;
+	background: transparent!important;
 }
