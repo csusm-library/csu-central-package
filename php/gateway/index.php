@@ -8,7 +8,7 @@
 // options
 
 $smtp_server = "smtp-rr.calstate.edu";
-$allowed_domain = "hosted.exlibrisgroup.com";
+$allowed_domain = "exlibrisgroup.com";
 $enable_captcha = false;
 $captcha_secret = ''; // get from google recaptcha admin
 $debug = false;
@@ -21,7 +21,7 @@ if ($testing == true) {
     header("Access-Control-Allow-Headers: Content-Type", false);
 } else {
     $origin = $_SERVER['HTTP_ORIGIN'];
-    
+
     if (preg_match("/$allowed_domain/", $origin)) {
         header("Access-Control-Allow-Origin: $origin");
         header("Access-Control-Allow-Headers: Content-Type", false);
@@ -87,7 +87,7 @@ if ($enable_captcha == false || $proceed == true) {
 
 /**
  * Send to SMS
- * 
+ *
  * @param array $params
  */
 function sms(array $params)
@@ -95,20 +95,20 @@ function sms(array $params)
     $from = $params['from'];
     $subject = $params['subject'];
     $body = str_replace('<br>', "\r\n", $params['message']);
-    
+
     // normalize phone number
-    
+
     $to = $params['to'];
     $parts = explode('@', $to);
     $phone = preg_replace('/\D/', '', $parts[0]); // numbers only
     $to = $phone . '@' . $parts[1];
-    
+
     send_email($to, null, $from, $subject, $body);
 }
 
 /**
  * Problem email
- * 
+ *
  * @param array $params
  */
 function problem_email(array $params)
@@ -119,13 +119,13 @@ function problem_email(array $params)
     $subject = $params['subject'];
     $body = report_problem_content($params);
     $is_html = ($params['format'] == 'html') ? true: false;
-    
+
     send_email($to, $name, $from, $subject, $body, $is_html);
 }
 
 /**
  * Libanswers
- * 
+ *
  * @param array $params
  */
 function libanswers(array $params)
@@ -141,18 +141,18 @@ function libanswers(array $params)
         'pemail' => $params['from'],
         'pname' => $params['name']
     );
-    
+
     $curl = curl_init($url);
     curl_setopt($curl, CURLOPT_POST , true);
     curl_setopt($curl, CURLOPT_POSTFIELDS , http_build_query($data));
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
     $result = json_decode(curl_exec($curl));
     $info = curl_getinfo($curl);
-    
+
     if ($info['http_code'] !== 200) {
         header('HTTP/1.1 500 There was an error submitting the form. Please check your information and try again');
     }
-    
+
     curl_close($curl);
 }
 
@@ -170,13 +170,13 @@ function libanswers(array $params)
 function send_email($to, $name, $from, $subject, $body, $is_html = false)
 {
     global $smtp_server, $debug;
-    
+
     $mail = new PHPMailer(true);
     $mail->isSMTP();
     $mail->Host = $smtp_server;
     $mail->SMTPAuth = false;
     $mail->SMTPAutoTLS = false;
-    
+
     if ($debug == true) {
         $mail->SMTPDebug = 2;
     }
@@ -186,11 +186,11 @@ function send_email($to, $name, $from, $subject, $body, $is_html = false)
     $mail->Subject = $subject;
     $mail->isHTML($is_html);
     $mail->Body = $body;
-    
+
     if ($debug == true) {
         file_put_contents('log.txt', $body);
     }
-    
+
     return $mail->send();
 }
 
@@ -202,25 +202,25 @@ function send_email($to, $name, $from, $subject, $body, $is_html = false)
 function report_problem_content(array $params)
 {
     $url = $params['urlBase'] . '?' . http_build_query($params['urlParams']);
-    
+
     $t = new Text($params['format']);
-    
+
     // extra \r\n below for Trello
-    
+
     $message = $t->h1('Reported Problem') .
         $t->p(strip_tags($params['description'])) .
-        ($params['addPatronInfo'] ? 
+        ($params['addPatronInfo'] ?
             ($t->h1('Requester Information') .
             $t->p(strip_tags($params['name']) .
             "\r\n" . strip_tags($params['from']))) : '') .
         $t->h1('Record Details') .
-        $t->a('Record URL', $url) . 
+        $t->a('Record URL', $url) .
         "\r\n" . $t->hr() . "\r\n" .
-        $t->a('Record Full PNX', $url . '&showPnx') . 
+        $t->a('Record Full PNX', $url . '&showPnx') .
         "\r\n" . $t->hr() . "\r\n";
-        
+
     $show_headers = array('addata', 'control', 'delivery', 'display');
-    
+
     foreach($params['item']['pnx'] as $header => $keys) {
         if(in_array($header, $show_headers)) {
             $message .= $t->h2(ucfirst($header));
@@ -234,7 +234,7 @@ function report_problem_content(array $params)
             }
         }
     }
-    
+
     return $message;
 }
 
@@ -335,7 +335,7 @@ function process_pnx_keys($key)
         'spage' => 'Start page',
         'url' => 'URL',
         'volume' => 'Volume',
-        
+
         // control - Formatted data that is used for control purposes.
         'sourceid' => 'Primo Source Repository',
         'originalsourceid' => 'Source System Source Repository',
@@ -347,13 +347,13 @@ function process_pnx_keys($key)
         'sourcesystem' => 'Source Repository System',
         'recordtype' => 'Record Type',
         'lastmodified' => 'Date Last Modified',
-        
+
         // delivery - Data required for managing delivery and scoping for searches.
         'delcategory' => 'Delivery Resource Category',
         'fulltext' => 'Has Online Full-Text',
         'institution' => 'Owning Institution',
         'resdelscope' => 'Restricted Delivery Scope',
-        
+
         // display - Data displayed in the brief and full displays in the user interface (UI).
         'availinstitution' => 'Availability Institution',
         'availlibrary' => 'Library-Level Availability Status',
@@ -594,7 +594,7 @@ function process_pnx_keys($key)
 function error_message($original)
 {
     $error_messages = array(
-        
+
         // phpmailer errors
         'couldaunti' => 'SMTP Error: Could not authenticate.',
         'couldconne' => 'SMTP Error: Could not connect to SMTP host.',
@@ -615,7 +615,7 @@ function error_message($original)
         'smtpserver' => 'SMTP server error: ',
         'cansetorre' => 'Cannot set or reset variable: ',
         'extensionm' => 'Extension missing: ',
-        
+
         // recaptcha errors
         'missputsec' => 'There was an error processing the captcha. (1)',
         'invaputsec' => 'There was an error processing the captcha. (2)',
@@ -637,17 +637,17 @@ function error_message($original)
 class Text
 {
     private $format = 'html';
-    
+
     public function __construct($format)
     {
         $this->format = $format;
     }
-    
+
     public function __call($name, array $arguments)
     {
         return $this->format_text($this->format, $name, $arguments);
     }
-    
+
     /**
      * Format text as html, plaintext, or markdown
      *
@@ -661,7 +661,7 @@ class Text
     {
         $text = (array_key_exists(0, $arguments)) ? $arguments[0] : null;
         $link = (array_key_exists(1, $arguments)) ? $arguments[1] : null;
-        
+
         $table = array(
             'h1' => array(
                 'html' => '<h1>{text}</h1>',
@@ -699,13 +699,13 @@ class Text
                 'markdown' => "\r\n"
             )
         );
-        
+
         $final = str_replace('{text}', $text, $table[$tag][$format]);
-        
+
         if ($link != "") {
             $final = str_replace('{link}', $link, $final);
         }
-        
+
         return $final;
     }
 }

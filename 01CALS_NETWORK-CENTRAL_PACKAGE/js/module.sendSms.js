@@ -232,7 +232,7 @@ angular.module('sendSms').component('ocaSendSms', {
       if (_this.validate()) {
         var message = "";
         var title = 'Title: ' + _this.item.pnx.display.title;
-        if (_this.item.delivery.holding.length > 0) {
+        if (_this.item.delivery.holding != null) {
           var holdings = '';
           _this.item.delivery.holding.forEach(function (holding) {
             if (holding.organization == appConfig['primo-view']['institution']['institution-code']) {
