@@ -2,7 +2,7 @@
 
 /* make facets 25% wide */
 
-.flex-gt-md-25.sidebar{
+.flex-gt-md-25.sidebar {
 	webkit-flex: 0 0 25%;
 	flex: 0 0 25%;
 }
@@ -13,7 +13,7 @@
 		max-width: 25%;
 	}
 }
-.layout-row>.flex-gt-lg-10{
+.layout-row>.flex-gt-lg-10 {
 	webkit-flex: 0 0 26%;
 	flex: 0 0 26%;
 	max-width: none;
@@ -392,7 +392,7 @@ prm-alma-mashup iframe {
 	margin-bottom: 20px;
 }
 
-span[translate="nui.request.signin"] {
+span[translate="nui.request.signin"], span[translate="nui.request.signin_additional"] {
 	display: none;
 }
 
@@ -486,4 +486,19 @@ span[translate="csuplus"] {
 prm-search-bar .simple-search-wrapper md-autocomplete-wrap input {
 	margin-left: 1em;
 	padding-left: 0 !important;
+}
+
+/** journal search **/
+
+prm-atoz-search-bar {
+	background-color: transparent;
+}
+
+prm-databases-categorize {
+	width: 500px;
+	margin-left: -1em;
+}
+
+prm-databases-categorize .sticking-wrapper {
+	background-color: #efefef;
 }
