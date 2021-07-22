@@ -170,11 +170,8 @@ prm-full-view prm-brief-result-container .search-result-availability-line-wrappe
 	min-height: 0;
 }
 
-prm-alma-mashup iframe {
-	border: none;
-	border-radius: 0;
-	box-shadow: none;
-	padding: 0;
+prm-alma-other-members prm-request-services {
+	display: none;
 }
 
 .full-view-section {
