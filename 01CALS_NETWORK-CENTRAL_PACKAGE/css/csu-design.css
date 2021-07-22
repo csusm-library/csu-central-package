@@ -250,14 +250,6 @@ prm-full-view button[aria-label="Top"]:after {
 	overflow: auto !important;
 }
 
-.iframeHeaderContent .requestOption:first-of-type {
-	font-size: 15px;
-}
-
-.iframeHeader input[type="submit"] {
-	font-size: 15px;
-}
-
 .full-view-section#action_list .full-view-section-content {
 	padding-left: 0;
 	background: #f3f3f3;
@@ -384,13 +376,12 @@ prm-full-view-cont prm-full-view .services-index-under {
 	}
  }
 
-prm-alma-mashup iframe {
-	margin-top: 20px;
-	margin-bottom: 20px;
-}
-
 span[translate="nui.request.signin"], span[translate="nui.request.signin_additional"] {
 	display: none;
+}
+
+.full-view-section span[translate="eshelf.signin.title"]::after {
+	content: " for more options";
 }
 
 span[translate="csuplus"] {
@@ -420,10 +411,6 @@ span[translate="csuplus"] {
 
 .full-view-container prm-brief-result .item-title span {
 	color: #000;
-}
-
-.full-view-section span[translate="eshelf.signin.title"]::after {
-	content: " for more options";
 }
 
 .full-view-section .section-body .alert-bar {
