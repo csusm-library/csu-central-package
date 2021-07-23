@@ -235,6 +235,35 @@ function report_problem_content(array $params)
         }
     }
 
+    if (array_key_exists('delivery', $params['item'])) {
+
+      $message .= $t->h2('Delivery');
+
+      // file_put_contents('test.txt', print_r($params['item']['delivery'], true));
+      $delivery = [];
+
+      foreach ($params['item']['delivery']['holding'] as $key => $holding) {
+        $num = $key + 1;
+        $delivery["Holding $num"] = $holding;
+      }
+
+      foreach ($params['item']['delivery']['electronicServices'] as $key => $service) {
+        $num = $key + 1;
+        $delivery["Electronic service $num"] = $service;
+      }
+
+      foreach ($delivery as $header => $data) {
+        $message .= $t->h3($header);
+        foreach ($data as $key => $value) {
+          if (is_array($value) || $value == "") continue;
+          $clean_key = $t->b(process_pnx_keys($key));
+          $clean_value = preg_replace('!\s+!', ' ', strip_tags($value));
+          $clean_value = str_replace("\r\n", $t->br(), $clean_value);
+          $message .= "$clean_key: $clean_value" . $t->br() . "\r\n";
+        }
+      }
+    }
+
     return $message;
 }
 
@@ -672,6 +701,11 @@ class Text
                 'html' => '<h2>{text}</h2>',
                 'plaintext' => '{text}',
                 'markdown' => '## {text}' . "\r\n"
+            ),
+            'h3' => array(
+                'html' => '<h3>{text}</h3>',
+                'plaintext' => '{text}',
+                'markdown' => '### {text}' . "\r\n"
             ),
             'p' => array(
                 'html' => '<p>{text}</p>',
