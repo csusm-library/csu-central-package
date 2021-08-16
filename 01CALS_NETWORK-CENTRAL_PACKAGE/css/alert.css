@@ -1,9 +1,9 @@
 prm-topbar {
-    height: inherit;
+	height: inherit;
 }
 prm-topbar .top-nav-bar {
-    height: 64px;
+	height: 64px;
 }
 prm-top-bar-before {
-    display: none;
+	display: none;
 }

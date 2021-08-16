@@ -1,3 +1,7 @@
+/**
+ * Analytics
+ */
+ 
 angular.module('multipleAnalytics', []);
 angular.module('multipleAnalytics').run(function ($rootScope, $interval, analyticsOptions, analyticsOptionsDefault) {
     var enabled = analyticsOptions.hasOwnProperty("enabled") ? analyticsOptions.enabled : analyticsOptionsDefault.enabled;

@@ -1,11 +1,8 @@
 {
     "name": "csu-central-package",
-    "version": "1.0.0",
+    "version": "2.0.0",
     "description": "Cal State Primo Central Package.",
     "main": "index.js",
-    "dependencies": {
-        "primo-explore-toggle-institutions": "1.0.0"
-    },
     "devDependencies": {},
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
@@ -19,7 +16,6 @@
         "catalog",
         "discovery",
         "primo",
-        "primo-explore",
         "exlibris"
     ],
     "author": "David Walker",

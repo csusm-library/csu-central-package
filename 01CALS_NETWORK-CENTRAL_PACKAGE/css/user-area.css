@@ -1,7 +1,7 @@
 /* user area */
 
 prm-user-area {
-    display: flex;
+	display: flex;
 }
 
 /* display username under sign out button */

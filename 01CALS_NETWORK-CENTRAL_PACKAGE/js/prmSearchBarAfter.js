@@ -11,7 +11,7 @@ app.controller('prmSearchBarAfterController', ['$location', '$window', function(
         var params = $location.search();
         var vid = params.vid;
         var lang = params.lang || "en_US";
-        var split = $location.absUrl().split('/primo-explore/');
+        var split = $location.absUrl().split('/discovery/');
 
         if (split.length === 1) {
             console.log(split[0] + ' : Could not detect the view name!');
@@ -19,7 +19,7 @@ app.controller('prmSearchBarAfterController', ['$location', '$window', function(
         }
 
         var baseUrl = split[0];
-        $window.location.href = baseUrl + '/primo-explore/search?vid=' + vid + '&lang=' + lang;
+        $window.location.href = baseUrl + '/discovery/search?vid=' + vid + '&lang=' + lang;
         return true;
     };
 
@@ -56,12 +56,12 @@ app.controller('prmSearchBarAfterController', ['$location', '$window', function(
         campus['01CALS_SOL'] = 'sonoma';
         campus['01CALS_UST'] = 'stanislaus';
 
-        return 'custom/CENTRAL_PACKAGE/img/one-search/' + campus[vid] + '.png';
+        return 'custom/01CALS_NETWORK-CENTRAL_PACKAGE/img/one-search/' + campus[vid] + '.png';
     };
 }]);
 
  app.component('prmSearchBarAfter', {
      bindings: { parentCtrl: '<' },
      controller: 'prmSearchBarAfterController',
-     templateUrl: 'custom/CENTRAL_PACKAGE/html/prmSearchBarAfter.html'
+     templateUrl: 'custom/01CALS_NETWORK-CENTRAL_PACKAGE/html/prmSearchBarAfter.html'
  });

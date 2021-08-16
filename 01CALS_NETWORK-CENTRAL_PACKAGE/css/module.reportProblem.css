@@ -1,0 +1,14 @@
+oca-report-problem .md-button span {
+	display: inline-block;
+	margin-left: 3px;
+	padding-right: .5em;
+	white-space: normal;
+	text-align: left;
+}
+
+oca-report-problem .md-button {
+	display: inline-flex;
+	align-items: center;
+	line-height: unset;
+	color: #5c92bd;
+}
