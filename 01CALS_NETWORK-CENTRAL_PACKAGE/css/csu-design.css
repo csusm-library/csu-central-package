@@ -486,3 +486,15 @@ prm-databases-categorize {
 prm-databases-categorize .sticking-wrapper {
 	background-color: #efefef;
 }
+
+/** library card **/
+
+/* other institutions */
+.institutions-list {
+	display: none;
+}
+
+/* personal settings password change */
+#changePasswordBtn {
+    display: none;
+}
