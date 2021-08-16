@@ -392,6 +392,12 @@ span[translate="csuplus"] {
 	width: 100%;
 }
 
+alma-howovp span[translate='AlmaResourceSharing'] {
+	color: #2C85D4;
+	font-weight: 600;
+	font-size: medium;
+}
+
 .circuit-request a,
 .google-search a,
 .research-help a {
