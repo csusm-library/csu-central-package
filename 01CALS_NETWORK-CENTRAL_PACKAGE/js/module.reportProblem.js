@@ -1,3 +1,7 @@
+/**
+ * Report a problem
+ */
+
 angular.module('reportProblem', []);
 
 angular.module('reportProblem').component('ocaReportProblem', {

@@ -1,3 +1,7 @@
+/**
+ * Send SMS
+ */
+
 angular.module('customActions', []);
 
 /* eslint-disable max-len */
