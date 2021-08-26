@@ -34,3 +34,15 @@ prm-user-area {
 .hide-gt-xs {
   display: none !important;
 }
+
+/* other institutions */
+
+.institutions-list {
+	display: none;
+}
+
+/* personal settings password change */
+
+#changePasswordBtn {
+    display: none;
+}
