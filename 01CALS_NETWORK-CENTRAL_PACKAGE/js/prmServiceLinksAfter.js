@@ -14,7 +14,7 @@ app.value('linksToKeep',[]).component('prmServiceLinksAfter', {
           var eNode = lNodes[i];
           var span = eNode.querySelector("a > span");
           if (span != null) {
-            if (!linksToKeep.includes(span.textContent)) {
+            if (!linksToKeep.includes(span.textContent.trim())) {
               eNode.style.display = "none";
             }
           }
